@@ -1,0 +1,44 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/calyptia-cloud-openapi-original.yml
+docs: https://docs.chronosphere.io/pipeline-cli/authenticate
+notes: >-
+  Primary auth is the project API token sent as the X-Project-Token header,
+  generated in the Calyptia Cloud UI (core.calyptia.com) / project Settings.
+  User bearer JWTs cover interactive user-scoped calls; the auth0 oauth2 scheme
+  (Auth0 tenant sso.calyptia.com) backs SSO/login. OAuth2 scope maps are empty
+  (coarse-grained authorization) — see scopes/calyptia-scopes.yml.
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: user
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/calyptia-cloud-openapi-original.yml
+- name: project
+  type: apiKey
+  in: header
+  parameter: X-Project-Token
+  sources:
+  - openapi/calyptia-cloud-openapi-original.yml
+- name: auth0
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://sso.calyptia.com/oauth/token
+    scopes: 0
+  - flow: authorizationCode
+    authorizationUrl: https://sso.calyptia.com/authorize
+    tokenUrl: https://sso.calyptia.com/oauth/token
+    scopes: 0
+  sources:
+  - openapi/calyptia-cloud-openapi-original.yml
