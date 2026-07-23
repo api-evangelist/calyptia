@@ -1,0 +1,287 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent core_instance_check API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: core_instance_check
+paths:
+  /v1/core_instances/{coreInstanceID}/checks:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: coreInstanceID
+      in: path
+      required: true
+    post:
+      tags:
+      - core_instance_check
+      summary: Create core instance check
+      operationId: createCoreInstanceCheck
+      description: Create check within a core instance.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCoreInstanceCheck'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedCoreInstanceCheck'
+    get:
+      tags:
+      - core_instance_check
+      summary: Core Instance checks
+      operationId: coreInstanceChecks
+      description: Checks associated to a core instance.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last checks.
+      - schema:
+          type: string
+        in: query
+        name: before
+        description: End cursor.
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/core_instances/foo/checks?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextChecksPage:
+              operationId: coreInstanceChecks
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CoreInstanceCheck'
+  /v1/core_instance_checks/{checkID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: checkID
+      in: path
+      required: true
+    get:
+      tags:
+      - core_instance_check
+      summary: Core Instance check
+      operationId: coreInstanceCheck
+      description: Check by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoreInstanceCheck'
+    patch:
+      tags:
+      - core_instance_check
+      summary: Update core instance check
+      operationId: updateCoreInstanceCheck
+      description: Update check by its ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCoreInstanceCheck'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - core_instance_check
+      summary: Delete core instance check
+      operationId: deleteCoreInstanceCheck
+      description: Delete core instance check by its ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    CoreInstanceCheck:
+      type: object
+      description: Core instance check model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+        retries:
+          type: number
+          default: 0
+          description: number of retries for the check before marking it as failed
+        host:
+          type: string
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          minimum: 0
+          maximum: 65535
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - protocol
+      - status
+      - retries
+      - host
+      - port
+      - createdAt
+      - updatedAt
+    CreatedCoreInstanceCheck:
+      type: object
+      description: Created core instance check response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    CreateCoreInstanceCheck:
+      description: Create core instance check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+        retries:
+          type: number
+          default: 3
+          description: number of retries for the check before marking it as failed
+        host:
+          type: string
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          description: valid 0-65535 port number
+      required:
+      - protocol
+      - host
+      - port
+    PipelinePortProtocol:
+      type: string
+      description: Valid protocol types defined for a pipelines.
+      enum:
+      - tcp
+      - udp
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
+    UpdateCoreInstanceCheck:
+      description: Update a core instance check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+          nullable: true
+          default: null
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+          nullable: true
+          default: null
+        host:
+          type: string
+          nullable: true
+          default: null
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          minimum: 0
+          maximum: 65535
+          nullable: true
+          default: null
+          description: valid 0-65535 port number
+        retries:
+          type: number
+          nullable: true
+          default: null
+          description: number of retries for the check before marking it as unreachable.
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

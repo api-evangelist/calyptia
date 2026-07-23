@@ -1,0 +1,103 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent pipeline_config API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: pipeline_config
+paths:
+  /v1/aggregator_pipelines/{pipeline}/config_history:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: pipeline
+      in: path
+      required: true
+    get:
+      tags:
+      - pipeline_config
+      summary: Pipeline configuration history
+      operationId: pipelineConfigHistory
+      description: 'Configuration history from a pipeline.
+
+        Every time a pipeline config is updated, a new history entry with the change is created.'
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last history entries.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PipelineConfig'
+components:
+  schemas:
+    PipelineConfig:
+      type: object
+      description: Pipeline configuration history entry.
+      properties:
+        id:
+          type: string
+          format: uuid
+        rawConfig:
+          type: string
+        configFormat:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - rawConfig
+      - configFormat
+      - createdAt
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

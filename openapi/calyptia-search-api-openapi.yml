@@ -1,0 +1,175 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent search API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: search
+paths:
+  /v1/search:
+    get:
+      operationId: searchV1
+      deprecated: true
+      summary: Search.
+      description: 'Search different kinds of resources from the API.
+
+        It returns just the ID and name of the matching resource.
+
+        Results are sorted by name in ascending order.
+
+        If you don''t provide a search term, all data is returned.'
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - name: project_id
+        in: query
+        schema:
+          type: string
+          format: uuid
+      - name: resource
+        in: query
+        schema:
+          $ref: '#/components/schemas/SearchResource'
+      - name: term
+        in: query
+        schema:
+          type: string
+      - name: exact
+        in: query
+        schema:
+          type: boolean
+      tags:
+      - search
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResultV1'
+  /v2/search:
+    get:
+      operationId: search
+      summary: Search.
+      description: 'Search different kinds of resources from the API.
+
+        It returns just the ID and name of the matching resource.
+
+        Results are sorted by name in ascending order.
+
+        If you don''t provide a search term, all data is returned.'
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - name: project_id
+        in: query
+        schema:
+          type: string
+          format: uuid
+      - name: resource
+        in: query
+        schema:
+          $ref: '#/components/schemas/SearchResource'
+      - name: term
+        in: query
+        schema:
+          type: string
+      - name: exact
+        in: query
+        schema:
+          type: boolean
+      tags:
+      - search
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResult'
+components:
+  schemas:
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
+    SearchResource:
+      type: string
+      enum:
+      - agent
+      - cluster_object
+      - config_section
+      - core_instance
+      - environment
+      - fleet
+      - member
+      - pipeline
+      - pipeline_secret
+      - resource_profile
+      - trace_session
+    SearchResultV1:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        ID:
+          type: string
+          format: uuid
+        Name:
+          type: string
+      required:
+      - id
+      - name
+      - ID
+      - Name
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

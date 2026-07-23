@@ -1,0 +1,171 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent config_validator_v2 API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: config_validator_v2
+paths:
+  /v1/config_validate_v2:
+    post:
+      deprecated: true
+      tags:
+      - config_validator_v2
+      summary: Validate configuration on the v2 endpoint of the service
+      operationId: validateConfigV2
+      description: 'Validates that an already parsed fluentbit config is semantically valid under the V2 error specification
+
+        To parse the raw agent config take a look at https://github.com/calyptia/fluent-bit-config-parser.'
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatingConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidatedConfigV2'
+components:
+  schemas:
+    ValidatedConfigV2:
+      type: object
+      description: Validation V2 config response.
+      properties:
+        errors:
+          type: object
+          properties:
+            runtime:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConfigValidityV2Runtime'
+            input:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConfigValidityV2Property'
+            output:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConfigValidityV2Property'
+            filter:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ConfigValidityV2Property'
+          required:
+          - runtime
+          - input
+          - output
+          - filter
+      required:
+      - errors
+    ConfigValidityV2Property:
+      type: object
+      description: Property of the validated configuration section
+      properties:
+        id:
+          description: ID of the configuration section
+          type: string
+        property:
+          description: property name
+          type: string
+        text:
+          description: property name, value
+          type: string
+          nullable: true
+          default: null
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - property
+      - text
+      - errors
+    ConfigValidityV2Runtime:
+      type: object
+      description: Runtime errors for the validated configuration.
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        id:
+          description: Id of the configuration section
+          type: string
+      required:
+      - id
+      - errors
+    ValidatingConfig:
+      description: Validating configuration request body.
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: object
+            properties:
+              command:
+                type: string
+              name:
+                type: string
+              optional:
+                type: object
+                additionalProperties:
+                  type: string
+                nullable: true
+                default: null
+              id:
+                type: string
+            required:
+            - command
+            - name
+            - id
+      required:
+      - config
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

@@ -1,0 +1,709 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent sidecar API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: sidecar
+paths:
+  /v1/pipelines/{pipelineID}/sidecars:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: pipelineID
+      in: path
+      required: true
+    post:
+      tags:
+      - sidecar
+      summary: Create sidecar
+      operationId: createSidecar
+      description: Create a new sidecar container within a pipeline.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSidecar'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created'
+    get:
+      tags:
+      - sidecar
+      summary: Sidecars
+      operationId: sidecars
+      description: List all sidecar containers from a pipeline.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sidecars'
+  /v1/sidecars/{sidecarID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: sidecarID
+      in: path
+      required: true
+    get:
+      tags:
+      - sidecar
+      summary: Sidecar
+      operationId: sidecar
+      description: Get sidecar by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sidecar'
+    patch:
+      tags:
+      - sidecar
+      summary: Update sidecar
+      operationId: updateSidecar
+      description: Update sidecar by ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSidecar'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Updated'
+    delete:
+      tags:
+      - sidecar
+      summary: Delete sidecar
+      operationId: deleteSidecar
+      description: Delete sidecar by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deleted'
+components:
+  schemas:
+    CreateSidecar:
+      type: object
+      properties:
+        name:
+          type: string
+          example: my-sidecar
+        image:
+          type: string
+          example: nginx:latest
+        imagePullPolicy:
+          $ref: '#/components/schemas/PullPolicy'
+        command:
+          type: array
+          items:
+            type: string
+          example:
+          - /bin/sh
+          - -c
+          - nginx
+        args:
+          type: array
+          items:
+            type: string
+          example:
+          - -c
+          - nginx
+        env:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvVar'
+        resources:
+          $ref: '#/components/schemas/ResourceRequirements'
+        ports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContainerPort'
+        volumeMounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
+        volumes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Volume'
+        livenessProbe:
+          $ref: '#/components/schemas/Probe'
+        readinessProbe:
+          $ref: '#/components/schemas/Probe'
+        startupProbe:
+          $ref: '#/components/schemas/Probe'
+        lifecycle:
+          $ref: '#/components/schemas/Lifecycle'
+      required:
+      - name
+      - image
+    EnvVarSource:
+      type: object
+      properties:
+        secretKeyRef:
+          $ref: '#/components/schemas/SecretKeySelector'
+        configMapKeyRef:
+          $ref: '#/components/schemas/ConfigMapKeySelector'
+    ContainerPort:
+      type: object
+      properties:
+        name:
+          type: string
+        containerPort:
+          type: integer
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+      required:
+      - containerPort
+    SecretKeySelector:
+      type: object
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+      required:
+      - name
+      - key
+    PullPolicy:
+      type: string
+      enum:
+      - Always
+      - IfNotPresent
+      - Never
+    Sidecars:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sidecar'
+        endCursor:
+          type: string
+          nullable: true
+      required:
+      - items
+      - endCursor
+    URIScheme:
+      type: string
+      enum:
+      - HTTP
+      - HTTPS
+    ConfigMapVolumeSource:
+      type: object
+      properties:
+        name:
+          type: string
+        defaultMode:
+          type: integer
+          format: int32
+          nullable: true
+        optional:
+          type: boolean
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyToPath'
+          nullable: true
+      required:
+      - name
+    SecretVolumeSource:
+      type: object
+      properties:
+        secretName:
+          type: string
+        defaultMode:
+          type: integer
+          format: int32
+          nullable: true
+        optional:
+          type: boolean
+          nullable: true
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyToPath'
+          nullable: true
+      required:
+      - secretName
+    Probe:
+      type: object
+      properties:
+        exec:
+          $ref: '#/components/schemas/ExecAction'
+        httpGet:
+          $ref: '#/components/schemas/HTTPGetAction'
+        tcpSocket:
+          $ref: '#/components/schemas/TCPSocketAction'
+        grpc:
+          $ref: '#/components/schemas/GRPCAction'
+        initialDelaySeconds:
+          type: integer
+          format: int32
+          minimum: 0
+          nullable: true
+        timeoutSeconds:
+          type: integer
+          format: int32
+          minimum: 0
+          nullable: true
+        periodSeconds:
+          type: integer
+          format: int32
+          minimum: 0
+          nullable: true
+        successThreshold:
+          type: integer
+          format: int32
+          minimum: 0
+          nullable: true
+        failureThreshold:
+          type: integer
+          format: int32
+          minimum: 0
+          nullable: true
+        terminationGracePeriodSeconds:
+          type: integer
+          format: int64
+          minimum: 0
+          nullable: true
+    Protocol:
+      type: string
+      enum:
+      - TCP
+      - UDP
+      - SCTP
+    KeyToPath:
+      type: object
+      properties:
+        key:
+          type: string
+        path:
+          type: string
+        mode:
+          type: integer
+          format: int32
+          nullable: true
+      required:
+      - key
+      - path
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    LifecycleHandler:
+      type: object
+      properties:
+        exec:
+          $ref: '#/components/schemas/ExecAction'
+          nullable: true
+        httpGet:
+          $ref: '#/components/schemas/HTTPGetAction'
+          nullable: true
+        tcpSocket:
+          $ref: '#/components/schemas/TCPSocketAction'
+          nullable: true
+        sleep:
+          $ref: '#/components/schemas/SleepAction'
+          nullable: true
+    ConfigMapKeySelector:
+      type: object
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+      required:
+      - name
+      - key
+    TCPSocketAction:
+      type: object
+      properties:
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+        host:
+          type: string
+          nullable: true
+      required:
+      - port
+    Sidecar:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        pipelineID:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: my-sidecar
+        image:
+          type: string
+          example: nginx:latest
+        imagePullPolicy:
+          $ref: '#/components/schemas/PullPolicy'
+        command:
+          type: array
+          items:
+            type: string
+          example:
+          - /bin/sh
+          - -c
+          - nginx
+          nullable: true
+        args:
+          type: array
+          items:
+            type: string
+          example:
+          - -c
+          - nginx
+          nullable: true
+        env:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvVar'
+          nullable: true
+        resources:
+          $ref: '#/components/schemas/ResourceRequirements'
+        ports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContainerPort'
+          nullable: true
+        volumeMounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
+          nullable: true
+        volumes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Volume'
+        livenessProbe:
+          $ref: '#/components/schemas/Probe'
+        readinessProbe:
+          $ref: '#/components/schemas/Probe'
+        startupProbe:
+          $ref: '#/components/schemas/Probe'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - pipelineID
+      - image
+      - name
+      - createdAt
+      - updatedAt
+    VolumeMount:
+      type: object
+      properties:
+        name:
+          type: string
+        mountPath:
+          type: string
+        readOnly:
+          type: boolean
+        subPath:
+          type: string
+        subPathExpr:
+          type: string
+        mountPropagation:
+          $ref: '#/components/schemas/MountPropagationMode'
+      required:
+      - name
+      - mountPath
+    ResourceRequirements:
+      type: object
+      properties:
+        limits:
+          $ref: '#/components/schemas/ResourceList'
+        requests:
+          $ref: '#/components/schemas/ResourceList'
+    ResourceList:
+      type: object
+      properties:
+        cpu:
+          type: string
+        memory:
+          type: string
+      additionalProperties:
+        type: string
+    Lifecycle:
+      type: object
+      properties:
+        preStop:
+          $ref: '#/components/schemas/LifecycleHandler'
+          nullable: true
+        postStart:
+          $ref: '#/components/schemas/LifecycleHandler'
+          nullable: true
+    EmptyDirVolumeSource:
+      type: object
+      properties:
+        medium:
+          $ref: '#/components/schemas/StorageMedium'
+        sizeLimit:
+          type: string
+          nullable: true
+    Volume:
+      type: object
+      properties:
+        name:
+          type: string
+        configMap:
+          $ref: '#/components/schemas/ConfigMapVolumeSource'
+        secret:
+          $ref: '#/components/schemas/SecretVolumeSource'
+        emptyDir:
+          $ref: '#/components/schemas/EmptyDirVolumeSource'
+      required:
+      - name
+    MountPropagationMode:
+      type: string
+      enum:
+      - None
+      - HostToContainer
+      - Bidirectional
+    HTTPHeader:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+    EnvVar:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        valueFrom:
+          $ref: '#/components/schemas/EnvVarSource'
+      required:
+      - name
+    SleepAction:
+      type: object
+      properties:
+        seconds:
+          type: integer
+          format: int64
+          minimum: 0
+      required:
+      - seconds
+    GRPCAction:
+      type: object
+      properties:
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+        service:
+          type: string
+          nullable: true
+      required:
+      - port
+    HTTPGetAction:
+      type: object
+      properties:
+        path:
+          type: string
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+        host:
+          type: string
+          nullable: true
+        scheme:
+          $ref: '#/components/schemas/URIScheme'
+        httpHeaders:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPHeader'
+          nullable: true
+      required:
+      - port
+    StorageMedium:
+      type: string
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    ExecAction:
+      type: object
+      properties:
+        command:
+          type: array
+          items:
+            type: string
+      required:
+      - command
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    UpdateSidecar:
+      type: object
+      properties:
+        name:
+          type: string
+          example: my-sidecar
+        image:
+          type: string
+          example: nginx:latest
+          nullable: true
+        imagePullPolicy:
+          $ref: '#/components/schemas/PullPolicy'
+        command:
+          type: array
+          items:
+            type: string
+          example:
+          - /bin/sh
+          - -c
+          - nginx
+          nullable: true
+        args:
+          type: array
+          items:
+            type: string
+          example:
+          - -c
+          - nginx
+          nullable: true
+        env:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvVar'
+          nullable: true
+        resources:
+          $ref: '#/components/schemas/ResourceRequirements'
+        ports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContainerPort'
+          nullable: true
+        volumeMounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
+          nullable: true
+        volumes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Volume'
+          nullable: true
+        livenessProbe:
+          $ref: '#/components/schemas/Probe'
+        readinessProbe:
+          $ref: '#/components/schemas/Probe'
+        startupProbe:
+          $ref: '#/components/schemas/Probe'
+        lifecycle:
+          $ref: '#/components/schemas/Lifecycle'
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

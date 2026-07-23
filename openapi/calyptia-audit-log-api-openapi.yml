@@ -1,0 +1,142 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent audit_log API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: audit_log
+paths:
+  /v1/projects/{projectID}/audit_logs:
+    parameters:
+    - name: projectID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: auditLogs
+      summary: Audit Logs
+      security:
+      - user: []
+      - project: []
+      tags:
+      - audit_log
+      parameters:
+      - in: query
+        name: components
+        required: true
+        schema:
+          $ref: '#/components/schemas/AuditLogComponents'
+      - in: query
+        name: identity
+        required: true
+        schema:
+          $ref: '#/components/schemas/AuditLogIdentity'
+      - in: query
+        name: url
+        schema:
+          type: string
+      - in: query
+        name: action
+        schema:
+          type: string
+          enum:
+          - CREATE
+          - UPDATE
+          - DELETE
+      - in: query
+        name: first
+        schema:
+          type: integer
+      - in: query
+        name: after
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogs'
+components:
+  schemas:
+    AuditLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        timestamp:
+          type: string
+          format: date-time
+        url:
+          type: string
+          format: url
+        components:
+          $ref: '#/components/schemas/AuditLogComponents'
+        identity:
+          $ref: '#/components/schemas/AuditLogIdentity'
+        action:
+          $ref: '#/components/schemas/AuditLogAction'
+        responseCode:
+          type: integer
+    AuditLogIdentity:
+      type: object
+      additionalProperties:
+        type: object
+    AuditLogs:
+      type: object
+      properties:
+        endCursor:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+    AuditLogComponents:
+      type: object
+      additionalProperties:
+        type: string
+    AuditLogAction:
+      type: string
+      enum:
+      - CREATE
+      - UPDATE
+      - DELETE
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

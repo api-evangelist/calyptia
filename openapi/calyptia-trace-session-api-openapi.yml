@@ -1,0 +1,303 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent trace_session API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: trace_session
+paths:
+  /v1/pipelines/{pipelineID}/trace_sessions:
+    parameters:
+    - name: pipelineID
+      in: path
+      schema:
+        type: string
+        format: uuid
+      required: true
+    post:
+      tags:
+      - trace_session
+      security:
+      - user: []
+      - project: []
+      summary: Create trace session
+      operationId: createTraceSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTraceSession'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedTraceSession'
+    get:
+      tags:
+      - trace_session
+      security:
+      - user: []
+      - project: []
+      summary: Trace sessions
+      operationId: traceSessions
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/pipelines/foo/trace_sessions?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextTraceSessionsPage:
+              operationId: traceSessions
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TraceSession'
+  /v1/pipelines/{pipelineID}/trace_session:
+    parameters:
+    - name: pipelineID
+      in: path
+      schema:
+        type: string
+        format: uuid
+      required: true
+    get:
+      tags:
+      - trace_session
+      security:
+      - user: []
+      - project: []
+      summary: Active trace session
+      operationId: activeTraceSession
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceSession'
+    delete:
+      tags:
+      - trace_session
+      security:
+      - user: []
+      - project: []
+      summary: Terminate active trace session
+      operationId: terminateActiveTraceSession
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TerminatedTraceSession'
+  /v1/trace_sessions/{sessionID}:
+    parameters:
+    - name: sessionID
+      in: path
+      schema:
+        type: string
+        format: uuid
+      required: true
+    get:
+      tags:
+      - trace_session
+      security:
+      - user: []
+      - project: []
+      summary: Trace session
+      operationId: traceSession
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TraceSession'
+    patch:
+      tags:
+      - trace_session
+      security:
+      - user: []
+      - project: []
+      summary: Update trace session
+      operationId: updateTraceSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTraceSession'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatedTraceSession'
+components:
+  schemas:
+    UpdatedTraceSession:
+      type: object
+      description: Response body for an updated trace session.
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    TerminatedTraceSession:
+      type: object
+      description: Response body when a trace session is terminated.
+      properties:
+        id:
+          type: string
+          format: uuid
+        lifespan:
+          type: string
+          format: duration
+          example: 10m
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - lifespan
+      - updatedAt
+    CreatedTraceSession:
+      type: object
+      description: Response body for a newly created trace session.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    CreateTraceSession:
+      type: object
+      description: 'Request body to create a new trace session on a pipeline.
+
+        '
+      properties:
+        plugins:
+          description: List of Fluent-bit plugin IDs ar aliases to trace.
+          type: array
+          items:
+            type: string
+            example: dummy.0
+        lifespan:
+          description: For how long will this session be active and process records.
+          type: string
+          format: duration
+          example: 10m
+      required:
+      - plugins
+      - lifespan
+    UpdateTraceSession:
+      type: object
+      description: 'Request body to update an active trace session on a pipeline.
+
+        '
+      properties:
+        plugins:
+          description: List of Fluent-bit plugin IDs ar aliases to trace.
+          type: array
+          items:
+            type: string
+            example: dummy.0
+          nullable: true
+          default: null
+        lifespan:
+          description: For how long will this session be active and process records.
+          type: string
+          format: duration
+          example: 10m
+          nullable: true
+          default: null
+    TraceSession:
+      type: object
+      description: 'Trace session model.
+
+        There can only be one active session at a moment on a pipeline.
+
+        Either terminate it and create a new one, or update and extend the lifespan of the current active one.
+
+        '
+      properties:
+        id:
+          type: string
+          format: uuid
+        pipelineID:
+          type: string
+          format: uuid
+        plugins:
+          description: List of Fluent-bit plugin IDs ar aliases to trace.
+          type: array
+          items:
+            type: string
+            example: dummy.0
+        lifespan:
+          description: For how long will this session be active and process records.
+          type: string
+          format: duration
+          example: 10m
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - pipelineID
+      - plugins
+      - lifespan
+      - createdAt
+      - updatedAt
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

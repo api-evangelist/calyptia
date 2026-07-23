@@ -1,0 +1,193 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent environment API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: environment
+paths:
+  /v1/projects/{projectID}/environments:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: projectID
+      in: path
+      required: true
+    get:
+      tags:
+      - environment
+      summary: Project environments
+      operationId: projectEnvironments
+      description: Environments from a project.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last environments.
+      - schema:
+          type: string
+        in: query
+        name: before
+        description: Environments before the given cursor.
+      - schema:
+          type: string
+        in: query
+        name: name
+        description: Name matching environments.
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/projects/foo/environments?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextEnvironmentsPage:
+              operationId: environments
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Environment'
+    post:
+      tags:
+      - environment
+      summary: Create environment
+      operationId: createEnvironment
+      description: Create a environment to a given project.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnvironment'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  createdAt:
+                    type: string
+                    format: date-time
+  /v1/environments/{environmentID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: environmentID
+      in: path
+      required: true
+    patch:
+      tags:
+      - environment
+      summary: Update environment
+      operationId: updateEnvironments
+      description: Updates a given environment
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEnvironment'
+      responses:
+        '200':
+          description: No Content
+    delete:
+      tags:
+      - environment
+      summary: Delete environment
+      operationId: deleteEnvironment
+      description: Delete a given environment
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    Environment:
+      type: object
+      description: Environment model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: DNS label format as of defined on RFC1123
+          example: development
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CreateEnvironment:
+      type: object
+      properties:
+        name:
+          type: string
+    UpdateEnvironment:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          default: null
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

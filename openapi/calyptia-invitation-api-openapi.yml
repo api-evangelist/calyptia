@@ -1,0 +1,128 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent invitation API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: invitation
+paths:
+  /v1/projects/{projectID}/invite:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: projectID
+      in: path
+      required: true
+    post:
+      tags:
+      - invitation
+      summary: Create invitation
+      operationId: createInvitation
+      description: 'Create invitation to a project.
+
+        This will send an invitation email with a link to join to the email address provided.'
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateInvitation'
+      responses:
+        '204':
+          description: No Content
+  /v1/join_project:
+    post:
+      tags:
+      - invitation
+      summary: Accept invitation
+      operationId: acceptInvitation
+      description: 'Accept invitation to a project.
+
+        The project to which you join is parsed from the token.'
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcceptInvitation'
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    AcceptInvitation:
+      description: Accept invitation request body.
+      type: object
+      properties:
+        token:
+          type: string
+          example: redacted
+      required:
+      - token
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
+    CreateInvitation:
+      description: Create invitation request body.
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        permissions:
+          description: An empty list means it has all permissions.
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
+        redirectURI:
+          type: string
+          format: uri
+      required:
+      - email
+      - permissions
+      - redirectURI
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

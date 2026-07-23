@@ -1,0 +1,235 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent membership API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: membership
+paths:
+  /v1/projects/{projectID}/members:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: projectID
+      in: path
+      required: true
+    get:
+      tags:
+      - membership
+      summary: Members
+      operationId: members
+      description: Members from a project.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last members.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Membership'
+  /v1/members/{memberID}:
+    parameters:
+    - name: memberID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    patch:
+      tags:
+      - membership
+      operationId: updateMember
+      summary: Update member
+      description: Update member by its ID.
+      security:
+      - user: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateMember'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - membership
+      operationId: deleteMember
+      summary: Delete member
+      description: Delete member by its ID.
+      security:
+      - user: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deleted'
+        '409':
+          description: 'Conflict.
+
+
+            Uppon receiving `cannot delete last creator` error,
+
+            clients should instead delete the project.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: cannot delete last creator
+                required:
+                - error
+components:
+  schemas:
+    User:
+      type: object
+      description: User model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          example: user
+        avatarURL:
+          type: string
+          nullable: true
+          default: null
+          format: uri
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - email
+      - name
+      - avatarURL
+      - createdAt
+      - updatedAt
+    UpdateMember:
+      type: object
+      properties:
+        permissions:
+          description: An empty list means it has all permissions.
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
+          nullable: true
+    Membership:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userID:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        roles:
+          type: array
+          nullable: true
+          default: null
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - creator
+            - admin
+        permissions:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
+        createdAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - id
+      - userID
+      - projectID
+      - roles
+      - permissions
+      - createdAt
+      description: Membership of a user in a project.
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+      required:
+      - deleted
+      - deletedAt
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

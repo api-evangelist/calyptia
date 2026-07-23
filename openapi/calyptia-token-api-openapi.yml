@@ -1,0 +1,219 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent token API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: token
+paths:
+  /v1/projects/{projectID}/tokens:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: projectID
+      in: path
+      required: true
+    post:
+      tags:
+      - token
+      summary: Create token
+      operationId: createToken
+      description: "Create token within a project.\nThese tokens are to authorize other applications to access the project.\nFor example:\n - an agent might use it to register itself to the project.\n - you might deploy a new core instance in the project with the CLI/Helm.\n - you might use it within the Calyptia CLI to grant access to your project."
+      security:
+      - user: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateToken'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+    get:
+      tags:
+      - token
+      summary: Tokens
+      operationId: tokens
+      description: Tokens from a project.
+      security:
+      - user: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last tokens.
+      - schema:
+          type: string
+        in: query
+        name: name
+        description: Name matching tokens.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Token'
+  /v1/project_tokens/{tokenID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: tokenID
+      in: path
+      required: true
+    get:
+      tags:
+      - token
+      summary: Token
+      operationId: token
+      description: Token by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+    patch:
+      tags:
+      - token
+      summary: Update token
+      operationId: updateToken
+      description: Update token by its ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateToken'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - token
+      summary: Delete token
+      operationId: deleteToken
+      description: Delete token by its ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    UpdateToken:
+      description: Update token request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: new-token
+          nullable: true
+          default: null
+        permissions:
+          description: An empty list means it has all permissions.
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
+          nullable: true
+    CreateToken:
+      description: Create token request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: new-token
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      - permissions
+    Token:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        token:
+          type: string
+          example: redacted
+        name:
+          type: string
+          example: my-token
+        permissions:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - token
+      - name
+      - permissions
+      - createdAt
+      description: Token model.
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

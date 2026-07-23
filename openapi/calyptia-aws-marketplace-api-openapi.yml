@@ -1,0 +1,118 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent aws_marketplace API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: aws_marketplace
+paths:
+  /v1/aws-customer-redirect:
+    post:
+      operationId: awsCustomerRedirect
+      summary: AWS customer redirect
+      description: 'Redirect a request made from the AWS marketplace to the front-end
+
+        so the customer can be registered with a selected project.
+
+        The given AWS token will be decoded and stored for future reference.'
+      security: []
+      tags:
+      - aws_marketplace
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                x-amzn-marketplace-token:
+                  type: string
+                  minLength: 1
+              required:
+              - x-amzn-marketplace-token
+      responses:
+        302:
+          description: Redirect
+          headers:
+            Location:
+              schema:
+                type: string
+                example: https://core.calyptia.com/aws-customers?amazon_marketplace_token=sample
+                description: 'Front-end page to be redirected. It will include a
+
+                  `amazon_marketplace_token` query string parameter.'
+  /v1/projects/{projectID}/aws-contracts:
+    parameters:
+    - name: projectID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      operationId: createAWSContractFromToken
+      summary: Create AWS contract from token
+      description: 'This endpoint should be called after being redirected from
+
+        `awsCustomerRedirect`. The previous redirect should have stored the token
+
+        for usage. This endpoint attaches the token (and such the customer details)
+
+        to the selected project.'
+      security:
+      - user: []
+      - project: []
+      tags:
+      - aws_marketplace
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAWSContractFromToken'
+      responses:
+        204:
+          description: No Content
+components:
+  schemas:
+    CreateAWSContractFromToken:
+      type: object
+      properties:
+        amazonMarketplaceToken:
+          type: string
+          minLength: 1
+      required:
+      - amazonMarketplaceToken
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

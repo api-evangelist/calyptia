@@ -1,0 +1,175 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent config_validator API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: config_validator
+paths:
+  /v1/config_validate/{agentType}:
+    parameters:
+    - schema:
+        type: string
+        enum:
+        - fluentbit
+        - fluentd
+      name: agentType
+      in: path
+      required: true
+    post:
+      deprecated: true
+      tags:
+      - config_validator
+      summary: Validate configuration
+      operationId: validateConfig
+      description: 'Validates that an already parsed fluentbit or fluentd config is semantically valid.
+
+        To parse the raw agent config take a look at https://github.com/calyptia/fluent-bit-config-parser.'
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatingConfig'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidatedConfig'
+  /v2/validate_fluentbit_config:
+    post:
+      operationId: validateFluentBitConfig
+      summary: Validate Fluent-bit configuration.
+      security: []
+      tags:
+      - config_validator
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidateFluentbitConfig'
+      responses:
+        204:
+          description: No Content
+components:
+  schemas:
+    ValidatingConfig:
+      description: Validating configuration request body.
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: object
+            properties:
+              command:
+                type: string
+              name:
+                type: string
+              optional:
+                type: object
+                additionalProperties:
+                  type: string
+                nullable: true
+                default: null
+              id:
+                type: string
+            required:
+            - command
+            - name
+            - id
+      required:
+      - config
+    ValidatedConfig:
+      type: object
+      description: Validate config response body.
+      properties:
+        errors:
+          type: object
+          properties:
+            runtime:
+              type: array
+              items:
+                type: string
+            input:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+            output:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+            filter:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+          required:
+          - runtime
+          - input
+          - output
+          - filter
+      required:
+      - errors
+    ValidateFluentbitConfig:
+      type: object
+      properties:
+        rawConfig:
+          type: string
+          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
+        configFormat:
+          $ref: '#/components/schemas/ConfigFormat'
+      required:
+      - rawConfig
+    ConfigFormat:
+      type: string
+      enum:
+      - classic
+      - yaml
+      - json
+      default: classic
+      example: yaml
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

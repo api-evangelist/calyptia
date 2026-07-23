@@ -1,0 +1,112 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent pipeline_metadata API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: pipeline_metadata
+paths:
+  /v1/pipelines/{pipelineID}/metadata:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: pipelineID
+      in: path
+      required: true
+    get:
+      tags:
+      - pipeline_metadata
+      summary: Get the metadata associated to a pipeline, keys can be provided or the full metadata will be returned (if none).
+      operationId: pipelineMetadata
+      security:
+      - user: []
+      - project: []
+      description: Get the metadata associated to a pipeline
+      parameters:
+      - schema:
+          type: array
+          items:
+            type: string
+        in: query
+        name: key
+        required: false
+        description: List of metadata keys to retrieve.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineMetadata'
+    patch:
+      tags:
+      - pipeline_metadata
+      summary: Updates or creates a new metadata key on the pipeline's metadata
+      operationId: updatePipelineMetadata
+      description: Updates a pipeline metadata item by setting the key to a given json object value.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePipelineMetadata'
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    PipelineMetadata:
+      type: object
+      additionalProperties: true
+    UpdatePipelineMetadata:
+      type: object
+      properties:
+        key:
+          type: string
+          nullable: false
+          description: metadata key to use
+        value:
+          type: object
+          additionalProperties: true
+          description: json object to use as value
+          example: '{"value": "1"}
+
+            '
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

@@ -1,0 +1,266 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent trace_record API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: trace_record
+paths:
+  /v1/pipelines/{pipelineID}/trace_session/records:
+    parameters:
+    - name: pipelineID
+      in: path
+      schema:
+        type: string
+        format: uuid
+      required: true
+    post:
+      tags:
+      - trace_record
+      security:
+      - user: []
+      - project: []
+      summary: Create trace record
+      operationId: createTraceRecord
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTraceRecord'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedTraceRecord'
+  /v1/trace_sessions/{sessionID}/records:
+    parameters:
+    - name: sessionID
+      in: path
+      schema:
+        type: string
+        format: uuid
+      required: true
+    get:
+      tags:
+      - trace_record
+      security:
+      - user: []
+      - project: []
+      summary: Trace records
+      operationId: traceRecords
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/trace_sessions/foo/records?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextTraceRecordsPage:
+              operationId: traceRecords
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TraceRecord'
+components:
+  schemas:
+    CreatedTraceRecord:
+      type: object
+      description: Response body when a trace record is created.
+      properties:
+        id:
+          type: string
+          format: uuid
+        sessionID:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - sessionID
+      - createdAt
+    TraceRecord:
+      type: object
+      description: 'Trace record model.
+
+        Trace Records comming from fluent-bit once trace is enabled.
+
+        It contains trace records for all the fluen-bit plugins configured on the trace session.
+
+        '
+      properties:
+        id:
+          type: string
+          format: uuid
+        sessionID:
+          type: string
+          format: uuid
+        type:
+          $ref: '#/components/schemas/TraceRecordKind'
+        trace_id:
+          type: string
+          example: trace.5
+        start_time:
+          description: Unix timestamp with seconds precision.
+          type: integer
+          format: int64
+          example: 1658953439
+        end_time:
+          description: Unix timestamp with seconds precision.
+          type: integer
+          format: int64
+          example: 1658953439
+        plugin_instance:
+          type: string
+          example: nest.2
+        plugin_alias:
+          type: string
+          example: nest_2
+        return_code:
+          type: integer
+        records:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                description: Unix timestamp with seconds precision.
+                type: integer
+                format: int64
+                example: 1658953439
+              record:
+                type: object
+                additionalProperties: true
+                example: "{\n  \"dummy\": \"dummy_0\",\n  \"powered_by\": \"calyptia\",\n  \"data\": {\n    \"key_name\": \"foo\",\n    \"key_cnt\": \"1\"\n  }\n}"
+            additionalProperties: true
+            required:
+            - timestamp
+            - record
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - sessionID
+      - type
+      - trace_id
+      - start_time
+      - end_time
+      - plugin_instance
+      - plugin_alias
+      - return_code
+      - records
+      - createdAt
+    CreateTraceRecord:
+      type: object
+      description: 'Request body to create a trace record on an active session.
+
+        '
+      properties:
+        type:
+          $ref: '#/components/schemas/TraceRecordKind'
+        trace_id:
+          type: string
+          example: trace.5
+        start_time:
+          description: Unix timestamp with seconds precision.
+          type: integer
+          format: int64
+          example: 1658953439
+        end_time:
+          description: Unix timestamp with seconds precision.
+          type: integer
+          format: int64
+          example: 1658953439
+        plugin_instance:
+          type: string
+          example: nest.2
+        plugin_alias:
+          type: string
+          example: nest_2
+        return_code:
+          type: integer
+        records:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                description: Unix timestamp with seconds precision.
+                type: integer
+                format: int64
+                example: 1658953439
+              record:
+                type: object
+                additionalProperties: true
+                example: "{\n  \"dummy\": \"dummy_0\",\n  \"powered_by\": \"calyptia\",\n  \"data\": {\n    \"key_name\": \"foo\",\n    \"key_cnt\": \"1\"\n  }\n}"
+            additionalProperties: true
+            required:
+            - timestamp
+            - record
+      required:
+      - type
+      - trace_id
+      - start_time
+      - end_time
+      - plugin_instance
+      - plugin_alias
+      - return_code
+      - records
+    TraceRecordKind:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      x-enum-varnames:
+      - INPUT
+      - FILTER
+      - PRE_OUTPUT
+      - OUTPUT
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

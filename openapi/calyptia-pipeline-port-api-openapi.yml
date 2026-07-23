@@ -1,0 +1,322 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent pipeline_port API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: pipeline_port
+paths:
+  /v1/aggregator_pipelines/{pipelineID}/ports:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: pipelineID
+      in: path
+      required: true
+    post:
+      tags:
+      - pipeline_port
+      summary: Create pipeline port
+      operationId: createPipelinePort
+      description: 'Create port within a pipeline.
+
+        Ports can automatically be parsed from a config file, but this action allows you to programatically add more.'
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePipelinePort'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedPipelinePort'
+    get:
+      tags:
+      - pipeline_port
+      summary: Pipeline ports
+      operationId: pipelinePorts
+      description: Ports from a pipeline.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last ports.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PipelinePort'
+  /v1/pipeline_ports/{portID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: portID
+      in: path
+      required: true
+    get:
+      tags:
+      - pipeline_port
+      summary: Pipeline port
+      operationId: pipelinePort
+      description: Port by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelinePort'
+    patch:
+      tags:
+      - pipeline_port
+      summary: Update pipeline port
+      operationId: updatePipelinePort
+      description: Update port by its ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePipelinePort'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - pipeline_port
+      summary: Delete pipeline port
+      operationId: deletePipelinePort
+      description: Delete port by its ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    CreatePipelinePort:
+      description: Create pipeline port request body.
+      type: object
+      properties:
+        protocol:
+          type: string
+          example: tcp
+        frontendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
+
+            It should be unique within the pipeline.'
+        backendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
+        endpoint:
+          type: string
+        kind:
+          deprecated: true
+          $ref: '#/components/schemas/PipelinePortKind'
+      required:
+      - protocol
+      - frontendPort
+      - backendPort
+      - endpoint
+    CreatedPipelinePort:
+      type: object
+      description: Created pipeline port response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          default: null
+          nullable: true
+        pluginID:
+          type: string
+          nullable: true
+          default: null
+          example: forward.0
+        pluginName:
+          type: string
+          nullable: true
+          default: null
+          example: forward
+        pluginAlias:
+          type: string
+          nullable: true
+          default: null
+          example: myforwardinput
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - pluginID
+      - pluginName
+      - pluginAlias
+      - createdAt
+    UpdatePipelinePort:
+      description: Update pipeline port request body.
+      type: object
+      properties:
+        protocol:
+          type: string
+          example: tcp
+          nullable: true
+          default: null
+        frontendPort:
+          type: integer
+          format: int32
+          nullable: true
+          default: null
+          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
+
+            It should be unique within the pipeline.'
+        backendPort:
+          type: integer
+          format: int32
+          nullable: true
+          default: null
+          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
+        endpoint:
+          type: string
+          nullable: true
+          default: null
+        kind:
+          deprecated: true
+          type: string
+          description: The kind/type of the service associated to this port.
+          default: null
+          nullable: true
+          enum:
+          - LoadBalancer
+          - ClusterIP
+          - NodePort
+    PipelinePortKind:
+      type: string
+      description: The kind/type of the service associated to this port.
+      default: LoadBalancer
+      enum:
+      - LoadBalancer
+      - ClusterIP
+      - NodePort
+    PipelinePort:
+      type: object
+      description: Pipeline port model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        protocol:
+          type: string
+          example: tcp
+        kind:
+          $ref: '#/components/schemas/PipelinePortKind'
+        frontendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
+
+            It should be unique within the pipeline.'
+        backendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
+        endpoint:
+          type: string
+        pluginID:
+          type: string
+          nullable: true
+          default: null
+          example: forward.0
+        pluginName:
+          type: string
+          nullable: true
+          default: null
+          example: forward
+        pluginAlias:
+          type: string
+          nullable: true
+          default: null
+          example: myforwardinput
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - protocol
+      - kind
+      - frontendPort
+      - backendPort
+      - endpoint
+      - pluginID
+      - pluginName
+      - pluginAlias
+      - createdAt
+      - updatedAt
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

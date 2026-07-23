@@ -1,0 +1,458 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent processing_rule API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: processing_rule
+paths:
+  /v1/pipelines/{pipelineID}/processing_rules:
+    parameters:
+    - name: pipelineID
+      in: path
+      schema:
+        type: string
+        format: uuid
+      required: true
+    post:
+      deprecated: true
+      tags:
+      - processing_rule
+      security:
+      - user: []
+      - project: []
+      summary: Create a processing rule
+      description: 'Create a processing rule in the given pipeline.
+
+        Only one processing rule is allowed per pipeline.
+
+        '
+      operationId: createProcessingRuleV1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProcessingRuleV1'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedProcessingRuleV1'
+    get:
+      deprecated: true
+      tags:
+      - processing_rule
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - name: last
+        schema:
+          type: integer
+          minimum: 0
+        in: query
+        description: Last processing rules.
+      - name: before
+        schema:
+          type: string
+        in: query
+        description: Processing rules before the given cursor.
+      summary: Processing rules
+      operationId: processingRulesV1
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/pipelines/foo/processing_rules?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextTraceRecordsPage:
+              operationId: processingRulesV1
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProcessingRuleV1'
+  /v1/processing_rules/{processingRuleID}:
+    parameters:
+    - name: processingRuleID
+      in: path
+      schema:
+        type: string
+        format: uuid
+      required: true
+    get:
+      deprecated: true
+      tags:
+      - processing_rule
+      security:
+      - user: []
+      - project: []
+      summary: Processing rule
+      operationId: processingRuleV1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessingRuleV1'
+          links:
+            Pipeline:
+              operationId: pipeline
+              parameters:
+                projectID: $response.body.pipelineID
+            ConfigSection:
+              operationId: configSection
+              parameters:
+                projectID: $response.body.configSectionID
+            File:
+              operationId: pipelineFile
+              parameters:
+                projectID: $response.body.fileID
+    patch:
+      deprecated: true
+      tags:
+      - processing_rule
+      summary: Update processing rule
+      operationId: updateProcessingRuleV1
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessingRuleV1'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatedProcessingRuleV1'
+    delete:
+      deprecated: true
+      tags:
+      - processing_rule
+      summary: Delete processing rule
+      operationId: deleteProcessingRuleV1
+      security:
+      - user: []
+      - project: []
+      responses:
+        '204':
+          description: Deleted
+  /v1/preview_processing_rule:
+    post:
+      deprecated: true
+      tags:
+      - processing_rule
+      summary: Preview processing rule
+      operationId: previewProcessingRuleV1
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewProcessingRuleV1'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FluentBitLog'
+components:
+  schemas:
+    RuleActionV1:
+      deprecated: true
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/RuleActionKindV1'
+        description:
+          type: string
+          example: Sample action
+        enabled:
+          type: boolean
+          default: false
+          example: true
+        selectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogSelectorV1'
+        add:
+          $ref: '#/components/schemas/LogAttr'
+          nullable: true
+          default: null
+          description: Only required when kind is "add".
+        renameTo:
+          type: string
+          nullable: true
+          default: null
+          example: renamed
+          description: Only required when kind is "rename".
+        copyAs:
+          type: string
+          nullable: true
+          default: null
+          example: copied
+          description: Only required when kind is "copy".
+        maskWith:
+          type: string
+          nullable: true
+          default: null
+          example: masked
+          description: Only required when kind is "mask".
+      required:
+      - kind
+      - description
+      - enabled
+      - selectors
+    UpdateProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        match:
+          type: string
+          example: '*'
+          nullable: true
+          default: null
+        isMatchRegexp:
+          type: boolean
+          nullable: true
+          default: null
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+          nullable: true
+          default: null
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+          nullable: true
+          default: null
+    CreateProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        match:
+          type: string
+          example: '*'
+        isMatchRegexp:
+          type: boolean
+          default: false
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+      required:
+      - match
+      - isMatchRegexp
+      - language
+      - actions
+    LogAttr:
+      type: object
+      properties:
+        key:
+          type: string
+          example: some_key
+        value:
+          description: Any value.
+          example: some_value
+      required:
+      - key
+      - value
+    ProcessingRuleLanguageV1:
+      deprecated: true
+      type: string
+      enum:
+      - lua
+    LogSelectorV1:
+      deprecated: true
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/LogSelectorKindV1'
+        op:
+          $ref: '#/components/schemas/LogSelectorOpKindV1'
+        expr:
+          type: string
+          example: some_key
+      required:
+      - kind
+      - op
+      - expr
+    LogSelectorOpKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - equal
+    RuleActionKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - add
+      - rename
+      - copy
+      - mask
+      - remove
+      - skip
+    CreatedProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        configSectionID:
+          type: string
+          format: uuid
+        fileID:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: uuid
+      required:
+      - id
+      - configSectionID
+      - fileID
+      - createdAt
+    FluentBitLog:
+      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
+      type: array
+      items:
+        anyOf:
+        - type: number
+        - type: object
+          additionalProperties:
+            type: string
+        example: '[1234.5, {"key": "value"}]'
+    ProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        pipelineID:
+          type: string
+          format: uuid
+        configSectionID:
+          type: string
+          format: uuid
+        fileID:
+          type: string
+          format: uuid
+        match:
+          type: string
+          example: '*'
+        isMatchRegexp:
+          type: boolean
+          default: false
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - pipelineID
+      - configSectionID
+      - fileID
+      - match
+      - isMatchRegexp
+      - language
+      - actions
+      - createdAt
+      - updatedAt
+    UpdatedProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    PreviewProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/FluentBitLog'
+      required:
+      - language
+      - actions
+      - logs
+    LogSelectorKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - key
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

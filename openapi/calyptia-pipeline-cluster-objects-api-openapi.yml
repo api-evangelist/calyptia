@@ -1,0 +1,172 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent pipeline_cluster_objects API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: pipeline_cluster_objects
+paths:
+  /v1/pipelines/{pipelineID}/cluster_objects:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: pipelineID
+      in: path
+      required: true
+    get:
+      tags:
+      - pipeline_cluster_objects
+      summary: Get a list of cluster objects associated to a pipeline.
+      operationId: pipelineClusterObjects
+      security:
+      - user: []
+      - project: []
+      description: Get a list of all the cluster objects that are associated to a pipeline.
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last cluster objects.
+      - schema:
+          type: string
+        in: query
+        name: before
+        description: Cluster objects before the given cursor.
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/pipelines/foo/cluster_objects?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextClusterObjectsPage:
+              operationId: pipelineClusterObjects
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClusterObject'
+    patch:
+      tags:
+      - pipeline_cluster_objects
+      summary: Update the cluster objects related to a pipeline (only for daemonSet kind).
+      operationId: updatePipelineClusterObjects
+      description: 'Updates a pipeline to be related to a set of given cluster objects
+
+        this is only supported for pipelines of kind daemonSet.'
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePipelineClusterObjects'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - pipeline_cluster_objects
+      summary: Remove the relation between the cluster objects and the given pipeline.
+      operationId: deletePipelineClusterObjects
+      description: Remove the relation between the cluster objects and the pipeline (only for daemonSet kind).
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        in: query
+        name: cluster_object_id
+        description: List of cluster object IDs to delete.
+      responses:
+        '204':
+          description: Deleted
+components:
+  schemas:
+    UpdatePipelineClusterObjects:
+      type: object
+      properties:
+        clusterObjectsIDs:
+          type: array
+          format: uuid
+          items:
+            type: string
+    ClusterObject:
+      type: object
+      description: A kubernetes cluster object that belongs to a given core instance.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          format: kubernetes label
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - kind
+      - createdAt
+      - updatedAt
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

@@ -1,0 +1,328 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent resource_profile API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: resource_profile
+paths:
+  /v1/aggregators/{aggregatorID}/resource_profiles:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: aggregatorID
+      in: path
+      required: true
+    post:
+      tags:
+      - resource_profile
+      summary: Create resource profile
+      operationId: createResourceProfile
+      description: "Create resource profile within a core instance.\nA resource profile is a specification of a resource used during the deployment of a pipeline.\nBy default, when you setup a core instance, Calyptia Cloud will generate 3 resource profiles for you:\n - high-performance-guaranteed-delivery.\n - high-performance-optimal-throughput.\n - best-effort-low-resource."
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateResourceProfile'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedResourceProfile'
+    get:
+      tags:
+      - resource_profile
+      summary: Resource profiles
+      operationId: resourceProfiles
+      description: Resource profiles from a core instance.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last tokens.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResourceProfile'
+  /v1/resource_profiles/{resourceProfileID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: resourceProfileID
+      in: path
+      required: true
+    get:
+      tags:
+      - resource_profile
+      summary: Resource profile
+      operationId: resourceProfile
+      description: Resource profile by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceProfile'
+    patch:
+      tags:
+      - resource_profile
+      summary: Update resource profile
+      operationId: updateResourceProfile
+      description: Update resource profile by its ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateResourceProfile'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - resource_profile
+      summary: Delete resource profile
+      operationId: deleteResourceProfile
+      description: Delete resource profile by its ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    CreateResourceProfile:
+      description: Create resource profile request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: my-resource-profile
+        storageMaxChunksUp:
+          type: integer
+          format: int32
+        storageSyncFull:
+          type: boolean
+        storageBacklogMemLimit:
+          type: string
+          example: 1Mi
+        storageVolumeSize:
+          type: string
+          example: 2Mi
+        storageMaxChunksPause:
+          type: boolean
+        cpuBufferWorkers:
+          type: integer
+          format: int32
+        cpuLimit:
+          type: string
+          example: 3Mi
+        cpuRequest:
+          type: string
+          example: 4Mi
+        memoryLimit:
+          type: string
+          example: 5Mi
+        memoryRequest:
+          type: string
+          example: 6Mi
+      required:
+      - name
+      - storageMaxChunksUp
+      - storageSyncFull
+      - storageBacklogMemLimit
+      - storageVolumeSize
+      - storageMaxChunksPause
+      - cpuBufferWorkers
+      - cpuLimit
+      - cpuRequest
+      - memoryLimit
+      - memoryRequest
+    CreatedResourceProfile:
+      type: object
+      description: Created resource profile response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    UpdateResourceProfile:
+      description: Update resource profile request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: my-resource-profile
+          nullable: true
+          default: null
+        storageMaxChunksUp:
+          type: integer
+          format: int32
+          nullable: true
+          default: null
+        storageSyncFull:
+          type: boolean
+          nullable: true
+          default: null
+        storageBacklogMemLimit:
+          type: string
+          example: 1Mi
+          nullable: true
+          default: null
+        storageVolumeSize:
+          type: string
+          example: 2Mi
+          nullable: true
+          default: null
+        storageMaxChunksPause:
+          type: boolean
+          nullable: true
+          default: null
+        cpuBufferWorkers:
+          type: integer
+          format: int32
+          nullable: true
+          default: null
+        cpuLimit:
+          type: string
+          example: 3Mi
+          nullable: true
+          default: null
+        cpuRequest:
+          type: string
+          example: 4Mi
+          nullable: true
+          default: null
+        memoryLimit:
+          type: string
+          example: 5Mi
+          nullable: true
+          default: null
+        memoryRequest:
+          type: string
+          example: 6Mi
+          nullable: true
+          default: null
+    ResourceProfile:
+      type: object
+      description: Resource profile model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: my-resource-profile
+        storageMaxChunksUp:
+          type: integer
+          format: int32
+        storageSyncFull:
+          type: boolean
+        storageBacklogMemLimit:
+          type: string
+          example: 1Mi
+        storageVolumeSize:
+          type: string
+          example: 2Mi
+        storageMaxChunksPause:
+          type: boolean
+        cpuBufferWorkers:
+          type: integer
+          format: int32
+        cpuLimit:
+          type: string
+          example: 3Mi
+        cpuRequest:
+          type: string
+          example: 4Mi
+        memoryLimit:
+          type: string
+          example: 5Mi
+        memoryRequest:
+          type: string
+          example: 6Mi
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - storageMaxChunksUp
+      - storageSyncFull
+      - storageBacklogMemLimit
+      - storageVolumeSize
+      - storageMaxChunksPause
+      - cpuBufferWorkers
+      - cpuLimit
+      - cpuRequest
+      - memoryLimit
+      - memoryRequest
+      - createdAt
+      - updatedAt
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

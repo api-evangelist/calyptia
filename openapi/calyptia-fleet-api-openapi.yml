@@ -1,0 +1,685 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent fleet API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: fleet
+paths:
+  /v1/projects/{projectID}/fleets:
+    parameters:
+    - name: projectID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      operationId: createFleet
+      summary: Create fleet.
+      description: 'Create a fleet on the given project.
+
+        Agents can be added later to this fleet
+
+        and all of them will share the same config.'
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFleet'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedFleet'
+    get:
+      operationId: fleets
+      summary: Fleets.
+      description: List all the fleets within a project.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      parameters:
+      - name: name
+        in: query
+        schema:
+          type: string
+          maxLength: 32
+      - name: tags_query
+        in: query
+        description: \"AND\" separated query
+        schema:
+          type: string
+          example: dev AND prod
+      - name: last
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+      - name: before
+        in: query
+        schema:
+          type: string
+      - schema:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+        in: query
+        name: config_format
+        description: Desired output config format.
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/projects/foo/fleets?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextFleetsPage:
+              operationId: fleets
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Fleet'
+  /v1/projects/{projectID}/fleets/status:
+    parameters:
+    - name: projectID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: fleetsstatus
+      summary: Fleets Status for a Project.
+      description: Show the status of all fleets within a project.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetsStatus'
+  /v1/fleets/{fleetID}:
+    parameters:
+    - name: fleetID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: fleet
+      summary: Fleet.
+      description: Retrieve a single fleet by ID.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+        in: query
+        name: config_format
+        description: Desired output config format.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Fleet'
+    patch:
+      operationId: updateFleet
+      summary: Update fleet.
+      description: Update a fleet details.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFleet'
+      responses:
+        '200':
+          description: Updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatedFleet'
+    delete:
+      operationId: deleteFleet
+      summary: Delete fleet.
+      description: 'Delete a single fleet by its ID.
+
+        All associated agents will remain but the shared config wil be detached.'
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      responses:
+        '200':
+          description: Deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeletedFleet'
+  /v1/fleets/{fleetID}/status:
+    parameters:
+    - name: fleetID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: fleetstatus
+      summary: Fleet Status.
+      description: Show the status of all agents within a fleet.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetsStatus'
+  /v1/fleets/{fleetID}/config:
+    parameters:
+    - name: fleetID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: fleetConfig
+      summary: get the configuration for a fleet ID.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+        in: query
+        name: config_format
+        description: Desired output config format.
+      - schema:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+        in: query
+        name: format
+        deprecated: true
+        description: Desired output config format (depreacted in favour of config_format).
+      tags:
+      - fleet
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+            application/yaml:
+              schema:
+                type: string
+            text/plain:
+              schema:
+                type: string
+  /v1/fleets/{fleetID}/files:
+    parameters:
+    - name: fleetID
+      description: Unique ID for the Fleet.
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: fleetFiles
+      summary: Fleet.
+      description: Retrieve the list of fleet files.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      parameters:
+      - name: before
+        description: Fleet files before the given cursor.
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: last
+        description: Last fleet files.
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FleetFile'
+    post:
+      operationId: createFleetFile
+      summary: Create Fleet File.
+      description: Create a new Fleet File.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFleetFile'
+      responses:
+        '200':
+          description: Updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedFleetFile'
+  /v1/fleet_files/{fleetFileID}:
+    parameters:
+    - name: fleetFileID
+      description: UUID of the fleet file.
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: fleetFile
+      summary: retrieve a fleet file.
+      description: Retrieve a single fleet file with its metadata.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      responses:
+        '200':
+          description: Fleet File.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FleetFile'
+    patch:
+      operationId: updateFleetFile
+      summary: Update fleet file.
+      description: Update a fleet file.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFleetFile'
+      responses:
+        '204':
+          description: Updated.
+    delete:
+      operationId: deleteFleetFile
+      summary: Delete fleet file.
+      description: Delete a single fleet file by its ID.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - fleet
+      responses:
+        '204':
+          description: Deleted.
+components:
+  schemas:
+    DeletedFleet:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    CreateFleetFile:
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+          format: byte
+      required:
+      - name
+      - contents
+    FleetFile:
+      type: object
+      properties:
+        contents:
+          type: string
+          format: byte
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    UpdateFleetFile:
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+          format: byte
+    Fleet:
+      type: object
+      description: Group of agents sharing the same config.
+      properties:
+        id:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: my-fleet
+        minFluentBitVersion:
+          type: string
+          example: v1.0.0
+        rawConfig:
+          type: string
+          description: 'The fleet fluent-bit configuration in the format defined by
+
+            configFormat.
+
+            '
+        configFormat:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+        tags:
+          type: array
+          items:
+            type: string
+            example: dev
+        agentsCount:
+          $ref: '#/components/schemas/FleetAgentsCount'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - projectID
+      - name
+      - minFluentBitVersion
+      - rawConfig
+      - configFormat
+      - tags
+      - agentsCount
+      - createdAt
+      - updatedAt
+    CreatedFleetFile:
+      type: object
+      description: Created fleet file response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    FleetsStatus:
+      type: object
+      description: "Show the numerical count of the status of all Agents\nwithin a Fleet or all Fleets within a Project.\nThe status is one of:\n  * Managed: the full total of agents managed by the fleet\n             or all fleets in a project.\n  * Healthy: total of all fully functioning fleet agents.\n  * In Progress: total of all fleet agents that are pending an\n                 upgrade to their configuration.\n  * Unhleathy: total of all fleet agents that either have a\n               pending error or have not responded in\n               predetermined length of time."
+      properties:
+        managed:
+          type: integer
+          description: total of all fleet agents.
+        healthy:
+          type: integer
+          description: 'total of fleet agents that are deemed alive and fully
+
+            up to date.'
+        inProgress:
+          type: integer
+          description: 'total of fleet agents that are pending a configuration
+
+            update.'
+        unhealthy:
+          type: integer
+          description: 'total of all agents with a pending error or have not
+
+            responded in a predetermined interval of time.'
+    CreateFleet:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 32
+          example: my-fleet
+        minFluentBitVersion:
+          type: string
+          description: semver
+          example: v1.0.0
+        rawConfig:
+          type: string
+          description: 'The fleet fluent-bit configuration in the format defined by
+
+            configFormat.
+
+            '
+        configFormat:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+          nullable: true
+        tags:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z]+$
+            example: dev
+        skipConfigValidation:
+          type: boolean
+          default: false
+      required:
+      - name
+      - minFluentBitVersion
+      - rawConfig
+      - tags
+      - skipConfigValidation
+    CreatedFleet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    FleetAgentsCount:
+      type: object
+      description: 'Both active and inactive can sum up to the total count
+
+        of agents that the fleet has.
+
+        `withErrors` is the count of particular agents that have
+
+        some errors that have not been dismissed yet.'
+      properties:
+        active:
+          type: number
+          format: int32
+          minimum: 0
+        inactive:
+          type: number
+          format: int32
+          minimum: 0
+        withErrors:
+          type: number
+          format: int32
+          minimum: 0
+      required:
+      - active
+      - inactive
+      - withErrors
+    UpdateFleet:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 32
+          nullable: true
+          default: null
+          example: updated-fleet
+        rawConfig:
+          type: string
+          description: 'The fleet fluent-bit configuration in the format defined by
+
+            configFormat.
+
+            '
+          nullable: true
+          default: null
+        configFormat:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+          nullable: true
+          default: null
+        tags:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z]+$
+            example: updated
+          nullable: true
+          default: null
+        skipConfigValidation:
+          type: boolean
+          default: false
+      required:
+      - skipConfigValidation
+    UpdatedFleet:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

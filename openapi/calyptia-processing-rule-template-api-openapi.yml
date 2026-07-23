@@ -1,0 +1,570 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent processing_rule_template API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: processing_rule_template
+paths:
+  /v1/projects/{projectID}/processing_rule_templates:
+    parameters:
+    - name: projectID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      deprecated: true
+      operationId: createProcessingRuleTemplateV1
+      summary: Create processing rule template
+      description: Create a new processing rule template.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProcessingRuleTemplateV1'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created'
+    get:
+      deprecated: true
+      operationId: processingRuleTemplatesV1
+      summary: Processing rule templates
+      description: List all processing rule templates in descending order with backward pagination.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      parameters:
+      - name: last
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+        description: Last processing rule templates.
+      - name: before
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Processing rule templates before the given cursor.
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 30
+        description: Filter processing rule templates by name.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessingRuleTemplatesV1'
+  /v1/processing_rule_templates/{templateID}:
+    parameters:
+    - name: templateID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    patch:
+      deprecated: true
+      operationId: updateProcessingRuleTemplateV1
+      summary: Update processing rule template
+      description: Update a processing rule template details.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessingRuleTemplateV1'
+      responses:
+        '200':
+          description: Updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Updated'
+    delete:
+      deprecated: true
+      operationId: deleteProcessingRuleTemplateV1
+      summary: Delete processing rule template
+      description: Delete a single processing rule template by its ID.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deleted'
+  /v2/projects/{projectID}/processing_rule_templates:
+    parameters:
+    - name: projectID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    post:
+      operationId: createProcessingRuleTemplate
+      summary: Create processing rule template
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProcessingRuleTemplate'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created'
+    get:
+      operationId: processingRuleTemplates
+      summary: Processing rule templates
+      description: List all processing rule templates in descending order with backward pagination.
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      parameters:
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 30
+        description: Filter processing rule templates by name.
+      - name: last
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+        description: Last processing rule templates.
+      - name: before
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Processing rule templates before the given cursor.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessingRuleTemplates'
+  /v2/processing_rule_templates/{templateID}:
+    parameters:
+    - name: templateID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: processingRuleTemplate
+      summary: Processing rule template
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProcessingRuleTemplate'
+    patch:
+      operationId: updateProcessingRuleTemplate
+      summary: Update processing rule template
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProcessingRuleTemplate'
+      responses:
+        '200':
+          description: Updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Updated'
+    delete:
+      operationId: deleteProcessingRuleTemplate
+      summary: Delete processing rule template
+      security:
+      - user: []
+      - project: []
+      tags:
+      - processing_rule_template
+      responses:
+        '200':
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deleted'
+components:
+  schemas:
+    ProcessingRuleTemplates:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessingRuleTemplate'
+        endCursor:
+          type: string
+          format: uuid
+          nullable: true
+          default: null
+        count:
+          type: number
+          format: int32
+          minimum: 0
+          example: 1
+      required:
+      - items
+      - endCursor
+      - count
+    StaticProcessingRuleTemplateV1:
+      deprecated: true
+      description: 'A static processing rule template is a template that is not editable.
+
+        It''s a template that is provided by Calyptia.
+
+        '
+      type: object
+      properties:
+        name:
+          type: string
+          example: By Calyptia
+        definition:
+          $ref: '#/components/schemas/ProcessingRuleDefV1'
+    CreateProcessingRuleTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: My Processing Rule Template
+        pipelineVersion:
+          type: string
+          nullable: true
+          default: null
+          example: v24.5.0
+        definition:
+          type: object
+          additionalProperties: true
+          example: {}
+      required:
+      - name
+      - pipelineVersion
+      - definition
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    ProcessingRuleDefV1:
+      deprecated: true
+      type: object
+      properties:
+        name:
+          type: string
+          example: lua
+          minLength: 1
+          pattern: ^lua$
+        match:
+          type: string
+          example: '*'
+          minLength: 1
+        code:
+          type: string
+          example: "function filter(tag, timestamp, record)\n  return 1, timestamp, record\nend"
+          minLength: 1
+        call:
+          type: string
+          example: filter
+          minLength: 1
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    UpdateProcessingRuleTemplateV1:
+      deprecated: true
+      type: object
+      properties:
+        name:
+          type: string
+          example: My template
+          minLength: 1
+          maxLength: 30
+          nullable: true
+          default: null
+        definition:
+          $ref: '#/components/schemas/ProcessingRuleDefV1'
+          nullable: true
+          default: null
+        pipelineVersion:
+          type: string
+          example: v1.3.5
+          description: semver version of core-fluent-bit is running
+          nullable: true
+          default: null
+        input:
+          type: string
+          example:
+            log: line 2
+          maxLength: 1048576
+          minimum: 1
+          description: input to use as an example for the processing rule template
+          default: null
+          nullable: true
+        isRawInput:
+          type: boolean
+          description: define if the input parameter is in raw or json format (false)
+          default: false
+    ProcessingRuleTemplate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: My Processing Rule Template
+        pipelineVersion:
+          type: string
+          nullable: true
+          default: null
+          example: v24.5.0
+        definition:
+          type: object
+          additionalProperties: true
+          example: {}
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - projectID
+      - name
+      - pipelineVersion
+      - definition
+      - createdAt
+      - updatedAt
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    ProcessingRuleTemplateV1:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: My template
+        definition:
+          $ref: '#/components/schemas/ProcessingRuleDefV1'
+        pipelineVersion:
+          type: string
+          example: v1.3.5
+          description: semver version of core-fluent-bit is running
+        input:
+          type: string
+          example:
+            log: line 2
+          maxLength: 1048576
+          minimum: 1
+          description: input to use as an example for the processing rule template
+        isRawInput:
+          type: boolean
+          description: define if the input parameter is in raw or json format (false)
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    UpdateProcessingRuleTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: My Processing Rule Template
+          nullable: true
+          default: null
+        pipelineVersion:
+          type: string
+          nullable: true
+          default: null
+          example: v24.5.0
+        definition:
+          type: object
+          nullable: true
+          default: null
+          additionalProperties: true
+          example: {}
+    ProcessingRuleTemplatesV1:
+      deprecated: true
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessingRuleTemplateV1'
+        endCursor:
+          type: string
+          format: uuid
+          nullable: true
+          default: null
+        count:
+          type: number
+          format: int32
+          minimum: 0
+        static:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaticProcessingRuleTemplateV1'
+      required:
+      - items
+      - endCursor
+      - count
+      - static
+    CreateProcessingRuleTemplateV1:
+      deprecated: true
+      type: object
+      properties:
+        name:
+          type: string
+          example: My template
+          minLength: 1
+          maxLength: 30
+        definition:
+          $ref: '#/components/schemas/ProcessingRuleDefV1'
+        pipelineVersion:
+          type: string
+          example: v1.3.5
+          description: semver version of core-fluent-bit is running
+        input:
+          type: string
+          example:
+            log: line 2
+          maxLength: 1048576
+          minimum: 1
+          description: input to use as an example for the processing rule template
+        isRawInput:
+          type: boolean
+          default: false
+          description: define if the input parameter is in raw or json format (false)
+      required:
+      - name
+      - definition
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

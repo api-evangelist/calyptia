@@ -1,0 +1,290 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent pipeline_check API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: pipeline_check
+paths:
+  /v1/pipelines/{pipelineID}/checks:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: pipelineID
+      in: path
+      required: true
+    post:
+      tags:
+      - pipeline_check
+      summary: Create pipeline check
+      operationId: createPipelineCheck
+      description: Create check within a pipeline.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePipelineCheck'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedPipelineCheck'
+    get:
+      tags:
+      - pipeline_check
+      summary: Pipeline checks
+      operationId: pipelineChecks
+      description: Checks associated to a pipeline.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last files.
+      - schema:
+          type: string
+        in: query
+        name: before
+        description: End cursor.
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/pipelines/foo/checks?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextChecksPage:
+              operationId: pipelineChecks
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PipelineCheck'
+  /v1/pipeline_checks/{checkID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: checkID
+      in: path
+      required: true
+    get:
+      tags:
+      - pipeline_check
+      summary: Pipeline check
+      operationId: pipelineCheck
+      description: Check by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineCheck'
+    patch:
+      tags:
+      - pipeline_check
+      summary: Update pipeline check
+      operationId: updatePipelineCheck
+      description: Update check by its ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePipelineCheck'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - pipeline_check
+      summary: Delete pipeline check
+      operationId: deletePipelineCheck
+      description: Delete pipeline check by its ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    CreatedPipelineCheck:
+      type: object
+      description: Created pipeline check response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    UpdatePipelineCheck:
+      description: Update pipeline check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+          nullable: true
+          default: null
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+          nullable: true
+          default: null
+        retries:
+          type: number
+          nullable: true
+          default: null
+          description: number of retries for the check before marking it as unreachable.
+        host:
+          type: string
+          nullable: true
+          default: null
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          minimum: 0
+          maximum: 65535
+          nullable: true
+          default: null
+          description: valid 0-65535 port number
+    PipelineCheck:
+      type: object
+      description: Pipeline check model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+        retries:
+          type: number
+          default: 3
+          description: number of retries for the check before marking it as failed
+        port:
+          type: number
+          minimum: 0
+          maximum: 65535
+          description: valid 0-65535 port number
+        host:
+          type: string
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - protocol
+      - status
+      - retries
+      - port
+      - host
+      - createdAt
+      - updatedAt
+    PipelinePortProtocol:
+      type: string
+      description: Valid protocol types defined for a pipelines.
+      enum:
+      - tcp
+      - udp
+    CreatePipelineCheck:
+      description: Create pipeline check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+        retries:
+          type: number
+          default: 3
+          description: number of retries for the check before marking it as failed
+        host:
+          type: string
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          minimum: 0
+          maximum: 65535
+          description: valid 0-65535 port number
+      required:
+      - protocol
+      - host
+      - port
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

@@ -1,0 +1,246 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent saml_mapping API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: saml_mapping
+paths:
+  /v1/projects/{projectID}/saml_mappings:
+    parameters:
+    - name: projectID
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    get:
+      operationId: samlMappings
+      summary: SAML Mappings
+      security:
+      - user: []
+      - project: []
+      tags:
+      - saml_mapping
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SAMLMappings'
+    post:
+      operationId: createSAMLMapping
+      summary: Create SAML Mapping
+      security:
+      - user: []
+      - project: []
+      tags:
+      - saml_mapping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSAMLMapping'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Created'
+  /v1/saml_mappings/{id}:
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    patch:
+      operationId: updateSAMLMapping
+      summary: Update SAML Mapping
+      security:
+      - user: []
+      - project: []
+      tags:
+      - saml_mapping
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSAMLMapping'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Updated'
+    delete:
+      operationId: deleteSAMLMapping
+      tags:
+      - saml_mapping
+      summary: Delete SAML Mapping
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deleted'
+components:
+  schemas:
+    Role:
+      type: string
+      enum:
+      - admin
+      - manager
+      - team
+      - viewer
+    SAMLMapping:
+      type: object
+      description: SAML Mapping required for IDP
+      required:
+      - id
+      - projectID
+      - claimKey
+      - claimValue
+      - role
+      - createdAt
+      - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        claimKey:
+          type: string
+        claimValue:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    SAMLMappings:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SAMLMapping'
+        endCursor:
+          type: string
+          nullable: true
+        count:
+          type: number
+          format: int32
+      required:
+      - items
+      - endCursor
+      - count
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    UpdateSAMLMapping:
+      type: object
+      description: SAML Mapping to update.
+      properties:
+        claimKey:
+          type: string
+          nullable: true
+        claimValue:
+          type: string
+          nullable: true
+        role:
+          $ref: '#/components/schemas/Role'
+          nullable: true
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    CreateSAMLMapping:
+      type: object
+      properties:
+        claimKey:
+          type: string
+        claimValue:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+      required:
+      - claimKey
+      - claimValue
+      - role
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

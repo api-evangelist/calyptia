@@ -1,0 +1,352 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent project API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: project
+paths:
+  /v1/projects:
+    post:
+      tags:
+      - project
+      summary: Create project
+      operationId: createProject
+      description: 'Creates a new project.
+
+        A project is the base unit of work at Calyptia Cloud.
+
+        You can register agents here, create core instances in which you can deploy an entire set of pipelines, and monitor them.
+
+        You can even invite other people to the project and have a team.'
+      security:
+      - user: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProject'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedProject'
+    get:
+      tags:
+      - project
+      summary: Projects
+      operationId: projects
+      description: Projects you are a member of.
+      security:
+      - user: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last projects.
+      - schema:
+          type: string
+        in: query
+        name: name
+        description: Name matching projects.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Project'
+  /v1/projects/{projectID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: projectID
+      in: path
+      required: true
+    get:
+      tags:
+      - project
+      summary: Project
+      operationId: project
+      description: Project by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+    patch:
+      tags:
+      - project
+      summary: Update project
+      operationId: updateProject
+      description: Update project by its ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProject'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - project
+      summary: Delete project
+      operationId: deleteProject
+      description: 'Delete project by its ID.
+
+        Only the creator of the project can delete it.'
+      security:
+      - user: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deleted'
+components:
+  schemas:
+    User:
+      type: object
+      description: User model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          example: user
+        avatarURL:
+          type: string
+          nullable: true
+          default: null
+          format: uri
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - email
+      - name
+      - avatarURL
+      - createdAt
+      - updatedAt
+    UpdateProject:
+      description: Update project request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: new-project
+          nullable: true
+          default: null
+        v3Enabled:
+          type: boolean
+          nullable: true
+          default: null
+          description: The project is enabled to use V3 APIs.
+        setSettings:
+          type: object
+          additionalProperties: true
+          description: Settings to set or update (merged with existing settings)
+          example:
+            gpt: true
+        unsetSettings:
+          type: array
+          items:
+            type: string
+          description: Setting keys to remove
+          example:
+          - oldSetting
+        clearAllSettings:
+          type: boolean
+          description: Clear all settings before applying setSettings/unsetSettings
+          default: false
+    Membership:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userID:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        roles:
+          type: array
+          nullable: true
+          default: null
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - creator
+            - admin
+        permissions:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
+        createdAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - id
+      - userID
+      - projectID
+      - roles
+      - permissions
+      - createdAt
+      description: Membership of a user in a project.
+    CreatedProject:
+      type: object
+      description: Created project response body.
+      properties:
+        id:
+          type: string
+        token:
+          type: string
+          example: redacted
+        createdAt:
+          type: string
+          format: date-time
+        membership:
+          $ref: '#/components/schemas/Membership'
+      required:
+      - id
+      - token
+      - createdAt
+      - membership
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    Project:
+      type: object
+      description: Project model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: my-project
+        v3Enabled:
+          type: boolean
+          description: The project is enabled to use V3 APIs.
+        settings:
+          type: object
+          additionalProperties: true
+          description: Project settings for the project
+          example:
+            gpt: true
+        membersCount:
+          type: integer
+          minimum: 1
+        agentsCount:
+          type: integer
+          minimum: 0
+        aggregatorsCount:
+          type: integer
+          maximum: 0
+        createdAt:
+          type: string
+          format: date-time
+        membership:
+          $ref: '#/components/schemas/Membership'
+      required:
+      - id
+      - name
+      - membersCount
+      - agentsCount
+      - aggregatorsCount
+      - createdAt
+    CreateProject:
+      description: Create project request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: new-project
+        v3Enabled:
+          type: boolean
+          description: The project is enabled to use V3 APIs.
+      required:
+      - name
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

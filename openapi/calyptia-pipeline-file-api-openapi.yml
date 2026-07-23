@@ -1,0 +1,243 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent pipeline_file API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: pipeline_file
+paths:
+  /v1/aggregator_pipelines/{pipelineID}/files:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: pipelineID
+      in: path
+      required: true
+    post:
+      tags:
+      - pipeline_file
+      summary: Create pipeline file
+      operationId: createPipelineFile
+      description: 'Create file within a pipeline.
+
+        The given name is unique within the pipeline.
+
+        These files can be referenced by their name within a fluentbit configuration file like so `{{files.thename}}`.
+
+        Use them to share common stuff like parsers.'
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePipelineFile'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedPipelineFile'
+    get:
+      tags:
+      - pipeline_file
+      summary: Pipeline files
+      operationId: pipelineFiles
+      description: Files from a pipeline.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last files.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PipelineFile'
+  /v1/pipeline_files/{fileID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: fileID
+      in: path
+      required: true
+    get:
+      tags:
+      - pipeline_file
+      summary: Pipeline file
+      operationId: pipelineFile
+      description: File by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PipelineFile'
+    patch:
+      tags:
+      - pipeline_file
+      summary: Update pipeline file
+      operationId: updatePipelineFile
+      description: Update file by its ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePipelineFile'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - pipeline_file
+      summary: Delete pipeline file
+      operationId: deletePipelineFile
+      description: 'Delete pipeline file by its ID.
+
+        The file cannot be deleted if some pipeline config is still referencing it;
+
+        you must delete the pipeline first if you want to delete the file.'
+      security:
+      - user: []
+      - project: []
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    UpdatePipelineFile:
+      description: Update pipeline file request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: newfile
+          nullable: true
+          default: null
+        contents:
+          type: string
+          format: byte
+          nullable: true
+          default: null
+        encrypted:
+          type: boolean
+          nullable: true
+          default: null
+    PipelineFile:
+      type: object
+      description: Pipeline file model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        processingRuleID:
+          type: string
+          format: uuid
+          nullable: true
+          default: null
+        name:
+          type: string
+          example: myfile
+        contents:
+          type: string
+          format: byte
+        encrypted:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - processingRuleID
+      - name
+      - contents
+      - encrypted
+      - createdAt
+      - updatedAt
+    CreatePipelineFile:
+      description: Create pipeline file request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: newfile
+        contents:
+          type: string
+          format: byte
+        encrypted:
+          type: boolean
+      required:
+      - name
+      - contents
+      - encrypted
+    CreatedPipelineFile:
+      type: object
+      description: Created pipeline file response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

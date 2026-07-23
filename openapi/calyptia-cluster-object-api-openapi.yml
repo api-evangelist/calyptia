@@ -1,0 +1,249 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent cluster_object API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: cluster_object
+paths:
+  /v1/core_instances/{coreInstanceID}/cluster_objects:
+    parameters:
+    - name: coreInstanceID
+      in: path
+      schema:
+        type: string
+        format: uuid
+      required: true
+    post:
+      tags:
+      - cluster_object
+      security:
+      - user: []
+      - project: []
+      summary: Create cluster object
+      operationId: createClusterObject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClusterObject'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatedClusterObject'
+    get:
+      tags:
+      - cluster_object
+      parameters:
+      - schema:
+          $ref: '#/components/schemas/ClusterObjectKind'
+        in: query
+        name: kind
+        description: Kind of the kubernetes object.
+        required: false
+      - schema:
+          type: string
+        in: query
+        required: false
+        name: name
+        description: Kubernetes object name to filter by.
+        example: kube-system
+      - name: last
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+      - name: before
+        in: query
+        schema:
+          type: string
+      security:
+      - user: []
+      - project: []
+      summary: Cluster objects
+      operationId: clusterObjects
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/core_instances/foo/cluster_objects?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextClusterObjectsPage:
+              operationId: clusterObjects
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClusterObject'
+  /v1/cluster_objects/{clusterObjectID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: clusterObjectID
+      in: path
+      required: true
+    patch:
+      tags:
+      - cluster_object
+      summary: Update cluster object
+      operationId: updateClusterObject
+      description: Updates a given cluster_object
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClusterObject'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatedClusterObject'
+    delete:
+      tags:
+      - cluster_object
+      summary: Delete cluster object
+      operationId: deleteClusterObject
+      description: Delete a given cluster_object
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    UpdatedClusterObject:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    CreateClusterObject:
+      type: object
+      description: 'Request body to create a new cluster object for a core instance.
+
+        '
+      properties:
+        name:
+          type: string
+          format: 'kubernetes valid hostname or namespace name.
+
+            https://kubernetes.io/docs/reference/labels-annotations-taints/
+
+            '
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
+      required:
+      - name
+      - kind
+    ClusterObject:
+      type: object
+      description: A kubernetes cluster object that belongs to a given core instance.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          format: kubernetes label
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - kind
+      - createdAt
+      - updatedAt
+    CreatedClusterObject:
+      type: object
+      description: Response body for for a newly created cluster object.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
+    UpdateClusterObject:
+      type: object
+      description: 'Request body to update a cluster object.
+
+        '
+      properties:
+        name:
+          type: string
+          format: 'kubernetes valid hostname or namespace name.
+
+            https://kubernetes.io/docs/reference/labels-annotations-taints/
+
+            '
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

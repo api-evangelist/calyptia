@@ -1,0 +1,58 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent user API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: user
+paths:
+  /v1/verification_email:
+    get:
+      tags:
+      - user
+      summary: Request verification email
+      operationId: requestVerificationEmail
+      description: 'Request a verification email for the user.
+
+        When a new user registers within Calyptia Cloud with password, it should receive a verification email, in the case it didn''t receive it, or the email expired already, use this endpoint to request a new one.'
+      security:
+      - user: []
+      responses:
+        '204':
+          description: No Content
+components:
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

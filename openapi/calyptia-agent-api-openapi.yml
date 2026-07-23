@@ -1,0 +1,467 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: agent
+paths:
+  /v1/agents:
+    post:
+      tags:
+      - agent
+      summary: Register agent
+      operationId: registerAgent
+      description: 'Register agent within a project.
+
+        The project in which the agent is registered is parsed from the authorization token.
+
+        Users are not allowed to register agents.'
+      security:
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterAgent'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisteredAgent'
+  /v1/projects/{projectID}/agents:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: projectID
+      in: path
+      required: true
+    get:
+      tags:
+      - agent
+      summary: Agents
+      operationId: agents
+      description: Agents from a project.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - name: fleet_id
+        description: Filter agents from a single fleet.
+        in: query
+        schema:
+          type: string
+          format: uuid
+      - name: pipeline_id
+        description: Filter agents from a single pipeline.
+        in: query
+        schema:
+          type: string
+          format: uuid
+      - schema:
+          type: integer
+          minimum: 0
+        in: query
+        name: last
+        description: Last agents.
+      - schema:
+          type: string
+        in: query
+        name: before
+        description: Agents before the given cursor.
+      - schema:
+          type: string
+        in: query
+        name: name
+        description: Name matching agents.
+      - schema:
+          type: string
+          example: tagone AND tagtwo
+        in: query
+        name: tags_query
+        description: Tag query.
+      - schema:
+          type: string
+        in: query
+        name: environment_id
+        description: Environment ID for matching agents.
+      responses:
+        '200':
+          description: OK
+          headers:
+            Link:
+              schema:
+                type: string
+                example: </v1/projects/foo/agents?before=bar>; rel="next"
+              description: RFC5988 with `rel="next"`.
+          links:
+            NextAgentsPage:
+              operationId: agents
+              parameters:
+                before: $response.header.Link#rel=next
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Agent'
+    delete:
+      tags:
+      - agent
+      summary: Delete Agents
+      operationId: deleteAgents
+      description: Delete agents from a project.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+        in: query
+        name: agent_id
+        description: List of agent IDs to delete.
+      responses:
+        '204':
+          description: Deleted
+  /v1/agents/{agentID}:
+    parameters:
+    - schema:
+        type: string
+        format: uuid
+      name: agentID
+      in: path
+      required: true
+    get:
+      tags:
+      - agent
+      summary: Agent
+      operationId: agent
+      description: Agents by ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+    patch:
+      tags:
+      - agent
+      summary: Update agent
+      operationId: updateAgent
+      description: Update agent by its ID.
+      security:
+      - user: []
+      - project: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAgent'
+      responses:
+        '204':
+          description: No Content
+    delete:
+      tags:
+      - agent
+      summary: Delete agent
+      operationId: deleteAgent
+      description: Delete agent by its ID.
+      security:
+      - user: []
+      - project: []
+      responses:
+        '204':
+          description: No Content
+components:
+  schemas:
+    Agent:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        fleetID:
+          type: string
+          format: uuid
+          nullable: true
+          default: null
+        pipelineID:
+          type: string
+          format: uuid
+          nullable: true
+          default: null
+        token:
+          type: string
+          example: redacted
+        name:
+          type: string
+          example: my-agent
+          format: hostname
+        machineID:
+          type: string
+        type:
+          type: string
+          enum:
+          - fluentbit
+          - fluentd
+        version:
+          type: string
+          example: v1.8.6
+        edition:
+          type: string
+          enum:
+          - community
+          - enterprise
+        status:
+          type: string
+          enum:
+          - healthy
+          - unhealthy
+        os:
+          type: string
+          enum:
+          - unknown
+          - linux
+          - macos
+          - windows
+          - freebsd
+          - netbsd
+          - openbsd
+        arch:
+          type: string
+          enum:
+          - unknown
+          - x86
+          - x86_64
+          - arm
+          - arm64
+        flags:
+          type: array
+          nullable: true
+          default: null
+          uniqueItems: true
+          items:
+            type: string
+        tags:
+          type: array
+          nullable: true
+          default: null
+          uniqueItems: true
+          items:
+            type: string
+        rawConfig:
+          type: string
+        metadata:
+          type: object
+          nullable: true
+          default: null
+        firstMetricsAddedAt:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+        lastMetricsAddedAt:
+          type: string
+          format: date-time
+          nullable: true
+          default: null
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        environmentName:
+          type: string
+          default: default
+          example: default
+      required:
+      - id
+      - fleetID
+      - token
+      - name
+      - machineID
+      - type
+      - version
+      - edition
+      - os
+      - arch
+      - flags
+      - status
+      - rawConfig
+      - metadata
+      - environmentName
+      - firstMetricsAddedAt
+      - lastMetricsAddedAt
+      - createdAt
+      - updatedAt
+      description: Agent model.
+    UpdateAgent:
+      description: Update agent request body.
+      type: object
+      properties:
+        fleetID:
+          type: string
+          format: uuid
+          nullable: true
+          default: null
+        name:
+          type: string
+          example: new-agent
+          format: hostname
+          nullable: true
+          default: null
+        version:
+          type: string
+          example: v1.8.6
+          nullable: true
+          default: null
+        edition:
+          type: string
+          enum:
+          - community
+          - enterprise
+          nullable: true
+          default: null
+        flags:
+          type: array
+          nullable: true
+          default: null
+          items:
+            type: string
+        rawConfig:
+          type: string
+          nullable: true
+          default: null
+        metadata:
+          type: object
+          nullable: true
+          default: null
+        environmentID:
+          type: string
+          nullable: true
+          default: null
+          description: environment ID to associate this agent with.
+    RegisterAgent:
+      description: Register agent request body.
+      type: object
+      properties:
+        fleetID:
+          type: string
+          format: uuid
+          nullable: true
+          default: null
+        name:
+          type: string
+          example: new-agent
+          format: hostname
+        machineID:
+          type: string
+        type:
+          type: string
+          enum:
+          - fluentbit
+          - fluentd
+        version:
+          type: string
+          example: v1.8.6
+        edition:
+          type: string
+          enum:
+          - community
+          - enterprise
+        flags:
+          type: array
+          nullable: true
+          default: null
+          items:
+            type: string
+        rawConfig:
+          type: string
+        metadata:
+          type: object
+          nullable: true
+          default: null
+        environmentID:
+          type: string
+          nullable: true
+          default: null
+          description: environment ID to associate this agent with.
+      required:
+      - name
+      - machineID
+      - type
+      - version
+      - edition
+      - flags
+      - rawConfig
+    RegisteredAgent:
+      type: object
+      description: Registered agent response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        token:
+          type: string
+          example: redacted
+        name:
+          type: string
+          example: my-agent
+        createdAt:
+          type: string
+          format: date-time
+        environmentName:
+          type: string
+          description: environment name on which the agent belongs to.
+          default: default
+      required:
+      - id
+      - token
+      - name
+      - createdAt
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}

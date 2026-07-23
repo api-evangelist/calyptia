@@ -1,0 +1,255 @@
+openapi: 3.0.4
+info:
+  title: Calyptia Cloud agent core_instance API
+  version: '1.0'
+  description: HTTP API service of Calyptia Cloud
+  contact:
+    name: Calyptia
+    email: hello@calyptia.com
+    url: https://cloud.calyptia.com
+  termsOfService: https://calyptia.com/terms/
+servers:
+- url: https://cloud-api.calyptia.com
+  description: prod
+- url: https://cloud-api-dev.calyptia.com
+  description: dev
+- url: https://cloud-api-staging.calyptia.com
+  description: staging
+- url: http://localhost:{port}
+  description: local
+  variables:
+    port:
+      default: '5000'
+tags:
+- name: core_instance
+paths:
+  /v1/projects/{projectID}/core_instances:
+    parameters:
+    - name: projectID
+      schema:
+        type: string
+        format: uuid
+      in: path
+      description: Parent project ID.
+      required: true
+    get:
+      operationId: coreInstances
+      tags:
+      - core_instance
+      summary: Core Instances
+      description: Core Instances from a project with backward pagination.
+      security:
+      - user: []
+      - project: []
+      parameters:
+      - name: last
+        schema:
+          type: integer
+          minimum: 0
+        in: query
+        description: Limit to the last core instances.
+      - name: before
+        schema:
+          type: string
+        in: query
+        description: Paginate core instances before the given cursor.
+      - name: name
+        schema:
+          type: string
+        in: query
+        description: Filter core instances with the given name.
+      - name: environment_id
+        schema:
+          type: string
+        in: query
+        description: Filter core instances with the given environment ID.
+      - name: tags_query
+        schema:
+          type: string
+          example: tagone AND tagtwo
+        in: query
+        description: Filter core instances with the given tags query.
+      - name: exclude_internal
+        schema:
+          type: boolean
+        in: query
+        description: Exclude internal pipelines (health-check) from count.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CoreInstances'
+components:
+  schemas:
+    Aggregator:
+      type: object
+      description: Core instance model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          format: hostname
+          example: my-core-instance
+        version:
+          type: string
+          example: v0.1.12
+        status:
+          type: string
+          description: 'Running status of the core instance in reference to the last ping.
+
+            Refer to https://pkg.go.dev/github.com/calyptia/api@main/types#pkg-constants
+
+            if looking up for the current timeout defaults.
+
+            '
+          enum:
+          - running
+          - waiting
+          - unreachable
+        metadata:
+          $ref: '#/components/schemas/CoreInstanceMetadata'
+        pipelinesCount:
+          type: integer
+          minimum: 0
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        tags:
+          type: array
+          nullable: true
+          default: null
+          uniqueItems: true
+          items:
+            type: string
+        environmentName:
+          type: string
+          default: default
+          example: default
+        skipServiceCreation:
+          type: boolean
+          default: false
+      required:
+      - id
+      - name
+      - pipelinesCount
+      - environmentName
+      - skipServiceCreation
+      - createdAt
+      - updatedAt
+    MetadataAWS:
+      type: object
+      description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
+
+        See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
+
+        '
+      properties:
+        aws.ami_id:
+          type: string
+        aws.account_id:
+          type: string
+        aws.hostname:
+          type: string
+        aws.vpc_id:
+          type: string
+        aws.private_ipv4:
+          type: string
+        aws.public_ipv4:
+          type: string
+        aws.ec2_instance_id:
+          type: string
+        aws.ec2_instance_type:
+          type: string
+        aws.az:
+          type: string
+    CoreInstance:
+      $ref: '#/components/schemas/Aggregator'
+    MetadataGCP:
+      type: object
+      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
+
+        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
+
+        '
+      properties:
+        gcp.project_number:
+          type: number
+        gcp.project_id:
+          type: string
+        gcp.instance_id:
+          type: number
+        gcp.instance_image:
+          type: string
+        gcp.machine_type:
+          type: string
+        gcp.instance_name:
+          type: string
+        gcp.zone:
+          type: string
+    CoreInstances:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoreInstance'
+        endCursor:
+          type: string
+          nullable: true
+        count:
+          type: number
+          format: int32
+      required:
+      - items
+      - endCursor
+      - count
+    CoreInstanceMetadata:
+      type: object
+      description: Core Instance Metadata model.
+      anyOf:
+      - $ref: '#/components/schemas/MetadataAWS'
+      - $ref: '#/components/schemas/MetadataGCP'
+      - $ref: '#/components/schemas/MetadataK8S'
+    MetadataK8S:
+      type: object
+      description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
+
+        See: https://github.com/kubernetes/website/blob/60390ff3c0ef0043a58568ad2e4c2b7634028074/content/en/examples/pods/inject/dapi-volume.yaml#L5
+
+        '
+      properties:
+        k8s.namespace:
+          type: string
+        k8s.cluster_name:
+          type: string
+        k8s.zone:
+          type: string
+        k8s.cluster_version:
+          type: string
+        k8s.cluster_platform:
+          type: string
+  securitySchemes:
+    user:
+      type: http
+      scheme: bearer
+    project:
+      name: X-Project-Token
+      type: apiKey
+      in: header
+    auth0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
+        authorizationCode:
+          authorizationUrl: https://sso.calyptia.com/authorize
+          tokenUrl: https://sso.calyptia.com/oauth/token
+          scopes: {}
