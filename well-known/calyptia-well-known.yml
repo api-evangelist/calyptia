@@ -1,0 +1,27 @@
+generated: '2026-07-18'
+method: searched
+hosts:
+  - host: https://cloud-api.calyptia.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: calyptia-openid-configuration.json
+        note: >-
+          Minimal resource-server metadata (issuer + jwks_uri only) for the
+          Calyptia Cloud API bearer/JWT validation.
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://sso.calyptia.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: calyptia-sso-openid-configuration.json
+        note: >-
+          Auth0 tenant OIDC discovery for the auth0 oauth2 scheme
+          (authorize + token endpoints, jwks, supported scopes/claims).

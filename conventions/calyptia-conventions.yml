@@ -1,0 +1,81 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/calyptia-cloud-openapi-original.yml
+docs: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+api: Calyptia Cloud API
+summary: >-
+  Cross-cutting request/response semantics for the Calyptia Cloud API, derived
+  from the OpenAPI 3.0.4 spec and the Calyptia Cloud API reference docs.
+authentication:
+  styles:
+    - name: project-token
+      type: apiKey
+      in: header
+      parameter: X-Project-Token
+      note: Project API key generated in the web UI (core.calyptia.com) / Settings.
+    - name: user-bearer
+      type: http
+      scheme: bearer
+      note: User JWT bearer token for interactive/user-scoped operations.
+    - name: auth0-oauth2
+      type: oauth2
+      flows: [clientCredentials, authorizationCode]
+      token_url: https://sso.calyptia.com/oauth/token
+  ref: authentication/calyptia-authentication.yml
+pagination:
+  style: cursor
+  params:
+    - name: last
+      in: query
+      role: page-size
+      note: Max number of items to return.
+    - name: before
+      in: query
+      role: cursor
+      note: Return items before this cursor (opaque).
+    - name: after
+      in: query
+      role: cursor
+      note: Return items after this cursor (opaque).
+    - name: name
+      in: query
+      role: filter
+      note: Filter list results by name where supported.
+  response_fields:
+    - items
+    - endCursor
+  note: >-
+    List endpoints return a page of items plus an endCursor; pass it back as
+    `before`/`after` to walk pages. Offset/page-number pagination is not used.
+idempotency:
+  supported: false
+  note: >-
+    The spec declares no Idempotency-Key parameter/header and the docs document
+    no idempotency contract. Writes are not idempotent by key; use conditional
+    create/update flows instead.
+versioning:
+  scheme: uri-path
+  current: v1
+  note: >-
+    Endpoints are under /v1. Some resources expose V2 variants
+    (e.g. pipelinesV2, processingRule V1/V2) selected by path, not by header.
+error_envelope:
+  format: json
+  media_type: application/json
+  shape:
+    error: string
+  rfc9457: false
+  note: >-
+    Errors return a simple JSON object `{ "error": "<message>" }`. Not RFC 9457
+    application/problem+json. See errors/calyptia-problem-types.yml.
+  ref: errors/calyptia-problem-types.yml
+request_tracing:
+  request_id_header: null
+  note: No documented request-id/correlation header in the spec.
+rate_limiting:
+  documented: false
+  note: No rate-limit headers or policy documented in the spec/docs.
+metadata:
+  note: >-
+    Agent/instance metadata (rawConfig, machineID, and cloud metadata blocks for
+    AWS/GCP/Azure) is modeled on the Agent and Aggregator resources.

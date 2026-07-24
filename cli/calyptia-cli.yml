@@ -1,0 +1,48 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/chronosphereio/calyptia-cli
+api: Calyptia Cloud API
+name: calyptia
+description: >-
+  Official Calyptia Cloud CLI (the `calyptia` binary) for managing telemetry
+  pipelines, core instances, fleets, agents and projects against the Calyptia
+  Cloud API. Actively maintained under the chronosphereio org.
+latest_version: v3.115.0
+latest_release: '2026-07-09'
+repo: https://github.com/chronosphereio/calyptia-cli
+docs: https://docs.chronosphere.io/pipeline-cli
+install:
+  - method: homebrew
+    command: brew tap calyptia/tap && brew install calyptia
+  - method: go
+    command: go install github.com/calyptia/cli@latest
+  - method: release-binary
+    command: Download from https://github.com/chronosphereio/calyptia-cli/releases
+authentication:
+  token_env: CALYPTIA_CLOUD_TOKEN
+  token_flag: --token
+  setup: calyptia config set_token <project-api-token>
+  note: Project API token obtained from core.calyptia.com / project Settings.
+command_groups:
+  - name: config
+    description: Configure the auth token and CLI settings (set_token, current_project).
+  - name: create
+    description: Create resources (core instances, pipelines, fleets, tokens, environments, etc.).
+  - name: get
+    description: List/retrieve resources.
+  - name: update
+    description: Modify existing resources.
+  - name: delete
+    description: Remove resources.
+  - name: watch
+    description: Stream events / logs.
+  - name: rollout
+    description: Roll a pipeline config back to a previous revision.
+  - name: install
+    description: Install Calyptia Core into a Kubernetes cluster.
+  - name: uninstall
+    description: Remove Calyptia Core from a cluster.
+key_flows:
+  - Configure token, then create a core instance and deploy a pipeline.
+  - Register and manage Fluent Bit agents across fleets.
+  - Roll pipeline configuration forward/back with rollout.

@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: calyptia.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 23 19:16:52 2026 GMT
+  hsts: false
+- host: cloud-api.calyptia.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  3 17:15:25 2026 GMT
+  hsts: null
+- host: cloud-api-dev.calyptia.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 31 12:13:02 2026 GMT
+  hsts: null
+domains:
+- domain: calyptia.com
+  dnssec: false
+  caa:
+  - 0 issue "digicert.com; cansignhttpexchanges=yes"
+  - 0 issue "letsencrypt.org"
+  - 0 issue "pki.goog; cansignhttpexchanges=yes"
+  - 0 issue "ssl.com"
+  - 0 issuewild "comodoca.com"
+  - 0 issuewild "digicert.com; cansignhttpexchanges=yes"
+  spf: true
+  dmarc: true
+  dmarc_policy: none

@@ -1,0 +1,33 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/chronosphereio/calyptia-cli/releases
+subject: Calyptia Cloud CLI
+scheme: semver
+current_version: v3.115.0
+note: >-
+  The Calyptia Cloud API spec is versioned via the github.com/calyptia/api Go
+  module (latest v1.11.0, 2024-08-28). The actively-released surface is the
+  Calyptia Cloud CLI, which tracks the Cloud API; recent tagged releases below.
+  No dated human-authored per-endpoint changelog is published for the HTTP API
+  itself.
+entries:
+  - version: v3.115.0
+    date: '2026-07-09'
+    type: release
+  - version: v3.112.0
+    date: '2026-06-24'
+    type: release
+  - version: v3.110.0
+    date: '2026-06-15'
+    type: release
+  - version: v3.109.0
+    date: '2026-06-08'
+    type: release
+  - version: v3.107.0
+    date: '2026-05-27'
+    type: release
+api_client:
+  module: github.com/calyptia/api
+  latest_version: v1.11.0
+  date: '2024-08-28'
+  releases: https://github.com/chronosphereio/calyptia-api/releases

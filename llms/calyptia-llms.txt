@@ -1,0 +1,40 @@
+# Calyptia
+
+> Calyptia builds Calyptia Cloud (Telemetry Pipeline) and Calyptia Core — a management
+> plane for Fluent Bit, the open-source telemetry agent for logs, metrics and traces.
+> Calyptia was acquired by Chronosphere in 2024; calyptia.com now redirects to
+> chronosphere.io, but the Calyptia Cloud API (cloud-api.calyptia.com), its API
+> reference, status page and CLI remain live and actively released.
+
+## API
+- [Calyptia Cloud API (OpenAPI 3.0.4)](openapi/calyptia-cloud-openapi-original.yml): 183 operations across projects, tokens, core instances (aggregators), pipelines, fleets, agents, processing rules, trace sessions and metrics. Base URL https://cloud-api.calyptia.com.
+- [API Reference](https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference)
+
+## Auth
+- Project API token via `X-Project-Token` header (from core.calyptia.com / project Settings)
+- User JWT bearer token
+- OAuth2 (Auth0, sso.calyptia.com): clientCredentials + authorizationCode
+- [Authentication profile](authentication/calyptia-authentication.yml)
+- [OAuth / OIDC scopes](scopes/calyptia-scopes.yml)
+
+## Conventions
+- [API conventions](conventions/calyptia-conventions.yml): cursor pagination (last + before/after -> endCursor), `{ "error": ... }` envelope, no idempotency keys
+- [Error catalog](errors/calyptia-problem-types.yml)
+- [Data model / ERD](data-model/calyptia-data-model.yml)
+- [Conformance](conformance/calyptia-conformance.yml)
+
+## Tooling
+- [Packages / SDKs](packages/calyptia-packages.yml): Go client `github.com/calyptia/api`, Go CLI `github.com/calyptia/cli`, npm `@calyptia/fluent-bit-config-parser`
+- [CLI](cli/calyptia-cli.yml): the `calyptia` binary (brew tap calyptia/tap)
+- [MCP (candidate)](mcp/calyptia-mcp.yml)
+- [Agent Skills](skills/_index.yml)
+
+## Operations
+- [Lifecycle](lifecycle/calyptia-lifecycle.yml) — status https://status.calyptia.com/
+- [Changelog](changelog/calyptia-changelog.yml)
+- [Well-known discovery](well-known/calyptia-well-known.yml)
+
+## Docs
+- [Developer docs](https://docs.calyptia.com/docs/calyptia-cloud-api)
+- [Pipeline CLI docs](https://docs.chronosphere.io/pipeline-cli)
+- [GitHub org](https://github.com/chronosphereio)

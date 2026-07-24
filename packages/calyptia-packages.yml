@@ -1,0 +1,44 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/chronosphereio/calyptia-api
+packages:
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/calyptia/api
+    url: https://pkg.go.dev/github.com/calyptia/api
+    install: go get github.com/calyptia/api
+    version: v1.11.0
+    official: true
+    description: OpenAPI spec, types and client for the API to Calyptia Cloud.
+    repo: https://github.com/chronosphereio/calyptia-api
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/calyptia/cli
+    url: https://pkg.go.dev/github.com/calyptia/cli
+    install: go install github.com/calyptia/cli@latest
+    version: v1.20.3
+    official: true
+    description: Calyptia Cloud CLI (the `calyptia` binary) built on the Go API client.
+    repo: https://github.com/chronosphereio/calyptia-cli
+  - language: javascript
+    registry: npm
+    name: "@calyptia/fluent-bit-config-parser"
+    url: https://www.npmjs.com/package/@calyptia/fluent-bit-config-parser
+    install: npm install @calyptia/fluent-bit-config-parser
+    version: 1.3.1
+    official: true
+    description: Fluent Bit configuration parser for JS/TS (classic + YAML config).
+    repo: https://github.com/chronosphereio/calyptia-fluent-bit-config-parser
+  - language: go
+    registry: pkg.go.dev
+    name: github.com/calyptia/plugin
+    url: https://pkg.go.dev/github.com/calyptia/plugin
+    install: go get github.com/calyptia/plugin
+    official: true
+    description: Golang package to build Fluent Bit input/output plugins.
+    repo: https://github.com/chronosphereio/calyptia-plugin
+notes: >-
+  Calyptia was acquired by Chronosphere (2024); the repositories now live under the
+  chronosphereio GitHub org but the Go module paths remain github.com/calyptia/*.
+  The Go API client (github.com/calyptia/api) is the first-party SDK for the
+  Calyptia Cloud API and is what the calyptia CLI is built on.

@@ -1,0 +1,50 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/calyptia-cloud-openapi-original.yml
+docs: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+format: json
+rfc9457: false
+envelope:
+  media_type: application/json
+  shape:
+    error: string
+  note: >-
+    The Calyptia Cloud API returns errors as a flat JSON object
+    { "error": "<human message>" } rather than RFC 9457 problem+json. Only one
+    4xx/5xx response body is explicitly declared in the OpenAPI (a 409 on
+    deleteMember); the remaining error semantics follow HTTP status codes with
+    the shared { error } envelope.
+problems:
+  - status: 409
+    title: Conflict
+    envelope_field: error
+    example: cannot delete last creator
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#deleteMember
+    remediation: >-
+      On "cannot delete last creator", delete the project instead of removing the
+      last creator membership.
+  - status: 401
+    title: Unauthorized
+    envelope_field: error
+    remediation: >-
+      Supply a valid X-Project-Token, user bearer JWT, or auth0 access token.
+    derived: true
+  - status: 403
+    title: Forbidden
+    envelope_field: error
+    remediation: The token lacks access to the target project/resource.
+    derived: true
+  - status: 404
+    title: Not Found
+    envelope_field: error
+    remediation: The referenced resource ID does not exist or is not visible to the token.
+    derived: true
+  - status: 422
+    title: Unprocessable Entity
+    envelope_field: error
+    remediation: Request body failed validation (e.g. invalid pipeline/agent config).
+    derived: true
+notes: >-
+  Statuses marked derived: true are the conventional HTTP responses implied by
+  the API's auth/validation model; only the 409 case is explicitly declared in
+  the spec. No published numbered error-code registry was found.

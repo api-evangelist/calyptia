@@ -1,0 +1,128 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/calyptia-cloud-openapi-original.yml
+api: Calyptia Cloud API
+note: >-
+  Entity-relationship graph derived from OpenAPI component schemas ($ref links and
+  *ID reference fields). In the Calyptia data model a "core instance" is modeled as
+  the `Aggregator` resource; pipelines belong to an aggregator (core instance).
+entities:
+  - name: Project
+    id: id
+    description: Top-level tenant/workspace that owns all other resources.
+  - name: User
+    id: id
+  - name: Membership
+    id: id
+    description: Join between a User and a Project (role).
+  - name: Token
+    id: id
+    description: Project API token (X-Project-Token).
+  - name: Environment
+    id: id
+  - name: Fleet
+    id: id
+    description: A managed group of Fluent Bit agents.
+  - name: Agent
+    id: id
+    description: A registered Fluent Bit agent instance.
+  - name: Aggregator
+    id: id
+    description: Core instance (Calyptia Core) that runs pipelines.
+  - name: Pipeline
+    id: id
+    description: A telemetry pipeline running on a core instance.
+  - name: PipelineConfig
+    id: id
+  - name: PipelineFile
+    id: id
+  - name: PipelineSecret
+    id: id
+  - name: PipelinePort
+    id: id
+  - name: ProcessingRule
+    description: Processing rule applied to a pipeline (V1/V2).
+  - name: TraceSession
+    id: id
+    description: Live trace/inspection session on a pipeline.
+  - name: ResourceProfile
+    id: id
+relationships:
+  - from: Membership
+    to: User
+    type: belongs_to
+    via: userID
+  - from: Membership
+    to: Project
+    type: belongs_to
+    via: projectID
+  - from: Token
+    to: Project
+    type: belongs_to
+    via: projectID
+  - from: Fleet
+    to: Project
+    type: belongs_to
+    via: projectID
+  - from: Agent
+    to: Fleet
+    type: belongs_to
+    via: fleetID
+  - from: Agent
+    to: Pipeline
+    type: belongs_to
+    via: pipelineID
+  - from: Agent
+    to: Environment
+    type: belongs_to
+    via: environmentID
+  - from: Aggregator
+    to: Environment
+    type: belongs_to
+    via: environmentID
+  - from: Pipeline
+    to: Aggregator
+    type: belongs_to
+    via: aggregatorID
+  - from: CoreInstanceFile
+    to: Aggregator
+    type: belongs_to
+    via: coreInstanceID
+  - from: CoreInstanceSecret
+    to: Aggregator
+    type: belongs_to
+    via: coreInstanceID
+  - from: Sidecar
+    to: Pipeline
+    type: belongs_to
+    via: pipelineID
+  - from: PipelineLog
+    to: Pipeline
+    type: belongs_to
+    via: pipelineID
+  - from: ClusterObjectRegex
+    to: Pipeline
+    type: belongs_to
+    via: pipelineID
+  - from: PipelineFile
+    to: ProcessingRule
+    type: belongs_to
+    via: processingRuleID
+  - from: Project
+    to: Fleet
+    type: has_many
+  - from: Project
+    to: Aggregator
+    type: has_many
+  - from: Project
+    to: Token
+    type: has_many
+  - from: Project
+    to: Environment
+    type: has_many
+  - from: Aggregator
+    to: Pipeline
+    type: has_many
+  - from: Fleet
+    to: Agent
+    type: has_many

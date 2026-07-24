@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Calyptia Cloud API
+  version: 1.0.0
+extends: openapi/calyptia-cloud-openapi-original.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-18'
+      x-apievangelist-provider: calyptia
+      x-apievangelist-parent-company: chronosphere
+      x-api-status-page: https://status.calyptia.com/
+      x-api-reference: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+  - target: $.components.securitySchemes.project
+    update:
+      description: >-
+        Project API token issued from the Calyptia Cloud web UI
+        (core.calyptia.com / project Settings). Primary auth for most operations.
+  - target: $.components.securitySchemes.auth0
+    update:
+      description: >-
+        Auth0 tenant (sso.calyptia.com). OIDC discovery at
+        https://sso.calyptia.com/.well-known/openid-configuration.
+        Scope maps are empty; API authorization is coarse-grained via project token.
+  - target: $.info
+    update:
+      x-apievangelist-conventions:
+        pagination: cursor (last + before/after -> endCursor)
+        error_envelope: '{ "error": string } (not RFC 9457)'
+        idempotency: not supported

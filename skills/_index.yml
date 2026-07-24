@@ -1,0 +1,16 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/calyptia-cloud-openapi-original.yml
+skills:
+  - file: calyptia-deploy-pipeline.md
+    name: Deploy a Calyptia telemetry pipeline
+    api: openapi/calyptia-cloud-openapi-original.yml
+    operations: [createAggregator, createPipeline, pipeline, pipelineConfigHistory]
+  - file: calyptia-manage-fleet.md
+    name: Manage a Calyptia agent fleet
+    api: openapi/calyptia-cloud-openapi-original.yml
+    operations: [createFleet, fleets, registerAgent, agents, updateAgent]
+  - file: calyptia-trace-pipeline.md
+    name: Live-trace a Calyptia pipeline
+    api: openapi/calyptia-cloud-openapi-original.yml
+    operations: [createTraceSession, traceSessions, activeTraceSession, terminateActiveTraceSession]

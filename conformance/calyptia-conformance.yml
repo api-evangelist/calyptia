@@ -1,0 +1,41 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/calyptia-cloud-openapi-original.yml
+api: Calyptia Cloud API
+standards:
+  - id: oauth2
+    conforms: true
+    evidence: components.securitySchemes declares auth0 oauth2 (clientCredentials + authorizationCode).
+  - id: oidc
+    conforms: true
+    evidence: >-
+      sso.calyptia.com and cloud-api.calyptia.com publish
+      /.well-known/openid-configuration (Auth0 tenant + resource-server metadata).
+  - id: apikey-auth
+    conforms: true
+    evidence: X-Project-Token apiKey header scheme.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a flat { error } JSON envelope, not application/problem+json.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset/Deprecation header or deprecation policy documented.
+  - id: json-api
+    conforms: false
+  - id: fhir-r4
+    conforms: false
+  - id: scim2
+    conforms: false
+  - id: odata
+    conforms: false
+  - id: cursor-pagination
+    conforms: true
+    evidence: List endpoints use cursor pagination (last + before/after + endCursor).
+  - id: saml-sso
+    conforms: true
+    evidence: OpenAPI exposes saml_mapping tag/operations for enterprise SAML SSO.
+notes: >-
+  Derived from the OpenAPI and published discovery documents. No independent
+  compliance-certification program (SOC 2 / ISO 27001 / HIPAA) was verified on a
+  Calyptia-branded trust page; the security-programs probe returned no trust
+  center, so no `Compliance` pointer is emitted.

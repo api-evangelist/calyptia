@@ -1,0 +1,35 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/calyptia-cloud-openapi-original.yml
+api: Calyptia Cloud API
+versioning:
+  scheme: uri-path
+  current: v1
+  note: >-
+    Endpoints live under /v1; selected resources expose V2 path variants
+    (pipelinesV2, processingRule V1/V2). No date/header-based version negotiation.
+  docs: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: >-
+    No published deprecation policy or RFC 8594 Sunset/Deprecation header support
+    was found. V1/V2 coexistence suggests additive versioning rather than a dated
+    deprecation program.
+status_page: https://status.calyptia.com/
+status_pages:
+  - https://status.calyptia.com/
+  - https://status.chronosphere.io/
+sla:
+  url: null
+  note: No public SLA/uptime target found for Calyptia Cloud.
+changelog:
+  ref: changelog/calyptia-changelog.yml
+  source: https://github.com/chronosphereio/calyptia-cli/releases
+deprecated_operations: []
+notes: >-
+  Calyptia was acquired by Chronosphere (2024); calyptia.com now redirects to
+  chronosphere.io and product docs to docs.chronosphere.io/pipelines, but the
+  Calyptia Cloud API (cloud-api.calyptia.com), its API reference
+  (docs.calyptia.com/docs/calyptia-cloud-api), status page, and CLI remain live
+  and actively released.

@@ -1,0 +1,66 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/calyptia-cloud-openapi-original.yml
+note: >-
+  No official hosted/remote MCP server was found for Calyptia Cloud. This is a
+  CANDIDATE manifest deriving one tool per representative Calyptia Cloud API
+  operation (of 183 total) so an MCP server could be generated from the OpenAPI.
+  Auth: X-Project-Token header (project API key).
+server:
+  name: calyptia
+  transport: http
+  url: null
+  auth:
+    type: apiKey
+    in: header
+    parameter: X-Project-Token
+tools:
+  - name: list_projects
+    description: List projects for the authenticated principal.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#projects
+  - name: create_project
+    description: Create a project.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#createProject
+  - name: create_token
+    description: Create a project API token.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#createToken
+  - name: list_core_instances
+    description: List core instances (aggregators) in a project.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#coreInstances
+  - name: create_core_instance
+    description: Create a core instance (aggregator).
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#createAggregator
+  - name: list_project_pipelines
+    description: List pipelines across a project.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#projectPipelines
+  - name: create_pipeline
+    description: Create a pipeline on a core instance.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#createPipeline
+  - name: get_pipeline
+    description: Get a pipeline by ID.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#pipeline
+  - name: update_pipeline
+    description: Update a pipeline.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#updatePipeline
+  - name: get_pipeline_config_history
+    description: List a pipeline's configuration history.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#pipelineConfigHistory
+  - name: list_fleets
+    description: List fleets in a project.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#fleets
+  - name: create_fleet
+    description: Create a fleet of agents.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#createFleet
+  - name: list_agents
+    description: List registered agents.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#agents
+  - name: register_agent
+    description: Register a Fluent Bit agent.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#registerAgent
+  - name: create_trace_session
+    description: Start a live trace session on a pipeline.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#createTraceSession
+  - name: create_processing_rule
+    description: Create a pipeline processing rule.
+    source_operation: openapi/calyptia-cloud-openapi-original.yml#createProcessingRuleV1

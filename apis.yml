@@ -1,8 +1,16 @@
 aid: calyptia
 name: Calyptia
-description: 'Calyptia is a company surfaced as a portfolio company of sierra-ventures and added to the
-  API Evangelist network as a stub for enrichment. Sector: infrastructure. This profile is a lead awaiting
-  the enrichment pipeline.'
+description: >-
+  Calyptia builds Calyptia Cloud (Telemetry Pipeline) and Calyptia Core, a
+  commercial management plane for Fluent Bit — the widely deployed open-source
+  agent and processor for logs, metrics and traces. The Calyptia Cloud API lets
+  teams create and operate core instances, telemetry pipelines, agent fleets,
+  processing rules and live trace sessions programmatically, authenticated with
+  project API tokens. Calyptia was founded by the creators of Fluent Bit and
+  Fluentd and was acquired by Chronosphere in 2024; calyptia.com and the product
+  docs now route to chronosphere.io, but the Calyptia Cloud API
+  (cloud-api.calyptia.com), its API reference, status page, Go client and the
+  `calyptia` CLI remain live and actively released. Backed by Sierra Ventures.
 url: https://raw.githubusercontent.com/api-evangelist/calyptia/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,18 +18,672 @@ x-backed-by:
 - sierra-ventures
 x-tier: stub
 x-tier-reason: portfolio-lead
+x-parent-company: chronosphere
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://avatars.githubusercontent.com/u/69334719?v=4
 tags:
 - Company
 - Infrastructure
-apis: []
+- Observability
+- Telemetry
+- Logging
+- Fluent Bit
+- Data Pipeline
+- Kubernetes
+- DevOps
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: calyptia:calyptia-agent-api
+  name: Calyptia agent API
+  description: The agent API from Calyptia — 3 operation(s) for agent.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - agent
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-agent-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-agent-config-api
+  name: Calyptia agent_config API
+  description: The agent_config API from Calyptia — 1 operation(s) for agent_config.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - agent_config
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-agent-config-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-agent-error-api
+  name: Calyptia agent_error API
+  description: The agent_error API from Calyptia — 3 operation(s) for agent_error.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - agent_error
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-agent-error-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-aggregator-api
+  name: Calyptia aggregator API
+  description: The aggregator API from Calyptia — 4 operation(s) for aggregator.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - aggregator
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-aggregator-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-audit-log-api
+  name: Calyptia audit_log API
+  description: The audit_log API from Calyptia — 1 operation(s) for audit_log.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - audit_log
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-audit-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-aws-marketplace-api
+  name: Calyptia aws_marketplace API
+  description: The aws_marketplace API from Calyptia — 2 operation(s) for aws_marketplace.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - aws_marketplace
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-aws-marketplace-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-cluster-object-api
+  name: Calyptia cluster_object API
+  description: The cluster_object API from Calyptia — 2 operation(s) for cluster_object.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - cluster_object
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-cluster-object-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-cluster-object-regex-api
+  name: Calyptia cluster_object_regex API
+  description: The cluster_object_regex API from Calyptia — 2 operation(s) for cluster_object_regex.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - cluster_object_regex
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-cluster-object-regex-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-config-section-api
+  name: Calyptia config_section API
+  description: The config_section API from Calyptia — 3 operation(s) for config_section.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - config_section
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-config-section-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-config-validator-api
+  name: Calyptia config_validator API
+  description: The config_validator API from Calyptia — 2 operation(s) for config_validator.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - config_validator
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-config-validator-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-config-validator-v2-api
+  name: Calyptia config_validator_v2 API
+  description: The config_validator_v2 API from Calyptia — 1 operation(s) for config_validator_v2.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - config_validator_v2
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-config-validator-v2-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-core-instance-api
+  name: Calyptia core_instance API
+  description: The core_instance API from Calyptia — 1 operation(s) for core_instance.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - core_instance
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-core-instance-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-core-instance-check-api
+  name: Calyptia core_instance_check API
+  description: The core_instance_check API from Calyptia — 2 operation(s) for core_instance_check.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - core_instance_check
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-core-instance-check-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-core-instance-file-api
+  name: Calyptia core_instance_file API
+  description: The core_instance_file API from Calyptia — 2 operation(s) for core_instance_file.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - core_instance_file
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-core-instance-file-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-core-instance-secret-api
+  name: Calyptia core_instance_secret API
+  description: The core_instance_secret API from Calyptia — 2 operation(s) for core_instance_secret.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - core_instance_secret
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-core-instance-secret-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-environment-api
+  name: Calyptia environment API
+  description: The environment API from Calyptia — 2 operation(s) for environment.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - environment
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-environment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-fleet-api
+  name: Calyptia fleet API
+  description: The fleet API from Calyptia — 7 operation(s) for fleet.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - fleet
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-fleet-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-invitation-api
+  name: Calyptia invitation API
+  description: The invitation API from Calyptia — 2 operation(s) for invitation.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - invitation
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-invitation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-membership-api
+  name: Calyptia membership API
+  description: The membership API from Calyptia — 2 operation(s) for membership.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - membership
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-membership-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-metric-api
+  name: Calyptia metric API
+  description: The metric API from Calyptia — 17 operation(s) for metric.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - metric
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-metric-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-api
+  name: Calyptia pipeline API
+  description: The pipeline API from Calyptia — 5 operation(s) for pipeline.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-check-api
+  name: Calyptia pipeline_check API
+  description: The pipeline_check API from Calyptia — 2 operation(s) for pipeline_check.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_check
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-check-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-cluster-objects-api
+  name: Calyptia pipeline_cluster_objects API
+  description: >-
+    The pipeline_cluster_objects API from Calyptia — 1 operation(s) for pipeline_cluster_objects.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_cluster_objects
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-cluster-objects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-config-api
+  name: Calyptia pipeline_config API
+  description: The pipeline_config API from Calyptia — 1 operation(s) for pipeline_config.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_config
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-config-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-file-api
+  name: Calyptia pipeline_file API
+  description: The pipeline_file API from Calyptia — 2 operation(s) for pipeline_file.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_file
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-file-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-log-api
+  name: Calyptia pipeline_log API
+  description: The pipeline_log API from Calyptia — 2 operation(s) for pipeline_log.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_log
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-log-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-metadata-api
+  name: Calyptia pipeline_metadata API
+  description: The pipeline_metadata API from Calyptia — 1 operation(s) for pipeline_metadata.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-port-api
+  name: Calyptia pipeline_port API
+  description: The pipeline_port API from Calyptia — 2 operation(s) for pipeline_port.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_port
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-port-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-secret-api
+  name: Calyptia pipeline_secret API
+  description: The pipeline_secret API from Calyptia — 2 operation(s) for pipeline_secret.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_secret
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-secret-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-pipeline-status-api
+  name: Calyptia pipeline_status API
+  description: The pipeline_status API from Calyptia — 1 operation(s) for pipeline_status.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - pipeline_status
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-pipeline-status-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-processing-rule-api
+  name: Calyptia processing_rule API
+  description: The processing_rule API from Calyptia — 3 operation(s) for processing_rule.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - processing_rule
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-processing-rule-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-processing-rule-template-api
+  name: Calyptia processing_rule_template API
+  description: >-
+    The processing_rule_template API from Calyptia — 4 operation(s) for processing_rule_template.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - processing_rule_template
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-processing-rule-template-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-project-api
+  name: Calyptia project API
+  description: The project API from Calyptia — 2 operation(s) for project.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - project
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-project-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-resource-profile-api
+  name: Calyptia resource_profile API
+  description: The resource_profile API from Calyptia — 2 operation(s) for resource_profile.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - resource_profile
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-resource-profile-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-saml-mapping-api
+  name: Calyptia saml_mapping API
+  description: The saml_mapping API from Calyptia — 2 operation(s) for saml_mapping.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - saml_mapping
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-saml-mapping-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-search-api
+  name: Calyptia search API
+  description: The search API from Calyptia — 2 operation(s) for search.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-sidecar-api
+  name: Calyptia sidecar API
+  description: The sidecar API from Calyptia — 2 operation(s) for sidecar.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - sidecar
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-sidecar-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-token-api
+  name: Calyptia token API
+  description: The token API from Calyptia — 2 operation(s) for token.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - token
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-token-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-trace-record-api
+  name: Calyptia trace_record API
+  description: The trace_record API from Calyptia — 2 operation(s) for trace_record.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - trace_record
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-trace-record-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-trace-session-api
+  name: Calyptia trace_session API
+  description: The trace_session API from Calyptia — 3 operation(s) for trace_session.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - trace_session
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-trace-session-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- aid: calyptia:calyptia-user-api
+  name: Calyptia user API
+  description: The user API from Calyptia — 1 operation(s) for user.
+  humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
+  baseURL: https://cloud-api.calyptia.com
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/calyptia-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api
+  - type: APIReference
+    url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 common:
+- type: DeveloperPortal
+  url: https://docs.calyptia.com/docs/calyptia-cloud-api
+- type: Documentation
+  url: https://docs.calyptia.com/docs/calyptia-cloud-api
+- type: APIReference
+  url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
+- type: GettingStarted
+  url: https://docs.chronosphere.io/pipeline-cli/authenticate
+- type: Blog
+  url: https://chronosphere.io/learn/
+- type: GitHubOrganization
+  url: https://github.com/calyptia
+- type: StatusPage
+  url: https://status.calyptia.com/
+- type: PrivacyPolicy
+  url: https://calyptia.com/privacy/
+- type: Login
+  url: https://core.calyptia.com/
+- type: Authentication
+  url: authentication/calyptia-authentication.yml
+- type: OAuthScopes
+  url: scopes/calyptia-scopes.yml
+- type: AgenticAccess
+  url: agentic-access/calyptia-agentic-access.yml
+- type: DomainSecurity
+  url: security/calyptia-domain-security.yml
+- type: Packages
+  url: packages/calyptia-packages.yml
+- type: SDKs
+  url: packages/calyptia-packages.yml
+- type: CLI
+  url: cli/calyptia-cli.yml
+- type: WellKnown
+  url: well-known/calyptia-well-known.yml
+- type: MCPServer
+  url: mcp/calyptia-mcp.yml
+- type: LLMsTxt
+  url: llms/calyptia-llms.txt
+- type: Conformance
+  url: conformance/calyptia-conformance.yml
+- type: ErrorCatalog
+  url: errors/calyptia-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/calyptia-lifecycle.yml
+- type: Conventions
+  url: conventions/calyptia-conventions.yml
+- type: ChangeLog
+  url: changelog/calyptia-changelog.yml
+- type: DataModel
+  url: data-model/calyptia-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: Website
   url: https://calyptia.com/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

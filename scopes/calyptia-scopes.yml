@@ -1,0 +1,47 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/calyptia-cloud-openapi-original.yml
+docs: https://sso.calyptia.com/.well-known/openid-configuration
+notes: >-
+  The Calyptia Cloud OpenAPI declares the auth0 oauth2 scheme with EMPTY scope
+  maps on both flows (clientCredentials + authorizationCode) — the API does not
+  define resource scopes; authorization is coarse-grained via project tokens
+  (X-Project-Token) and user bearer JWTs. The scopes below are the OIDC identity
+  scopes advertised by the Auth0 tenant's published openid-configuration
+  (scopes_supported), used for the authorizationCode / login flow only. They are
+  identity/profile scopes, not API-resource permissions.
+schemes:
+  - name: auth0
+    source: openapi/calyptia-cloud-openapi-original.yml
+    flows:
+      - flow: clientCredentials
+        tokenUrl: https://sso.calyptia.com/oauth/token
+        scopes: []
+      - flow: authorizationCode
+        authorizationUrl: https://sso.calyptia.com/authorize
+        tokenUrl: https://sso.calyptia.com/oauth/token
+scopes:
+  - scope: openid
+    description: OIDC authentication (issue an ID token).
+    flows: [authorizationCode]
+    source: sso openid-configuration scopes_supported
+  - scope: profile
+    description: Basic profile claims (name, nickname, picture, etc.).
+    flows: [authorizationCode]
+    source: sso openid-configuration scopes_supported
+  - scope: email
+    description: Email address and email_verified claim.
+    flows: [authorizationCode]
+    source: sso openid-configuration scopes_supported
+  - scope: offline_access
+    description: Issue a refresh token for long-lived sessions.
+    flows: [authorizationCode]
+    source: sso openid-configuration scopes_supported
+  - scope: address
+    description: Postal address claim.
+    flows: [authorizationCode]
+    source: sso openid-configuration scopes_supported
+  - scope: phone
+    description: Phone number claim.
+    flows: [authorizationCode]
+    source: sso openid-configuration scopes_supported
