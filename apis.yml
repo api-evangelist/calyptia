@@ -628,6 +628,8 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 common:
+- type: Overlay
+  url: overlays/calyptia-cloud-overlay.yaml
 - type: DeveloperPortal
   url: https://docs.calyptia.com/docs/calyptia-cloud-api
 - type: Documentation
