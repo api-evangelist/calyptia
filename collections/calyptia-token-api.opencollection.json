@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent token API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "token",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/tokens",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last tokens."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name matching tokens."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Tokens from a project."
+        },
+        {
+          "info": {
+            "name": "Create token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/tokens",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create token within a project.\nThese tokens are to authorize other applications to access the project.\nFor example:\n - an agent might use it to register itself to the project.\n - you might deploy a new core instance in the project with the CLI/Helm.\n - you might use it within the Calyptia CLI to grant access to your project."
+        },
+        {
+          "info": {
+            "name": "Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/project_tokens/:tokenID",
+            "params": [
+              {
+                "name": "tokenID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Token by ID."
+        },
+        {
+          "info": {
+            "name": "Update token",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/project_tokens/:tokenID",
+            "params": [
+              {
+                "name": "tokenID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update token by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/project_tokens/:tokenID",
+            "params": [
+              {
+                "name": "tokenID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete token by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

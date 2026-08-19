@@ -1,0 +1,77 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent core_instance API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "core_instance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Core Instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/core_instances",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Parent project ID."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Limit to the last core instances."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Paginate core instances before the given cursor."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter core instances with the given name."
+              },
+              {
+                "name": "environment_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter core instances with the given environment ID."
+              },
+              {
+                "name": "tags_query",
+                "value": "",
+                "type": "query",
+                "description": "Filter core instances with the given tags query."
+              },
+              {
+                "name": "exclude_internal",
+                "value": "",
+                "type": "query",
+                "description": "Exclude internal pipelines (health-check) from count."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core Instances from a project with backward pagination."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,268 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent processing_rule_template API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "processing_rule_template",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Processing rule templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/processing_rule_templates",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last processing rule templates."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Processing rule templates before the given cursor."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter processing rule templates by name."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all processing rule templates in descending order with backward pagination."
+        },
+        {
+          "info": {
+            "name": "Create processing rule template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/processing_rule_templates",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new processing rule template."
+        },
+        {
+          "info": {
+            "name": "Update processing rule template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/processing_rule_templates/:templateID",
+            "params": [
+              {
+                "name": "templateID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a processing rule template details."
+        },
+        {
+          "info": {
+            "name": "Delete processing rule template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/processing_rule_templates/:templateID",
+            "params": [
+              {
+                "name": "templateID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a single processing rule template by its ID."
+        },
+        {
+          "info": {
+            "name": "Processing rule templates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/projects/:projectID/processing_rule_templates",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter processing rule templates by name."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last processing rule templates."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Processing rule templates before the given cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all processing rule templates in descending order with backward pagination."
+        },
+        {
+          "info": {
+            "name": "Create processing rule template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v2/projects/:projectID/processing_rule_templates",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create processing rule template"
+        },
+        {
+          "info": {
+            "name": "Processing rule template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/processing_rule_templates/:templateID",
+            "params": [
+              {
+                "name": "templateID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Processing rule template"
+        },
+        {
+          "info": {
+            "name": "Update processing rule template",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v2/processing_rule_templates/:templateID",
+            "params": [
+              {
+                "name": "templateID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update processing rule template"
+        },
+        {
+          "info": {
+            "name": "Delete processing rule template",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v2/processing_rule_templates/:templateID",
+            "params": [
+              {
+                "name": "templateID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete processing rule template"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

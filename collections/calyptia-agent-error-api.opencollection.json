@@ -1,0 +1,152 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent agent_error API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "agent_error",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Agent errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/agents/:agentID/errors",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dismissed",
+                "value": "",
+                "type": "query",
+                "description": "Filter agent errors that either were dismissed or were not."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last agent errors."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Agents errors before the given cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all agent errors in descending order with backward pagination.\nYou can optionally filter dismissed or not dismissed errors."
+        },
+        {
+          "info": {
+            "name": "Create agent error",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/agents/:agentID/errors",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Project-Token",
+              "value": "{{X-Project-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new agent error.\nThis endpoint should be called directly by agents themselves.\nNotice that if there is an error that matches exactly\nand has not been dismissed yet\nsince the last time the config was updated,\nthen the error will be simply ignored and not persisted."
+        },
+        {
+          "info": {
+            "name": "Fleet agent errors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/fleets/:fleetID/agent_errors",
+            "params": [
+              {
+                "name": "fleetID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "dismissed",
+                "value": "",
+                "type": "query",
+                "description": "Filter agent errors that either were dismissed or were not."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last agent errors."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Agents errors before the given cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all agent errors from the given fleet\nin descending order with backward pagination.\nYou can optionally filter dismissed or not dismissed errors."
+        },
+        {
+          "info": {
+            "name": "Dismiss agent error",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/agent_errors/:agentErrorID/dismiss",
+            "params": [
+              {
+                "name": "agentErrorID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Dismiss the given agent error. You must pass the reason for dismissal."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

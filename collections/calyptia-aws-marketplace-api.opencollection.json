@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent aws_marketplace API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "aws_marketplace",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AWS customer redirect",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/aws-customer-redirect",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "x-amzn-marketplace-token",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Redirect a request made from the AWS marketplace to the front-end\nso the customer can be registered with a selected project.\nThe given AWS token will be decoded and stored for future reference."
+        },
+        {
+          "info": {
+            "name": "Create AWS contract from token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/aws-contracts",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint should be called after being redirected from\n`awsCustomerRedirect`. The previous redirect should have stored the token\nfor usage. This endpoint attaches the token (and such the customer details)\nto the selected project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

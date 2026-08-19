@@ -1,0 +1,110 @@
+{
+  "item": [
+    {
+      "id": "f97fd652-dc42-4a72-93fd-9bbbc922771d",
+      "name": "user",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a6fcfccd-9627-4dbb-be68-947083744d3c",
+          "name": "Request verification email",
+          "request": {
+            "name": "Request verification email",
+            "description": {
+              "content": "Request a verification email for the user.\nWhen a new user registers within Calyptia Cloud with password, it should receive a verification email, in the case it didn't receive it, or the email expired already, use this endpoint to request a new one.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "verification_email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1613b14e-d0f8-4cb0-aeeb-18a1ad892262",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "verification_email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d8b93899-9aca-4892-8691-f403a608e882",
+    "name": "Calyptia Cloud agent user API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

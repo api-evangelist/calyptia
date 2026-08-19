@@ -1,0 +1,560 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent metric API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "metric",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Project metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/metrics",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Contains an overview of the aggregated metrics for a project.\nIt includes metrics link the amount of records, bytes, and errors per plugin."
+        },
+        {
+          "info": {
+            "name": "Agent metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/agents/:agentID/metrics",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Contains an overview of the aggregated metrics for an agent.\nIt includes metrics link the amount of records, bytes, and errors per plugin."
+        },
+        {
+          "info": {
+            "name": "Pipeline metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/pipeline_metrics/:pipelineID",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Contains an overview of the aggregated metrics for a pipeline.\nIt includes metrics link the amount of records, bytes, and errors per plugin."
+        },
+        {
+          "info": {
+            "name": "Core instance metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregator_metrics/:aggregatorID",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Option to set the time window to group metrics\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core instance metrics"
+        },
+        {
+          "info": {
+            "name": "Core instance pipelines metrics (bulk)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID/pipelines_metrics",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Option to set the time window to group metrics\n"
+              },
+              {
+                "name": "pipeline_id",
+                "value": "",
+                "type": "query",
+                "description": "List of pipeline IDs."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core instance pipelines metrics (bulk)"
+        },
+        {
+          "info": {
+            "name": "Core instance metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/core_instances/:coreInstanceID/metrics",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core instance metrics"
+        },
+        {
+          "info": {
+            "name": "Core instance metrics by plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/core_instances/:coreInstanceID/metrics_by_plugin",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core instance metrics by plugin."
+        },
+        {
+          "info": {
+            "name": "Core instance metrics over time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/core_instances/:coreInstanceID/metrics_over_time",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Option to set the time window to group metrics\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core instance metrics over time"
+        },
+        {
+          "info": {
+            "name": "Core instance metrics over time organized by plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/core_instances/:coreInstanceID/metrics_over_time_by_plugin",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Option to set the time window to group metrics\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core instance metrics over time organized by plugin"
+        },
+        {
+          "info": {
+            "name": "Pipeline metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/pipelines/:pipelineID/metrics",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipeline metrics"
+        },
+        {
+          "info": {
+            "name": "Pipeline metrics by plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/pipelines/:pipelineID/metrics_by_plugin",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipeline metrics by plugin."
+        },
+        {
+          "info": {
+            "name": "Pipeline metrics over time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/pipelines/:pipelineID/metrics_over_time",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Option to set the time window to group metrics\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipeline metrics over time"
+        },
+        {
+          "info": {
+            "name": "Pipeline metrics over time organized by plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/pipelines/:pipelineID/metrics_over_time_by_plugin",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Option to set the time window to group metrics\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipeline metrics over time organized by plugin"
+        },
+        {
+          "info": {
+            "name": "Agent metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/agents/:agentID/metrics",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Agent metrics"
+        },
+        {
+          "info": {
+            "name": "Agent metrics by plugin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/agents/:agentID/metrics_by_plugin",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Agent metrics by plugin."
+        },
+        {
+          "info": {
+            "name": "Agent metrics over time",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/agents/:agentID/metrics_over_time",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Option to set the time window to group metrics\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Agent metrics over time"
+        },
+        {
+          "info": {
+            "name": "Agent metrics over time organized by plugin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v2/agents/:agentID/metrics_over_time_by_plugin",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start",
+                "value": "",
+                "type": "query",
+                "description": "Option to filter metrics since the given time ago\n"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Option to set the time window to group metrics\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Agent metrics over time organized by plugin"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

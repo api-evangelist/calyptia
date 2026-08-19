@@ -1,0 +1,602 @@
+{
+  "item": [
+    {
+      "id": "41f6e6af-628f-435e-8c7f-6ab8714e1a5f",
+      "name": "pipeline_port",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "38b4a0cc-7332-48f6-a088-f2959b5adf71",
+          "name": "Create pipeline port",
+          "request": {
+            "name": "Create pipeline port",
+            "description": {
+              "content": "Create port within a pipeline.\nPorts can automatically be parsed from a config file, but this action allows you to programatically add more.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregator_pipelines",
+                ":pipelineID",
+                "ports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"protocol\": \"<string>\",\n  \"frontendPort\": \"<integer>\",\n  \"backendPort\": \"<integer>\",\n  \"endpoint\": \"<string>\",\n  \"kind\": \"LoadBalancer\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "54987bd3-adde-47c4-97f5-5a8628b31609",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregator_pipelines",
+                    ":pipelineID",
+                    "ports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"protocol\": \"tcp\",\n  \"frontendPort\": \"<integer>\",\n  \"backendPort\": \"<integer>\",\n  \"endpoint\": \"<string>\",\n  \"kind\": \"LoadBalancer\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"79be9aec-d2e7-1835-5a53-ce1c2ee57128\",\n  \"pluginID\": \"forward.0\",\n  \"pluginName\": \"forward\",\n  \"pluginAlias\": \"myforwardinput\",\n  \"createdAt\": \"1961-07-27T06:10:03.345Z\",\n  \"kind\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "17f27901-6b88-4d02-b9c0-fd92a7a0bbfc",
+          "name": "Pipeline ports",
+          "request": {
+            "name": "Pipeline ports",
+            "description": {
+              "content": "Ports from a pipeline.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregator_pipelines",
+                ":pipelineID",
+                "ports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last ports."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7fa057e6-f7bb-4679-b796-b88897d3dd47",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregator_pipelines",
+                    ":pipelineID",
+                    "ports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"981ce335-ac99-d291-d785-00a13ed23d85\",\n    \"protocol\": \"tcp\",\n    \"kind\": \"LoadBalancer\",\n    \"frontendPort\": 2030,\n    \"backendPort\": 9337,\n    \"endpoint\": \"string\",\n    \"pluginID\": \"forward.0\",\n    \"pluginName\": \"forward\",\n    \"pluginAlias\": \"myforwardinput\",\n    \"createdAt\": \"1967-10-25T02:10:45.308Z\",\n    \"updatedAt\": \"1982-01-23T16:00:29.356Z\"\n  },\n  {\n    \"id\": \"cff75a7b-6fb6-39cd-5a6a-6545261417d1\",\n    \"protocol\": \"tcp\",\n    \"kind\": \"LoadBalancer\",\n    \"frontendPort\": 1309,\n    \"backendPort\": 8647,\n    \"endpoint\": \"string\",\n    \"pluginID\": \"forward.0\",\n    \"pluginName\": \"forward\",\n    \"pluginAlias\": \"myforwardinput\",\n    \"createdAt\": \"1958-09-21T08:54:07.732Z\",\n    \"updatedAt\": \"1978-03-13T22:11:47.153Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee201ec8-676c-4c45-97e4-cc95a617e836",
+          "name": "Pipeline port",
+          "request": {
+            "name": "Pipeline port",
+            "description": {
+              "content": "Port by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "pipeline_ports",
+                ":portID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "portID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2003cf57-ae7e-4627-be17-0ea36da0a2bd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipeline_ports",
+                    ":portID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "portID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"02ea0114-7aa5-0562-b611-212dd0b0fb6b\",\n  \"protocol\": \"tcp\",\n  \"kind\": \"LoadBalancer\",\n  \"frontendPort\": 6922,\n  \"backendPort\": 3087,\n  \"endpoint\": \"string\",\n  \"pluginID\": \"forward.0\",\n  \"pluginName\": \"forward\",\n  \"pluginAlias\": \"myforwardinput\",\n  \"createdAt\": \"1966-05-07T08:50:14.736Z\",\n  \"updatedAt\": \"1992-02-29T22:17:01.476Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b437035-459a-4cdd-a7cb-5fbbe34b2bfe",
+          "name": "Update pipeline port",
+          "request": {
+            "name": "Update pipeline port",
+            "description": {
+              "content": "Update port by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "pipeline_ports",
+                ":portID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "portID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"protocol\": null,\n  \"frontendPort\": null,\n  \"backendPort\": null,\n  \"endpoint\": null,\n  \"kind\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5ce5294-f179-4cef-803f-05d8b1e0771d",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipeline_ports",
+                    ":portID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "portID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"protocol\": \"tcp\",\n  \"frontendPort\": null,\n  \"backendPort\": null,\n  \"endpoint\": null,\n  \"kind\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a414658d-4a7d-4c15-9d5c-ef112f27b10d",
+          "name": "Delete pipeline port",
+          "request": {
+            "name": "Delete pipeline port",
+            "description": {
+              "content": "Delete port by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "pipeline_ports",
+                ":portID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "portID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "02113e07-d3e1-4e4c-a5a0-27147495ab87",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipeline_ports",
+                    ":portID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "portID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e07bbc62-9ef6-42cb-a64d-bc34075fabc8",
+    "name": "Calyptia Cloud agent pipeline_port API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

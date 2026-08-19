@@ -1,0 +1,608 @@
+{
+  "item": [
+    {
+      "id": "a9066d87-3bea-44c6-9b68-2a6dcdbb5d25",
+      "name": "sidecar",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "568b62f2-54bd-40d9-b608-24b9369ca7d9",
+          "name": "Create sidecar",
+          "request": {
+            "name": "Create sidecar",
+            "description": {
+              "content": "Create a new sidecar container within a pipeline.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "pipelines",
+                ":pipelineID",
+                "sidecars"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"imagePullPolicy\": \"<string>\",\n  \"command\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"args\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"env\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"resources\": {\n    \"limits\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"requests\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\"\n    }\n  },\n  \"ports\": [\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    },\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    }\n  ],\n  \"volumeMounts\": [\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    }\n  ],\n  \"volumes\": [\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    }\n  ],\n  \"livenessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"readinessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"startupProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"lifecycle\": {\n    \"preStop\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    },\n    \"postStart\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a56cfe42-d7e3-4935-b404-8be11460fb7e",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipelines",
+                    ":pipelineID",
+                    "sidecars"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-sidecar\",\n  \"image\": \"nginx:latest\",\n  \"imagePullPolicy\": \"<string>\",\n  \"command\": [\n    \"/bin/sh\",\n    \"-c\",\n    \"nginx\"\n  ],\n  \"args\": [\n    \"-c\",\n    \"nginx\"\n  ],\n  \"env\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"resources\": {\n    \"limits\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"key_0\": \"<string>\"\n    },\n    \"requests\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"ports\": [\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    },\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    }\n  ],\n  \"volumeMounts\": [\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    }\n  ],\n  \"volumes\": [\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    }\n  ],\n  \"livenessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"readinessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"startupProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"lifecycle\": {\n    \"preStop\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    },\n    \"postStart\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"363731e4-6a9b-8e20-b2b5-ea94ac50c80b\",\n  \"createdAt\": \"1981-08-04T13:04:02.800Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6e244fd2-e45b-43e0-96a4-7965a537bd1b",
+          "name": "Sidecars",
+          "request": {
+            "name": "Sidecars",
+            "description": {
+              "content": "List all sidecar containers from a pipeline.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "pipelines",
+                ":pipelineID",
+                "sidecars"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c70ea6b1-51e4-44e4-afd3-f3fcb404b55e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipelines",
+                    ":pipelineID",
+                    "sidecars"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"items\": [\n      {\n        \"id\": \"1393b67f-c98b-d7cc-5ac0-04a1f701ca48\",\n        \"pipelineID\": \"a598e0cd-6ffd-dd54-efda-dec5af2bcf3c\",\n        \"image\": \"nginx:latest\",\n        \"name\": \"my-sidecar\",\n        \"createdAt\": \"2006-04-27T10:46:26.693Z\",\n        \"updatedAt\": \"1965-06-10T19:45:25.150Z\",\n        \"imagePullPolicy\": \"<string>\",\n        \"command\": [\n          \"/bin/sh\",\n          \"-c\",\n          \"nginx\"\n        ],\n        \"args\": [\n          \"-c\",\n          \"nginx\"\n        ],\n        \"env\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\",\n            \"valueFrom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\",\n            \"valueFrom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"resources\": {\n          \"limits\": {\n            \"cpu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"memory\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"requests\": {\n            \"cpu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"memory\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"ports\": [\n          {\n            \"containerPort\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"protocol\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"containerPort\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"protocol\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"volumeMounts\": [\n          {\n            \"name\": \"<string>\",\n            \"mountPath\": \"<string>\",\n            \"readOnly\": \"<boolean>\",\n            \"subPath\": \"<string>\",\n            \"subPathExpr\": \"<string>\",\n            \"mountPropagation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"mountPath\": \"<string>\",\n            \"readOnly\": \"<boolean>\",\n            \"subPath\": \"<string>\",\n            \"subPathExpr\": \"<string>\",\n            \"mountPropagation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"volumes\": [\n          {\n            \"name\": \"<string>\",\n            \"configMap\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"secret\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emptyDir\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"configMap\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"secret\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emptyDir\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"livenessProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        },\n        \"readinessProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        },\n        \"startupProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        }\n      },\n      {\n        \"id\": \"0f1bbef0-009d-c2ad-bce2-1a12f2061b21\",\n        \"pipelineID\": \"f6248fbd-4041-ad5d-04be-5f8c8d25bde3\",\n        \"image\": \"nginx:latest\",\n        \"name\": \"my-sidecar\",\n        \"createdAt\": \"1989-10-13T15:07:04.295Z\",\n        \"updatedAt\": \"2017-06-26T17:18:46.943Z\",\n        \"imagePullPolicy\": \"<string>\",\n        \"command\": [\n          \"/bin/sh\",\n          \"-c\",\n          \"nginx\"\n        ],\n        \"args\": [\n          \"-c\",\n          \"nginx\"\n        ],\n        \"env\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\",\n            \"valueFrom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\",\n            \"valueFrom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"resources\": {\n          \"limits\": {\n            \"cpu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"memory\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"requests\": {\n            \"cpu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"memory\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"ports\": [\n          {\n            \"containerPort\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"protocol\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"containerPort\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"protocol\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"volumeMounts\": [\n          {\n            \"name\": \"<string>\",\n            \"mountPath\": \"<string>\",\n            \"readOnly\": \"<boolean>\",\n            \"subPath\": \"<string>\",\n            \"subPathExpr\": \"<string>\",\n            \"mountPropagation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"mountPath\": \"<string>\",\n            \"readOnly\": \"<boolean>\",\n            \"subPath\": \"<string>\",\n            \"subPathExpr\": \"<string>\",\n            \"mountPropagation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"volumes\": [\n          {\n            \"name\": \"<string>\",\n            \"configMap\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"secret\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emptyDir\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"configMap\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"secret\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emptyDir\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"livenessProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        },\n        \"readinessProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        },\n        \"startupProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        }\n      }\n    ],\n    \"endCursor\": \"string\"\n  },\n  {\n    \"items\": [\n      {\n        \"id\": \"13df340d-92a1-7c9e-8b48-fc45b112c05d\",\n        \"pipelineID\": \"7327848b-55af-866a-a6f0-353a41c8b15d\",\n        \"image\": \"nginx:latest\",\n        \"name\": \"my-sidecar\",\n        \"createdAt\": \"2014-01-06T11:27:29.766Z\",\n        \"updatedAt\": \"1949-07-27T05:47:35.281Z\",\n        \"imagePullPolicy\": \"<string>\",\n        \"command\": [\n          \"/bin/sh\",\n          \"-c\",\n          \"nginx\"\n        ],\n        \"args\": [\n          \"-c\",\n          \"nginx\"\n        ],\n        \"env\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\",\n            \"valueFrom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\",\n            \"valueFrom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"resources\": {\n          \"limits\": {\n            \"cpu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"memory\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"requests\": {\n            \"cpu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"memory\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"ports\": [\n          {\n            \"containerPort\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"protocol\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"containerPort\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"protocol\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"volumeMounts\": [\n          {\n            \"name\": \"<string>\",\n            \"mountPath\": \"<string>\",\n            \"readOnly\": \"<boolean>\",\n            \"subPath\": \"<string>\",\n            \"subPathExpr\": \"<string>\",\n            \"mountPropagation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"mountPath\": \"<string>\",\n            \"readOnly\": \"<boolean>\",\n            \"subPath\": \"<string>\",\n            \"subPathExpr\": \"<string>\",\n            \"mountPropagation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"volumes\": [\n          {\n            \"name\": \"<string>\",\n            \"configMap\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"secret\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emptyDir\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"configMap\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"secret\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emptyDir\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"livenessProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        },\n        \"readinessProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        },\n        \"startupProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        }\n      },\n      {\n        \"id\": \"6a7e5f59-2090-8a08-1d40-c5858e2b2869\",\n        \"pipelineID\": \"301af24c-17d1-bda2-e9bc-47491cf146f3\",\n        \"image\": \"nginx:latest\",\n        \"name\": \"my-sidecar\",\n        \"createdAt\": \"2011-10-18T10:57:42.497Z\",\n        \"updatedAt\": \"1958-01-22T10:49:17.003Z\",\n        \"imagePullPolicy\": \"<string>\",\n        \"command\": [\n          \"/bin/sh\",\n          \"-c\",\n          \"nginx\"\n        ],\n        \"args\": [\n          \"-c\",\n          \"nginx\"\n        ],\n        \"env\": [\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\",\n            \"valueFrom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"value\": \"<string>\",\n            \"valueFrom\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"resources\": {\n          \"limits\": {\n            \"cpu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"memory\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"requests\": {\n            \"cpu\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"memory\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"ports\": [\n          {\n            \"containerPort\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"protocol\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"containerPort\": \"<integer>\",\n            \"name\": \"<string>\",\n            \"protocol\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"volumeMounts\": [\n          {\n            \"name\": \"<string>\",\n            \"mountPath\": \"<string>\",\n            \"readOnly\": \"<boolean>\",\n            \"subPath\": \"<string>\",\n            \"subPathExpr\": \"<string>\",\n            \"mountPropagation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"mountPath\": \"<string>\",\n            \"readOnly\": \"<boolean>\",\n            \"subPath\": \"<string>\",\n            \"subPathExpr\": \"<string>\",\n            \"mountPropagation\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"volumes\": [\n          {\n            \"name\": \"<string>\",\n            \"configMap\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"secret\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emptyDir\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": \"<string>\",\n            \"configMap\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"secret\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"emptyDir\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"livenessProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        },\n        \"readinessProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        },\n        \"startupProbe\": {\n          \"exec\": {\n            \"command\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"httpGet\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"path\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"scheme\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"httpHeaders\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"tcpSocket\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"host\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"grpc\": {\n            \"port\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"service\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"initialDelaySeconds\": \"<integer>\",\n          \"timeoutSeconds\": \"<integer>\",\n          \"periodSeconds\": \"<integer>\",\n          \"successThreshold\": \"<integer>\",\n          \"failureThreshold\": \"<integer>\",\n          \"terminationGracePeriodSeconds\": \"<long>\"\n        }\n      }\n    ],\n    \"endCursor\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba1a4491-ada3-4de7-896f-8a681d63cc92",
+          "name": "Sidecar",
+          "request": {
+            "name": "Sidecar",
+            "description": {
+              "content": "Get sidecar by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sidecars",
+                ":sidecarID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sidecarID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aebd5200-b722-4953-92d0-b91dd53210cd",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sidecars",
+                    ":sidecarID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sidecarID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"56f9b576-3f34-b945-89df-a05f545f09e3\",\n  \"pipelineID\": \"838c53e7-e2b1-ff89-00a2-b0c85c48e621\",\n  \"image\": \"nginx:latest\",\n  \"name\": \"my-sidecar\",\n  \"createdAt\": \"1960-03-27T06:54:13.859Z\",\n  \"updatedAt\": \"1981-07-30T18:44:28.081Z\",\n  \"imagePullPolicy\": \"<string>\",\n  \"command\": [\n    \"/bin/sh\",\n    \"-c\",\n    \"nginx\"\n  ],\n  \"args\": [\n    \"-c\",\n    \"nginx\"\n  ],\n  \"env\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"resources\": {\n    \"limits\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\"\n    },\n    \"requests\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\"\n    }\n  },\n  \"ports\": [\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    },\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    }\n  ],\n  \"volumeMounts\": [\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    }\n  ],\n  \"volumes\": [\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    }\n  ],\n  \"livenessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"readinessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"startupProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9c40e59d-09c5-4669-a7f0-f2712fb6f3dc",
+          "name": "Update sidecar",
+          "request": {
+            "name": "Update sidecar",
+            "description": {
+              "content": "Update sidecar by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sidecars",
+                ":sidecarID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sidecarID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"image\": \"<string>\",\n  \"imagePullPolicy\": \"<string>\",\n  \"command\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"args\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"env\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"resources\": {\n    \"limits\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    },\n    \"requests\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\"\n    }\n  },\n  \"ports\": [\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    },\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    }\n  ],\n  \"volumeMounts\": [\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    }\n  ],\n  \"volumes\": [\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    }\n  ],\n  \"livenessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"readinessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"startupProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"lifecycle\": {\n    \"preStop\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    },\n    \"postStart\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "83c888ad-1b1f-41e9-9e72-4dae3dcef863",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sidecars",
+                    ":sidecarID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sidecarID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-sidecar\",\n  \"image\": \"nginx:latest\",\n  \"imagePullPolicy\": \"<string>\",\n  \"command\": [\n    \"/bin/sh\",\n    \"-c\",\n    \"nginx\"\n  ],\n  \"args\": [\n    \"-c\",\n    \"nginx\"\n  ],\n  \"env\": [\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"value\": \"<string>\",\n      \"valueFrom\": {\n        \"secretKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"configMapKeyRef\": {\n          \"name\": \"<string>\",\n          \"key\": \"<string>\"\n        }\n      }\n    }\n  ],\n  \"resources\": {\n    \"limits\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    },\n    \"requests\": {\n      \"cpu\": \"<string>\",\n      \"memory\": \"<string>\",\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\"\n    }\n  },\n  \"ports\": [\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    },\n    {\n      \"containerPort\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"protocol\": \"<string>\"\n    }\n  ],\n  \"volumeMounts\": [\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"mountPath\": \"<string>\",\n      \"readOnly\": \"<boolean>\",\n      \"subPath\": \"<string>\",\n      \"subPathExpr\": \"<string>\",\n      \"mountPropagation\": \"<string>\"\n    }\n  ],\n  \"volumes\": [\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"configMap\": {\n        \"name\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"secret\": {\n        \"secretName\": \"<string>\",\n        \"defaultMode\": \"<integer>\",\n        \"optional\": \"<boolean>\",\n        \"items\": [\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          },\n          {\n            \"key\": \"<string>\",\n            \"path\": \"<string>\",\n            \"mode\": \"<integer>\"\n          }\n        ]\n      },\n      \"emptyDir\": {\n        \"medium\": \"<string>\",\n        \"sizeLimit\": \"<string>\"\n      }\n    }\n  ],\n  \"livenessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"readinessProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"startupProbe\": {\n    \"exec\": {\n      \"command\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    \"httpGet\": {\n      \"port\": \"<integer>\",\n      \"path\": \"<string>\",\n      \"host\": \"<string>\",\n      \"scheme\": \"<string>\",\n      \"httpHeaders\": [\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"value\": \"<string>\"\n        }\n      ]\n    },\n    \"tcpSocket\": {\n      \"port\": \"<integer>\",\n      \"host\": \"<string>\"\n    },\n    \"grpc\": {\n      \"port\": \"<integer>\",\n      \"service\": \"<string>\"\n    },\n    \"initialDelaySeconds\": \"<integer>\",\n    \"timeoutSeconds\": \"<integer>\",\n    \"periodSeconds\": \"<integer>\",\n    \"successThreshold\": \"<integer>\",\n    \"failureThreshold\": \"<integer>\",\n    \"terminationGracePeriodSeconds\": \"<long>\"\n  },\n  \"lifecycle\": {\n    \"preStop\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    },\n    \"postStart\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"updatedAt\": \"1998-02-07T21:37:42.818Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb60e731-c596-4bab-bff6-cfd916460e29",
+          "name": "Delete sidecar",
+          "request": {
+            "name": "Delete sidecar",
+            "description": {
+              "content": "Delete sidecar by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "sidecars",
+                ":sidecarID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sidecarID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "df001426-2b2e-4d05-b63d-8faadd71f6cc",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "sidecars",
+                    ":sidecarID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sidecarID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deleted\": false,\n  \"deletedAt\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5a0afc2d-8b9d-41ff-b1c7-1988179197ca",
+    "name": "Calyptia Cloud agent sidecar API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

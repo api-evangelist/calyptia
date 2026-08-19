@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent environment API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "environment",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Project environments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/environments",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last environments."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Environments before the given cursor."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name matching environments."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Environments from a project."
+        },
+        {
+          "info": {
+            "name": "Create environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/environments",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a environment to a given project."
+        },
+        {
+          "info": {
+            "name": "Update environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/environments/:environmentID",
+            "params": [
+              {
+                "name": "environmentID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a given environment"
+        },
+        {
+          "info": {
+            "name": "Delete environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/environments/:environmentID",
+            "params": [
+              {
+                "name": "environmentID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a given environment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

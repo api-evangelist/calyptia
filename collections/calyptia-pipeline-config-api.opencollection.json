@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent pipeline_config API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pipeline_config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pipeline configuration history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregator_pipelines/:pipeline/config_history",
+            "params": [
+              {
+                "name": "pipeline",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last history entries."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Configuration history from a pipeline.\nEvery time a pipeline config is updated, a new history entry with the change is created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

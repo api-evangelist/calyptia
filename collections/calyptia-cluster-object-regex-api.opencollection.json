@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent cluster_object_regex API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "cluster_object_regex",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cluster object regexes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/cluster_object_regexes",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last cluster object regexes."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Cluster object regexes before the given cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all cluster object regexes in descending order with backward pagination."
+        },
+        {
+          "info": {
+            "name": "Create cluster object regex",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/cluster_object_regexes",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new cluster object regex."
+        },
+        {
+          "info": {
+            "name": "Cluster object regex",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/cluster_object_regexes/:regexID",
+            "params": [
+              {
+                "name": "regexID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a single cluster object regex by ID.\nOn this endpoint, all the matching cluser objects are also returned."
+        },
+        {
+          "info": {
+            "name": "Update cluster object regex",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/cluster_object_regexes/:regexID",
+            "params": [
+              {
+                "name": "regexID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a cluster object regex details."
+        },
+        {
+          "info": {
+            "name": "Delete cluster object regex",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/cluster_object_regexes/:regexID",
+            "params": [
+              {
+                "name": "regexID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a single cluster object regex by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2180 @@
+{
+  "item": [
+    {
+      "id": "c2201c04-5f3d-41a1-8c61-41b244d0789b",
+      "name": "metric",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "919b7faf-24bf-4995-8e26-d040e7a67832",
+          "name": "Project metrics",
+          "request": {
+            "name": "Project metrics",
+            "description": {
+              "content": "Contains an overview of the aggregated metrics for a project.\nIt includes metrics link the amount of records, bytes, and errors per plugin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aa0f7d21-c581-4d7c-baa6-af7a14340ea7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC1123 date when the endpoint will be removed.",
+                  "key": "Sunset",
+                  "value": "Tue, 01 Nov 2022 00:00:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"measurements\": {\n    \"key_0\": {\n      \"totals\": {\n        \"key_0\": null,\n        \"key_1\": null,\n        \"key_2\": null\n      },\n      \"plugins\": {\n        \"key_0\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        },\n        \"key_1\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        }\n      }\n    }\n  },\n  \"topPlugins\": {\n    \"key_0\": {\n      \"key_0\": null,\n      \"key_1\": null\n    },\n    \"key_1\": {\n      \"key_0\": null\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86394628-61f0-4cde-9579-e4c0d12769e9",
+          "name": "Agent metrics",
+          "request": {
+            "name": "Agent metrics",
+            "description": {
+              "content": "Contains an overview of the aggregated metrics for an agent.\nIt includes metrics link the amount of records, bytes, and errors per plugin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                ":agentID",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agentID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "264bf88a-bd69-4cf3-8d9a-d63f47d79af0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents",
+                    ":agentID",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agentID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC1123 date when the endpoint will be removed.",
+                  "key": "Sunset",
+                  "value": "Tue, 01 Nov 2022 00:00:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"measurements\": {\n    \"key_0\": {\n      \"plugins\": {\n        \"key_0\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        },\n        \"key_1\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        }\n      },\n      \"totals\": {\n        \"key_0\": [\n          {\n            \"time\": \"2000-02-25T18:42:42.301Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2010-01-17T10:38:07.574Z\",\n            \"value\": null\n          }\n        ],\n        \"key_1\": [\n          {\n            \"time\": \"1983-06-29T21:50:30.536Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1993-05-28T06:51:44.547Z\",\n            \"value\": null\n          }\n        ],\n        \"key_2\": [\n          {\n            \"time\": \"2025-11-27T02:38:17.408Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1969-09-14T08:06:21.280Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    \"key_1\": {\n      \"plugins\": {\n        \"key_0\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        },\n        \"key_1\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_1\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_2\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        }\n      },\n      \"totals\": {\n        \"key_0\": [\n          {\n            \"time\": \"1968-11-08T03:42:35.176Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1951-08-01T12:08:37.795Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc1ec9ef-6160-4512-96e1-160e0757f9fb",
+          "name": "Pipeline metrics",
+          "request": {
+            "name": "Pipeline metrics",
+            "description": {
+              "content": "Contains an overview of the aggregated metrics for a pipeline.\nIt includes metrics link the amount of records, bytes, and errors per plugin.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "pipeline_metrics",
+                ":pipelineID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8d303948-bb4d-4d0a-bd09-1b7ed23ac1d8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipeline_metrics",
+                    ":pipelineID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC1123 date when the endpoint will be removed.",
+                  "key": "Sunset",
+                  "value": "Tue, 01 Nov 2022 00:00:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"measurements\": {\n    \"key_0\": {\n      \"plugins\": {\n        \"key_0\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_1\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        },\n        \"key_1\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_1\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_2\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        }\n      },\n      \"totals\": {\n        \"key_0\": [\n          {\n            \"time\": \"1981-01-05T03:09:33.016Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2008-05-03T08:36:42.216Z\",\n            \"value\": null\n          }\n        ],\n        \"key_1\": [\n          {\n            \"time\": \"1979-03-04T13:03:11.564Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1985-02-15T22:29:48.508Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    \"key_1\": {\n      \"plugins\": {\n        \"key_0\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_1\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_2\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        },\n        \"key_1\": {\n          \"metrics\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        }\n      },\n      \"totals\": {\n        \"key_0\": [\n          {\n            \"time\": \"1958-02-13T09:41:06.992Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2007-04-17T22:01:31.803Z\",\n            \"value\": null\n          }\n        ],\n        \"key_1\": [\n          {\n            \"time\": \"1980-08-15T05:38:20.392Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2026-08-10T17:43:45.630Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8c22d13d-271d-4df7-bc53-0074666072f4",
+          "name": "Core instance metrics",
+          "request": {
+            "name": "Core instance metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "aggregator_metrics",
+                ":aggregatorID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Option to set the time window to group metrics\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "50089c01-4f69-4105-8759-7a8293fa4042",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregator_metrics",
+                    ":aggregatorID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC1123 date when the endpoint will be removed.",
+                  "key": "Sunset",
+                  "value": "Tue, 01 Nov 2022 00:00:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"measurements\": {\n    \"key_0\": {\n      \"metrics\": {\n        \"key_0\": [\n          {\n            \"time\": \"1981-10-07T00:30:51.600Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1974-09-15T06:35:35.014Z\",\n            \"value\": null\n          }\n        ]\n      },\n      \"totals\": {\n        \"key_0\": [\n          {\n            \"time\": \"1958-02-10T04:13:06.427Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2009-11-01T21:25:33.327Z\",\n            \"value\": null\n          }\n        ],\n        \"key_1\": [\n          {\n            \"time\": \"1955-04-09T03:44:51.259Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1980-03-06T15:16:33.024Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    \"key_1\": {\n      \"metrics\": {\n        \"key_0\": [\n          {\n            \"time\": \"1993-03-03T08:45:08.109Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1992-05-27T11:14:10.350Z\",\n            \"value\": null\n          }\n        ],\n        \"key_1\": [\n          {\n            \"time\": \"1954-07-03T15:19:59.570Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1955-03-03T11:14:09.083Z\",\n            \"value\": null\n          }\n        ],\n        \"key_2\": [\n          {\n            \"time\": \"2000-05-30T12:06:03.151Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1986-08-19T17:15:43.448Z\",\n            \"value\": null\n          }\n        ]\n      },\n      \"totals\": {\n        \"key_0\": [\n          {\n            \"time\": \"2013-11-07T01:54:22.471Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1991-08-21T05:07:40.151Z\",\n            \"value\": null\n          }\n        ],\n        \"key_1\": [\n          {\n            \"time\": \"2015-06-17T04:38:19.554Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2019-11-22T13:43:09.234Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "114ddf0b-ec30-49b0-99ce-d870bb6dcfa8",
+          "name": "Core instance pipelines metrics (bulk)",
+          "request": {
+            "name": "Core instance pipelines metrics (bulk)",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID",
+                "pipelines_metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Option to set the time window to group metrics\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "pipeline_id",
+                  "value": "<uuid>",
+                  "description": "(Required) List of pipeline IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "pipeline_id",
+                  "value": "<uuid>",
+                  "description": "(Required) List of pipeline IDs."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7742d06e-dcba-45a0-ac46-9bedc7180b0d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID",
+                    "pipelines_metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    },
+                    {
+                      "key": "pipeline_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "pipeline_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC1123 date when the endpoint will be removed.",
+                  "key": "Sunset",
+                  "value": "Tue, 01 Nov 2022 00:00:00 GMT"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"data\": {\n      \"measurements\": {\n        \"key_0\": {\n          \"plugins\": {\n            \"key_0\": {\n              \"metrics\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            },\n            \"key_1\": {\n              \"metrics\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          },\n          \"totals\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_1\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        },\n        \"key_1\": {\n          \"plugins\": {\n            \"key_0\": {\n              \"metrics\": {\n                \"key_0\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"key_1\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"key_2\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"key_3\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            }\n          },\n          \"totals\": {\n            \"key_0\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_1\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ],\n            \"key_2\": [\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              },\n              {\n                \"time\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                },\n                \"value\": {\n                  \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                }\n              }\n            ]\n          }\n        }\n      }\n    },\n    \"error\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9927e95c-c4a9-4641-a10f-dabb7f9ca45d",
+          "name": "Core instance metrics",
+          "request": {
+            "name": "Core instance metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "core_instances",
+                ":coreInstanceID",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "coreInstanceID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e81a9684-e2ce-4843-aaee-a091a97a0397",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "core_instances",
+                    ":coreInstanceID",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "coreInstanceID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"input\": {\n    \"bytes\": null,\n    \"records\": null\n  },\n  \"output\": {\n    \"bytes\": null,\n    \"records\": null,\n    \"errors\": null,\n    \"retries\": null,\n    \"retriedRecords\": null,\n    \"retriesFailed\": null,\n    \"droppedRecords\": null,\n    \"loads\": null\n  },\n  \"filter\": {\n    \"records\": null,\n    \"bytes\": null,\n    \"addRecords\": null,\n    \"dropRecords\": null,\n    \"emitRecords\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "69250703-9c1e-4b99-937f-8601ab72d16a",
+          "name": "Core instance metrics by plugin.",
+          "request": {
+            "name": "Core instance metrics by plugin.",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "core_instances",
+                ":coreInstanceID",
+                "metrics_by_plugin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "coreInstanceID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c7944731-e5e3-490c-9fef-77550a324c2d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "core_instances",
+                    ":coreInstanceID",
+                    "metrics_by_plugin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "coreInstanceID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null\n      }\n    }\n  ],\n  \"outputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null,\n        \"errors\": null,\n        \"retries\": null,\n        \"retriedRecords\": null,\n        \"retriesFailed\": null,\n        \"droppedRecords\": null,\n        \"loads\": null\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null,\n        \"errors\": null,\n        \"retries\": null,\n        \"retriedRecords\": null,\n        \"retriesFailed\": null,\n        \"droppedRecords\": null,\n        \"loads\": null\n      }\n    }\n  ],\n  \"filters\": [\n    {\n      \"instance\": \"filter.3\",\n      \"metrics\": {\n        \"records\": null,\n        \"bytes\": null,\n        \"addRecords\": null,\n        \"dropRecords\": null,\n        \"emitRecords\": null\n      }\n    },\n    {\n      \"instance\": \"filter.3\",\n      \"metrics\": {\n        \"records\": null,\n        \"bytes\": null,\n        \"addRecords\": null,\n        \"dropRecords\": null,\n        \"emitRecords\": null\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "049d1871-6ca5-4f6a-8d14-486a3adf6b64",
+          "name": "Core instance metrics over time",
+          "request": {
+            "name": "Core instance metrics over time",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "core_instances",
+                ":coreInstanceID",
+                "metrics_over_time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Option to set the time window to group metrics\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "coreInstanceID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9eccc9c5-1498-4dc9-af39-04dbae503b59",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "core_instances",
+                    ":coreInstanceID",
+                    "metrics_over_time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "coreInstanceID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"input\": {\n    \"bytes\": [\n      {\n        \"time\": \"1947-01-19T12:57:54.870Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2006-03-17T18:53:17.185Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"2016-09-08T22:42:13.877Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1995-07-18T16:58:07.691Z\",\n        \"value\": null\n      }\n    ]\n  },\n  \"filter\": {\n    \"bytes\": [\n      {\n        \"time\": \"2016-07-16T03:44:08.262Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2011-01-19T12:17:25.949Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"2017-11-24T14:16:22.464Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1949-06-06T17:40:33.815Z\",\n        \"value\": null\n      }\n    ],\n    \"addRecords\": [\n      {\n        \"time\": \"1981-03-12T08:40:36.795Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2013-06-27T12:21:03.872Z\",\n        \"value\": null\n      }\n    ],\n    \"dropRecords\": [\n      {\n        \"time\": \"1960-12-25T05:32:20.408Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1970-09-09T21:23:55.365Z\",\n        \"value\": null\n      }\n    ],\n    \"emitRecords\": [\n      {\n        \"time\": \"1975-05-09T13:26:25.920Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2024-05-01T22:19:09.369Z\",\n        \"value\": null\n      }\n    ]\n  },\n  \"output\": {\n    \"bytes\": [\n      {\n        \"time\": \"1955-09-29T18:26:15.531Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1997-04-22T08:43:57.504Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"2011-06-30T03:56:15.454Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1952-11-10T07:41:48.761Z\",\n        \"value\": null\n      }\n    ],\n    \"errors\": [\n      {\n        \"time\": \"1983-09-14T08:39:56.053Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2024-04-24T06:47:58.119Z\",\n        \"value\": null\n      }\n    ],\n    \"retries\": [\n      {\n        \"time\": \"1980-08-26T19:22:06.190Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2024-06-18T05:40:24.755Z\",\n        \"value\": null\n      }\n    ],\n    \"retriedRecords\": [\n      {\n        \"time\": \"1952-05-03T16:29:55.377Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1969-09-16T21:34:14.092Z\",\n        \"value\": null\n      }\n    ],\n    \"retriesFailed\": [\n      {\n        \"time\": \"1962-06-21T01:52:50.622Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2023-02-04T23:45:35.585Z\",\n        \"value\": null\n      }\n    ],\n    \"droppedRecords\": [\n      {\n        \"time\": \"2004-11-03T17:54:32.865Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1953-11-04T07:24:13.137Z\",\n        \"value\": null\n      }\n    ],\n    \"loads\": [\n      {\n        \"time\": \"1956-03-29T22:59:47.247Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1974-12-26T06:00:55.642Z\",\n        \"value\": null\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a1d4111c-9c9d-4d44-8a86-20b930bc7349",
+          "name": "Core instance metrics over time organized by plugin",
+          "request": {
+            "name": "Core instance metrics over time organized by plugin",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "core_instances",
+                ":coreInstanceID",
+                "metrics_over_time_by_plugin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Option to set the time window to group metrics\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "coreInstanceID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "886bce82-6852-4843-a3a7-800ab8f3d3d7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "core_instances",
+                    ":coreInstanceID",
+                    "metrics_over_time_by_plugin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "coreInstanceID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"1977-01-02T18:26:37.305Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1953-12-05T16:35:06.449Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1987-10-29T04:10:55.185Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2025-01-29T20:14:17.198Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"1947-05-26T04:25:22.666Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1946-12-10T00:17:09.792Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1947-07-30T11:54:53.722Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1983-06-16T11:55:04.890Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ],\n  \"filters\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"1979-09-23T11:10:27.039Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1960-05-12T16:52:01.353Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1954-07-08T22:37:56.567Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1990-08-30T11:08:01.702Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2023-12-06T21:23:33.608Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2003-01-24T20:26:01.039Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"2006-07-02T05:51:38.381Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1978-09-27T21:04:46.546Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ],\n  \"outputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"1980-02-08T02:23:10.478Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2023-12-08T04:19:49.356Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"2003-09-17T15:22:12.706Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1971-07-27T04:53:24.600Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"1998-09-22T20:48:20.540Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1980-06-30T11:19:24.936Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1977-06-26T00:37:31.422Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1993-03-27T02:06:55.970Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "245633d0-6f05-4e13-b388-63cd1b1bc4fa",
+          "name": "Pipeline metrics",
+          "request": {
+            "name": "Pipeline metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "pipelines",
+                ":pipelineID",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "87fc836b-1e67-4f37-82b1-2c3f5ebbc107",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pipelines",
+                    ":pipelineID",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"input\": {\n    \"bytes\": null,\n    \"records\": null\n  },\n  \"output\": {\n    \"bytes\": null,\n    \"records\": null,\n    \"errors\": null,\n    \"retries\": null,\n    \"retriedRecords\": null,\n    \"retriesFailed\": null,\n    \"droppedRecords\": null,\n    \"loads\": null\n  },\n  \"filter\": {\n    \"records\": null,\n    \"bytes\": null,\n    \"addRecords\": null,\n    \"dropRecords\": null,\n    \"emitRecords\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5999e7a2-631b-4cdb-8b98-5a419497416c",
+          "name": "Pipeline metrics by plugin.",
+          "request": {
+            "name": "Pipeline metrics by plugin.",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "pipelines",
+                ":pipelineID",
+                "metrics_by_plugin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e18d36a0-3e59-4e76-9019-44f03461b234",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pipelines",
+                    ":pipelineID",
+                    "metrics_by_plugin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null\n      }\n    }\n  ],\n  \"outputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null,\n        \"errors\": null,\n        \"retries\": null,\n        \"retriedRecords\": null,\n        \"retriesFailed\": null,\n        \"droppedRecords\": null,\n        \"loads\": null\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null,\n        \"errors\": null,\n        \"retries\": null,\n        \"retriedRecords\": null,\n        \"retriesFailed\": null,\n        \"droppedRecords\": null,\n        \"loads\": null\n      }\n    }\n  ],\n  \"filters\": [\n    {\n      \"instance\": \"filter.3\",\n      \"metrics\": {\n        \"records\": null,\n        \"bytes\": null,\n        \"addRecords\": null,\n        \"dropRecords\": null,\n        \"emitRecords\": null\n      }\n    },\n    {\n      \"instance\": \"filter.3\",\n      \"metrics\": {\n        \"records\": null,\n        \"bytes\": null,\n        \"addRecords\": null,\n        \"dropRecords\": null,\n        \"emitRecords\": null\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ee58c10-6864-4f9e-b579-97eab1672a3c",
+          "name": "Pipeline metrics over time",
+          "request": {
+            "name": "Pipeline metrics over time",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "pipelines",
+                ":pipelineID",
+                "metrics_over_time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Option to set the time window to group metrics\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6a47e33d-0c6c-462a-a7a0-bb0e959eb4d1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pipelines",
+                    ":pipelineID",
+                    "metrics_over_time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"input\": {\n    \"bytes\": [\n      {\n        \"time\": \"1997-06-24T20:10:57.459Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1995-10-05T23:28:18.009Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"1965-07-25T18:10:55.807Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1994-01-09T01:59:25.933Z\",\n        \"value\": null\n      }\n    ]\n  },\n  \"filter\": {\n    \"bytes\": [\n      {\n        \"time\": \"1973-08-02T11:17:18.071Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1988-08-26T21:34:45.820Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"1949-08-27T02:48:17.698Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1985-09-02T15:38:23.611Z\",\n        \"value\": null\n      }\n    ],\n    \"addRecords\": [\n      {\n        \"time\": \"1969-12-07T13:19:34.753Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1999-01-01T14:03:28.427Z\",\n        \"value\": null\n      }\n    ],\n    \"dropRecords\": [\n      {\n        \"time\": \"1995-05-13T03:33:28.933Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1994-03-25T13:21:15.713Z\",\n        \"value\": null\n      }\n    ],\n    \"emitRecords\": [\n      {\n        \"time\": \"1999-05-17T03:06:19.927Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1973-02-01T08:36:51.518Z\",\n        \"value\": null\n      }\n    ]\n  },\n  \"output\": {\n    \"bytes\": [\n      {\n        \"time\": \"2021-03-21T00:16:35.316Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1958-03-13T00:07:26.031Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"1958-10-20T11:42:28.428Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1995-12-19T14:21:01.376Z\",\n        \"value\": null\n      }\n    ],\n    \"errors\": [\n      {\n        \"time\": \"2022-01-14T21:48:51.504Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2011-08-31T19:50:10.678Z\",\n        \"value\": null\n      }\n    ],\n    \"retries\": [\n      {\n        \"time\": \"1952-07-18T11:54:54.538Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2004-12-30T00:31:18.675Z\",\n        \"value\": null\n      }\n    ],\n    \"retriedRecords\": [\n      {\n        \"time\": \"1962-10-15T16:57:17.594Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2018-01-22T23:07:26.622Z\",\n        \"value\": null\n      }\n    ],\n    \"retriesFailed\": [\n      {\n        \"time\": \"2025-11-30T22:41:26.122Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2024-08-31T12:13:32.459Z\",\n        \"value\": null\n      }\n    ],\n    \"droppedRecords\": [\n      {\n        \"time\": \"2020-01-05T17:09:50.928Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1964-09-29T04:30:36.264Z\",\n        \"value\": null\n      }\n    ],\n    \"loads\": [\n      {\n        \"time\": \"2022-10-05T13:33:04.489Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1951-01-01T06:34:41.486Z\",\n        \"value\": null\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "750c4809-c258-4143-a49d-fc2f2c59a387",
+          "name": "Pipeline metrics over time organized by plugin",
+          "request": {
+            "name": "Pipeline metrics over time organized by plugin",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "pipelines",
+                ":pipelineID",
+                "metrics_over_time_by_plugin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Option to set the time window to group metrics\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c651a191-0d78-479a-8bc4-dcc60cd2c31d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "pipelines",
+                    ":pipelineID",
+                    "metrics_over_time_by_plugin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2001-06-14T07:13:00.515Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1971-03-23T09:23:44.944Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1991-10-28T21:17:10.442Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1977-07-26T19:19:11.072Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2013-12-05T06:57:49.970Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1989-06-14T23:03:21.942Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1991-02-18T11:53:42.769Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1980-07-02T11:44:40.466Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ],\n  \"filters\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2011-01-18T11:49:30.596Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1956-01-02T10:28:48.058Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1992-02-05T17:43:33.928Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2024-04-04T16:24:51.256Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"1990-10-11T11:57:12.072Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1951-03-29T20:42:02.856Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1957-03-27T00:46:48.261Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2005-09-29T14:56:53.053Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ],\n  \"outputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2001-07-07T11:49:10.562Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2006-05-22T08:48:20.538Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1977-06-12T14:42:17.339Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2023-01-06T19:38:56.649Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2008-03-16T23:14:07.031Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1984-07-20T21:04:13.577Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1965-07-17T01:23:44.022Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2002-06-29T22:09:25.610Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3df50be9-0b18-4b96-b45c-6ee2a62684f8",
+          "name": "Agent metrics",
+          "request": {
+            "name": "Agent metrics",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "agents",
+                ":agentID",
+                "metrics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agentID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a8cc6840-76de-4ce6-b6c4-53719adbf27b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "agents",
+                    ":agentID",
+                    "metrics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agentID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"input\": {\n    \"bytes\": null,\n    \"records\": null\n  },\n  \"output\": {\n    \"bytes\": null,\n    \"records\": null,\n    \"errors\": null,\n    \"retries\": null,\n    \"retriedRecords\": null,\n    \"retriesFailed\": null,\n    \"droppedRecords\": null,\n    \"loads\": null\n  },\n  \"filter\": {\n    \"records\": null,\n    \"bytes\": null,\n    \"addRecords\": null,\n    \"dropRecords\": null,\n    \"emitRecords\": null\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d747afb-4ea1-46d1-ac4f-6b85fcc361a1",
+          "name": "Agent metrics by plugin.",
+          "request": {
+            "name": "Agent metrics by plugin.",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "agents",
+                ":agentID",
+                "metrics_by_plugin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agentID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3c53bd6b-440f-416b-abed-967e6f3bd57e",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "agents",
+                    ":agentID",
+                    "metrics_by_plugin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agentID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null\n      }\n    }\n  ],\n  \"outputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null,\n        \"errors\": null,\n        \"retries\": null,\n        \"retriedRecords\": null,\n        \"retriesFailed\": null,\n        \"droppedRecords\": null,\n        \"loads\": null\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": null,\n        \"records\": null,\n        \"errors\": null,\n        \"retries\": null,\n        \"retriedRecords\": null,\n        \"retriesFailed\": null,\n        \"droppedRecords\": null,\n        \"loads\": null\n      }\n    }\n  ],\n  \"filters\": [\n    {\n      \"instance\": \"filter.3\",\n      \"metrics\": {\n        \"records\": null,\n        \"bytes\": null,\n        \"addRecords\": null,\n        \"dropRecords\": null,\n        \"emitRecords\": null\n      }\n    },\n    {\n      \"instance\": \"filter.3\",\n      \"metrics\": {\n        \"records\": null,\n        \"bytes\": null,\n        \"addRecords\": null,\n        \"dropRecords\": null,\n        \"emitRecords\": null\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c2944957-aa2d-4dfb-8367-2fc74ec5a6d1",
+          "name": "Agent metrics over time",
+          "request": {
+            "name": "Agent metrics over time",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "agents",
+                ":agentID",
+                "metrics_over_time"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Option to set the time window to group metrics\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agentID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5fade788-3979-41e8-bf58-79c640b1a184",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "agents",
+                    ":agentID",
+                    "metrics_over_time"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agentID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"input\": {\n    \"bytes\": [\n      {\n        \"time\": \"1997-06-24T20:10:57.459Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1995-10-05T23:28:18.009Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"1965-07-25T18:10:55.807Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1994-01-09T01:59:25.933Z\",\n        \"value\": null\n      }\n    ]\n  },\n  \"filter\": {\n    \"bytes\": [\n      {\n        \"time\": \"1973-08-02T11:17:18.071Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1988-08-26T21:34:45.820Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"1949-08-27T02:48:17.698Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1985-09-02T15:38:23.611Z\",\n        \"value\": null\n      }\n    ],\n    \"addRecords\": [\n      {\n        \"time\": \"1969-12-07T13:19:34.753Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1999-01-01T14:03:28.427Z\",\n        \"value\": null\n      }\n    ],\n    \"dropRecords\": [\n      {\n        \"time\": \"1995-05-13T03:33:28.933Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1994-03-25T13:21:15.713Z\",\n        \"value\": null\n      }\n    ],\n    \"emitRecords\": [\n      {\n        \"time\": \"1999-05-17T03:06:19.927Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1973-02-01T08:36:51.518Z\",\n        \"value\": null\n      }\n    ]\n  },\n  \"output\": {\n    \"bytes\": [\n      {\n        \"time\": \"2021-03-21T00:16:35.316Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1958-03-13T00:07:26.031Z\",\n        \"value\": null\n      }\n    ],\n    \"records\": [\n      {\n        \"time\": \"1958-10-20T11:42:28.428Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1995-12-19T14:21:01.376Z\",\n        \"value\": null\n      }\n    ],\n    \"errors\": [\n      {\n        \"time\": \"2022-01-14T21:48:51.504Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2011-08-31T19:50:10.678Z\",\n        \"value\": null\n      }\n    ],\n    \"retries\": [\n      {\n        \"time\": \"1952-07-18T11:54:54.538Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2004-12-30T00:31:18.675Z\",\n        \"value\": null\n      }\n    ],\n    \"retriedRecords\": [\n      {\n        \"time\": \"1962-10-15T16:57:17.594Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2018-01-22T23:07:26.622Z\",\n        \"value\": null\n      }\n    ],\n    \"retriesFailed\": [\n      {\n        \"time\": \"2025-11-30T22:41:26.122Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"2024-08-31T12:13:32.459Z\",\n        \"value\": null\n      }\n    ],\n    \"droppedRecords\": [\n      {\n        \"time\": \"2020-01-05T17:09:50.928Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1964-09-29T04:30:36.264Z\",\n        \"value\": null\n      }\n    ],\n    \"loads\": [\n      {\n        \"time\": \"2022-10-05T13:33:04.489Z\",\n        \"value\": null\n      },\n      {\n        \"time\": \"1951-01-01T06:34:41.486Z\",\n        \"value\": null\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8aee4921-5b48-45f0-8793-05a0cf40d31a",
+          "name": "Agent metrics over time organized by plugin",
+          "request": {
+            "name": "Agent metrics over time organized by plugin",
+            "description": {},
+            "url": {
+              "path": [
+                "v2",
+                "agents",
+                ":agentID",
+                "metrics_over_time_by_plugin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "-24h",
+                  "description": "Option to filter metrics since the given time ago\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "interval",
+                  "value": "1h",
+                  "description": "Option to set the time window to group metrics\n"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agentID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2644abef-443b-4ce8-8a34-607155a86b6a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "agents",
+                    ":agentID",
+                    "metrics_over_time_by_plugin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "-24h"
+                    },
+                    {
+                      "key": "interval",
+                      "value": "1h"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agentID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2001-06-14T07:13:00.515Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1971-03-23T09:23:44.944Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1991-10-28T21:17:10.442Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1977-07-26T19:19:11.072Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2013-12-05T06:57:49.970Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1989-06-14T23:03:21.942Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1991-02-18T11:53:42.769Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1980-07-02T11:44:40.466Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ],\n  \"filters\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2011-01-18T11:49:30.596Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1956-01-02T10:28:48.058Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1992-02-05T17:43:33.928Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2024-04-04T16:24:51.256Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"1990-10-11T11:57:12.072Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1951-03-29T20:42:02.856Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1957-03-27T00:46:48.261Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2005-09-29T14:56:53.053Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ],\n  \"outputs\": [\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2001-07-07T11:49:10.562Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2006-05-22T08:48:20.538Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1977-06-12T14:42:17.339Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2023-01-06T19:38:56.649Z\",\n            \"value\": null\n          }\n        ]\n      }\n    },\n    {\n      \"instance\": \"storage_backlog.3\",\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2008-03-16T23:14:07.031Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"1984-07-20T21:04:13.577Z\",\n            \"value\": null\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"1965-07-17T01:23:44.022Z\",\n            \"value\": null\n          },\n          {\n            \"time\": \"2002-06-29T22:09:25.610Z\",\n            \"value\": null\n          }\n        ]\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c8a4d875-5291-4b12-a391-5a194027d099",
+    "name": "Calyptia Cloud agent metric API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

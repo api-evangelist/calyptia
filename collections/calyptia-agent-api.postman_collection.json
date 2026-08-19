@@ -1,0 +1,776 @@
+{
+  "item": [
+    {
+      "id": "7fa608e2-6851-4261-ba56-86f13fe451ef",
+      "name": "agent",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "275a236d-5567-4f09-8eec-b0b001ad0de0",
+          "name": "Register agent",
+          "request": {
+            "name": "Register agent",
+            "description": {
+              "content": "Register agent within a project.\nThe project in which the agent is registered is parsed from the authorization token.\nUsers are not allowed to register agents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Project-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<hostname>\",\n  \"machineID\": \"<string>\",\n  \"type\": \"<string>\",\n  \"version\": \"<string>\",\n  \"edition\": \"<string>\",\n  \"flags\": null,\n  \"rawConfig\": \"<string>\",\n  \"fleetID\": null,\n  \"metadata\": \"<object>\",\n  \"environmentID\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "109d8cab-ba52-470d-af17-813b353db563",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Project-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new-agent\",\n  \"machineID\": \"<string>\",\n  \"type\": \"<string>\",\n  \"version\": \"v1.8.6\",\n  \"edition\": \"<string>\",\n  \"flags\": null,\n  \"rawConfig\": \"<string>\",\n  \"fleetID\": null,\n  \"metadata\": \"<object>\",\n  \"environmentID\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"88500016-b595-46ab-152d-ce84cb486ec4\",\n  \"token\": \"redacted\",\n  \"name\": \"my-agent\",\n  \"createdAt\": \"1949-10-20T22:19:15.252Z\",\n  \"environmentName\": \"default\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a52d1541-880e-49de-82e0-6140b45bb09a",
+          "name": "Agents",
+          "request": {
+            "name": "Agents",
+            "description": {
+              "content": "Agents from a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fleet_id",
+                  "value": "<uuid>",
+                  "description": "Filter agents from a single fleet."
+                },
+                {
+                  "disabled": false,
+                  "key": "pipeline_id",
+                  "value": "<uuid>",
+                  "description": "Filter agents from a single pipeline."
+                },
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last agents."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Agents before the given cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name matching agents."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags_query",
+                  "value": "<string>",
+                  "description": "Tag query."
+                },
+                {
+                  "disabled": false,
+                  "key": "environment_id",
+                  "value": "<string>",
+                  "description": "Environment ID for matching agents."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5162dc5f-2f34-47c4-a8ed-44c6a0ec5074",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fleet_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "pipeline_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags_query",
+                      "value": "tagone AND tagtwo"
+                    },
+                    {
+                      "key": "environment_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC5988 with `rel=\"next\"`.",
+                  "key": "Link",
+                  "value": "</v1/projects/foo/agents?before=bar>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"10a1a48c-993d-df11-171c-f18345aa5943\",\n    \"fleetID\": null,\n    \"token\": \"redacted\",\n    \"name\": \"my-agent\",\n    \"machineID\": \"string\",\n    \"type\": \"fluentbit\",\n    \"version\": \"v1.8.6\",\n    \"edition\": \"enterprise\",\n    \"os\": \"freebsd\",\n    \"arch\": \"unknown\",\n    \"flags\": null,\n    \"status\": \"healthy\",\n    \"rawConfig\": \"string\",\n    \"metadata\": null,\n    \"environmentName\": \"default\",\n    \"firstMetricsAddedAt\": null,\n    \"lastMetricsAddedAt\": null,\n    \"createdAt\": \"2004-03-25T01:52:20.549Z\",\n    \"updatedAt\": \"1954-09-28T16:49:52.053Z\",\n    \"pipelineID\": null,\n    \"tags\": null\n  },\n  {\n    \"id\": \"f407a851-bdfe-96f3-d320-e3394e8ddf3f\",\n    \"fleetID\": null,\n    \"token\": \"redacted\",\n    \"name\": \"my-agent\",\n    \"machineID\": \"string\",\n    \"type\": \"fluentbit\",\n    \"version\": \"v1.8.6\",\n    \"edition\": \"community\",\n    \"os\": \"openbsd\",\n    \"arch\": \"arm\",\n    \"flags\": null,\n    \"status\": \"healthy\",\n    \"rawConfig\": \"string\",\n    \"metadata\": null,\n    \"environmentName\": \"default\",\n    \"firstMetricsAddedAt\": null,\n    \"lastMetricsAddedAt\": null,\n    \"createdAt\": \"1953-10-26T19:10:49.056Z\",\n    \"updatedAt\": \"2009-03-05T23:40:53.204Z\",\n    \"pipelineID\": null,\n    \"tags\": null\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "402b9eca-92e4-4b17-ad2c-547d0c5dd930",
+          "name": "Delete Agents",
+          "request": {
+            "name": "Delete Agents",
+            "description": {
+              "content": "Delete agents from a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID",
+                "agents"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<uuid>",
+                  "description": "List of agent IDs to delete."
+                },
+                {
+                  "disabled": false,
+                  "key": "agent_id",
+                  "value": "<uuid>",
+                  "description": "List of agent IDs to delete."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0ff5d0d6-ef02-4ec4-a0e9-7395d8c770b6",
+              "name": "Deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID",
+                    "agents"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "agent_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "agent_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3aca4af8-b4e0-4b48-b460-3ee48ef9e00e",
+          "name": "Agent",
+          "request": {
+            "name": "Agent",
+            "description": {
+              "content": "Agents by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                ":agentID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agentID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ecb99b85-5fc3-433f-84b7-b640d61dc68c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents",
+                    ":agentID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agentID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"e320bfc0-588b-d7dc-f8a3-4e9a3d05d6aa\",\n  \"fleetID\": null,\n  \"token\": \"redacted\",\n  \"name\": \"my-agent\",\n  \"machineID\": \"string\",\n  \"type\": \"fluentbit\",\n  \"version\": \"v1.8.6\",\n  \"edition\": \"enterprise\",\n  \"os\": \"linux\",\n  \"arch\": \"x86\",\n  \"flags\": null,\n  \"status\": \"healthy\",\n  \"rawConfig\": \"string\",\n  \"metadata\": null,\n  \"environmentName\": \"default\",\n  \"firstMetricsAddedAt\": null,\n  \"lastMetricsAddedAt\": null,\n  \"createdAt\": \"2024-03-18T10:52:12.660Z\",\n  \"updatedAt\": \"2021-05-21T20:07:49.711Z\",\n  \"pipelineID\": null,\n  \"tags\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4eca6308-9ecc-4a6d-bb28-11d0b18dce24",
+          "name": "Update agent",
+          "request": {
+            "name": "Update agent",
+            "description": {
+              "content": "Update agent by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                ":agentID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agentID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fleetID\": null,\n  \"name\": null,\n  \"version\": null,\n  \"edition\": null,\n  \"flags\": null,\n  \"rawConfig\": null,\n  \"metadata\": \"<object>\",\n  \"environmentID\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b77b8bcd-21e7-42f6-a043-af5d900ca483",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents",
+                    ":agentID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agentID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"fleetID\": null,\n  \"name\": \"new-agent\",\n  \"version\": \"v1.8.6\",\n  \"edition\": null,\n  \"flags\": null,\n  \"rawConfig\": null,\n  \"metadata\": \"<object>\",\n  \"environmentID\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f29e5917-1dee-495b-aef1-0ed6859fcbac",
+          "name": "Delete agent",
+          "request": {
+            "name": "Delete agent",
+            "description": {
+              "content": "Delete agent by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "agents",
+                ":agentID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "agentID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9f7a0880-ab1f-4d8f-9c3e-30a37c085d19",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "agents",
+                    ":agentID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "agentID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c1559542-9b03-49fe-8b8b-c8561b8acddd",
+    "name": "Calyptia Cloud agent API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

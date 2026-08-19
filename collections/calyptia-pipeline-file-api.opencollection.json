@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent pipeline_file API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pipeline_file",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pipeline files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregator_pipelines/:pipelineID/files",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last files."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Files from a pipeline."
+        },
+        {
+          "info": {
+            "name": "Create pipeline file",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/aggregator_pipelines/:pipelineID/files",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create file within a pipeline.\nThe given name is unique within the pipeline.\nThese files can be referenced by their name within a fluentbit configuration file like so `{{files.thename}}`.\nUse them to share common stuff like parsers."
+        },
+        {
+          "info": {
+            "name": "Pipeline file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/pipeline_files/:fileID",
+            "params": [
+              {
+                "name": "fileID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "File by ID."
+        },
+        {
+          "info": {
+            "name": "Update pipeline file",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/pipeline_files/:fileID",
+            "params": [
+              {
+                "name": "fileID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update file by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete pipeline file",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/pipeline_files/:fileID",
+            "params": [
+              {
+                "name": "fileID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete pipeline file by its ID.\nThe file cannot be deleted if some pipeline config is still referencing it;\nyou must delete the pipeline first if you want to delete the file."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

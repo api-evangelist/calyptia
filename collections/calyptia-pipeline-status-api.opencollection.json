@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent pipeline_status API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pipeline_status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pipeline status history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregator_pipelines/:pipeline/status_history",
+            "params": [
+              {
+                "name": "pipeline",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last history entries."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter status entries with matching status."
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Status history from a pipeline.\nEvery time a pipeline status is changed, a new history entry with the change is created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

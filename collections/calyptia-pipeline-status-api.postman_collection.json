@@ -1,0 +1,172 @@
+{
+  "item": [
+    {
+      "id": "eaa81ed3-ba3b-4879-915c-2dd016293618",
+      "name": "pipeline_status",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "82d5d2a2-2461-4e78-8e2b-1849c4c702ab",
+          "name": "Pipeline status history",
+          "request": {
+            "name": "Pipeline status history",
+            "description": {
+              "content": "Status history from a pipeline.\nEvery time a pipeline status is changed, a new history entry with the change is created.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregator_pipelines",
+                ":pipeline",
+                "status_history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last history entries."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter status entries with matching status."
+                },
+                {
+                  "disabled": false,
+                  "key": "config_format",
+                  "value": "<string>",
+                  "description": "Desired output config format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipeline",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f9d9fb3e-294e-4695-9612-9aba0b038371",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregator_pipelines",
+                    ":pipeline",
+                    "status_history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "config_format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipeline",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"5dc0a5ca-06c1-bbb2-6d5e-731d2ed6059c\",\n    \"config\": {\n      \"id\": \"bf0a465c-263e-019c-29bf-45e74a0a83ba\",\n      \"rawConfig\": \"string\",\n      \"createdAt\": \"1967-08-02T22:27:59.591Z\"\n    },\n    \"status\": \"FAILED\",\n    \"createdAt\": \"2005-01-19T19:41:54.582Z\",\n    \"events\": [\n      {\n        \"source\": \"k8s:pod\",\n        \"reason\": \"string\",\n        \"loggedAt\": \"1947-06-11T02:58:58.291Z\",\n        \"message\": \"string\"\n      },\n      {\n        \"source\": \"k8s:pod\",\n        \"reason\": \"string\",\n        \"loggedAt\": \"2002-04-22T18:32:55.910Z\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  {\n    \"id\": \"b3b6a14f-0998-53b1-235b-80bdf8a9ef47\",\n    \"config\": {\n      \"id\": \"d42a0e69-947b-cc51-f509-315ac2d17f50\",\n      \"rawConfig\": \"string\",\n      \"createdAt\": \"1953-05-05T00:01:48.153Z\"\n    },\n    \"status\": \"CHECKS_OK\",\n    \"createdAt\": \"2009-03-18T10:31:27.198Z\",\n    \"events\": [\n      {\n        \"source\": \"k8s:deployment\",\n        \"reason\": \"string\",\n        \"loggedAt\": \"1956-03-18T17:56:30.286Z\",\n        \"message\": \"string\"\n      },\n      {\n        \"source\": \"k8s:pod\",\n        \"reason\": \"string\",\n        \"loggedAt\": \"2007-03-31T13:19:24.789Z\",\n        \"message\": \"string\"\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1e31c2b0-3f73-4e30-ad1c-a78eed9b88c3",
+    "name": "Calyptia Cloud agent pipeline_status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

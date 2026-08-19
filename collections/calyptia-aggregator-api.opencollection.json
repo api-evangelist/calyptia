@@ -1,0 +1,223 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent aggregator API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "aggregator",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create core instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Project-Token",
+              "value": "{{X-Project-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create core instance within a project.\nThe project in which the core instance is created is parser from the authorization token.\nUsers are not allowed to create core instances."
+        },
+        {
+          "info": {
+            "name": "Core instances (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/aggregators",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last core instances."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Core instances before the given cursor."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name matching core instances."
+              },
+              {
+                "name": "environment_id",
+                "value": "",
+                "type": "query",
+                "description": "Environment ID for matching core instances."
+              },
+              {
+                "name": "tags_query",
+                "value": "",
+                "type": "query",
+                "description": "Tag query."
+              },
+              {
+                "name": "exclude_internal",
+                "value": "",
+                "type": "query",
+                "description": "Exclude internal pipelines (health-check) from count."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core instances from a project (deprecated)."
+        },
+        {
+          "info": {
+            "name": "Delete Core instances",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/aggregators",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "aggregator_id",
+                "value": "",
+                "type": "query",
+                "description": "List of core instance IDs to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete core instances from a project."
+        },
+        {
+          "info": {
+            "name": "Ping Cloud API by core instance ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID/ping",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Ping Cloud API by core instance ID"
+        },
+        {
+          "info": {
+            "name": "Core instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "exclude_internal",
+                "value": "",
+                "type": "query",
+                "description": "Exclude internal pipelines (health-check) from count."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Core instance by ID."
+        },
+        {
+          "info": {
+            "name": "Update core instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update core instance by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete core instance",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete core instance by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

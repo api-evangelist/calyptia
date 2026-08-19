@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent processing_rule API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "processing_rule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Processing rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/processing_rules",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last processing rules."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Processing rules before the given cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Processing rules"
+        },
+        {
+          "info": {
+            "name": "Create a processing rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/processing_rules",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a processing rule in the given pipeline.\nOnly one processing rule is allowed per pipeline.\n"
+        },
+        {
+          "info": {
+            "name": "Processing rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/processing_rules/:processingRuleID",
+            "params": [
+              {
+                "name": "processingRuleID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Processing rule"
+        },
+        {
+          "info": {
+            "name": "Update processing rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/processing_rules/:processingRuleID",
+            "params": [
+              {
+                "name": "processingRuleID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update processing rule"
+        },
+        {
+          "info": {
+            "name": "Delete processing rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/processing_rules/:processingRuleID",
+            "params": [
+              {
+                "name": "processingRuleID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete processing rule"
+        },
+        {
+          "info": {
+            "name": "Preview processing rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/preview_processing_rule",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Preview processing rule"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

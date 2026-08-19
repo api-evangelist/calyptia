@@ -1,0 +1,148 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent pipeline_check API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pipeline_check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pipeline checks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/checks",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last files."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "End cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Checks associated to a pipeline."
+        },
+        {
+          "info": {
+            "name": "Create pipeline check",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/checks",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create check within a pipeline."
+        },
+        {
+          "info": {
+            "name": "Pipeline check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/pipeline_checks/:checkID",
+            "params": [
+              {
+                "name": "checkID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Check by ID."
+        },
+        {
+          "info": {
+            "name": "Update pipeline check",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/pipeline_checks/:checkID",
+            "params": [
+              {
+                "name": "checkID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update check by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete pipeline check",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/pipeline_checks/:checkID",
+            "params": [
+              {
+                "name": "checkID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete pipeline check by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

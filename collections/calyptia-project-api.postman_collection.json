@@ -1,0 +1,582 @@
+{
+  "item": [
+    {
+      "id": "da82506d-1187-4e3f-aad7-94115cbc9ce4",
+      "name": "project",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "28cff702-34fc-4bb1-89c5-3cb8f1340239",
+          "name": "Create project",
+          "request": {
+            "name": "Create project",
+            "description": {
+              "content": "Creates a new project.\nA project is the base unit of work at Calyptia Cloud.\nYou can register agents here, create core instances in which you can deploy an entire set of pipelines, and monitor them.\nYou can even invite other people to the project and have a team.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"v3Enabled\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5bcd2efb-be4a-4867-86d9-eb57701e3b16",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new-project\",\n  \"v3Enabled\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"token\": \"redacted\",\n  \"createdAt\": \"1987-05-02T13:46:43.061Z\",\n  \"membership\": {\n    \"id\": \"71d550a8-a832-ad62-d5f2-6c9cabd60d3f\",\n    \"userID\": \"7d7cbb47-4583-dc3d-902f-5cc1c7600950\",\n    \"projectID\": \"6636a3b7-ed7c-b504-b95c-00e25b0b20a8\",\n    \"roles\": null,\n    \"permissions\": [\n      \"delete:*\",\n      \"create:*\"\n    ],\n    \"createdAt\": \"2010-02-02T01:19:32.245Z\",\n    \"user\": {\n      \"id\": \"66af3a9b-76e7-5044-aef8-68a8a7f5dd44\",\n      \"email\": \"DrPFH1X3@gXAsaNbXnTmRsZXFjOYvwGSNwxlmVTx.qm\",\n      \"name\": \"user\",\n      \"avatarURL\": null,\n      \"createdAt\": \"2011-09-27T06:18:41.923Z\",\n      \"updatedAt\": \"2007-12-27T08:34:36.065Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "525dd2eb-7a8f-41e8-a3b5-106dcd3ae50c",
+          "name": "Projects",
+          "request": {
+            "name": "Projects",
+            "description": {
+              "content": "Projects you are a member of.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last projects."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name matching projects."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "89aa6d74-c005-4948-ae03-4cd83ff77c25",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"cf762ba6-03fc-905a-158c-5091e077eaff\",\n    \"name\": \"my-project\",\n    \"membersCount\": 6846,\n    \"agentsCount\": 4352,\n    \"aggregatorsCount\": 0,\n    \"createdAt\": \"1976-12-15T01:10:08.999Z\",\n    \"v3Enabled\": false,\n    \"settings\": {\n      \"gpt\": true\n    },\n    \"membership\": {\n      \"id\": \"23669cb9-1f35-bd41-1195-864cfb57cd46\",\n      \"userID\": \"b53387b0-6b33-882b-00e3-ab489a26fedc\",\n      \"projectID\": \"cacae129-fe4f-caa4-d430-7bd4cd9e7b57\",\n      \"roles\": null,\n      \"permissions\": [\n        \"create:*\",\n        \"read:*\"\n      ],\n      \"createdAt\": \"2000-08-31T14:38:27.798Z\",\n      \"user\": {\n        \"id\": \"a20253ee-2207-8a6b-ed9f-9e397a5bcd0a\",\n        \"email\": \"9Uqv0Wp3vA@dNpbozHLAaki.ny\",\n        \"name\": \"user\",\n        \"avatarURL\": null,\n        \"createdAt\": \"2013-06-02T13:54:31.574Z\",\n        \"updatedAt\": \"2003-06-30T14:10:24.779Z\"\n      }\n    }\n  },\n  {\n    \"id\": \"b58a56f2-f6e6-4267-4618-f0e3a509899c\",\n    \"name\": \"my-project\",\n    \"membersCount\": 6442,\n    \"agentsCount\": 6527,\n    \"aggregatorsCount\": 0,\n    \"createdAt\": \"1958-08-25T11:31:14.720Z\",\n    \"v3Enabled\": true,\n    \"settings\": {\n      \"gpt\": true\n    },\n    \"membership\": {\n      \"id\": \"4379eabf-efea-3084-5612-4140fd639c9d\",\n      \"userID\": \"60ac4a21-f9e9-d767-7926-cf2f28595680\",\n      \"projectID\": \"bce7ab06-4c7f-05b4-639f-47151b25244e\",\n      \"roles\": null,\n      \"permissions\": [\n        \"update:*\",\n        \"read:*\"\n      ],\n      \"createdAt\": \"1959-11-23T22:29:27.822Z\",\n      \"user\": {\n        \"id\": \"d3e3e9b9-41f0-fc79-e643-9502704b350e\",\n        \"email\": \"TvMFE7@xWxiRSwrWEKPIea.xr\",\n        \"name\": \"user\",\n        \"avatarURL\": null,\n        \"createdAt\": \"1999-10-27T01:41:58.119Z\",\n        \"updatedAt\": \"1986-11-18T16:11:50.735Z\"\n      }\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8db7e62f-3a09-4df6-a865-3cbf36814f87",
+          "name": "Project",
+          "request": {
+            "name": "Project",
+            "description": {
+              "content": "Project by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d1b80fc3-e990-481c-8303-e79f9fd3ab65",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"81e52303-94fc-4a35-9cf8-91f80ba3aca0\",\n  \"name\": \"my-project\",\n  \"membersCount\": 5133,\n  \"agentsCount\": 844,\n  \"aggregatorsCount\": 0,\n  \"createdAt\": \"1981-08-11T08:56:52.616Z\",\n  \"v3Enabled\": true,\n  \"settings\": {\n    \"gpt\": true\n  },\n  \"membership\": {\n    \"id\": \"4de2c971-d9ca-dccc-89e7-5099b80f1085\",\n    \"userID\": \"402cb3de-0f60-72b9-2002-56142bc3ac5a\",\n    \"projectID\": \"f0f2ff97-aa05-fcfc-5e89-dfe51c1ea6dc\",\n    \"roles\": null,\n    \"permissions\": [\n      \"delete:*\",\n      \"create:*\"\n    ],\n    \"createdAt\": \"2018-07-10T08:12:16.286Z\",\n    \"user\": {\n      \"id\": \"f1e039c3-c9f0-907d-ec89-94ba9ce0ac6e\",\n      \"email\": \"agQoMoLDFo@yFXlImIthUslhc.ursj\",\n      \"name\": \"user\",\n      \"avatarURL\": null,\n      \"createdAt\": \"1992-12-08T13:08:19.549Z\",\n      \"updatedAt\": \"1956-05-13T14:41:25.536Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58de2ec8-e48e-493e-ba8c-efeb5affe998",
+          "name": "Update project",
+          "request": {
+            "name": "Update project",
+            "description": {
+              "content": "Update project by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": null,\n  \"v3Enabled\": null,\n  \"setSettings\": {\n    \"key_0\": 1507,\n    \"key_1\": true,\n    \"key_2\": 3506.4905614604127\n  },\n  \"unsetSettings\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"clearAllSettings\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7aeff487-17d9-4ba5-b4ec-6ed05a7fb935",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new-project\",\n  \"v3Enabled\": null,\n  \"setSettings\": {\n    \"gpt\": true\n  },\n  \"unsetSettings\": [\n    \"oldSetting\"\n  ],\n  \"clearAllSettings\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a08e7c29-643f-459b-a619-64bbdcb365c3",
+          "name": "Delete project",
+          "request": {
+            "name": "Delete project",
+            "description": {
+              "content": "Delete project by its ID.\nOnly the creator of the project can delete it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6f406744-2545-4073-a0e4-d5dbb50f92bf",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deleted\": true,\n  \"deletedAt\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fcbd2a08-0b50-450d-a810-2e049f303a42",
+    "name": "Calyptia Cloud agent project API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent cluster_object API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "cluster_object",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cluster objects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/core_instances/:coreInstanceID/cluster_objects",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "kind",
+                "value": "",
+                "type": "query",
+                "description": "Kind of the kubernetes object."
+              },
+              {
+                "name": "name",
+                "value": "kube-system",
+                "type": "query",
+                "description": "Kubernetes object name to filter by."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cluster objects"
+        },
+        {
+          "info": {
+            "name": "Create cluster object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/core_instances/:coreInstanceID/cluster_objects",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create cluster object"
+        },
+        {
+          "info": {
+            "name": "Update cluster object",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/cluster_objects/:clusterObjectID",
+            "params": [
+              {
+                "name": "clusterObjectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a given cluster_object"
+        },
+        {
+          "info": {
+            "name": "Delete cluster object",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/cluster_objects/:clusterObjectID",
+            "params": [
+              {
+                "name": "clusterObjectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a given cluster_object"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

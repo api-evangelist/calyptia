@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent config_section API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "config_section",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Config sections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/config_sections",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last config sections."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Config sections before the given cursor."
+              },
+              {
+                "name": "include_processing_rules",
+                "value": "",
+                "type": "query",
+                "description": "Include config sections\nthat were created through a processing rule.\n"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Config sections"
+        },
+        {
+          "info": {
+            "name": "Create config section",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/config_sections",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create config section"
+        },
+        {
+          "info": {
+            "name": "Config section",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/config_sections/:configSectionID",
+            "params": [
+              {
+                "name": "configSectionID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Config section"
+        },
+        {
+          "info": {
+            "name": "Update config section",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/config_sections/:configSectionID",
+            "params": [
+              {
+                "name": "configSectionID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update config section"
+        },
+        {
+          "info": {
+            "name": "Delete config section",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/config_sections/:configSectionID",
+            "params": [
+              {
+                "name": "configSectionID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete config section"
+        },
+        {
+          "info": {
+            "name": "Update config section set",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/config_section_set",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update config section set"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

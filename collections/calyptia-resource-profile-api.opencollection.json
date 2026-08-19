@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent resource_profile API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "resource_profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resource profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID/resource_profiles",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last tokens."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Resource profiles from a core instance."
+        },
+        {
+          "info": {
+            "name": "Create resource profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID/resource_profiles",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create resource profile within a core instance.\nA resource profile is a specification of a resource used during the deployment of a pipeline.\nBy default, when you setup a core instance, Calyptia Cloud will generate 3 resource profiles for you:\n - high-performance-guaranteed-delivery.\n - high-performance-optimal-throughput.\n - best-effort-low-resource."
+        },
+        {
+          "info": {
+            "name": "Resource profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/resource_profiles/:resourceProfileID",
+            "params": [
+              {
+                "name": "resourceProfileID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Resource profile by ID."
+        },
+        {
+          "info": {
+            "name": "Update resource profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/resource_profiles/:resourceProfileID",
+            "params": [
+              {
+                "name": "resourceProfileID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update resource profile by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete resource profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/resource_profiles/:resourceProfileID",
+            "params": [
+              {
+                "name": "resourceProfileID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete resource profile by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1358 @@
+{
+  "item": [
+    {
+      "id": "8792e00b-04d1-4380-9159-ede18f10154d",
+      "name": "pipeline",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a81fbfec-ce8a-4338-ab5f-547e0009318a",
+          "name": "Create pipeline",
+          "request": {
+            "name": "Create pipeline",
+            "description": {
+              "content": "Create pipeline within a core instance.\nThe pipeline name must be unique within the core instance.\nThe resource profile must exist already. If you don't provide one, it will default to \"best-effort-low-resource\".\nUse them to easily deploy configured agents to the core instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID",
+                "pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"replicasCount\": \"<integer>\",\n  \"rawConfig\": \"<string>\",\n  \"image\": null,\n  \"secrets\": null,\n  \"files\": null,\n  \"resourceProfile\": \"<string>\",\n  \"skipConfigValidation\": \"<boolean>\",\n  \"portKind\": \"LoadBalancer\",\n  \"minReplicas\": 0,\n  \"maxReplicas\": 0,\n  \"scaleUpType\": \"Unknown\",\n  \"scaleUpValue\": 0,\n  \"scaleUpPeriodSeconds\": 0,\n  \"scaleDownType\": \"Unknown\",\n  \"scaleDownValue\": 0,\n  \"scaleDownPeriodSeconds\": 0,\n  \"utilizationCPUAverage\": 0,\n  \"utilizationMemoryAverage\": 0,\n  \"kind\": \"deployment\",\n  \"configFormat\": \"classic\",\n  \"noAutoCreateChecksFromConfig\": false,\n  \"autoCreateChecksFromConfig\": false,\n  \"waitForChecksBeforeDeploying\": false,\n  \"noAutoCreateEndpointsFromConfig\": false,\n  \"autoCreatePortsFromConfig\": false,\n  \"metadata\": null,\n  \"labels\": null,\n  \"affinity\": {\n    \"key\": \"<string>\",\n    \"operator\": \"<string>\",\n    \"values\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"topologySpreadConstraints\": [\n    {\n      \"maxSkew\": \"<integer>\",\n      \"topologyKey\": \"<string>\",\n      \"whenUnsatisfiable\": \"<string>\",\n      \"labelSelector\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"minDomains\": \"<integer>\"\n    },\n    {\n      \"maxSkew\": \"<integer>\",\n      \"topologyKey\": \"<string>\",\n      \"whenUnsatisfiable\": \"<string>\",\n      \"labelSelector\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"minDomains\": \"<integer>\"\n    }\n  ],\n  \"tolerations\": [\n    {\n      \"key\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"effect\": \"<string>\",\n      \"value\": \"<string>\",\n      \"tolerationSeconds\": \"<long>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"effect\": \"<string>\",\n      \"value\": \"<string>\",\n      \"tolerationSeconds\": \"<long>\"\n    }\n  ],\n  \"terminationGracePeriodSeconds\": \"<long>\",\n  \"lifecycle\": {\n    \"preStop\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    },\n    \"postStart\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    }\n  },\n  \"storageClass\": \"<string>\",\n  \"pvcRetentionPolicy\": {\n    \"whenScaled\": \"Retain\",\n    \"whenDeleted\": \"Retain\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e57eda50-daf4-407d-ac48-74ddc6fa5bb1",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new-pipeline\",\n  \"replicasCount\": \"<integer>\",\n  \"rawConfig\": \"<string>\",\n  \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n  \"secrets\": null,\n  \"files\": null,\n  \"resourceProfile\": \"my-resource-profile\",\n  \"skipConfigValidation\": \"<boolean>\",\n  \"portKind\": \"LoadBalancer\",\n  \"minReplicas\": 0,\n  \"maxReplicas\": 0,\n  \"scaleUpType\": \"Unknown\",\n  \"scaleUpValue\": 0,\n  \"scaleUpPeriodSeconds\": 0,\n  \"scaleDownType\": \"Unknown\",\n  \"scaleDownValue\": 0,\n  \"scaleDownPeriodSeconds\": 0,\n  \"utilizationCPUAverage\": 0,\n  \"utilizationMemoryAverage\": 0,\n  \"kind\": \"deployment\",\n  \"configFormat\": \"yaml\",\n  \"noAutoCreateChecksFromConfig\": false,\n  \"autoCreateChecksFromConfig\": false,\n  \"waitForChecksBeforeDeploying\": false,\n  \"noAutoCreateEndpointsFromConfig\": false,\n  \"autoCreatePortsFromConfig\": false,\n  \"metadata\": null,\n  \"labels\": null,\n  \"affinity\": {\n    \"key\": \"<string>\",\n    \"operator\": \"<string>\",\n    \"values\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"topologySpreadConstraints\": [\n    {\n      \"maxSkew\": \"<integer>\",\n      \"topologyKey\": \"<string>\",\n      \"whenUnsatisfiable\": \"<string>\",\n      \"labelSelector\": {\n        \"key_0\": \"<string>\"\n      },\n      \"minDomains\": \"<integer>\"\n    },\n    {\n      \"maxSkew\": \"<integer>\",\n      \"topologyKey\": \"<string>\",\n      \"whenUnsatisfiable\": \"<string>\",\n      \"labelSelector\": {\n        \"key_0\": \"<string>\"\n      },\n      \"minDomains\": \"<integer>\"\n    }\n  ],\n  \"tolerations\": [\n    {\n      \"key\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"effect\": \"<string>\",\n      \"value\": \"<string>\",\n      \"tolerationSeconds\": \"<long>\"\n    },\n    {\n      \"key\": \"<string>\",\n      \"operator\": \"<string>\",\n      \"effect\": \"<string>\",\n      \"value\": \"<string>\",\n      \"tolerationSeconds\": \"<long>\"\n    }\n  ],\n  \"terminationGracePeriodSeconds\": \"<long>\",\n  \"lifecycle\": {\n    \"preStop\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    },\n    \"postStart\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    }\n  },\n  \"storageClass\": \"<string>\",\n  \"pvcRetentionPolicy\": {\n    \"whenScaled\": \"Retain\",\n    \"whenDeleted\": \"Retain\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"07f7a3fc-f24e-cd54-16b8-9e1f7440f5cd\",\n  \"name\": \"my-pipeline\",\n  \"kind\": \"deployment\",\n  \"config\": {\n    \"id\": \"493ed677-6a51-b375-7754-163535db0127\",\n    \"rawConfig\": \"string\",\n    \"configFormat\": \"classic\",\n    \"createdAt\": \"2025-12-20T07:58:22.144Z\"\n  },\n  \"status\": {\n    \"id\": \"13e393ca-8f3b-1df5-080c-76bbe39a9f4d\",\n    \"config\": {\n      \"id\": \"e683f268-c655-c341-b66e-009f098ac18e\",\n      \"rawConfig\": \"string\",\n      \"createdAt\": \"1972-03-05T09:39:10.700Z\"\n    },\n    \"status\": \"FAILED\",\n    \"createdAt\": \"1992-02-07T12:13:14.633Z\",\n    \"events\": [\n      {\n        \"source\": \"k8s:deployment\",\n        \"reason\": \"string\",\n        \"loggedAt\": \"1979-05-04T06:00:02.008Z\",\n        \"message\": \"string\"\n      },\n      {\n        \"source\": \"k8s:deployment\",\n        \"reason\": \"string\",\n        \"loggedAt\": \"1985-08-12T23:15:17.519Z\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"secrets\": [\n    {\n      \"id\": \"817cd9d5-a801-b98c-7b2b-179a56633ccc\",\n      \"key\": \"mysecret\",\n      \"value\": \"string\",\n      \"createdAt\": \"1985-11-09T09:07:30.717Z\",\n      \"updatedAt\": \"1954-06-13T18:53:57.357Z\"\n    },\n    {\n      \"id\": \"369905ca-a896-8dbd-a380-2bb2b3b02ad5\",\n      \"key\": \"mysecret\",\n      \"value\": \"string\",\n      \"createdAt\": \"1962-07-05T00:48:19.515Z\",\n      \"updatedAt\": \"2022-06-01T17:50:42.613Z\"\n    }\n  ],\n  \"files\": [\n    {\n      \"id\": \"ac119b6a-4d1f-48c9-e701-b5796c9bc4d9\",\n      \"processingRuleID\": null,\n      \"name\": \"myfile\",\n      \"contents\": \"string\",\n      \"encrypted\": false,\n      \"createdAt\": \"1990-03-18T20:59:47.454Z\",\n      \"updatedAt\": \"2021-08-28T17:11:25.979Z\"\n    },\n    {\n      \"id\": \"7ef9d504-7b9d-2c44-2dec-7e17d7cc493d\",\n      \"processingRuleID\": null,\n      \"name\": \"myfile\",\n      \"contents\": \"string\",\n      \"encrypted\": false,\n      \"createdAt\": \"2024-12-25T04:10:55.286Z\",\n      \"updatedAt\": \"1963-12-22T06:16:57.238Z\"\n    }\n  ],\n  \"resourceProfile\": {\n    \"id\": \"26ecfc19-2d27-b65c-b87c-4f4b1e8a316a\",\n    \"name\": \"my-resource-profile\",\n    \"storageMaxChunksUp\": 7161,\n    \"storageSyncFull\": true,\n    \"storageBacklogMemLimit\": \"1Mi\",\n    \"storageVolumeSize\": \"2Mi\",\n    \"storageMaxChunksPause\": false,\n    \"cpuBufferWorkers\": 222,\n    \"cpuLimit\": \"3Mi\",\n    \"cpuRequest\": \"4Mi\",\n    \"memoryLimit\": \"5Mi\",\n    \"memoryRequest\": \"6Mi\",\n    \"createdAt\": \"1986-01-25T13:17:43.048Z\",\n    \"updatedAt\": \"1996-01-18T02:15:44.924Z\"\n  },\n  \"checks\": [\n    {\n      \"id\": \"f6561be4-bfe2-a7e0-6bb2-31e776a64ee0\",\n      \"protocol\": \"tcp\",\n      \"status\": \"new\",\n      \"retries\": 3,\n      \"port\": 25248.216144135808,\n      \"host\": \"localhost\",\n      \"createdAt\": \"1971-08-06T14:29:44.575Z\",\n      \"updatedAt\": \"1987-01-08T11:34:40.649Z\"\n    },\n    {\n      \"id\": \"f2db0f06-43a1-8c57-1149-5c932552815f\",\n      \"protocol\": \"udp\",\n      \"status\": \"new\",\n      \"retries\": 3,\n      \"port\": 35053.28042341646,\n      \"host\": \"localhost\",\n      \"createdAt\": \"1964-05-01T03:42:00.718Z\",\n      \"updatedAt\": \"1999-09-23T05:38:41.214Z\"\n    }\n  ],\n  \"createdAt\": \"1994-03-27T15:45:43.736Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9cdfee6f-fac4-48bd-87a7-630002a6e66b",
+          "name": "Pipelines (deprecated)",
+          "request": {
+            "name": "Pipelines (deprecated)",
+            "description": {
+              "content": "Pipelines from a core instance (deprecated).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID",
+                "pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last pipelines."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Pipelines before the given cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name matching pipelines."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags_query",
+                  "value": "<string>",
+                  "description": "Tag query."
+                },
+                {
+                  "disabled": false,
+                  "key": "config_format",
+                  "value": "<string>",
+                  "description": "Desired output config format."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Include all ports, secrets and files objects in the pipeline."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_internal",
+                  "value": "<boolean>",
+                  "description": "Exclude internal pipelines (health-check)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5cc30985-77c3-41ff-a4ff-56950052768d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags_query",
+                      "value": "tagone AND tagtwo"
+                    },
+                    {
+                      "key": "config_format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_internal",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC5988 with `rel=\"next\"`.",
+                  "key": "Link",
+                  "value": "</v1/aggregators/foo/pipelines?before=bar>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"897cec66-a03d-4039-2743-fc9c863edfd0\",\n    \"name\": \"my-pipeline\",\n    \"kind\": \"deployment\",\n    \"config\": {\n      \"id\": \"ed6f2024-66c2-219c-1c20-9a217ff8cf56\",\n      \"rawConfig\": \"string\",\n      \"configFormat\": \"classic\",\n      \"createdAt\": \"1948-07-03T16:32:58.627Z\"\n    },\n    \"configSections\": [\n      {\n        \"id\": \"17ef0515-39f4-c2a7-19f7-5595007fc3e2\",\n        \"projectID\": \"eea4c798-c95a-3a83-e078-0f998910597b\",\n        \"processingRuleID\": null,\n        \"kind\": \"input\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"2002-09-25T20:28:32.661Z\",\n        \"updatedAt\": \"1989-06-09T18:03:03.901Z\"\n      },\n      {\n        \"id\": \"da9058fe-2069-63f5-2864-2205a3b9ce06\",\n        \"projectID\": \"a6d09fc3-8319-657a-73c7-ce8eefce901a\",\n        \"processingRuleID\": null,\n        \"kind\": \"filter\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1964-10-23T17:16:03.423Z\",\n        \"updatedAt\": \"2024-08-28T10:23:20.814Z\"\n      }\n    ],\n    \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n    \"status\": {\n      \"id\": \"b83a46d3-8684-3884-4c17-d40e3c358209\",\n      \"config\": {\n        \"id\": \"a4532fb9-db63-3c59-b349-457181ecb5a2\",\n        \"rawConfig\": \"string\",\n        \"createdAt\": \"1968-01-27T10:26:23.254Z\"\n      },\n      \"status\": \"STARTED\",\n      \"createdAt\": \"1996-02-03T05:06:16.240Z\",\n      \"events\": [\n        {\n          \"source\": \"k8s:pod\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"2013-12-25T05:42:54.309Z\",\n          \"message\": \"string\"\n        },\n        {\n          \"source\": \"k8s:deployment\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"1955-06-23T18:39:58.916Z\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    \"resourceProfile\": {\n      \"id\": \"bd2093f8-647c-ff13-2f11-82c8d3d48a1f\",\n      \"name\": \"my-resource-profile\",\n      \"storageMaxChunksUp\": 14,\n      \"storageSyncFull\": false,\n      \"storageBacklogMemLimit\": \"1Mi\",\n      \"storageVolumeSize\": \"2Mi\",\n      \"storageMaxChunksPause\": true,\n      \"cpuBufferWorkers\": 7910,\n      \"cpuLimit\": \"3Mi\",\n      \"cpuRequest\": \"4Mi\",\n      \"memoryLimit\": \"5Mi\",\n      \"memoryRequest\": \"6Mi\",\n      \"createdAt\": \"2003-11-10T20:58:50.744Z\",\n      \"updatedAt\": \"1968-12-27T00:41:14.918Z\"\n    },\n    \"deploymentStrategy\": \"rollingupdate\",\n    \"tracingEnabled\": false,\n    \"waitForChecksBeforeDeploying\": false,\n    \"replicasCount\": 2701,\n    \"replicasCountPrev\": 5142,\n    \"tags\": null,\n    \"metadata\": null,\n    \"checksTotal\": 7537,\n    \"checksOK\": 6340,\n    \"checksRunning\": 5650,\n    \"portKind\": \"LoadBalancer\",\n    \"labels\": null,\n    \"createdAt\": \"2026-08-11T16:20:25.375Z\",\n    \"updatedAt\": \"1958-09-10T19:44:26.547Z\",\n    \"minReplicas\": 9766,\n    \"maxReplicas\": 8774,\n    \"scaleUpType\": \"Unknown\",\n    \"scaleUpValue\": 7217,\n    \"scaleUpPeriodSeconds\": 1870,\n    \"scaleDownType\": \"Unknown\",\n    \"scaleDownValue\": 5328,\n    \"scaleDownPeriodSeconds\": 6414,\n    \"utilizationCPUAverage\": 6948,\n    \"utilizationMemoryAverage\": 221,\n    \"secrets\": null,\n    \"files\": null,\n    \"ports\": null,\n    \"storageClass\": null,\n    \"pvcRetentionPolicy\": {\n      \"whenScaled\": \"Retain\",\n      \"whenDeleted\": \"Retain\"\n    },\n    \"error\": null\n  },\n  {\n    \"id\": \"f7efa5e2-b713-5983-8ec0-a7d6db7fe718\",\n    \"name\": \"my-pipeline\",\n    \"kind\": \"deployment\",\n    \"config\": {\n      \"id\": \"5520aa64-fb4a-f37d-d918-974b0bfdf61e\",\n      \"rawConfig\": \"string\",\n      \"configFormat\": \"classic\",\n      \"createdAt\": \"1973-04-10T09:55:16.803Z\"\n    },\n    \"configSections\": [\n      {\n        \"id\": \"1ab195ec-674a-df46-1e18-966726cdf828\",\n        \"projectID\": \"591297d9-33cc-6723-713c-ab7ed40b5a38\",\n        \"processingRuleID\": null,\n        \"kind\": \"filter\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1953-12-24T15:23:30.714Z\",\n        \"updatedAt\": \"1981-02-05T04:34:46.939Z\"\n      },\n      {\n        \"id\": \"410cc85d-6f9f-763c-4ca4-27ce17ab31e5\",\n        \"projectID\": \"0a059b27-1d24-6bde-1bf9-719438454a67\",\n        \"processingRuleID\": null,\n        \"kind\": \"input\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1988-06-29T20:54:20.605Z\",\n        \"updatedAt\": \"2010-09-10T13:48:03.602Z\"\n      }\n    ],\n    \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n    \"status\": {\n      \"id\": \"f65d6cc8-386e-cb3f-5c49-8d089c3b53dc\",\n      \"config\": {\n        \"id\": \"61593ba9-8efe-5efd-328b-5bd3396e98e2\",\n        \"rawConfig\": \"string\",\n        \"createdAt\": \"1991-11-28T21:35:51.569Z\"\n      },\n      \"status\": \"NEW\",\n      \"createdAt\": \"1972-05-28T14:48:26.556Z\",\n      \"events\": [\n        {\n          \"source\": \"k8s:pod\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"1966-12-07T07:08:00.957Z\",\n          \"message\": \"string\"\n        },\n        {\n          \"source\": \"k8s:deployment\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"2014-03-06T15:14:22.956Z\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    \"resourceProfile\": {\n      \"id\": \"bf572745-1813-a5e7-ef62-7d68f41020f9\",\n      \"name\": \"my-resource-profile\",\n      \"storageMaxChunksUp\": 4398,\n      \"storageSyncFull\": true,\n      \"storageBacklogMemLimit\": \"1Mi\",\n      \"storageVolumeSize\": \"2Mi\",\n      \"storageMaxChunksPause\": false,\n      \"cpuBufferWorkers\": 4168,\n      \"cpuLimit\": \"3Mi\",\n      \"cpuRequest\": \"4Mi\",\n      \"memoryLimit\": \"5Mi\",\n      \"memoryRequest\": \"6Mi\",\n      \"createdAt\": \"1969-02-20T11:38:53.860Z\",\n      \"updatedAt\": \"2004-10-10T15:49:48.636Z\"\n    },\n    \"deploymentStrategy\": \"rollingupdate\",\n    \"tracingEnabled\": false,\n    \"waitForChecksBeforeDeploying\": false,\n    \"replicasCount\": 9079,\n    \"replicasCountPrev\": 9208,\n    \"tags\": null,\n    \"metadata\": null,\n    \"checksTotal\": 4962,\n    \"checksOK\": 3215,\n    \"checksRunning\": 4703,\n    \"portKind\": \"LoadBalancer\",\n    \"labels\": null,\n    \"createdAt\": \"2012-07-06T02:53:08.713Z\",\n    \"updatedAt\": \"1969-04-26T02:01:36.067Z\",\n    \"minReplicas\": 9009,\n    \"maxReplicas\": 4296,\n    \"scaleUpType\": \"Unknown\",\n    \"scaleUpValue\": 488,\n    \"scaleUpPeriodSeconds\": 8744,\n    \"scaleDownType\": \"Unknown\",\n    \"scaleDownValue\": 1474,\n    \"scaleDownPeriodSeconds\": 4109,\n    \"utilizationCPUAverage\": 7219,\n    \"utilizationMemoryAverage\": 7009,\n    \"secrets\": null,\n    \"files\": null,\n    \"ports\": null,\n    \"storageClass\": null,\n    \"pvcRetentionPolicy\": {\n      \"whenScaled\": \"Retain\",\n      \"whenDeleted\": \"Retain\"\n    },\n    \"error\": null\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6ac79ec-af46-42db-bf47-80c8668cf2a7",
+          "name": "Delete Pipelines",
+          "request": {
+            "name": "Delete Pipelines",
+            "description": {
+              "content": "Delete pipelines from a core instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID",
+                "pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pipeline_id",
+                  "value": "<uuid>",
+                  "description": "List of pipeline IDs to delete."
+                },
+                {
+                  "disabled": false,
+                  "key": "pipeline_id",
+                  "value": "<uuid>",
+                  "description": "List of pipeline IDs to delete."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "610065b7-d1de-42fa-994d-2804564af633",
+              "name": "Deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pipeline_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "pipeline_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e3c9950-a13f-484f-b4ed-b66a540b7b08",
+          "name": "Pipelines",
+          "request": {
+            "name": "Pipelines",
+            "description": {
+              "content": "Pipelines from a core instance with backward pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "core_instances",
+                ":coreInstanceID",
+                "pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Limit to the last pipelines."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Paginate pipelines before the given cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "kind",
+                  "value": "deployment",
+                  "description": "Filter pipelines by kind."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter pipelines by name."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags_query",
+                  "value": "<string>",
+                  "description": "Filter pipelines by giving a tags query."
+                },
+                {
+                  "disabled": false,
+                  "key": "config_format",
+                  "value": "<string>",
+                  "description": "Desired output config format."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Whether to include ports, secrets and files objects in the pipeline."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Whether to include ports, secrets and files objects in the pipeline."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_internal",
+                  "value": "<boolean>",
+                  "description": "Exclude internal pipelines (health-check)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "coreInstanceID",
+                  "description": "(Required) Parent core instance ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bb5819fd-a670-43c6-a0c2-473b28df9227",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "core_instances",
+                    ":coreInstanceID",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "kind",
+                      "value": "deployment"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags_query",
+                      "value": "tagone AND tagtwo"
+                    },
+                    {
+                      "key": "config_format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_internal",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "coreInstanceID",
+                      "description": "(Required) Parent core instance ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"fc3d8bd4-5734-e90a-2aa4-86ccd7bf3b67\",\n      \"name\": \"my-pipeline\",\n      \"kind\": \"deployment\",\n      \"config\": {\n        \"id\": \"b821ad1b-d4f7-22da-7404-800d5f223b3d\",\n        \"rawConfig\": \"string\",\n        \"configFormat\": \"classic\",\n        \"createdAt\": \"2012-06-18T02:22:01.791Z\"\n      },\n      \"configSections\": [\n        {\n          \"id\": \"daa739f9-2d15-c174-6f00-c9d63a0dcdd8\",\n          \"projectID\": \"c3b55e81-432e-a3b0-e7de-5e3d54d23e30\",\n          \"processingRuleID\": null,\n          \"kind\": \"filter\",\n          \"properties\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"createdAt\": \"2025-06-18T04:57:13.358Z\",\n          \"updatedAt\": \"1979-07-05T20:15:52.436Z\"\n        },\n        {\n          \"id\": \"a609298d-6ae1-a00e-4530-6a6ed8a4cf68\",\n          \"projectID\": \"8c536105-4689-1495-a4d5-25f8de5e4866\",\n          \"processingRuleID\": null,\n          \"kind\": \"service\",\n          \"properties\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"createdAt\": \"2007-03-24T16:21:49.282Z\",\n          \"updatedAt\": \"1980-02-05T12:19:18.835Z\"\n        }\n      ],\n      \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n      \"status\": {\n        \"id\": \"40094771-30c6-7aef-9e50-9aed07b5e07e\",\n        \"config\": {\n          \"id\": \"35e55653-1479-5e25-0631-278cc983eec2\",\n          \"rawConfig\": \"string\",\n          \"createdAt\": \"2008-04-19T18:30:24.156Z\"\n        },\n        \"status\": \"STARTED\",\n        \"createdAt\": \"1956-05-04T14:49:30.885Z\",\n        \"events\": [\n          {\n            \"source\": \"k8s:pod\",\n            \"reason\": \"string\",\n            \"loggedAt\": \"1961-02-13T13:38:35.373Z\",\n            \"message\": \"string\"\n          },\n          {\n            \"source\": \"k8s:deployment\",\n            \"reason\": \"string\",\n            \"loggedAt\": \"1988-05-25T00:30:39.022Z\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      \"resourceProfile\": {\n        \"id\": \"39560d7e-a923-b937-9bcd-29c0f0a94ef0\",\n        \"name\": \"my-resource-profile\",\n        \"storageMaxChunksUp\": 5492,\n        \"storageSyncFull\": true,\n        \"storageBacklogMemLimit\": \"1Mi\",\n        \"storageVolumeSize\": \"2Mi\",\n        \"storageMaxChunksPause\": true,\n        \"cpuBufferWorkers\": 444,\n        \"cpuLimit\": \"3Mi\",\n        \"cpuRequest\": \"4Mi\",\n        \"memoryLimit\": \"5Mi\",\n        \"memoryRequest\": \"6Mi\",\n        \"createdAt\": \"2021-11-18T01:47:23.877Z\",\n        \"updatedAt\": \"1984-04-01T18:10:29.534Z\"\n      },\n      \"deploymentStrategy\": \"rollingupdate\",\n      \"tracingEnabled\": false,\n      \"waitForChecksBeforeDeploying\": false,\n      \"replicasCount\": 2624,\n      \"replicasCountPrev\": 1930,\n      \"tags\": null,\n      \"metadata\": null,\n      \"checksTotal\": 8705,\n      \"checksOK\": 4471,\n      \"checksRunning\": 2339,\n      \"portKind\": \"LoadBalancer\",\n      \"labels\": null,\n      \"createdAt\": \"1978-04-19T17:39:50.011Z\",\n      \"updatedAt\": \"1968-03-30T02:25:46.918Z\",\n      \"minReplicas\": 6020,\n      \"maxReplicas\": 8968,\n      \"scaleUpType\": \"Unknown\",\n      \"scaleUpValue\": 6945,\n      \"scaleUpPeriodSeconds\": 9537,\n      \"scaleDownType\": \"Unknown\",\n      \"scaleDownValue\": 9308,\n      \"scaleDownPeriodSeconds\": 4278,\n      \"utilizationCPUAverage\": 5112,\n      \"utilizationMemoryAverage\": 7664,\n      \"secrets\": null,\n      \"files\": null,\n      \"ports\": null,\n      \"storageClass\": null,\n      \"pvcRetentionPolicy\": {\n        \"whenScaled\": \"Retain\",\n        \"whenDeleted\": \"Retain\"\n      },\n      \"error\": null\n    },\n    {\n      \"id\": \"2f59a019-dd47-8993-8dc9-1a641c9e619f\",\n      \"name\": \"my-pipeline\",\n      \"kind\": \"deployment\",\n      \"config\": {\n        \"id\": \"da662a03-da0b-e798-0bb9-8db9ce5357f1\",\n        \"rawConfig\": \"string\",\n        \"configFormat\": \"json\",\n        \"createdAt\": \"1985-12-12T10:45:56.908Z\"\n      },\n      \"configSections\": [\n        {\n          \"id\": \"24a9e719-21ae-5535-74f4-f276bd608e6e\",\n          \"projectID\": \"fc37c54e-52cc-98d2-9734-32be5cbc4212\",\n          \"processingRuleID\": null,\n          \"kind\": \"input\",\n          \"properties\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"createdAt\": \"1957-02-16T19:03:24.998Z\",\n          \"updatedAt\": \"2020-03-12T14:50:43.503Z\"\n        },\n        {\n          \"id\": \"bb28f831-7f2a-1e69-541a-80cce90a6ae6\",\n          \"projectID\": \"664efb5f-f4fb-c182-3575-b48f575c284d\",\n          \"processingRuleID\": null,\n          \"kind\": \"input\",\n          \"properties\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"createdAt\": \"2026-08-11T01:10:01.342Z\",\n          \"updatedAt\": \"1982-06-11T13:12:30.098Z\"\n        }\n      ],\n      \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n      \"status\": {\n        \"id\": \"36aa5ae8-c49c-0b59-54d0-da44a174c43c\",\n        \"config\": {\n          \"id\": \"9bcf41de-5378-a3da-3deb-7879172ed636\",\n          \"rawConfig\": \"string\",\n          \"createdAt\": \"2013-10-27T10:24:04.892Z\"\n        },\n        \"status\": \"CHECKS_OK\",\n        \"createdAt\": \"2015-06-21T18:15:36.458Z\",\n        \"events\": [\n          {\n            \"source\": \"k8s:deployment\",\n            \"reason\": \"string\",\n            \"loggedAt\": \"1974-08-31T08:12:32.756Z\",\n            \"message\": \"string\"\n          },\n          {\n            \"source\": \"k8s:deployment\",\n            \"reason\": \"string\",\n            \"loggedAt\": \"1979-11-28T00:46:48.705Z\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      \"resourceProfile\": {\n        \"id\": \"ed3521d3-d790-3cd5-52ad-687d56357659\",\n        \"name\": \"my-resource-profile\",\n        \"storageMaxChunksUp\": 9226,\n        \"storageSyncFull\": false,\n        \"storageBacklogMemLimit\": \"1Mi\",\n        \"storageVolumeSize\": \"2Mi\",\n        \"storageMaxChunksPause\": false,\n        \"cpuBufferWorkers\": 2205,\n        \"cpuLimit\": \"3Mi\",\n        \"cpuRequest\": \"4Mi\",\n        \"memoryLimit\": \"5Mi\",\n        \"memoryRequest\": \"6Mi\",\n        \"createdAt\": \"1960-07-20T02:07:17.609Z\",\n        \"updatedAt\": \"2006-05-30T22:43:40.311Z\"\n      },\n      \"deploymentStrategy\": \"rollingupdate\",\n      \"tracingEnabled\": false,\n      \"waitForChecksBeforeDeploying\": false,\n      \"replicasCount\": 3748,\n      \"replicasCountPrev\": 7671,\n      \"tags\": null,\n      \"metadata\": null,\n      \"checksTotal\": 7321,\n      \"checksOK\": 2485,\n      \"checksRunning\": 9146,\n      \"portKind\": \"LoadBalancer\",\n      \"labels\": null,\n      \"createdAt\": \"1978-06-11T20:17:42.591Z\",\n      \"updatedAt\": \"2014-03-28T02:29:55.488Z\",\n      \"minReplicas\": 6968,\n      \"maxReplicas\": 4583,\n      \"scaleUpType\": \"Unknown\",\n      \"scaleUpValue\": 2879,\n      \"scaleUpPeriodSeconds\": 7007,\n      \"scaleDownType\": \"Unknown\",\n      \"scaleDownValue\": 7519,\n      \"scaleDownPeriodSeconds\": 5273,\n      \"utilizationCPUAverage\": 3083,\n      \"utilizationMemoryAverage\": 7937,\n      \"secrets\": null,\n      \"files\": null,\n      \"ports\": null,\n      \"storageClass\": null,\n      \"pvcRetentionPolicy\": {\n        \"whenScaled\": \"Retain\",\n        \"whenDeleted\": \"Retain\"\n      },\n      \"error\": null\n    }\n  ],\n  \"endCursor\": \"string\",\n  \"count\": 6207.066894104518\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8767b8c7-6e39-4232-947a-a6c0da9d3841",
+          "name": "Project pipelines (deprecated)",
+          "request": {
+            "name": "Project pipelines (deprecated)",
+            "description": {
+              "content": "Pipelines from a project (deprecated).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID",
+                "aggregator_pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last pipelines."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name matching pipelines."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags_query",
+                  "value": "<string>",
+                  "description": "Tag query."
+                },
+                {
+                  "disabled": false,
+                  "key": "config_format",
+                  "value": "<string>",
+                  "description": "Desired output config format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7915cac5-0d87-487d-9069-a4b408382cb7",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID",
+                    "aggregator_pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags_query",
+                      "value": "tagone AND tagtwo"
+                    },
+                    {
+                      "key": "config_format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"ee81eb7c-a20a-7b30-7271-9e5d2795e433\",\n    \"name\": \"my-pipeline\",\n    \"kind\": \"deployment\",\n    \"config\": {\n      \"id\": \"eb5c8f85-0d8c-5e60-b7e2-942373d7926b\",\n      \"rawConfig\": \"string\",\n      \"configFormat\": \"yaml\",\n      \"createdAt\": \"2012-03-12T06:06:22.425Z\"\n    },\n    \"configSections\": [\n      {\n        \"id\": \"9e9f1d3c-70c1-d43c-4d11-0b871c8f8f82\",\n        \"projectID\": \"6e62714b-f53a-3b6a-14a0-e577b6eb4c75\",\n        \"processingRuleID\": null,\n        \"kind\": \"output\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1977-01-02T12:22:33.948Z\",\n        \"updatedAt\": \"1961-05-11T10:02:32.974Z\"\n      },\n      {\n        \"id\": \"ac72512f-936f-267d-f9e0-a7f977d65e45\",\n        \"projectID\": \"294f3bb6-39e1-f968-8e8c-bf35bd034435\",\n        \"processingRuleID\": null,\n        \"kind\": \"filter\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"2025-07-25T13:35:19.502Z\",\n        \"updatedAt\": \"2001-03-21T19:42:51.351Z\"\n      }\n    ],\n    \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n    \"status\": {\n      \"id\": \"757322c7-fec6-f742-d2dc-fdd66d343ec8\",\n      \"config\": {\n        \"id\": \"9810ca30-1af4-76e3-604c-5a80eaea3f1f\",\n        \"rawConfig\": \"string\",\n        \"createdAt\": \"2022-01-29T22:43:26.219Z\"\n      },\n      \"status\": \"SCALING\",\n      \"createdAt\": \"2021-09-23T18:06:18.735Z\",\n      \"events\": [\n        {\n          \"source\": \"k8s:deployment\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"1981-02-23T23:02:49.786Z\",\n          \"message\": \"string\"\n        },\n        {\n          \"source\": \"k8s:deployment\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"1961-07-13T08:05:55.446Z\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    \"resourceProfile\": {\n      \"id\": \"39e5fa6b-4937-e071-60cc-a822675f40e7\",\n      \"name\": \"my-resource-profile\",\n      \"storageMaxChunksUp\": 7007,\n      \"storageSyncFull\": true,\n      \"storageBacklogMemLimit\": \"1Mi\",\n      \"storageVolumeSize\": \"2Mi\",\n      \"storageMaxChunksPause\": false,\n      \"cpuBufferWorkers\": 2442,\n      \"cpuLimit\": \"3Mi\",\n      \"cpuRequest\": \"4Mi\",\n      \"memoryLimit\": \"5Mi\",\n      \"memoryRequest\": \"6Mi\",\n      \"createdAt\": \"1961-10-17T14:52:53.497Z\",\n      \"updatedAt\": \"1954-04-24T05:28:07.197Z\"\n    },\n    \"deploymentStrategy\": \"rollingupdate\",\n    \"tracingEnabled\": false,\n    \"waitForChecksBeforeDeploying\": false,\n    \"replicasCount\": 1009,\n    \"replicasCountPrev\": 2794,\n    \"tags\": null,\n    \"metadata\": null,\n    \"checksTotal\": 1224,\n    \"checksOK\": 8171,\n    \"checksRunning\": 8681,\n    \"portKind\": \"LoadBalancer\",\n    \"labels\": null,\n    \"createdAt\": \"2019-09-17T20:34:17.426Z\",\n    \"updatedAt\": \"1950-05-12T12:50:41.912Z\",\n    \"minReplicas\": 7702,\n    \"maxReplicas\": 8026,\n    \"scaleUpType\": \"Unknown\",\n    \"scaleUpValue\": 2488,\n    \"scaleUpPeriodSeconds\": 6676,\n    \"scaleDownType\": \"Unknown\",\n    \"scaleDownValue\": 3328,\n    \"scaleDownPeriodSeconds\": 6389,\n    \"utilizationCPUAverage\": 901,\n    \"utilizationMemoryAverage\": 2719,\n    \"secrets\": null,\n    \"files\": null,\n    \"ports\": null,\n    \"storageClass\": null,\n    \"pvcRetentionPolicy\": {\n      \"whenScaled\": \"Retain\",\n      \"whenDeleted\": \"Retain\"\n    },\n    \"error\": null\n  },\n  {\n    \"id\": \"e6bf2f72-2f53-f0a9-2f1e-35907b1f9a57\",\n    \"name\": \"my-pipeline\",\n    \"kind\": \"deployment\",\n    \"config\": {\n      \"id\": \"868aba9c-44d6-b620-ad84-7a501831bc47\",\n      \"rawConfig\": \"string\",\n      \"configFormat\": \"yaml\",\n      \"createdAt\": \"2009-11-16T11:49:55.605Z\"\n    },\n    \"configSections\": [\n      {\n        \"id\": \"e399e821-56df-094a-2e7c-4005fef56883\",\n        \"projectID\": \"70e8264a-addb-3aaa-e13d-0ab448574bdb\",\n        \"processingRuleID\": null,\n        \"kind\": \"output\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"2002-02-25T07:10:04.962Z\",\n        \"updatedAt\": \"1961-07-30T16:24:41.484Z\"\n      },\n      {\n        \"id\": \"45e08c07-2070-377b-c267-c76a4fba8c8a\",\n        \"projectID\": \"820179c8-bc0d-843c-41fa-495de106f2c3\",\n        \"processingRuleID\": null,\n        \"kind\": \"input\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1952-02-10T04:10:58.788Z\",\n        \"updatedAt\": \"1956-10-15T10:46:55.714Z\"\n      }\n    ],\n    \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n    \"status\": {\n      \"id\": \"e60c1004-9dc9-f2aa-5d1d-299109111234\",\n      \"config\": {\n        \"id\": \"68f1b5b0-1cbb-65b0-9764-11e0f36984f2\",\n        \"rawConfig\": \"string\",\n        \"createdAt\": \"2008-12-30T01:38:40.661Z\"\n      },\n      \"status\": \"CHECKS_OK\",\n      \"createdAt\": \"1949-01-19T02:47:19.912Z\",\n      \"events\": [\n        {\n          \"source\": \"k8s:pod\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"1958-07-10T09:39:51.261Z\",\n          \"message\": \"string\"\n        },\n        {\n          \"source\": \"k8s:deployment\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"1974-03-14T19:48:59.888Z\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    \"resourceProfile\": {\n      \"id\": \"b307fe41-89bd-d150-03e2-cc438d84eb80\",\n      \"name\": \"my-resource-profile\",\n      \"storageMaxChunksUp\": 295,\n      \"storageSyncFull\": false,\n      \"storageBacklogMemLimit\": \"1Mi\",\n      \"storageVolumeSize\": \"2Mi\",\n      \"storageMaxChunksPause\": true,\n      \"cpuBufferWorkers\": 9518,\n      \"cpuLimit\": \"3Mi\",\n      \"cpuRequest\": \"4Mi\",\n      \"memoryLimit\": \"5Mi\",\n      \"memoryRequest\": \"6Mi\",\n      \"createdAt\": \"1958-03-29T01:47:04.426Z\",\n      \"updatedAt\": \"1973-09-27T21:22:34.408Z\"\n    },\n    \"deploymentStrategy\": \"rollingupdate\",\n    \"tracingEnabled\": false,\n    \"waitForChecksBeforeDeploying\": false,\n    \"replicasCount\": 9720,\n    \"replicasCountPrev\": 9357,\n    \"tags\": null,\n    \"metadata\": null,\n    \"checksTotal\": 2072,\n    \"checksOK\": 7810,\n    \"checksRunning\": 6163,\n    \"portKind\": \"LoadBalancer\",\n    \"labels\": null,\n    \"createdAt\": \"1955-01-01T08:18:12.385Z\",\n    \"updatedAt\": \"2020-10-16T11:17:52.536Z\",\n    \"minReplicas\": 1535,\n    \"maxReplicas\": 5344,\n    \"scaleUpType\": \"Unknown\",\n    \"scaleUpValue\": 8341,\n    \"scaleUpPeriodSeconds\": 3187,\n    \"scaleDownType\": \"Unknown\",\n    \"scaleDownValue\": 8777,\n    \"scaleDownPeriodSeconds\": 2694,\n    \"utilizationCPUAverage\": 3483,\n    \"utilizationMemoryAverage\": 636,\n    \"secrets\": null,\n    \"files\": null,\n    \"ports\": null,\n    \"storageClass\": null,\n    \"pvcRetentionPolicy\": {\n      \"whenScaled\": \"Retain\",\n      \"whenDeleted\": \"Retain\"\n    },\n    \"error\": null\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c46931b5-360b-4703-91c6-5231c6b8914d",
+          "name": "Project pipelines",
+          "request": {
+            "name": "Project pipelines",
+            "description": {
+              "content": "Pipelines from a project with backward pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID",
+                "pipelines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Limit to the last pipelines."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Paginate pipelines before the given cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "kind",
+                  "value": "deployment",
+                  "description": "Filter pipelines by kind."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter pipelines by name."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags_query",
+                  "value": "<string>",
+                  "description": "Filter pipelines by giving a tags query."
+                },
+                {
+                  "disabled": false,
+                  "key": "config_format",
+                  "value": "<string>",
+                  "description": "Desired output config format."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Whether to include ports, secrets and files objects in the pipeline."
+                },
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>",
+                  "description": "Whether to include ports, secrets and files objects in the pipeline."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_internal",
+                  "value": "<boolean>",
+                  "description": "Exclude internal pipelines (health-check)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) Parent project ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "aa04dc48-ac40-46c6-9e5c-aadbcf867036",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID",
+                    "pipelines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "kind",
+                      "value": "deployment"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags_query",
+                      "value": "tagone AND tagtwo"
+                    },
+                    {
+                      "key": "config_format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "include",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "exclude_internal",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) Parent project ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"c3778fea-38a1-4c34-3e7a-f681651d3100\",\n      \"name\": \"my-pipeline\",\n      \"kind\": \"deployment\",\n      \"config\": {\n        \"id\": \"e65acb7d-c7f7-7e94-6d9f-67ad0530fb7c\",\n        \"rawConfig\": \"string\",\n        \"configFormat\": \"classic\",\n        \"createdAt\": \"1977-02-22T15:10:56.003Z\"\n      },\n      \"configSections\": [\n        {\n          \"id\": \"6d18b9e8-8deb-ff52-0531-936f962e3bb3\",\n          \"projectID\": \"7b9304f4-4343-40d4-8f10-1b4ed2a7f28f\",\n          \"processingRuleID\": null,\n          \"kind\": \"service\",\n          \"properties\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"createdAt\": \"2003-08-20T17:38:33.706Z\",\n          \"updatedAt\": \"1966-03-27T20:16:12.481Z\"\n        },\n        {\n          \"id\": \"df384fb0-a07c-f7f1-45fa-dd33763fa982\",\n          \"projectID\": \"7eb4f161-1e0d-82eb-c288-21e052a66344\",\n          \"processingRuleID\": null,\n          \"kind\": \"filter\",\n          \"properties\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"createdAt\": \"2012-10-10T14:32:54.892Z\",\n          \"updatedAt\": \"1983-02-13T03:01:51.778Z\"\n        }\n      ],\n      \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n      \"status\": {\n        \"id\": \"816497c0-cd02-121f-3592-a629ee7504f8\",\n        \"config\": {\n          \"id\": \"32606da7-6049-1d6f-03c3-e641e209dd83\",\n          \"rawConfig\": \"string\",\n          \"createdAt\": \"1986-09-29T08:36:59.601Z\"\n        },\n        \"status\": \"STARTED\",\n        \"createdAt\": \"1960-03-10T09:12:10.885Z\",\n        \"events\": [\n          {\n            \"source\": \"k8s:deployment\",\n            \"reason\": \"string\",\n            \"loggedAt\": \"1982-03-12T21:22:43.104Z\",\n            \"message\": \"string\"\n          },\n          {\n            \"source\": \"k8s:pod\",\n            \"reason\": \"string\",\n            \"loggedAt\": \"2013-12-22T17:00:28.354Z\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      \"resourceProfile\": {\n        \"id\": \"509c535c-4cbe-4f8a-0ff9-4431d454b473\",\n        \"name\": \"my-resource-profile\",\n        \"storageMaxChunksUp\": 9628,\n        \"storageSyncFull\": false,\n        \"storageBacklogMemLimit\": \"1Mi\",\n        \"storageVolumeSize\": \"2Mi\",\n        \"storageMaxChunksPause\": true,\n        \"cpuBufferWorkers\": 704,\n        \"cpuLimit\": \"3Mi\",\n        \"cpuRequest\": \"4Mi\",\n        \"memoryLimit\": \"5Mi\",\n        \"memoryRequest\": \"6Mi\",\n        \"createdAt\": \"1993-07-29T02:38:01.458Z\",\n        \"updatedAt\": \"1962-11-09T10:41:59.488Z\"\n      },\n      \"deploymentStrategy\": \"rollingupdate\",\n      \"tracingEnabled\": false,\n      \"waitForChecksBeforeDeploying\": false,\n      \"replicasCount\": 3568,\n      \"replicasCountPrev\": 1774,\n      \"tags\": null,\n      \"metadata\": null,\n      \"checksTotal\": 8704,\n      \"checksOK\": 8099,\n      \"checksRunning\": 3014,\n      \"portKind\": \"LoadBalancer\",\n      \"labels\": null,\n      \"createdAt\": \"1996-11-18T20:17:55.215Z\",\n      \"updatedAt\": \"1996-01-03T12:18:52.936Z\",\n      \"minReplicas\": 2183,\n      \"maxReplicas\": 5791,\n      \"scaleUpType\": \"Unknown\",\n      \"scaleUpValue\": 1067,\n      \"scaleUpPeriodSeconds\": 3521,\n      \"scaleDownType\": \"Unknown\",\n      \"scaleDownValue\": 7183,\n      \"scaleDownPeriodSeconds\": 8584,\n      \"utilizationCPUAverage\": 4553,\n      \"utilizationMemoryAverage\": 305,\n      \"secrets\": null,\n      \"files\": null,\n      \"ports\": null,\n      \"storageClass\": null,\n      \"pvcRetentionPolicy\": {\n        \"whenScaled\": \"Retain\",\n        \"whenDeleted\": \"Retain\"\n      },\n      \"error\": null\n    },\n    {\n      \"id\": \"f0fc326b-c673-7cdf-9ccf-3ab560fb32a6\",\n      \"name\": \"my-pipeline\",\n      \"kind\": \"deployment\",\n      \"config\": {\n        \"id\": \"2133b5ba-b2e5-2227-1d19-5d0bdd80377b\",\n        \"rawConfig\": \"string\",\n        \"configFormat\": \"json\",\n        \"createdAt\": \"1971-06-05T11:15:38.640Z\"\n      },\n      \"configSections\": [\n        {\n          \"id\": \"e96fc37e-170a-33ba-df32-063f51bcb570\",\n          \"projectID\": \"fa09e01c-9237-891c-407f-3073a432c926\",\n          \"processingRuleID\": null,\n          \"kind\": \"input\",\n          \"properties\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"createdAt\": \"1973-12-21T18:51:43.536Z\",\n          \"updatedAt\": \"2008-11-12T00:35:08.199Z\"\n        },\n        {\n          \"id\": \"98c171a0-989c-5b54-c2ef-db40f25c9854\",\n          \"projectID\": \"8464c340-ed2e-6c81-1dd9-ffe00c2658af\",\n          \"processingRuleID\": null,\n          \"kind\": \"input\",\n          \"properties\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"createdAt\": \"2017-03-14T00:38:07.703Z\",\n          \"updatedAt\": \"2016-07-13T07:43:40.407Z\"\n        }\n      ],\n      \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n      \"status\": {\n        \"id\": \"37a917c7-1e56-9be4-1c80-ecff536de86b\",\n        \"config\": {\n          \"id\": \"2d4bd895-65bf-883f-70a4-4f73f4cad9ac\",\n          \"rawConfig\": \"string\",\n          \"createdAt\": \"1992-04-24T13:39:22.025Z\"\n        },\n        \"status\": \"NEW\",\n        \"createdAt\": \"1998-03-15T19:06:45.780Z\",\n        \"events\": [\n          {\n            \"source\": \"k8s:deployment\",\n            \"reason\": \"string\",\n            \"loggedAt\": \"1955-12-06T13:24:48.862Z\",\n            \"message\": \"string\"\n          },\n          {\n            \"source\": \"k8s:deployment\",\n            \"reason\": \"string\",\n            \"loggedAt\": \"2016-08-22T22:39:37.524Z\",\n            \"message\": \"string\"\n          }\n        ]\n      },\n      \"resourceProfile\": {\n        \"id\": \"5660bb3d-c825-2175-2d6b-6976069d15a5\",\n        \"name\": \"my-resource-profile\",\n        \"storageMaxChunksUp\": 1653,\n        \"storageSyncFull\": true,\n        \"storageBacklogMemLimit\": \"1Mi\",\n        \"storageVolumeSize\": \"2Mi\",\n        \"storageMaxChunksPause\": true,\n        \"cpuBufferWorkers\": 3550,\n        \"cpuLimit\": \"3Mi\",\n        \"cpuRequest\": \"4Mi\",\n        \"memoryLimit\": \"5Mi\",\n        \"memoryRequest\": \"6Mi\",\n        \"createdAt\": \"1986-10-11T13:54:41.026Z\",\n        \"updatedAt\": \"2006-01-07T06:42:12.792Z\"\n      },\n      \"deploymentStrategy\": \"rollingupdate\",\n      \"tracingEnabled\": false,\n      \"waitForChecksBeforeDeploying\": false,\n      \"replicasCount\": 980,\n      \"replicasCountPrev\": 4078,\n      \"tags\": null,\n      \"metadata\": null,\n      \"checksTotal\": 6165,\n      \"checksOK\": 1867,\n      \"checksRunning\": 1735,\n      \"portKind\": \"LoadBalancer\",\n      \"labels\": null,\n      \"createdAt\": \"1964-08-03T06:43:43.206Z\",\n      \"updatedAt\": \"1951-04-27T09:57:10.148Z\",\n      \"minReplicas\": 1356,\n      \"maxReplicas\": 2164,\n      \"scaleUpType\": \"Unknown\",\n      \"scaleUpValue\": 980,\n      \"scaleUpPeriodSeconds\": 5179,\n      \"scaleDownType\": \"Unknown\",\n      \"scaleDownValue\": 944,\n      \"scaleDownPeriodSeconds\": 3201,\n      \"utilizationCPUAverage\": 4972,\n      \"utilizationMemoryAverage\": 8272,\n      \"secrets\": null,\n      \"files\": null,\n      \"ports\": null,\n      \"storageClass\": null,\n      \"pvcRetentionPolicy\": {\n        \"whenScaled\": \"Retain\",\n        \"whenDeleted\": \"Retain\"\n      },\n      \"error\": null\n    }\n  ],\n  \"endCursor\": \"string\",\n  \"count\": 3381.652002317208\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b4776dcd-c121-47ea-9b6f-c0ddaa77019c",
+          "name": "Pipeline",
+          "request": {
+            "name": "Pipeline",
+            "description": {
+              "content": "Pipeline by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregator_pipelines",
+                ":pipelineID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "config_format",
+                  "value": "<string>",
+                  "description": "Desired output config format."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6847c146-1942-44e0-8896-7a32da5dec50",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregator_pipelines",
+                    ":pipelineID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "config_format",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"e723b623-d7b1-da09-1c50-974b68440e2e\",\n  \"name\": \"my-pipeline\",\n  \"kind\": \"deployment\",\n  \"config\": {\n    \"id\": \"846d9f82-1259-ea63-7c21-6480307884da\",\n    \"rawConfig\": \"string\",\n    \"configFormat\": \"classic\",\n    \"createdAt\": \"1954-05-13T13:54:58.990Z\"\n  },\n  \"configSections\": [\n    {\n      \"id\": \"c5d0cee6-064d-74e7-7674-966481238c4d\",\n      \"projectID\": \"7d6b7f80-ce9e-0d78-8f63-0b8df73aba18\",\n      \"processingRuleID\": null,\n      \"kind\": \"service\",\n      \"properties\": [\n        {\n          \"key\": \"name\",\n          \"value\": 2883\n        },\n        {\n          \"key\": \"name\",\n          \"value\": 8429\n        }\n      ],\n      \"createdAt\": \"2005-03-15T07:50:43.086Z\",\n      \"updatedAt\": \"2004-11-02T02:26:33.382Z\"\n    },\n    {\n      \"id\": \"1d45a11a-632a-c2d9-21ef-fb1bade6fa91\",\n      \"projectID\": \"f27027e1-01a6-39b6-fbeb-8a1a9e294c6e\",\n      \"processingRuleID\": null,\n      \"kind\": \"filter\",\n      \"properties\": [\n        {\n          \"key\": \"name\",\n          \"value\": 3193\n        },\n        {\n          \"key\": \"name\",\n          \"value\": 4364\n        }\n      ],\n      \"createdAt\": \"1959-03-24T10:39:33.504Z\",\n      \"updatedAt\": \"2006-05-31T15:45:22.262Z\"\n    }\n  ],\n  \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n  \"status\": {\n    \"id\": \"480da971-337f-6ae8-56aa-813e9a56591c\",\n    \"config\": {\n      \"id\": \"e95edb03-d176-0fa8-08df-8b2d37bf9fa7\",\n      \"rawConfig\": \"string\",\n      \"createdAt\": \"1973-08-12T12:42:59.942Z\"\n    },\n    \"status\": \"STARTED\",\n    \"createdAt\": \"1988-02-16T08:04:02.800Z\",\n    \"events\": [\n      {\n        \"source\": \"k8s:pod\",\n        \"reason\": \"string\",\n        \"loggedAt\": \"1962-03-31T21:16:42.792Z\",\n        \"message\": \"string\"\n      },\n      {\n        \"source\": \"k8s:deployment\",\n        \"reason\": \"string\",\n        \"loggedAt\": \"2003-02-01T12:47:31.571Z\",\n        \"message\": \"string\"\n      }\n    ]\n  },\n  \"resourceProfile\": {\n    \"id\": \"1495c1e6-6d07-bb05-b33e-e2557c01d16a\",\n    \"name\": \"my-resource-profile\",\n    \"storageMaxChunksUp\": 182,\n    \"storageSyncFull\": false,\n    \"storageBacklogMemLimit\": \"1Mi\",\n    \"storageVolumeSize\": \"2Mi\",\n    \"storageMaxChunksPause\": true,\n    \"cpuBufferWorkers\": 2524,\n    \"cpuLimit\": \"3Mi\",\n    \"cpuRequest\": \"4Mi\",\n    \"memoryLimit\": \"5Mi\",\n    \"memoryRequest\": \"6Mi\",\n    \"createdAt\": \"1989-07-23T20:12:36.864Z\",\n    \"updatedAt\": \"1947-04-06T14:07:05.628Z\"\n  },\n  \"deploymentStrategy\": \"rollingupdate\",\n  \"tracingEnabled\": false,\n  \"waitForChecksBeforeDeploying\": false,\n  \"replicasCount\": 1424,\n  \"replicasCountPrev\": 1577,\n  \"tags\": null,\n  \"metadata\": null,\n  \"checksTotal\": 950,\n  \"checksOK\": 6592,\n  \"checksRunning\": 3608,\n  \"portKind\": \"LoadBalancer\",\n  \"labels\": null,\n  \"createdAt\": \"1977-09-29T20:55:41.549Z\",\n  \"updatedAt\": \"1953-11-15T06:13:52.988Z\",\n  \"minReplicas\": 3673,\n  \"maxReplicas\": 5989,\n  \"scaleUpType\": \"Unknown\",\n  \"scaleUpValue\": 2922,\n  \"scaleUpPeriodSeconds\": 7422,\n  \"scaleDownType\": \"Unknown\",\n  \"scaleDownValue\": 2572,\n  \"scaleDownPeriodSeconds\": 6256,\n  \"utilizationCPUAverage\": 1254,\n  \"utilizationMemoryAverage\": 5746,\n  \"secrets\": null,\n  \"files\": null,\n  \"ports\": null,\n  \"storageClass\": null,\n  \"pvcRetentionPolicy\": {\n    \"whenScaled\": \"Retain\",\n    \"whenDeleted\": \"Retain\"\n  },\n  \"error\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "665745c7-0564-4fd3-9e83-444dfd741bb5",
+          "name": "Update pipeline",
+          "request": {
+            "name": "Update pipeline",
+            "description": {
+              "content": "Update pipeline by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregator_pipelines",
+                ":pipelineID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": null,\n  \"kind\": \"deployment\",\n  \"deploymentStrategy\": \"rollingupdate\",\n  \"replicasCount\": null,\n  \"rawConfig\": null,\n  \"configFormat\": null,\n  \"image\": null,\n  \"secrets\": null,\n  \"files\": null,\n  \"resourceProfile\": null,\n  \"noAutoCreateEndpointsFromConfig\": null,\n  \"noAutoCreateChecksFromConfig\": null,\n  \"autoCreatePortsFromConfig\": null,\n  \"autoCreateChecksFromConfig\": null,\n  \"skipConfigValidation\": false,\n  \"checksBeforeDeploying\": null,\n  \"status\": null,\n  \"portKind\": \"LoadBalancer\",\n  \"events\": null,\n  \"metadata\": null,\n  \"minReplicas\": null,\n  \"maxReplicas\": null,\n  \"scaleUpType\": \"Unknown\",\n  \"scaleUpValue\": null,\n  \"scaleUpPeriodSeconds\": null,\n  \"scaleDownType\": \"Unknown\",\n  \"scaleDownValue\": null,\n  \"scaleDownPeriodSeconds\": null,\n  \"utilizationCPUAverage\": null,\n  \"utilizationMemoryAverage\": null,\n  \"storageClass\": null,\n  \"labels\": null,\n  \"affinity\": {\n    \"key\": \"<string>\",\n    \"operator\": \"<string>\",\n    \"values\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"topologySpreadConstraints\": [\n    {\n      \"maxSkew\": \"<integer>\",\n      \"topologyKey\": \"<string>\",\n      \"whenUnsatisfiable\": \"<string>\",\n      \"labelSelector\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"minDomains\": \"<integer>\"\n    },\n    {\n      \"maxSkew\": \"<integer>\",\n      \"topologyKey\": \"<string>\",\n      \"whenUnsatisfiable\": \"<string>\",\n      \"labelSelector\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\",\n        \"key_2\": \"<string>\"\n      },\n      \"minDomains\": \"<integer>\"\n    }\n  ],\n  \"terminationGracePeriodSeconds\": \"<long>\",\n  \"lifecycle\": {\n    \"preStop\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    },\n    \"postStart\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    }\n  },\n  \"pvcRetentionPolicy\": {\n    \"whenScaled\": \"Retain\",\n    \"whenDeleted\": \"Retain\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d65e6343-a33e-4537-822b-9b07990f0fce",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregator_pipelines",
+                    ":pipelineID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new-pipeline\",\n  \"kind\": \"deployment\",\n  \"deploymentStrategy\": \"rollingupdate\",\n  \"replicasCount\": null,\n  \"rawConfig\": null,\n  \"configFormat\": null,\n  \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n  \"secrets\": null,\n  \"files\": null,\n  \"resourceProfile\": \"my-resource-profile\",\n  \"noAutoCreateEndpointsFromConfig\": null,\n  \"noAutoCreateChecksFromConfig\": null,\n  \"autoCreatePortsFromConfig\": null,\n  \"autoCreateChecksFromConfig\": null,\n  \"skipConfigValidation\": false,\n  \"checksBeforeDeploying\": null,\n  \"status\": null,\n  \"portKind\": \"LoadBalancer\",\n  \"events\": null,\n  \"metadata\": null,\n  \"minReplicas\": null,\n  \"maxReplicas\": null,\n  \"scaleUpType\": \"Unknown\",\n  \"scaleUpValue\": null,\n  \"scaleUpPeriodSeconds\": null,\n  \"scaleDownType\": \"Unknown\",\n  \"scaleDownValue\": null,\n  \"scaleDownPeriodSeconds\": null,\n  \"utilizationCPUAverage\": null,\n  \"utilizationMemoryAverage\": null,\n  \"storageClass\": null,\n  \"labels\": null,\n  \"affinity\": {\n    \"key\": \"<string>\",\n    \"operator\": \"<string>\",\n    \"values\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"topologySpreadConstraints\": [\n    {\n      \"maxSkew\": \"<integer>\",\n      \"topologyKey\": \"<string>\",\n      \"whenUnsatisfiable\": \"<string>\",\n      \"labelSelector\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"minDomains\": \"<integer>\"\n    },\n    {\n      \"maxSkew\": \"<integer>\",\n      \"topologyKey\": \"<string>\",\n      \"whenUnsatisfiable\": \"<string>\",\n      \"labelSelector\": {\n        \"key_0\": \"<string>\",\n        \"key_1\": \"<string>\"\n      },\n      \"minDomains\": \"<integer>\"\n    }\n  ],\n  \"terminationGracePeriodSeconds\": \"<long>\",\n  \"lifecycle\": {\n    \"preStop\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    },\n    \"postStart\": {\n      \"exec\": {\n        \"command\": [\n          \"<string>\",\n          \"<string>\"\n        ]\n      },\n      \"httpGet\": {\n        \"port\": \"<integer>\",\n        \"path\": \"<string>\",\n        \"host\": \"<string>\",\n        \"scheme\": \"<string>\",\n        \"httpHeaders\": [\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"tcpSocket\": {\n        \"port\": \"<integer>\",\n        \"host\": \"<string>\"\n      },\n      \"sleep\": {\n        \"seconds\": \"<long>\"\n      }\n    }\n  },\n  \"pvcRetentionPolicy\": {\n    \"whenScaled\": \"Retain\",\n    \"whenDeleted\": \"Retain\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"addedPorts\": [\n    {\n      \"id\": \"db9ecebe-d3a5-dcab-b974-e6c36e666e44\",\n      \"protocol\": \"tcp\",\n      \"kind\": \"LoadBalancer\",\n      \"frontendPort\": 7126,\n      \"backendPort\": 2200,\n      \"endpoint\": \"string\",\n      \"pluginID\": \"forward.0\",\n      \"pluginName\": \"forward\",\n      \"pluginAlias\": \"myforwardinput\",\n      \"createdAt\": \"2018-10-16T03:03:07.643Z\",\n      \"updatedAt\": \"1965-08-08T22:56:27.757Z\"\n    },\n    {\n      \"id\": \"42b74ac5-df4a-8bf7-20d3-6d5899d038f0\",\n      \"protocol\": \"tcp\",\n      \"kind\": \"LoadBalancer\",\n      \"frontendPort\": 3820,\n      \"backendPort\": 2177,\n      \"endpoint\": \"string\",\n      \"pluginID\": \"forward.0\",\n      \"pluginName\": \"forward\",\n      \"pluginAlias\": \"myforwardinput\",\n      \"createdAt\": \"2009-08-24T07:49:03.979Z\",\n      \"updatedAt\": \"1952-12-22T23:27:36.529Z\"\n    }\n  ],\n  \"removedPorts\": [\n    {\n      \"id\": \"3077331f-b40d-8065-a885-7e327b398a7e\",\n      \"protocol\": \"tcp\",\n      \"kind\": \"LoadBalancer\",\n      \"frontendPort\": 1170,\n      \"backendPort\": 640,\n      \"endpoint\": \"string\",\n      \"pluginID\": \"forward.0\",\n      \"pluginName\": \"forward\",\n      \"pluginAlias\": \"myforwardinput\",\n      \"createdAt\": \"2001-11-10T04:13:38.403Z\",\n      \"updatedAt\": \"2006-11-22T03:14:53.614Z\"\n    },\n    {\n      \"id\": \"836172f9-5928-596f-6ebf-933b26134cf4\",\n      \"protocol\": \"tcp\",\n      \"kind\": \"LoadBalancer\",\n      \"frontendPort\": 144,\n      \"backendPort\": 3830,\n      \"endpoint\": \"string\",\n      \"pluginID\": \"forward.0\",\n      \"pluginName\": \"forward\",\n      \"pluginAlias\": \"myforwardinput\",\n      \"createdAt\": \"2025-01-23T05:47:42.345Z\",\n      \"updatedAt\": \"1978-11-25T12:36:05.886Z\"\n    }\n  ],\n  \"addedChecks\": [\n    {\n      \"id\": \"96a3c843-4d55-bfcf-19fc-2fc47bf8337f\",\n      \"protocol\": \"tcp\",\n      \"status\": \"new\",\n      \"retries\": 3,\n      \"port\": 8245.274899564683,\n      \"host\": \"localhost\",\n      \"createdAt\": \"1974-12-27T15:19:16.389Z\",\n      \"updatedAt\": \"1993-08-06T00:02:58.602Z\"\n    },\n    {\n      \"id\": \"cfe22681-70d6-d70e-e02e-1b344d31deab\",\n      \"protocol\": \"tcp\",\n      \"status\": \"new\",\n      \"retries\": 3,\n      \"port\": 64039.692124965906,\n      \"host\": \"localhost\",\n      \"createdAt\": \"1963-10-17T18:45:36.311Z\",\n      \"updatedAt\": \"1964-12-14T13:10:10.015Z\"\n    }\n  ],\n  \"removedChecks\": [\n    {\n      \"id\": \"10f5907f-b6f6-1245-5c01-60367366bf3f\",\n      \"protocol\": \"tcp\",\n      \"status\": \"new\",\n      \"retries\": 3,\n      \"port\": 12143.115965790803,\n      \"host\": \"localhost\",\n      \"createdAt\": \"2004-11-11T17:54:39.381Z\",\n      \"updatedAt\": \"1996-05-04T16:24:41.596Z\"\n    },\n    {\n      \"id\": \"c1f363a4-2e2e-fbac-d47e-dfcaf87df8bf\",\n      \"protocol\": \"udp\",\n      \"status\": \"new\",\n      \"retries\": 3,\n      \"port\": 22038.111791278407,\n      \"host\": \"localhost\",\n      \"createdAt\": \"1984-11-28T16:59:58.118Z\",\n      \"updatedAt\": \"1957-03-03T09:57:03.532Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a35b4b2b-2e3d-4014-ac1b-d767e4974640",
+          "name": "Delete pipeline",
+          "request": {
+            "name": "Delete pipeline",
+            "description": {
+              "content": "Delete pipeline by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregator_pipelines",
+                ":pipelineID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0f6c8da8-5545-4680-ab68-75e5641a6b13",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregator_pipelines",
+                    ":pipelineID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "30d18207-079c-47ad-a47c-ebb9b33eac1c",
+    "name": "Calyptia Cloud agent pipeline API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

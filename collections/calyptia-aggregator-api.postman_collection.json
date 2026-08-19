@@ -1,0 +1,886 @@
+{
+  "item": [
+    {
+      "id": "f78db154-b734-4b2b-8879-ec192315c4af",
+      "name": "aggregator",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0983894a-a432-44cb-9d9b-715605793048",
+          "name": "Create core instance",
+          "request": {
+            "name": "Create core instance",
+            "description": {
+              "content": "Create core instance within a project.\nThe project in which the core instance is created is parser from the authorization token.\nUsers are not allowed to create core instances.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Project-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<hostname>\",\n  \"version\": \"<string>\",\n  \"addHealthCheckPipeline\": \"<boolean>\",\n  \"healthCheckPipelinePort\": \"<integer>\",\n  \"healthCheckPipelinePortKind\": \"LoadBalancer\",\n  \"image\": null,\n  \"clusterLogging\": \"<boolean>\",\n  \"metadata\": \"<object>\",\n  \"environmentID\": null,\n  \"skipServiceCreation\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "be5cff4b-19eb-485e-b706-6729fed37e87",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Project-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new-core-instance\",\n  \"version\": \"v0.1.12\",\n  \"addHealthCheckPipeline\": \"<boolean>\",\n  \"healthCheckPipelinePort\": \"<integer>\",\n  \"healthCheckPipelinePortKind\": \"LoadBalancer\",\n  \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n  \"clusterLogging\": \"<boolean>\",\n  \"metadata\": \"<object>\",\n  \"environmentID\": null,\n  \"skipServiceCreation\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9feac534-8061-b3ca-b7aa-93baa600533c\",\n  \"privateRSAKey\": \"string\",\n  \"publicRSAKey\": \"string\",\n  \"name\": \"my-core-instance\",\n  \"version\": \"v0.1.12\",\n  \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n  \"tags\": null,\n  \"clusterLoggingPipeline\": {\n    \"id\": \"1d2d802b-5f6b-fab1-11fe-ea64cb0ab8b8\",\n    \"name\": \"my-pipeline\",\n    \"kind\": \"deployment\",\n    \"config\": {\n      \"id\": \"85486ebf-7e73-1dc5-16d9-09906567d8b8\",\n      \"rawConfig\": \"string\",\n      \"configFormat\": \"classic\",\n      \"createdAt\": \"1997-01-31T00:54:17.180Z\"\n    },\n    \"configSections\": [\n      {\n        \"id\": \"0196e4b3-665e-475b-0e2d-9c3bd834c553\",\n        \"projectID\": \"66b888bf-c4a0-fc4b-6d06-00981dc61dc4\",\n        \"processingRuleID\": null,\n        \"kind\": \"input\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1963-11-02T23:34:01.432Z\",\n        \"updatedAt\": \"1977-08-24T14:31:26.407Z\"\n      },\n      {\n        \"id\": \"37b84d2c-3df0-6e06-e0eb-65844c3674d6\",\n        \"projectID\": \"7246945a-646a-dc44-0069-aedb5bdcddca\",\n        \"processingRuleID\": null,\n        \"kind\": \"service\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1955-08-20T19:26:23.977Z\",\n        \"updatedAt\": \"2014-07-11T11:43:18.784Z\"\n      }\n    ],\n    \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n    \"status\": {\n      \"id\": \"7f2ed2da-5879-e795-25d7-e568e5f90c14\",\n      \"config\": {\n        \"id\": \"b4fbf84d-cca5-a13a-3c74-548a28bc1044\",\n        \"rawConfig\": \"string\",\n        \"createdAt\": \"1963-06-15T21:10:42.298Z\"\n      },\n      \"status\": \"NEW\",\n      \"createdAt\": \"1956-04-24T08:40:05.521Z\",\n      \"events\": [\n        {\n          \"source\": \"k8s:pod\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"1969-12-05T07:12:38.641Z\",\n          \"message\": \"string\"\n        },\n        {\n          \"source\": \"k8s:pod\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"1951-05-23T10:44:02.117Z\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    \"resourceProfile\": {\n      \"id\": \"911a35c3-de95-ce41-d49d-8b0816122cc2\",\n      \"name\": \"my-resource-profile\",\n      \"storageMaxChunksUp\": 6128,\n      \"storageSyncFull\": false,\n      \"storageBacklogMemLimit\": \"1Mi\",\n      \"storageVolumeSize\": \"2Mi\",\n      \"storageMaxChunksPause\": true,\n      \"cpuBufferWorkers\": 7072,\n      \"cpuLimit\": \"3Mi\",\n      \"cpuRequest\": \"4Mi\",\n      \"memoryLimit\": \"5Mi\",\n      \"memoryRequest\": \"6Mi\",\n      \"createdAt\": \"1994-05-01T21:46:54.401Z\",\n      \"updatedAt\": \"1948-08-19T09:46:29.424Z\"\n    },\n    \"deploymentStrategy\": \"rollingupdate\",\n    \"tracingEnabled\": false,\n    \"waitForChecksBeforeDeploying\": false,\n    \"replicasCount\": 4821,\n    \"replicasCountPrev\": 53,\n    \"tags\": null,\n    \"metadata\": null,\n    \"checksTotal\": 5667,\n    \"checksOK\": 7938,\n    \"checksRunning\": 4468,\n    \"portKind\": \"LoadBalancer\",\n    \"labels\": null,\n    \"createdAt\": \"1997-12-05T19:12:52.121Z\",\n    \"updatedAt\": \"2014-04-19T01:41:12.754Z\",\n    \"minReplicas\": 5210,\n    \"maxReplicas\": 714,\n    \"scaleUpType\": \"Unknown\",\n    \"scaleUpValue\": 354,\n    \"scaleUpPeriodSeconds\": 8431,\n    \"scaleDownType\": \"Unknown\",\n    \"scaleDownValue\": 8760,\n    \"scaleDownPeriodSeconds\": 107,\n    \"utilizationCPUAverage\": 3918,\n    \"utilizationMemoryAverage\": 1606,\n    \"secrets\": null,\n    \"files\": null,\n    \"ports\": null,\n    \"storageClass\": null,\n    \"pvcRetentionPolicy\": {\n      \"whenScaled\": \"Retain\",\n      \"whenDeleted\": \"Retain\"\n    },\n    \"error\": null\n  },\n  \"healthCheckPipeline\": {\n    \"id\": \"df84b7f6-f8ea-7691-3f8f-d35ef464878b\",\n    \"name\": \"my-pipeline\",\n    \"kind\": \"deployment\",\n    \"config\": {\n      \"id\": \"cae93442-bbd0-aae4-ffa0-fd6b133a1a4b\",\n      \"rawConfig\": \"string\",\n      \"configFormat\": \"classic\",\n      \"createdAt\": \"1996-11-26T22:20:01.178Z\"\n    },\n    \"configSections\": [\n      {\n        \"id\": \"d7fc56f1-56c9-4928-b9db-00963eb59531\",\n        \"projectID\": \"098e0eda-c9e9-86fb-89a9-433ba5f8efb6\",\n        \"processingRuleID\": null,\n        \"kind\": \"output\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1982-12-12T12:54:01.148Z\",\n        \"updatedAt\": \"1952-11-30T15:56:23.201Z\"\n      },\n      {\n        \"id\": \"7850c067-00ca-3573-e6e5-a1fec0a14478\",\n        \"projectID\": \"48831dec-d13b-31b3-ca70-2c22601de871\",\n        \"processingRuleID\": null,\n        \"kind\": \"filter\",\n        \"properties\": [\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"key\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"createdAt\": \"1961-01-20T16:20:07.178Z\",\n        \"updatedAt\": \"1982-10-15T19:27:21.208Z\"\n      }\n    ],\n    \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n    \"status\": {\n      \"id\": \"5c9a023f-9bce-f310-47f5-070fe33c0f39\",\n      \"config\": {\n        \"id\": \"b4becc79-8103-72f5-7386-d0034ca5d2b5\",\n        \"rawConfig\": \"string\",\n        \"createdAt\": \"1959-06-25T15:07:19.714Z\"\n      },\n      \"status\": \"NEW\",\n      \"createdAt\": \"1986-01-29T02:04:16.552Z\",\n      \"events\": [\n        {\n          \"source\": \"k8s:pod\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"2020-03-12T13:55:34.710Z\",\n          \"message\": \"string\"\n        },\n        {\n          \"source\": \"k8s:deployment\",\n          \"reason\": \"string\",\n          \"loggedAt\": \"2009-04-19T17:34:17.553Z\",\n          \"message\": \"string\"\n        }\n      ]\n    },\n    \"resourceProfile\": {\n      \"id\": \"d11c64e1-663f-f952-b5f3-4d09215c6cca\",\n      \"name\": \"my-resource-profile\",\n      \"storageMaxChunksUp\": 5923,\n      \"storageSyncFull\": true,\n      \"storageBacklogMemLimit\": \"1Mi\",\n      \"storageVolumeSize\": \"2Mi\",\n      \"storageMaxChunksPause\": false,\n      \"cpuBufferWorkers\": 6362,\n      \"cpuLimit\": \"3Mi\",\n      \"cpuRequest\": \"4Mi\",\n      \"memoryLimit\": \"5Mi\",\n      \"memoryRequest\": \"6Mi\",\n      \"createdAt\": \"2025-01-17T00:15:37.516Z\",\n      \"updatedAt\": \"1963-09-01T15:52:57.196Z\"\n    },\n    \"deploymentStrategy\": \"rollingupdate\",\n    \"tracingEnabled\": false,\n    \"waitForChecksBeforeDeploying\": false,\n    \"replicasCount\": 7002,\n    \"replicasCountPrev\": 4669,\n    \"tags\": null,\n    \"metadata\": null,\n    \"checksTotal\": 6399,\n    \"checksOK\": 650,\n    \"checksRunning\": 647,\n    \"portKind\": \"LoadBalancer\",\n    \"labels\": null,\n    \"createdAt\": \"2014-09-13T09:30:43.013Z\",\n    \"updatedAt\": \"1990-04-21T18:10:49.595Z\",\n    \"minReplicas\": 5624,\n    \"maxReplicas\": 4335,\n    \"scaleUpType\": \"Unknown\",\n    \"scaleUpValue\": 5774,\n    \"scaleUpPeriodSeconds\": 9518,\n    \"scaleDownType\": \"Unknown\",\n    \"scaleDownValue\": 6742,\n    \"scaleDownPeriodSeconds\": 6449,\n    \"utilizationCPUAverage\": 1292,\n    \"utilizationMemoryAverage\": 526,\n    \"secrets\": null,\n    \"files\": null,\n    \"ports\": null,\n    \"storageClass\": null,\n    \"pvcRetentionPolicy\": {\n      \"whenScaled\": \"Retain\",\n      \"whenDeleted\": \"Retain\"\n    },\n    \"error\": null\n  },\n  \"resourceProfiles\": [\n    {\n      \"id\": \"905aad85-93c3-8c54-119b-d23d5a00aceb\",\n      \"name\": \"my-resource-profile\",\n      \"storageMaxChunksUp\": 866,\n      \"storageSyncFull\": false,\n      \"storageBacklogMemLimit\": \"1Mi\",\n      \"storageVolumeSize\": \"2Mi\",\n      \"storageMaxChunksPause\": true,\n      \"cpuBufferWorkers\": 3134,\n      \"cpuLimit\": \"3Mi\",\n      \"cpuRequest\": \"4Mi\",\n      \"memoryLimit\": \"5Mi\",\n      \"memoryRequest\": \"6Mi\",\n      \"createdAt\": \"1987-01-04T19:26:50.619Z\",\n      \"updatedAt\": \"2010-04-17T22:11:43.504Z\"\n    },\n    {\n      \"id\": \"b6d2f165-9fe7-588d-4e04-f0bcf73f44f1\",\n      \"name\": \"my-resource-profile\",\n      \"storageMaxChunksUp\": 4204,\n      \"storageSyncFull\": false,\n      \"storageBacklogMemLimit\": \"1Mi\",\n      \"storageVolumeSize\": \"2Mi\",\n      \"storageMaxChunksPause\": false,\n      \"cpuBufferWorkers\": 3964,\n      \"cpuLimit\": \"3Mi\",\n      \"cpuRequest\": \"4Mi\",\n      \"memoryLimit\": \"5Mi\",\n      \"memoryRequest\": \"6Mi\",\n      \"createdAt\": \"1999-04-04T19:52:57.294Z\",\n      \"updatedAt\": \"2002-12-24T13:32:39.865Z\"\n    }\n  ],\n  \"environmentName\": \"default\",\n  \"skipServiceCreation\": false,\n  \"createdAt\": \"1977-06-06T11:28:19.640Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "958d0362-a93e-407d-9da4-135787054519",
+          "name": "Core instances (deprecated)",
+          "request": {
+            "name": "Core instances (deprecated)",
+            "description": {
+              "content": "Core instances from a project (deprecated).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID",
+                "aggregators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last core instances."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Core instances before the given cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Name matching core instances."
+                },
+                {
+                  "disabled": false,
+                  "key": "environment_id",
+                  "value": "<string>",
+                  "description": "Environment ID for matching core instances."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags_query",
+                  "value": "<string>",
+                  "description": "Tag query."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_internal",
+                  "value": "<boolean>",
+                  "description": "Exclude internal pipelines (health-check) from count."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a27a0898-c6c4-4338-84fb-7476d8682cfb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID",
+                    "aggregators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "environment_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags_query",
+                      "value": "tagone AND tagtwo"
+                    },
+                    {
+                      "key": "exclude_internal",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC5988 with `rel=\"next\"`.",
+                  "key": "Link",
+                  "value": "</v1/projects/foo/aggregators?before=bar>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"29aa5b55-8c78-b66b-30ce-df837f472e17\",\n    \"name\": \"my-core-instance\",\n    \"pipelinesCount\": 9558,\n    \"environmentName\": \"default\",\n    \"skipServiceCreation\": false,\n    \"createdAt\": \"1947-09-02T02:20:57.987Z\",\n    \"updatedAt\": \"1995-07-05T09:04:29.809Z\",\n    \"version\": \"v0.1.12\",\n    \"status\": \"waiting\",\n    \"metadata\": {\n      \"aws.ami_id\": \"string\",\n      \"aws.account_id\": \"string\",\n      \"aws.hostname\": \"string\",\n      \"aws.vpc_id\": \"string\",\n      \"aws.private_ipv4\": \"string\",\n      \"aws.public_ipv4\": \"string\",\n      \"aws.ec2_instance_id\": \"string\",\n      \"aws.ec2_instance_type\": \"string\",\n      \"aws.az\": \"string\"\n    },\n    \"tags\": null\n  },\n  {\n    \"id\": \"061c6f0e-f6d8-1bf1-9fd7-7eeaa11fb53d\",\n    \"name\": \"my-core-instance\",\n    \"pipelinesCount\": 4974,\n    \"environmentName\": \"default\",\n    \"skipServiceCreation\": false,\n    \"createdAt\": \"2004-04-28T11:45:49.184Z\",\n    \"updatedAt\": \"1962-02-24T03:41:09.475Z\",\n    \"version\": \"v0.1.12\",\n    \"status\": \"running\",\n    \"metadata\": {\n      \"aws.ami_id\": \"string\",\n      \"aws.account_id\": \"string\",\n      \"aws.hostname\": \"string\",\n      \"aws.vpc_id\": \"string\",\n      \"aws.private_ipv4\": \"string\",\n      \"aws.public_ipv4\": \"string\",\n      \"aws.ec2_instance_id\": \"string\",\n      \"aws.ec2_instance_type\": \"string\",\n      \"aws.az\": \"string\"\n    },\n    \"tags\": null\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d320c7a-c673-4ea2-be80-49a6a10e6305",
+          "name": "Delete Core instances",
+          "request": {
+            "name": "Delete Core instances",
+            "description": {
+              "content": "Delete core instances from a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID",
+                "aggregators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "aggregator_id",
+                  "value": "<uuid>",
+                  "description": "List of core instance IDs to delete."
+                },
+                {
+                  "disabled": false,
+                  "key": "aggregator_id",
+                  "value": "<uuid>",
+                  "description": "List of core instance IDs to delete."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d306d020-a893-4377-b2e1-d72ac563748f",
+              "name": "Deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID",
+                    "aggregators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "aggregator_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "aggregator_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "46791e5a-7091-48ff-a4b7-0f944fa82bf5",
+          "name": "Ping Cloud API by core instance ID",
+          "request": {
+            "name": "Ping Cloud API by core instance ID",
+            "description": {
+              "content": "Ping Cloud API by core instance ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID",
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fae695af-2eae-4f35-8913-af4a6fe704e9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID",
+                    "ping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"nextPing\": \"30s\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "742a4555-e114-4c01-a299-f44403f2b3e3",
+          "name": "Core instance",
+          "request": {
+            "name": "Core instance",
+            "description": {
+              "content": "Core instance by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "exclude_internal",
+                  "value": "<boolean>",
+                  "description": "Exclude internal pipelines (health-check) from count."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "638fd248-6f3e-49a2-b67f-3d74f946a42d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "exclude_internal",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"b6c87006-0fe2-9e03-42d8-6438cee5c0f2\",\n  \"name\": \"my-core-instance\",\n  \"pipelinesCount\": 22,\n  \"environmentName\": \"default\",\n  \"skipServiceCreation\": false,\n  \"createdAt\": \"2000-04-04T19:48:28.866Z\",\n  \"updatedAt\": \"2018-10-16T04:22:12.621Z\",\n  \"version\": \"v0.1.12\",\n  \"status\": \"running\",\n  \"metadata\": {\n    \"aws.ami_id\": \"string\",\n    \"aws.account_id\": \"string\",\n    \"aws.hostname\": \"string\",\n    \"aws.vpc_id\": \"string\",\n    \"aws.private_ipv4\": \"string\",\n    \"aws.public_ipv4\": \"string\",\n    \"aws.ec2_instance_id\": \"string\",\n    \"aws.ec2_instance_type\": \"string\",\n    \"aws.az\": \"string\"\n  },\n  \"tags\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5aae98fc-cda8-4c26-b1de-697c79621e1c",
+          "name": "Update core instance",
+          "request": {
+            "name": "Update core instance",
+            "description": {
+              "content": "Update core instance by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": null,\n  \"image\": null,\n  \"clusterLogging\": null,\n  \"version\": null,\n  \"tags\": null,\n  \"metadata\": {\n    \"aws.ami_id\": \"<string>\",\n    \"aws.account_id\": \"<string>\",\n    \"aws.hostname\": \"<string>\",\n    \"aws.vpc_id\": \"<string>\",\n    \"aws.private_ipv4\": \"<string>\",\n    \"aws.public_ipv4\": \"<string>\",\n    \"aws.ec2_instance_id\": \"<string>\",\n    \"aws.ec2_instance_type\": \"<string>\",\n    \"aws.az\": \"<string>\"\n  },\n  \"environmentID\": null,\n  \"skipServiceCreation\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b5798f81-88be-48d3-bc63-f36ef688abe5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"new-core-instance\",\n  \"image\": \"ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2\",\n  \"clusterLogging\": null,\n  \"version\": \"v0.1.12\",\n  \"tags\": null,\n  \"metadata\": {\n    \"aws.ami_id\": \"<string>\",\n    \"aws.account_id\": \"<string>\",\n    \"aws.hostname\": \"<string>\",\n    \"aws.vpc_id\": \"<string>\",\n    \"aws.private_ipv4\": \"<string>\",\n    \"aws.public_ipv4\": \"<string>\",\n    \"aws.ec2_instance_id\": \"<string>\",\n    \"aws.ec2_instance_type\": \"<string>\",\n    \"aws.az\": \"<string>\"\n  },\n  \"environmentID\": null,\n  \"skipServiceCreation\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9288baf6-0596-4ae0-a216-15747cbc3ac2",
+          "name": "Delete core instance",
+          "request": {
+            "name": "Delete core instance",
+            "description": {
+              "content": "Delete core instance by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2e8960a6-98d8-4b94-bcae-aced19ecd74d",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e1e5563e-c239-4296-a5b9-d0630f2a0674",
+    "name": "Calyptia Cloud agent aggregator API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,382 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent fleet API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "fleet",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Fleets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/fleets",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags_query",
+                "value": "",
+                "type": "query",
+                "description": "\\\"AND\\\" separated query"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List all the fleets within a project."
+        },
+        {
+          "info": {
+            "name": "Create fleet.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/fleets",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a fleet on the given project.\nAgents can be added later to this fleet\nand all of them will share the same config."
+        },
+        {
+          "info": {
+            "name": "Fleets Status for a Project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/fleets/status",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Show the status of all fleets within a project."
+        },
+        {
+          "info": {
+            "name": "Fleet.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/fleets/:fleetID",
+            "params": [
+              {
+                "name": "fleetID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a single fleet by ID."
+        },
+        {
+          "info": {
+            "name": "Update fleet.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/fleets/:fleetID",
+            "params": [
+              {
+                "name": "fleetID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a fleet details."
+        },
+        {
+          "info": {
+            "name": "Delete fleet.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/fleets/:fleetID",
+            "params": [
+              {
+                "name": "fleetID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a single fleet by its ID.\nAll associated agents will remain but the shared config wil be detached."
+        },
+        {
+          "info": {
+            "name": "Fleet Status.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/fleets/:fleetID/status",
+            "params": [
+              {
+                "name": "fleetID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Show the status of all agents within a fleet."
+        },
+        {
+          "info": {
+            "name": "get the configuration for a fleet ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/fleets/:fleetID/config",
+            "params": [
+              {
+                "name": "fleetID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format (depreacted in favour of config_format)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "get the configuration for a fleet ID."
+        },
+        {
+          "info": {
+            "name": "Fleet.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/fleets/:fleetID/files",
+            "params": [
+              {
+                "name": "fleetID",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for the Fleet."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Fleet files before the given cursor."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last fleet files."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the list of fleet files."
+        },
+        {
+          "info": {
+            "name": "Create Fleet File.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/fleets/:fleetID/files",
+            "params": [
+              {
+                "name": "fleetID",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for the Fleet."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new Fleet File."
+        },
+        {
+          "info": {
+            "name": "retrieve a fleet file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/fleet_files/:fleetFileID",
+            "params": [
+              {
+                "name": "fleetFileID",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the fleet file."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a single fleet file with its metadata."
+        },
+        {
+          "info": {
+            "name": "Update fleet file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/fleet_files/:fleetFileID",
+            "params": [
+              {
+                "name": "fleetFileID",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the fleet file."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a fleet file."
+        },
+        {
+          "info": {
+            "name": "Delete fleet file.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/fleet_files/:fleetFileID",
+            "params": [
+              {
+                "name": "fleetFileID",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the fleet file."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a single fleet file by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

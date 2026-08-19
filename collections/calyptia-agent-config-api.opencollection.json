@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent agent_config API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "agent_config",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Agent configuration history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/agents/:agentID/config_history",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last config history entries."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Configuration history from an agent.\nEvery time an agent config is updated, a new history entry with the change is created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

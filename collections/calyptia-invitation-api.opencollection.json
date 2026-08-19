@@ -1,0 +1,63 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent invitation API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "invitation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/invite",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create invitation to a project.\nThis will send an invitation email with a link to join to the email address provided."
+        },
+        {
+          "info": {
+            "name": "Accept invitation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/join_project",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Accept invitation to a project.\nThe project to which you join is parsed from the token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

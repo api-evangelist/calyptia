@@ -1,0 +1,201 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "agent",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/agents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Project-Token",
+              "value": "{{X-Project-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Register agent within a project.\nThe project in which the agent is registered is parsed from the authorization token.\nUsers are not allowed to register agents."
+        },
+        {
+          "info": {
+            "name": "Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/agents",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fleet_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter agents from a single fleet."
+              },
+              {
+                "name": "pipeline_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter agents from a single pipeline."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last agents."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Agents before the given cursor."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name matching agents."
+              },
+              {
+                "name": "tags_query",
+                "value": "",
+                "type": "query",
+                "description": "Tag query."
+              },
+              {
+                "name": "environment_id",
+                "value": "",
+                "type": "query",
+                "description": "Environment ID for matching agents."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Agents from a project."
+        },
+        {
+          "info": {
+            "name": "Delete Agents",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/agents",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "agent_id",
+                "value": "",
+                "type": "query",
+                "description": "List of agent IDs to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete agents from a project."
+        },
+        {
+          "info": {
+            "name": "Agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/agents/:agentID",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Agents by ID."
+        },
+        {
+          "info": {
+            "name": "Update agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/agents/:agentID",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update agent by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete agent",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/agents/:agentID",
+            "params": [
+              {
+                "name": "agentID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete agent by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

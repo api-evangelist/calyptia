@@ -1,0 +1,106 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent pipeline_cluster_objects API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pipeline_cluster_objects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of cluster objects associated to a pipeline.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/cluster_objects",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last cluster objects."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Cluster objects before the given cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of all the cluster objects that are associated to a pipeline."
+        },
+        {
+          "info": {
+            "name": "Update the cluster objects related to a pipeline (only for daemonSet kind).",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/cluster_objects",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a pipeline to be related to a set of given cluster objects\nthis is only supported for pipelines of kind daemonSet."
+        },
+        {
+          "info": {
+            "name": "Remove the relation between the cluster objects and the given pipeline.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/cluster_objects",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "cluster_object_id",
+                "value": "",
+                "type": "query",
+                "description": "List of cluster object IDs to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Remove the relation between the cluster objects and the pipeline (only for daemonSet kind)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

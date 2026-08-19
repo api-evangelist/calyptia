@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent core_instance_file API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "core_instance_file",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Core Instance Files",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/core_instances/:coreInstanceID/files",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Limit to the last files."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Paginate files before the given cursor."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Files from a core instance with backward pagination."
+        },
+        {
+          "info": {
+            "name": "Create Core Instance File",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/core_instances/:coreInstanceID/files",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new file within a core instance.\nThe file will be created with the given name and content.\nIf `encypted` is set to `true`, the file will be encrypted using the\ncore instance's encryption key.\nThe name must be unique among all files within the core instance."
+        },
+        {
+          "info": {
+            "name": "Update Core Instance File",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/core_instance_files/:coreInstanceFileID",
+            "params": [
+              {
+                "name": "coreInstanceFileID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a file within a core instance.\nThe file will be updated with the given name and content.\nIf `encypted` is set to `true`, the file will be encrypted using the\ncore instance's encryption key."
+        },
+        {
+          "info": {
+            "name": "Delete Core Instance File",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/core_instance_files/:coreInstanceFileID",
+            "params": [
+              {
+                "name": "coreInstanceFileID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a file within a core instance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

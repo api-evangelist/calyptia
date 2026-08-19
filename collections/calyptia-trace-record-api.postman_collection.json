@@ -1,0 +1,271 @@
+{
+  "item": [
+    {
+      "id": "fc8808b2-51a1-4ac4-b722-328afb257ea1",
+      "name": "trace_record",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ab1edc27-d99b-4b39-8a21-6bb743ff2383",
+          "name": "Create trace record",
+          "request": {
+            "name": "Create trace record",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pipelines",
+                ":pipelineID",
+                "trace_session",
+                "records"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<integer>\",\n  \"trace_id\": \"<string>\",\n  \"start_time\": \"<long>\",\n  \"end_time\": \"<long>\",\n  \"plugin_instance\": \"<string>\",\n  \"plugin_alias\": \"<string>\",\n  \"return_code\": \"<integer>\",\n  \"records\": [\n    {\n      \"timestamp\": \"<long>\",\n      \"record\": {\n        \"key_0\": 3161\n      }\n    },\n    {\n      \"timestamp\": \"<long>\",\n      \"record\": {\n        \"key_0\": 772.6974906095718,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c4d54709-47d8-4d3a-b12d-6d3fb1fa25ec",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipelines",
+                    ":pipelineID",
+                    "trace_session",
+                    "records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<integer>\",\n  \"trace_id\": \"trace.5\",\n  \"start_time\": 1658953439,\n  \"end_time\": 1658953439,\n  \"plugin_instance\": \"nest.2\",\n  \"plugin_alias\": \"nest_2\",\n  \"return_code\": \"<integer>\",\n  \"records\": [\n    {\n      \"timestamp\": 1658953439,\n      \"record\": {\n        \"key_0\": 492\n      }\n    },\n    {\n      \"timestamp\": 1658953439,\n      \"record\": {\n        \"key_0\": 7548.310583443421\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"8fcd0dcb-f49c-c2f9-5e05-ce92261f9f56\",\n  \"sessionID\": \"ac96b3ac-c512-e640-4c4e-d60938725890\",\n  \"createdAt\": \"2010-01-22T16:58:34.031Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "752cc01a-3624-4543-91ef-14db3811ae7a",
+          "name": "Trace records",
+          "request": {
+            "name": "Trace records",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "trace_sessions",
+                ":sessionID",
+                "records"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "sessionID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2eab0384-edc0-46f6-9696-0a7f2f9a657a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "trace_sessions",
+                    ":sessionID",
+                    "records"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "sessionID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC5988 with `rel=\"next\"`.",
+                  "key": "Link",
+                  "value": "</v1/trace_sessions/foo/records?before=bar>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"815649df-98d8-8da4-8174-ba2f2af9c1c0\",\n    \"sessionID\": \"d3793543-35c4-8d05-6e4a-b306f15d4ad5\",\n    \"type\": \"<integer>\",\n    \"trace_id\": \"trace.5\",\n    \"start_time\": 1658953439,\n    \"end_time\": 1658953439,\n    \"plugin_instance\": \"nest.2\",\n    \"plugin_alias\": \"nest_2\",\n    \"return_code\": 8647,\n    \"records\": [\n      {\n        \"timestamp\": 1658953439,\n        \"record\": {\n          \"key_0\": false,\n          \"key_1\": \"string\"\n        }\n      },\n      {\n        \"timestamp\": 1658953439,\n        \"record\": {\n          \"key_0\": 6383.599874289714,\n          \"key_1\": false\n        }\n      }\n    ],\n    \"createdAt\": \"1980-03-03T09:52:27.377Z\"\n  },\n  {\n    \"id\": \"95b9a9d6-fdfe-0420-4f12-aea017f45deb\",\n    \"sessionID\": \"25d15f42-2630-c01b-407b-41c9d02601eb\",\n    \"type\": \"<integer>\",\n    \"trace_id\": \"trace.5\",\n    \"start_time\": 1658953439,\n    \"end_time\": 1658953439,\n    \"plugin_instance\": \"nest.2\",\n    \"plugin_alias\": \"nest_2\",\n    \"return_code\": 3971,\n    \"records\": [\n      {\n        \"timestamp\": 1658953439,\n        \"record\": {\n          \"key_0\": \"string\"\n        }\n      },\n      {\n        \"timestamp\": 1658953439,\n        \"record\": {\n          \"key_0\": false,\n          \"key_1\": \"string\",\n          \"key_2\": 6916.353672993306\n        }\n      }\n    ],\n    \"createdAt\": \"1949-07-26T03:27:09.384Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "12bc504c-fa8c-46e5-9407-e0e9d55b1940",
+    "name": "Calyptia Cloud agent trace_record API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

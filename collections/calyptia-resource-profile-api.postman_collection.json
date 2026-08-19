@@ -1,0 +1,602 @@
+{
+  "item": [
+    {
+      "id": "f191a382-7a32-4374-a78d-7253d19c9fbf",
+      "name": "resource_profile",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fb6b529e-d9ea-43af-ac11-858bcc6ea362",
+          "name": "Create resource profile",
+          "request": {
+            "name": "Create resource profile",
+            "description": {
+              "content": "Create resource profile within a core instance.\nA resource profile is a specification of a resource used during the deployment of a pipeline.\nBy default, when you setup a core instance, Calyptia Cloud will generate 3 resource profiles for you:\n - high-performance-guaranteed-delivery.\n - high-performance-optimal-throughput.\n - best-effort-low-resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID",
+                "resource_profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"storageMaxChunksUp\": \"<integer>\",\n  \"storageSyncFull\": \"<boolean>\",\n  \"storageBacklogMemLimit\": \"<string>\",\n  \"storageVolumeSize\": \"<string>\",\n  \"storageMaxChunksPause\": \"<boolean>\",\n  \"cpuBufferWorkers\": \"<integer>\",\n  \"cpuLimit\": \"<string>\",\n  \"cpuRequest\": \"<string>\",\n  \"memoryLimit\": \"<string>\",\n  \"memoryRequest\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "68ea98f5-108a-4a41-8240-1a1029f7e67b",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID",
+                    "resource_profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-resource-profile\",\n  \"storageMaxChunksUp\": \"<integer>\",\n  \"storageSyncFull\": \"<boolean>\",\n  \"storageBacklogMemLimit\": \"1Mi\",\n  \"storageVolumeSize\": \"2Mi\",\n  \"storageMaxChunksPause\": \"<boolean>\",\n  \"cpuBufferWorkers\": \"<integer>\",\n  \"cpuLimit\": \"3Mi\",\n  \"cpuRequest\": \"4Mi\",\n  \"memoryLimit\": \"5Mi\",\n  \"memoryRequest\": \"6Mi\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"8054d2f6-73a4-1d59-5415-37c1e34e5d3d\",\n  \"createdAt\": \"1996-10-05T05:20:45.439Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5c18c63-ab74-4351-963b-5303e84b53e1",
+          "name": "Resource profiles",
+          "request": {
+            "name": "Resource profiles",
+            "description": {
+              "content": "Resource profiles from a core instance.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "aggregators",
+                ":aggregatorID",
+                "resource_profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last tokens."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "aggregatorID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6339bbe8-85e4-452a-9935-a9f7ebb2604c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "aggregators",
+                    ":aggregatorID",
+                    "resource_profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "aggregatorID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"5fc13e90-7df8-ecbd-6cbd-fd97c58ad248\",\n    \"name\": \"my-resource-profile\",\n    \"storageMaxChunksUp\": 7328,\n    \"storageSyncFull\": false,\n    \"storageBacklogMemLimit\": \"1Mi\",\n    \"storageVolumeSize\": \"2Mi\",\n    \"storageMaxChunksPause\": true,\n    \"cpuBufferWorkers\": 7167,\n    \"cpuLimit\": \"3Mi\",\n    \"cpuRequest\": \"4Mi\",\n    \"memoryLimit\": \"5Mi\",\n    \"memoryRequest\": \"6Mi\",\n    \"createdAt\": \"1996-03-30T20:28:52.835Z\",\n    \"updatedAt\": \"1982-02-24T17:45:59.909Z\"\n  },\n  {\n    \"id\": \"866e7d9f-5dc5-f006-a332-1bbf1a49dfd7\",\n    \"name\": \"my-resource-profile\",\n    \"storageMaxChunksUp\": 8669,\n    \"storageSyncFull\": false,\n    \"storageBacklogMemLimit\": \"1Mi\",\n    \"storageVolumeSize\": \"2Mi\",\n    \"storageMaxChunksPause\": true,\n    \"cpuBufferWorkers\": 7114,\n    \"cpuLimit\": \"3Mi\",\n    \"cpuRequest\": \"4Mi\",\n    \"memoryLimit\": \"5Mi\",\n    \"memoryRequest\": \"6Mi\",\n    \"createdAt\": \"2011-10-03T02:01:20.253Z\",\n    \"updatedAt\": \"2023-09-12T07:49:09.423Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e364adac-6213-4af7-b6b9-5dffc45c35e1",
+          "name": "Resource profile",
+          "request": {
+            "name": "Resource profile",
+            "description": {
+              "content": "Resource profile by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "resource_profiles",
+                ":resourceProfileID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "resourceProfileID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0766472c-a2b0-436b-955f-249b6c140ef6",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "resource_profiles",
+                    ":resourceProfileID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resourceProfileID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"99b2c6d4-75ae-9eaa-f7ee-51ccdbcc869a\",\n  \"name\": \"my-resource-profile\",\n  \"storageMaxChunksUp\": 9870,\n  \"storageSyncFull\": false,\n  \"storageBacklogMemLimit\": \"1Mi\",\n  \"storageVolumeSize\": \"2Mi\",\n  \"storageMaxChunksPause\": true,\n  \"cpuBufferWorkers\": 6169,\n  \"cpuLimit\": \"3Mi\",\n  \"cpuRequest\": \"4Mi\",\n  \"memoryLimit\": \"5Mi\",\n  \"memoryRequest\": \"6Mi\",\n  \"createdAt\": \"2025-05-09T03:28:33.661Z\",\n  \"updatedAt\": \"1992-12-22T23:56:47.229Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3cf4ced0-3163-4a93-a692-9321e7478a60",
+          "name": "Update resource profile",
+          "request": {
+            "name": "Update resource profile",
+            "description": {
+              "content": "Update resource profile by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "resource_profiles",
+                ":resourceProfileID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "resourceProfileID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": null,\n  \"storageMaxChunksUp\": null,\n  \"storageSyncFull\": null,\n  \"storageBacklogMemLimit\": null,\n  \"storageVolumeSize\": null,\n  \"storageMaxChunksPause\": null,\n  \"cpuBufferWorkers\": null,\n  \"cpuLimit\": null,\n  \"cpuRequest\": null,\n  \"memoryLimit\": null,\n  \"memoryRequest\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f3c6de15-6fe9-4ee5-94ca-c0c59bc12b1d",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "resource_profiles",
+                    ":resourceProfileID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resourceProfileID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-resource-profile\",\n  \"storageMaxChunksUp\": null,\n  \"storageSyncFull\": null,\n  \"storageBacklogMemLimit\": \"1Mi\",\n  \"storageVolumeSize\": \"2Mi\",\n  \"storageMaxChunksPause\": null,\n  \"cpuBufferWorkers\": null,\n  \"cpuLimit\": \"3Mi\",\n  \"cpuRequest\": \"4Mi\",\n  \"memoryLimit\": \"5Mi\",\n  \"memoryRequest\": \"6Mi\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0c7faf1f-9119-4add-8ca6-a3bfa565c962",
+          "name": "Delete resource profile",
+          "request": {
+            "name": "Delete resource profile",
+            "description": {
+              "content": "Delete resource profile by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "resource_profiles",
+                ":resourceProfileID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "resourceProfileID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "da762ff6-e9fc-40e5-90d5-233fefcaa682",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "resource_profiles",
+                    ":resourceProfileID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "resourceProfileID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4458ea0d-d40b-4e11-9327-fc767b3dd775",
+    "name": "Calyptia Cloud agent resource_profile API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

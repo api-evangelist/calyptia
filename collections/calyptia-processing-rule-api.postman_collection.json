@@ -1,0 +1,720 @@
+{
+  "item": [
+    {
+      "id": "f3487a67-c47e-4438-a1d2-9145470ea667",
+      "name": "processing_rule",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3d98ed53-0990-4986-bf4e-521be1086b7d",
+          "name": "Create a processing rule",
+          "request": {
+            "name": "Create a processing rule",
+            "description": {
+              "content": "Create a processing rule in the given pipeline.\nOnly one processing rule is allowed per pipeline.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "pipelines",
+                ":pipelineID",
+                "processing_rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"match\": \"<string>\",\n  \"isMatchRegexp\": false,\n  \"language\": \"<string>\",\n  \"actions\": [\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"<string>\",\n      \"enabled\": false,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"<string>\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"<string>\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"<string>\",\n        \"value\": {}\n      },\n      \"renameTo\": null,\n      \"copyAs\": null,\n      \"maskWith\": null\n    },\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"<string>\",\n      \"enabled\": false,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"<string>\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"<string>\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"<string>\",\n        \"value\": {}\n      },\n      \"renameTo\": null,\n      \"copyAs\": null,\n      \"maskWith\": null\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95ca0ba7-51b2-4a47-ac3a-4919d57fcee3",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipelines",
+                    ":pipelineID",
+                    "processing_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"match\": \"*\",\n  \"isMatchRegexp\": false,\n  \"language\": \"<string>\",\n  \"actions\": [\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"Sample action\",\n      \"enabled\": true,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"some_key\",\n        \"value\": {}\n      },\n      \"renameTo\": \"renamed\",\n      \"copyAs\": \"copied\",\n      \"maskWith\": \"masked\"\n    },\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"Sample action\",\n      \"enabled\": true,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"some_key\",\n        \"value\": {}\n      },\n      \"renameTo\": \"renamed\",\n      \"copyAs\": \"copied\",\n      \"maskWith\": \"masked\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"9c8d6b96-b3f8-3ae4-e688-f3dfb50e8040\",\n  \"configSectionID\": \"10881097-b782-d750-b53f-025e168dfb92\",\n  \"fileID\": \"d91aa993-675d-8cfd-4ac9-0763449d6864\",\n  \"createdAt\": \"f672b762-694c-a696-5cad-eaf348f735e7\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3743104d-05f8-41a2-8a20-fb9705889a1e",
+          "name": "Processing rules",
+          "request": {
+            "name": "Processing rules",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "pipelines",
+                ":pipelineID",
+                "processing_rules"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Last processing rules."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Processing rules before the given cursor."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "pipelineID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c8af1600-2f92-4369-9f67-c2b45aa0247d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "pipelines",
+                    ":pipelineID",
+                    "processing_rules"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "pipelineID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "RFC5988 with `rel=\"next\"`.",
+                  "key": "Link",
+                  "value": "</v1/pipelines/foo/processing_rules?before=bar>; rel=\"next\""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"864c0c17-3117-49d7-7c5d-53818971c4ae\",\n    \"pipelineID\": \"ad5d7140-7549-0459-a01e-e15549fd0c5d\",\n    \"configSectionID\": \"6fdc530f-c832-eb15-64fe-bfc6cc300c23\",\n    \"fileID\": \"a96157ff-9b9b-4753-d661-deaa1ea9182d\",\n    \"match\": \"*\",\n    \"isMatchRegexp\": false,\n    \"language\": \"<string>\",\n    \"actions\": [\n      {\n        \"kind\": \"<string>\",\n        \"description\": \"Sample action\",\n        \"enabled\": true,\n        \"selectors\": [\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"op\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expr\": \"some_key\"\n          },\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"op\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expr\": \"some_key\"\n          }\n        ],\n        \"add\": {\n          \"key\": \"some_key\",\n          \"value\": {}\n        },\n        \"renameTo\": \"renamed\",\n        \"copyAs\": \"copied\",\n        \"maskWith\": \"masked\"\n      },\n      {\n        \"kind\": \"<string>\",\n        \"description\": \"Sample action\",\n        \"enabled\": true,\n        \"selectors\": [\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"op\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expr\": \"some_key\"\n          },\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"op\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expr\": \"some_key\"\n          }\n        ],\n        \"add\": {\n          \"key\": \"some_key\",\n          \"value\": {}\n        },\n        \"renameTo\": \"renamed\",\n        \"copyAs\": \"copied\",\n        \"maskWith\": \"masked\"\n      }\n    ],\n    \"createdAt\": \"1999-05-15T20:26:53.961Z\",\n    \"updatedAt\": \"2013-02-10T06:09:11.496Z\"\n  },\n  {\n    \"id\": \"ec69d464-208a-e1e1-682c-46e202221ee8\",\n    \"pipelineID\": \"97208043-5837-941e-4e55-24606bf847d1\",\n    \"configSectionID\": \"29bc45be-efdf-7fd0-0823-0c4da0b2ac68\",\n    \"fileID\": \"15541053-309b-3d0e-63fb-678a3bad9bba\",\n    \"match\": \"*\",\n    \"isMatchRegexp\": false,\n    \"language\": \"<string>\",\n    \"actions\": [\n      {\n        \"kind\": \"<string>\",\n        \"description\": \"Sample action\",\n        \"enabled\": true,\n        \"selectors\": [\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"op\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expr\": \"some_key\"\n          },\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"op\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expr\": \"some_key\"\n          }\n        ],\n        \"add\": {\n          \"key\": \"some_key\",\n          \"value\": {}\n        },\n        \"renameTo\": \"renamed\",\n        \"copyAs\": \"copied\",\n        \"maskWith\": \"masked\"\n      },\n      {\n        \"kind\": \"<string>\",\n        \"description\": \"Sample action\",\n        \"enabled\": true,\n        \"selectors\": [\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"op\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expr\": \"some_key\"\n          },\n          {\n            \"kind\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"op\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"expr\": \"some_key\"\n          }\n        ],\n        \"add\": {\n          \"key\": \"some_key\",\n          \"value\": {}\n        },\n        \"renameTo\": \"renamed\",\n        \"copyAs\": \"copied\",\n        \"maskWith\": \"masked\"\n      }\n    ],\n    \"createdAt\": \"1993-07-28T13:28:12.435Z\",\n    \"updatedAt\": \"2010-11-18T03:19:54.454Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3027cc2-17cb-488e-89df-2fdfebb15dd6",
+          "name": "Processing rule",
+          "request": {
+            "name": "Processing rule",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "processing_rules",
+                ":processingRuleID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "processingRuleID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "529fc28c-ac97-4998-889a-70e75b91ecac",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "processing_rules",
+                    ":processingRuleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processingRuleID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"d0ed2d1d-8e43-ff06-7bcb-6962750eacbe\",\n  \"pipelineID\": \"0ff14b22-7c50-6af1-53fd-387aa1c0cd35\",\n  \"configSectionID\": \"aa89111c-c652-64dd-4d62-a66a0ce73bdd\",\n  \"fileID\": \"e12387ae-a816-ac35-0c76-99facfac0723\",\n  \"match\": \"*\",\n  \"isMatchRegexp\": false,\n  \"language\": \"<string>\",\n  \"actions\": [\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"Sample action\",\n      \"enabled\": true,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"some_key\",\n        \"value\": {}\n      },\n      \"renameTo\": \"renamed\",\n      \"copyAs\": \"copied\",\n      \"maskWith\": \"masked\"\n    },\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"Sample action\",\n      \"enabled\": true,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"some_key\",\n        \"value\": {}\n      },\n      \"renameTo\": \"renamed\",\n      \"copyAs\": \"copied\",\n      \"maskWith\": \"masked\"\n    }\n  ],\n  \"createdAt\": \"2009-01-25T12:23:00.009Z\",\n  \"updatedAt\": \"1997-09-08T02:08:00.065Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dac569ea-4063-4c64-9005-b980bc862c6e",
+          "name": "Update processing rule",
+          "request": {
+            "name": "Update processing rule",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "processing_rules",
+                ":processingRuleID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "processingRuleID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"match\": null,\n  \"isMatchRegexp\": null,\n  \"language\": \"<string>\",\n  \"actions\": null\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6e2e5a0f-08fa-4564-840d-dfda7936d685",
+              "name": "Updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "processing_rules",
+                    ":processingRuleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processingRuleID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"match\": \"*\",\n  \"isMatchRegexp\": null,\n  \"language\": \"<string>\",\n  \"actions\": null\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"updatedAt\": \"2002-10-17T08:21:24.659Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2a3c951-c193-4091-96ca-8031931c9517",
+          "name": "Delete processing rule",
+          "request": {
+            "name": "Delete processing rule",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "processing_rules",
+                ":processingRuleID"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "processingRuleID",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b4be89b2-7b36-4f02-8cc6-3a7fab82cf1e",
+              "name": "Deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "processing_rules",
+                    ":processingRuleID"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "processingRuleID",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2e82cf3-48da-4c4f-abe2-e2e597fb8bdb",
+          "name": "Preview processing rule",
+          "request": {
+            "name": "Preview processing rule",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "preview_processing_rule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"language\": \"<string>\",\n  \"actions\": [\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"<string>\",\n      \"enabled\": false,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"<string>\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"<string>\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"<string>\",\n        \"value\": {}\n      },\n      \"renameTo\": null,\n      \"copyAs\": null,\n      \"maskWith\": null\n    },\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"<string>\",\n      \"enabled\": false,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"<string>\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"<string>\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"<string>\",\n        \"value\": {}\n      },\n      \"renameTo\": null,\n      \"copyAs\": null,\n      \"maskWith\": null\n    }\n  ],\n  \"logs\": [\n    [\n      \"<number>\",\n      \"<number>\"\n    ],\n    [\n      \"<number>\",\n      \"<number>\"\n    ]\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06b6ad17-5155-447c-b13d-e94ae8eb15a4",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "preview_processing_rule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"language\": \"<string>\",\n  \"actions\": [\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"Sample action\",\n      \"enabled\": true,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"some_key\",\n        \"value\": {}\n      },\n      \"renameTo\": \"renamed\",\n      \"copyAs\": \"copied\",\n      \"maskWith\": \"masked\"\n    },\n    {\n      \"kind\": \"<string>\",\n      \"description\": \"Sample action\",\n      \"enabled\": true,\n      \"selectors\": [\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        },\n        {\n          \"kind\": \"<string>\",\n          \"op\": \"<string>\",\n          \"expr\": \"some_key\"\n        }\n      ],\n      \"add\": {\n        \"key\": \"some_key\",\n        \"value\": {}\n      },\n      \"renameTo\": \"renamed\",\n      \"copyAs\": \"copied\",\n      \"maskWith\": \"masked\"\n    }\n  ],\n  \"logs\": [\n    [\n      \"<number>\",\n      \"<number>\"\n    ],\n    [\n      \"<number>\",\n      \"<number>\"\n    ]\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  [\n    \"<number>\",\n    \"<number>\"\n  ],\n  [\n    \"<number>\",\n    \"<number>\"\n  ]\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0f03508c-50b1-4c19-a162-ae2533000273",
+    "name": "Calyptia Cloud agent processing_rule API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

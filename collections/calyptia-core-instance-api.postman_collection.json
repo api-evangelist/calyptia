@@ -1,0 +1,202 @@
+{
+  "item": [
+    {
+      "id": "2878842d-3f5f-47e9-8b3e-5ae9d24fbaa2",
+      "name": "core_instance",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "65a797f6-3f9a-4b9b-a4bd-9009a0920f7d",
+          "name": "Core Instances",
+          "request": {
+            "name": "Core Instances",
+            "description": {
+              "content": "Core Instances from a project with backward pagination.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "projects",
+                ":projectID",
+                "core_instances"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last",
+                  "value": "<integer>",
+                  "description": "Limit to the last core instances."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<string>",
+                  "description": "Paginate core instances before the given cursor."
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "Filter core instances with the given name."
+                },
+                {
+                  "disabled": false,
+                  "key": "environment_id",
+                  "value": "<string>",
+                  "description": "Filter core instances with the given environment ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "tags_query",
+                  "value": "<string>",
+                  "description": "Filter core instances with the given tags query."
+                },
+                {
+                  "disabled": false,
+                  "key": "exclude_internal",
+                  "value": "<boolean>",
+                  "description": "Exclude internal pipelines (health-check) from count."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "projectID",
+                  "description": "(Required) Parent project ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "88f62f85-5358-4a86-b6b8-c50cabfb5d80",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "projects",
+                    ":projectID",
+                    "core_instances"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "environment_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tags_query",
+                      "value": "tagone AND tagtwo"
+                    },
+                    {
+                      "key": "exclude_internal",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "projectID",
+                      "description": "(Required) Parent project ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"id\": \"4192ba06-72f3-e3f3-3e31-0c16089dd37b\",\n      \"name\": \"my-core-instance\",\n      \"pipelinesCount\": 4503,\n      \"environmentName\": \"default\",\n      \"skipServiceCreation\": false,\n      \"createdAt\": \"2006-06-23T08:02:45.849Z\",\n      \"updatedAt\": \"1983-11-09T03:10:36.828Z\",\n      \"version\": \"v0.1.12\",\n      \"status\": \"waiting\",\n      \"metadata\": {\n        \"aws.ami_id\": \"string\",\n        \"aws.account_id\": \"string\",\n        \"aws.hostname\": \"string\",\n        \"aws.vpc_id\": \"string\",\n        \"aws.private_ipv4\": \"string\",\n        \"aws.public_ipv4\": \"string\",\n        \"aws.ec2_instance_id\": \"string\",\n        \"aws.ec2_instance_type\": \"string\",\n        \"aws.az\": \"string\"\n      },\n      \"tags\": null\n    },\n    {\n      \"id\": \"0ed752d5-5679-09dd-af52-25f4a1609b1a\",\n      \"name\": \"my-core-instance\",\n      \"pipelinesCount\": 3795,\n      \"environmentName\": \"default\",\n      \"skipServiceCreation\": false,\n      \"createdAt\": \"2009-10-15T10:02:51.988Z\",\n      \"updatedAt\": \"1963-02-20T19:56:15.550Z\",\n      \"version\": \"v0.1.12\",\n      \"status\": \"waiting\",\n      \"metadata\": {\n        \"aws.ami_id\": \"string\",\n        \"aws.account_id\": \"string\",\n        \"aws.hostname\": \"string\",\n        \"aws.vpc_id\": \"string\",\n        \"aws.private_ipv4\": \"string\",\n        \"aws.public_ipv4\": \"string\",\n        \"aws.ec2_instance_id\": \"string\",\n        \"aws.ec2_instance_type\": \"string\",\n        \"aws.az\": \"string\"\n      },\n      \"tags\": null\n    }\n  ],\n  \"endCursor\": \"string\",\n  \"count\": 5344.691863382126\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e0b44cf4-4645-4c94-a60c-0f1c7a62be62",
+    "name": "Calyptia Cloud agent core_instance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

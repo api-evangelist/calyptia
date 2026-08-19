@@ -1,0 +1,141 @@
+{
+  "item": [
+    {
+      "id": "cb00a475-39c7-4c68-a62e-1ce08ffc76a1",
+      "name": "config_validator_v2",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d66f7c6c-a310-43e2-9f77-5adfc1584885",
+          "name": "Validate configuration on the v2 endpoint of the service",
+          "request": {
+            "name": "Validate configuration on the v2 endpoint of the service",
+            "description": {
+              "content": "Validates that an already parsed fluentbit config is semantically valid under the V2 error specification\nTo parse the raw agent config take a look at https://github.com/calyptia/fluent-bit-config-parser.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "config_validate_v2"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": [\n    {\n      \"command\": \"<string>\",\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"optional\": null\n    },\n    {\n      \"command\": \"<string>\",\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"optional\": null\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "88043fa2-1c2c-40cb-b262-41c14ffcc657",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "config_validate_v2"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": [\n    {\n      \"command\": \"<string>\",\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"optional\": null\n    },\n    {\n      \"command\": \"<string>\",\n      \"name\": \"<string>\",\n      \"id\": \"<string>\",\n      \"optional\": null\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": {\n    \"runtime\": [\n      {\n        \"id\": \"string\",\n        \"errors\": [\n          \"string\",\n          \"string\"\n        ]\n      },\n      {\n        \"id\": \"string\",\n        \"errors\": [\n          \"string\",\n          \"string\"\n        ]\n      }\n    ],\n    \"input\": {\n      \"key_0\": [\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"key_1\": [\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    \"output\": {\n      \"key_0\": [\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    },\n    \"filter\": {\n      \"key_0\": [\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ],\n      \"key_1\": [\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        {\n          \"id\": \"string\",\n          \"property\": \"string\",\n          \"text\": null,\n          \"errors\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://cloud-api.calyptia.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9d5cea76-cf30-45ce-9d92-197321f30078",
+    "name": "Calyptia Cloud agent config_validator_v2 API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP API service of Calyptia Cloud\n\nContact Support:\n Name: Calyptia\n Email: hello@calyptia.com",
+      "type": "text/plain"
+    }
+  }
+}

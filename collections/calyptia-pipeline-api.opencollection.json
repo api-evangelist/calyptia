@@ -1,0 +1,400 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent pipeline API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "pipeline",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pipelines (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID/pipelines",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last pipelines."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Pipelines before the given cursor."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name matching pipelines."
+              },
+              {
+                "name": "tags_query",
+                "value": "",
+                "type": "query",
+                "description": "Tag query."
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include all ports, secrets and files objects in the pipeline."
+              },
+              {
+                "name": "exclude_internal",
+                "value": "",
+                "type": "query",
+                "description": "Exclude internal pipelines (health-check)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipelines from a core instance (deprecated)."
+        },
+        {
+          "info": {
+            "name": "Create pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID/pipelines",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create pipeline within a core instance.\nThe pipeline name must be unique within the core instance.\nThe resource profile must exist already. If you don't provide one, it will default to \"best-effort-low-resource\".\nUse them to easily deploy configured agents to the core instance."
+        },
+        {
+          "info": {
+            "name": "Delete Pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/aggregators/:aggregatorID/pipelines",
+            "params": [
+              {
+                "name": "aggregatorID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pipeline_id",
+                "value": "",
+                "type": "query",
+                "description": "List of pipeline IDs to delete."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete pipelines from a core instance."
+        },
+        {
+          "info": {
+            "name": "Pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/core_instances/:coreInstanceID/pipelines",
+            "params": [
+              {
+                "name": "coreInstanceID",
+                "value": "",
+                "type": "path",
+                "description": "Parent core instance ID."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Limit to the last pipelines."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Paginate pipelines before the given cursor."
+              },
+              {
+                "name": "kind",
+                "value": "",
+                "type": "query",
+                "description": "Filter pipelines by kind."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter pipelines by name."
+              },
+              {
+                "name": "tags_query",
+                "value": "",
+                "type": "query",
+                "description": "Filter pipelines by giving a tags query."
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include ports, secrets and files objects in the pipeline."
+              },
+              {
+                "name": "exclude_internal",
+                "value": "",
+                "type": "query",
+                "description": "Exclude internal pipelines (health-check)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipelines from a core instance with backward pagination."
+        },
+        {
+          "info": {
+            "name": "Project pipelines (deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/aggregator_pipelines",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Last pipelines."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Name matching pipelines."
+              },
+              {
+                "name": "tags_query",
+                "value": "",
+                "type": "query",
+                "description": "Tag query."
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipelines from a project (deprecated)."
+        },
+        {
+          "info": {
+            "name": "Project pipelines",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/projects/:projectID/pipelines",
+            "params": [
+              {
+                "name": "projectID",
+                "value": "",
+                "type": "path",
+                "description": "Parent project ID."
+              },
+              {
+                "name": "last",
+                "value": "",
+                "type": "query",
+                "description": "Limit to the last pipelines."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Paginate pipelines before the given cursor."
+              },
+              {
+                "name": "kind",
+                "value": "",
+                "type": "query",
+                "description": "Filter pipelines by kind."
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query",
+                "description": "Filter pipelines by name."
+              },
+              {
+                "name": "tags_query",
+                "value": "",
+                "type": "query",
+                "description": "Filter pipelines by giving a tags query."
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include ports, secrets and files objects in the pipeline."
+              },
+              {
+                "name": "exclude_internal",
+                "value": "",
+                "type": "query",
+                "description": "Exclude internal pipelines (health-check)."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipelines from a project with backward pagination."
+        },
+        {
+          "info": {
+            "name": "Pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/aggregator_pipelines/:pipelineID",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "config_format",
+                "value": "",
+                "type": "query",
+                "description": "Desired output config format."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Pipeline by ID."
+        },
+        {
+          "info": {
+            "name": "Update pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://cloud-api.calyptia.com/v1/aggregator_pipelines/:pipelineID",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update pipeline by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete pipeline",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://cloud-api.calyptia.com/v1/aggregator_pipelines/:pipelineID",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete pipeline by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

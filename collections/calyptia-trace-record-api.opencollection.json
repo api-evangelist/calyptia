@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Calyptia Cloud agent trace_record API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "trace_record",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create trace record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://cloud-api.calyptia.com/v1/pipelines/:pipelineID/trace_session/records",
+            "params": [
+              {
+                "name": "pipelineID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create trace record"
+        },
+        {
+          "info": {
+            "name": "Trace records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cloud-api.calyptia.com/v1/trace_sessions/:sessionID/records",
+            "params": [
+              {
+                "name": "sessionID",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Trace records"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
