@@ -57,6 +57,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Agents
+  tags_raw:
   - agent
   properties:
   - type: OpenAPI
@@ -71,6 +73,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Agent Config
+  tags_raw:
   - agent_config
   properties:
   - type: OpenAPI
@@ -84,7 +88,8 @@ apis:
   description: The agent_error API from Calyptia — 3 operation(s) for agent_error.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - agent_error
   properties:
   - type: OpenAPI
@@ -99,6 +104,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Aggregator
+  tags_raw:
   - aggregator
   properties:
   - type: OpenAPI
@@ -113,6 +120,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Audit Log
+  tags_raw:
   - audit_log
   properties:
   - type: OpenAPI
@@ -127,6 +136,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - AWS Marketplace
+  tags_raw:
   - aws_marketplace
   properties:
   - type: OpenAPI
@@ -140,7 +151,8 @@ apis:
   description: The cluster_object API from Calyptia — 2 operation(s) for cluster_object.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - cluster_object
   properties:
   - type: OpenAPI
@@ -154,7 +166,8 @@ apis:
   description: The cluster_object_regex API from Calyptia — 2 operation(s) for cluster_object_regex.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - cluster_object_regex
   properties:
   - type: OpenAPI
@@ -168,7 +181,8 @@ apis:
   description: The config_section API from Calyptia — 3 operation(s) for config_section.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - config_section
   properties:
   - type: OpenAPI
@@ -182,7 +196,8 @@ apis:
   description: The config_validator API from Calyptia — 2 operation(s) for config_validator.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - config_validator
   properties:
   - type: OpenAPI
@@ -196,7 +211,8 @@ apis:
   description: The config_validator_v2 API from Calyptia — 1 operation(s) for config_validator_v2.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - config_validator_v2
   properties:
   - type: OpenAPI
@@ -210,7 +226,8 @@ apis:
   description: The core_instance API from Calyptia — 1 operation(s) for core_instance.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - core_instance
   properties:
   - type: OpenAPI
@@ -224,7 +241,8 @@ apis:
   description: The core_instance_check API from Calyptia — 2 operation(s) for core_instance_check.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - core_instance_check
   properties:
   - type: OpenAPI
@@ -238,7 +256,8 @@ apis:
   description: The core_instance_file API from Calyptia — 2 operation(s) for core_instance_file.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - core_instance_file
   properties:
   - type: OpenAPI
@@ -252,7 +271,8 @@ apis:
   description: The core_instance_secret API from Calyptia — 2 operation(s) for core_instance_secret.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - core_instance_secret
   properties:
   - type: OpenAPI
@@ -267,6 +287,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Environment
+  tags_raw:
   - environment
   properties:
   - type: OpenAPI
@@ -281,6 +303,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Fleet
+  tags_raw:
   - fleet
   properties:
   - type: OpenAPI
@@ -295,6 +319,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Invitation
+  tags_raw:
   - invitation
   properties:
   - type: OpenAPI
@@ -309,6 +335,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Membership
+  tags_raw:
   - membership
   properties:
   - type: OpenAPI
@@ -337,6 +365,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Pipeline
+  tags_raw:
   - pipeline
   properties:
   - type: OpenAPI
@@ -350,7 +380,8 @@ apis:
   description: The pipeline_check API from Calyptia — 2 operation(s) for pipeline_check.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - pipeline_check
   properties:
   - type: OpenAPI
@@ -365,7 +396,8 @@ apis:
     The pipeline_cluster_objects API from Calyptia — 1 operation(s) for pipeline_cluster_objects.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - pipeline_cluster_objects
   properties:
   - type: OpenAPI
@@ -379,7 +411,8 @@ apis:
   description: The pipeline_config API from Calyptia — 1 operation(s) for pipeline_config.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - pipeline_config
   properties:
   - type: OpenAPI
@@ -393,7 +426,8 @@ apis:
   description: The pipeline_file API from Calyptia — 2 operation(s) for pipeline_file.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - pipeline_file
   properties:
   - type: OpenAPI
@@ -407,7 +441,8 @@ apis:
   description: The pipeline_log API from Calyptia — 2 operation(s) for pipeline_log.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - pipeline_log
   properties:
   - type: OpenAPI
@@ -421,7 +456,8 @@ apis:
   description: The pipeline_metadata API from Calyptia — 1 operation(s) for pipeline_metadata.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - pipeline_metadata
   properties:
   - type: OpenAPI
@@ -435,7 +471,8 @@ apis:
   description: The pipeline_port API from Calyptia — 2 operation(s) for pipeline_port.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - pipeline_port
   properties:
   - type: OpenAPI
@@ -449,7 +486,8 @@ apis:
   description: The pipeline_secret API from Calyptia — 2 operation(s) for pipeline_secret.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - pipeline_secret
   properties:
   - type: OpenAPI
@@ -464,6 +502,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Pipeline Status
+  tags_raw:
   - pipeline_status
   properties:
   - type: OpenAPI
@@ -477,7 +517,8 @@ apis:
   description: The processing_rule API from Calyptia — 3 operation(s) for processing_rule.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - processing_rule
   properties:
   - type: OpenAPI
@@ -492,7 +533,8 @@ apis:
     The processing_rule_template API from Calyptia — 4 operation(s) for processing_rule_template.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - processing_rule_template
   properties:
   - type: OpenAPI
@@ -507,6 +549,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Project
+  tags_raw:
   - project
   properties:
   - type: OpenAPI
@@ -520,7 +564,8 @@ apis:
   description: The resource_profile API from Calyptia — 2 operation(s) for resource_profile.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - resource_profile
   properties:
   - type: OpenAPI
@@ -534,7 +579,8 @@ apis:
   description: The saml_mapping API from Calyptia — 2 operation(s) for saml_mapping.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - saml_mapping
   properties:
   - type: OpenAPI
@@ -549,6 +595,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Search
+  tags_raw:
   - search
   properties:
   - type: OpenAPI
@@ -563,6 +611,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Sidecar
+  tags_raw:
   - sidecar
   properties:
   - type: OpenAPI
@@ -577,6 +627,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Token
+  tags_raw:
   - token
   properties:
   - type: OpenAPI
@@ -590,7 +642,8 @@ apis:
   description: The trace_record API from Calyptia — 2 operation(s) for trace_record.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - trace_record
   properties:
   - type: OpenAPI
@@ -604,7 +657,8 @@ apis:
   description: The trace_session API from Calyptia — 3 operation(s) for trace_session.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
+  tags: []
+  tags_raw:
   - trace_session
   properties:
   - type: OpenAPI
@@ -619,6 +673,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
