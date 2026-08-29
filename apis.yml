@@ -696,6 +696,9 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 common:
+- type: CapabilityMap
+  url: capabilities/calyptia-capability-edges.yml
+  name: Calyptia Business Capability Map
 - type: Overlay
   url: overlays/calyptia-cloud-overlay.yaml
 - type: DeveloperPortal
