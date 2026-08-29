@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent aggregator API
+  title: Calyptia Cloud agent Aggregator API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -225,208 +225,74 @@ paths:
           description: No Content
 components:
   schemas:
-    ConfigSectionKind:
+    PipelineKind:
       type: string
+      default: deployment
       enum:
-      - input
-      - filter
-      - output
-      - service
-    AggregatorPingResponse:
+      - deployment
+      - daemonSet
+      - statefulSet
+    Aggregator:
       type: object
-      description: Core instance ping response model.
-      properties:
-        nextPing:
-          type: string
-          format: duration
-          default: 30s
-    DeploymentStrategy:
-      type: string
-      description: 'The deployment strategy to use when creating or updating changes to this pipeline.
-
-        '
-      default: rollingupdate
-      enum:
-      - recreate
-      - rollingupdate
-      - hotReload
-    PipelineFile:
-      type: object
-      description: Pipeline file model.
+      description: Core instance model.
       properties:
         id:
           type: string
           format: uuid
-        processingRuleID:
-          type: string
-          format: uuid
-          nullable: true
-          default: null
         name:
           type: string
-          example: myfile
-        contents:
+          format: hostname
+          example: my-core-instance
+        version:
           type: string
-          format: byte
-        encrypted:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - processingRuleID
-      - name
-      - contents
-      - encrypted
-      - createdAt
-      - updatedAt
-    PipelinePortKind:
-      type: string
-      description: The kind/type of the service associated to this port.
-      default: LoadBalancer
-      enum:
-      - LoadBalancer
-      - ClusterIP
-      - NodePort
-    PVCRetentionPolicy:
-      type: object
-      description: Defines what happens to PVCs when StatefulSets are scaled or deleted (K8s 1.23+)
-      properties:
-        whenScaled:
-          type: string
-          description: Determines what happens to PVCs when a StatefulSet is scaled down
-          enum:
-          - Retain
-          - Delete
-          default: Retain
-        whenDeleted:
-          type: string
-          description: Determines what happens to PVCs when a StatefulSet is deleted
-          enum:
-          - Retain
-          - Delete
-          default: Retain
-    PipelinePort:
-      type: object
-      description: Pipeline port model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        protocol:
-          type: string
-          example: tcp
-        kind:
-          $ref: '#/components/schemas/PipelinePortKind'
-        frontendPort:
-          type: integer
-          format: int32
-          minimum: 0
-          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
-
-            It should be unique within the pipeline.'
-        backendPort:
-          type: integer
-          format: int32
-          minimum: 0
-          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
-        endpoint:
-          type: string
-        pluginID:
-          type: string
-          nullable: true
-          default: null
-          example: forward.0
-        pluginName:
-          type: string
-          nullable: true
-          default: null
-          example: forward
-        pluginAlias:
-          type: string
-          nullable: true
-          default: null
-          example: myforwardinput
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - protocol
-      - kind
-      - frontendPort
-      - backendPort
-      - endpoint
-      - pluginID
-      - pluginName
-      - pluginAlias
-      - createdAt
-      - updatedAt
-    PipelineStatus:
-      type: object
-      description: Pipeline status history entry.
-      properties:
-        id:
-          type: string
-          format: uuid
-        config:
-          $ref: '#/components/schemas/AgentConfig'
+          example: v0.1.12
         status:
           type: string
+          description: 'Running status of the core instance in reference to the last ping.
+
+            Refer to https://pkg.go.dev/github.com/calyptia/api@main/types#pkg-constants
+
+            if looking up for the current timeout defaults.
+
+            '
           enum:
-          - NEW
-          - FAILED
-          - STARTING
-          - STARTED
-          - SCALING
-          - CHECKS_OK
-          - CHECKS_FAILED
-        events:
-          type: array
-          nullable: true
-          items:
-            $ref: '#/components/schemas/PipelineEvent'
+          - running
+          - waiting
+          - unreachable
+        metadata:
+          $ref: '#/components/schemas/CoreInstanceMetadata'
+        pipelinesCount:
+          type: integer
+          minimum: 0
         createdAt:
           type: string
           format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        tags:
+          type:
+          - array
+          - 'null'
+          default: null
+          uniqueItems: true
+          items:
+            type: string
+        environmentName:
+          type: string
+          default: default
+          example: default
+        skipServiceCreation:
+          type: boolean
+          default: false
       required:
       - id
-      - config
-      - status
+      - name
+      - pipelinesCount
+      - environmentName
+      - skipServiceCreation
       - createdAt
-    MetadataAWS:
-      type: object
-      description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
-
-        See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
-
-        '
-      properties:
-        aws.ami_id:
-          type: string
-        aws.account_id:
-          type: string
-        aws.hostname:
-          type: string
-        aws.vpc_id:
-          type: string
-        aws.private_ipv4:
-          type: string
-        aws.public_ipv4:
-          type: string
-        aws.ec2_instance_id:
-          type: string
-        aws.ec2_instance_type:
-          type: string
-        aws.az:
-          type: string
+      - updatedAt
     CreateAggregator:
       description: Create core instance request body.
       type: object
@@ -436,10 +302,11 @@ components:
           format: hostname
           example: new-core-instance
         image:
-          type: string
+          type:
+          - string
+          - 'null'
           description: default core-fluent-bit image to use by the pipelines created on this core_instance.
           example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
-          nullable: true
           default: null
         version:
           type: string
@@ -456,17 +323,20 @@ components:
         healthCheckPipelinePortKind:
           $ref: '#/components/schemas/PipelinePortKind'
         metadata:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           default: null
         environmentID:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           description: environment ID to associate this core instance with.
         skipServiceCreation:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           default: null
           description: 'If true, kubernetes service creation will be skipped for all pipelines
 
@@ -479,29 +349,28 @@ components:
       - addHealthCheckPipeline
       - healthCheckPipelinePort
       - healthCheckPipelinePortKind
-    PipelineConfig:
+    MetadataGCP:
       type: object
-      description: Pipeline configuration history entry.
+      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
+
+        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
+
+        '
       properties:
-        id:
+        gcp.project_number:
+          type: number
+        gcp.project_id:
           type: string
-          format: uuid
-        rawConfig:
+        gcp.instance_id:
+          type: number
+        gcp.instance_image:
           type: string
-        configFormat:
+        gcp.machine_type:
           type: string
-          enum:
-          - classic
-          - json
-          - yaml
-        createdAt:
+        gcp.instance_name:
           type: string
-          format: date-time
-      required:
-      - id
-      - rawConfig
-      - configFormat
-      - createdAt
+        gcp.zone:
+          type: string
     AgentConfig:
       type: object
       description: Agent configuration history entry.
@@ -518,192 +387,16 @@ components:
       - id
       - rawConfig
       - createdAt
-    ScalePolicy:
+    DeploymentStrategy:
       type: string
-      enum:
-      - Unknown
-      - Pods
-      - Percent
-      default: Unknown
-    CreatedAggregator:
-      type: object
-      description: Created core instance response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        privateRSAKey:
-          type: string
-          format: byte
-        publicRSAKey:
-          type: string
-          format: byte
-        name:
-          type: string
-          format: hostname
-          example: my-core-instance
-        version:
-          type: string
-          example: v0.1.12
-        image:
-          type: string
-          description: default core-fluent-bit image to use by the pipelines created on this core_instance.
-          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
-          default: ''
-        tags:
-          type: array
-          items:
-            type: string
-          nullable: true
-          default: null
-        healthCheckPipeline:
-          $ref: '#/components/schemas/Pipeline'
-          nullable: true
-          default: null
-        clusterLoggingPipeline:
-          $ref: '#/components/schemas/Pipeline'
-          nullable: true
-          default: null
-        resourceProfiles:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceProfile'
-        environmentName:
-          type: string
-          description: environment name on which the agent belongs to.
-          default: default
-        skipServiceCreation:
-          type: boolean
-          default: false
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - privateRSAKey
-      - publicRSAKey
-      - name
-      - version
-      - image
-      - tags
-      - clusterLoggingPipeline
-      - healthCheckPipeline
-      - resourceProfiles
-      - environmentName
-      - skipServiceCreation
-      - createdAt
-    CoreInstanceMetadata:
-      type: object
-      description: Core Instance Metadata model.
-      anyOf:
-      - $ref: '#/components/schemas/MetadataAWS'
-      - $ref: '#/components/schemas/MetadataGCP'
-      - $ref: '#/components/schemas/MetadataK8S'
-    MetadataK8S:
-      type: object
-      description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
-
-        See: https://github.com/kubernetes/website/blob/60390ff3c0ef0043a58568ad2e4c2b7634028074/content/en/examples/pods/inject/dapi-volume.yaml#L5
+      description: 'The deployment strategy to use when creating or updating changes to this pipeline.
 
         '
-      properties:
-        k8s.namespace:
-          type: string
-        k8s.cluster_name:
-          type: string
-        k8s.zone:
-          type: string
-        k8s.cluster_version:
-          type: string
-        k8s.cluster_platform:
-          type: string
-    UpdateAggregator:
-      description: Update core instance request body.
-      type: object
-      properties:
-        name:
-          type: string
-          format: hostname
-          example: new-core-instance
-          nullable: true
-          default: null
-        image:
-          type: string
-          description: default core-fluent-bit image to use by the pipelines created on this core_instance.
-          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
-          nullable: true
-          default: null
-        clusterLogging:
-          type: boolean
-          description: enable or disable cluster-logging functionality.
-          nullable: true
-          default: null
-        version:
-          type: string
-          example: v0.1.12
-          nullable: true
-          default: null
-        tags:
-          type: array
-          nullable: true
-          default: null
-          items:
-            type: string
-        metadata:
-          $ref: '#/components/schemas/CoreInstanceMetadata'
-        environmentID:
-          type: string
-          nullable: true
-          default: null
-          description: environment ID to associate this core instance with.
-        skipServiceCreation:
-          type: boolean
-          nullable: true
-          default: null
-          description: 'If true, kubernetes service creation will be skipped for all pipelines
-
-            that exists on this core_instance.
-
-            '
-    ConfigSection:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        projectID:
-          type: string
-          format: uuid
-        processingRuleID:
-          type: string
-          format: uuid
-          nullable: true
-          default: null
-        kind:
-          $ref: '#/components/schemas/ConfigSectionKind'
-        properties:
-          $ref: '#/components/schemas/Pairs'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - projectID
-      - processingRuleID
-      - kind
-      - properties
-      - createdAt
-      - updatedAt
-    PipelineKind:
-      type: string
-      default: deployment
+      default: rollingupdate
       enum:
-      - deployment
-      - daemonSet
-      - statefulSet
+      - recreate
+      - rollingupdate
+      - hotReload
     Pipeline:
       type: object
       description: Pipeline model.
@@ -736,9 +429,10 @@ components:
           type: boolean
           default: false
         image:
-          type: string
+          type:
+          - string
+          - 'null'
           example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
-          nullable: true
           default: null
         replicasCount:
           type: integer
@@ -760,32 +454,37 @@ components:
           minimum: 0
           description: total number of checks with running status.
         tags:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           default: null
           uniqueItems: true
           items:
             type: string
         metadata:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           default: null
           additionalProperties: true
         secrets:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           default: null
           items:
             $ref: '#/components/schemas/PipelineSecret'
         files:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           default: null
           items:
             $ref: '#/components/schemas/PipelineFile'
         ports:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           default: null
           items:
             $ref: '#/components/schemas/PipelinePort'
@@ -818,18 +517,19 @@ components:
           type: integer
           description: UtilizationMemoryAverage defines the target value for average CPU utilization
         storageClass:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Represents the storageClass for PVC templates
-          nullable: true
           default: null
         pvcRetentionPolicy:
           $ref: '#/components/schemas/PVCRetentionPolicy'
-          nullable: true
         portKind:
           $ref: '#/components/schemas/PipelinePortKind'
         labels:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           default: null
           additionalProperties: true
         createdAt:
@@ -839,8 +539,9 @@ components:
           type: string
           format: date-time
         error:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           description: Contains any error that occurred when rendering the pipeline with config sections
       required:
@@ -876,6 +577,164 @@ components:
       - scaleDownPeriodSeconds
       - utilizationCPUAverage
       - utilizationMemoryAverage
+    PipelinePortKind:
+      type: string
+      description: The kind/type of the service associated to this port.
+      default: LoadBalancer
+      enum:
+      - LoadBalancer
+      - ClusterIP
+      - NodePort
+    Pair:
+      type: object
+      properties:
+        key:
+          type: string
+          example: name
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: boolean
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: dummy
+      required:
+      - key
+      - value
+    MetadataAWS:
+      type: object
+      description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
+
+        See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
+
+        '
+      properties:
+        aws.ami_id:
+          type: string
+        aws.account_id:
+          type: string
+        aws.hostname:
+          type: string
+        aws.vpc_id:
+          type: string
+        aws.private_ipv4:
+          type: string
+        aws.public_ipv4:
+          type: string
+        aws.ec2_instance_id:
+          type: string
+        aws.ec2_instance_type:
+          type: string
+        aws.az:
+          type: string
+    PipelineFile:
+      type: object
+      description: Pipeline file model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        processingRuleID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        name:
+          type: string
+          example: myfile
+        contents:
+          type: string
+          format: byte
+        encrypted:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - processingRuleID
+      - name
+      - contents
+      - encrypted
+      - createdAt
+      - updatedAt
+    Pairs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pair'
+    CreatedAggregator:
+      type: object
+      description: Created core instance response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        privateRSAKey:
+          type: string
+          format: byte
+        publicRSAKey:
+          type: string
+          format: byte
+        name:
+          type: string
+          format: hostname
+          example: my-core-instance
+        version:
+          type: string
+          example: v0.1.12
+        image:
+          type: string
+          description: default core-fluent-bit image to use by the pipelines created on this core_instance.
+          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
+          default: ''
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+          default: null
+        healthCheckPipeline:
+          $ref: '#/components/schemas/Pipeline'
+          default: null
+        clusterLoggingPipeline:
+          $ref: '#/components/schemas/Pipeline'
+          default: null
+        resourceProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceProfile'
+        environmentName:
+          type: string
+          description: environment name on which the agent belongs to.
+          default: default
+        skipServiceCreation:
+          type: boolean
+          default: false
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - privateRSAKey
+      - publicRSAKey
+      - name
+      - version
+      - image
+      - tags
+      - clusterLoggingPipeline
+      - healthCheckPipeline
+      - resourceProfiles
+      - environmentName
+      - skipServiceCreation
+      - createdAt
     ResourceProfile:
       type: object
       description: Resource profile model.
@@ -935,26 +794,6 @@ components:
       - memoryRequest
       - createdAt
       - updatedAt
-    PipelineEvent:
-      type: object
-      description: Pipeline Status event.
-      properties:
-        source:
-          type: string
-          enum:
-          - k8s:deployment
-          - k8s:pod
-        reason:
-          type: string
-        message:
-          type: string
-        loggedAt:
-          type: string
-          format: date-time
-      required:
-      - source
-      - reason
-      - loggedAt
     PipelineSecret:
       type: object
       description: Pipeline secret model.
@@ -980,111 +819,297 @@ components:
       - value
       - createdAt
       - updatedAt
-    Aggregator:
+    UpdateAggregator:
+      description: Update core instance request body.
       type: object
-      description: Core instance model.
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          format: hostname
+          example: new-core-instance
+          default: null
+        image:
+          type:
+          - string
+          - 'null'
+          description: default core-fluent-bit image to use by the pipelines created on this core_instance.
+          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
+          default: null
+        clusterLogging:
+          type:
+          - boolean
+          - 'null'
+          description: enable or disable cluster-logging functionality.
+          default: null
+        version:
+          type:
+          - string
+          - 'null'
+          example: v0.1.12
+          default: null
+        tags:
+          type:
+          - array
+          - 'null'
+          default: null
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/CoreInstanceMetadata'
+        environmentID:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: environment ID to associate this core instance with.
+        skipServiceCreation:
+          type:
+          - boolean
+          - 'null'
+          default: null
+          description: 'If true, kubernetes service creation will be skipped for all pipelines
+
+            that exists on this core_instance.
+
+            '
+    PVCRetentionPolicy:
+      type: object
+      description: Defines what happens to PVCs when StatefulSets are scaled or deleted (K8s 1.23+)
+      properties:
+        whenScaled:
+          type: string
+          description: Determines what happens to PVCs when a StatefulSet is scaled down
+          enum:
+          - Retain
+          - Delete
+          default: Retain
+        whenDeleted:
+          type: string
+          description: Determines what happens to PVCs when a StatefulSet is deleted
+          enum:
+          - Retain
+          - Delete
+          default: Retain
+    PipelineConfig:
+      type: object
+      description: Pipeline configuration history entry.
       properties:
         id:
           type: string
           format: uuid
-        name:
+        rawConfig:
           type: string
-          format: hostname
-          example: my-core-instance
-        version:
+        configFormat:
           type: string
-          example: v0.1.12
+          enum:
+          - classic
+          - json
+          - yaml
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - rawConfig
+      - configFormat
+      - createdAt
+    ScalePolicy:
+      type: string
+      enum:
+      - Unknown
+      - Pods
+      - Percent
+      default: Unknown
+    ConfigSectionKind:
+      type: string
+      enum:
+      - input
+      - filter
+      - output
+      - service
+    PipelineEvent:
+      type: object
+      description: Pipeline Status event.
+      properties:
+        source:
+          type: string
+          enum:
+          - k8s:deployment
+          - k8s:pod
+        reason:
+          type: string
+        message:
+          type: string
+        loggedAt:
+          type: string
+          format: date-time
+      required:
+      - source
+      - reason
+      - loggedAt
+    PipelineStatus:
+      type: object
+      description: Pipeline status history entry.
+      properties:
+        id:
+          type: string
+          format: uuid
+        config:
+          $ref: '#/components/schemas/AgentConfig'
         status:
           type: string
-          description: 'Running status of the core instance in reference to the last ping.
-
-            Refer to https://pkg.go.dev/github.com/calyptia/api@main/types#pkg-constants
-
-            if looking up for the current timeout defaults.
-
-            '
           enum:
-          - running
-          - waiting
-          - unreachable
-        metadata:
-          $ref: '#/components/schemas/CoreInstanceMetadata'
-        pipelinesCount:
-          type: integer
-          minimum: 0
+          - NEW
+          - FAILED
+          - STARTING
+          - STARTED
+          - SCALING
+          - CHECKS_OK
+          - CHECKS_FAILED
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PipelineEvent'
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - config
+      - status
+      - createdAt
+    MetadataK8S:
+      type: object
+      description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
+
+        See: https://github.com/kubernetes/website/blob/60390ff3c0ef0043a58568ad2e4c2b7634028074/content/en/examples/pods/inject/dapi-volume.yaml#L5
+
+        '
+      properties:
+        k8s.namespace:
+          type: string
+        k8s.cluster_name:
+          type: string
+        k8s.zone:
+          type: string
+        k8s.cluster_version:
+          type: string
+        k8s.cluster_platform:
+          type: string
+    ConfigSection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        processingRuleID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        kind:
+          $ref: '#/components/schemas/ConfigSectionKind'
+        properties:
+          $ref: '#/components/schemas/Pairs'
         createdAt:
           type: string
           format: date-time
         updatedAt:
           type: string
           format: date-time
-        tags:
-          type: array
-          nullable: true
-          default: null
-          uniqueItems: true
-          items:
-            type: string
-        environmentName:
-          type: string
-          default: default
-          example: default
-        skipServiceCreation:
-          type: boolean
-          default: false
       required:
       - id
-      - name
-      - pipelinesCount
-      - environmentName
-      - skipServiceCreation
+      - projectID
+      - processingRuleID
+      - kind
+      - properties
       - createdAt
       - updatedAt
-    Pair:
+    CoreInstanceMetadata:
       type: object
+      description: Core Instance Metadata model.
+      anyOf:
+      - $ref: '#/components/schemas/MetadataAWS'
+      - $ref: '#/components/schemas/MetadataGCP'
+      - $ref: '#/components/schemas/MetadataK8S'
+    AggregatorPingResponse:
+      type: object
+      description: Core instance ping response model.
       properties:
-        key:
+        nextPing:
           type: string
-          example: name
-        value:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: boolean
-          - type: string
-          - type: array
-            items:
-              type: string
-          example: dummy
+          format: duration
+          default: 30s
+    PipelinePort:
+      type: object
+      description: Pipeline port model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        protocol:
+          type: string
+          example: tcp
+        kind:
+          $ref: '#/components/schemas/PipelinePortKind'
+        frontendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
+
+            It should be unique within the pipeline.'
+        backendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
+        endpoint:
+          type: string
+        pluginID:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: forward.0
+        pluginName:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: forward
+        pluginAlias:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: myforwardinput
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required:
-      - key
-      - value
-    Pairs:
-      type: array
-      items:
-        $ref: '#/components/schemas/Pair'
-    MetadataGCP:
-      type: object
-      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
-
-        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
-
-        '
-      properties:
-        gcp.project_number:
-          type: number
-        gcp.project_id:
-          type: string
-        gcp.instance_id:
-          type: number
-        gcp.instance_image:
-          type: string
-        gcp.machine_type:
-          type: string
-        gcp.instance_name:
-          type: string
-        gcp.zone:
-          type: string
+      - id
+      - protocol
+      - kind
+      - frontendPort
+      - backendPort
+      - endpoint
+      - pluginID
+      - pluginName
+      - pluginAlias
+      - createdAt
+      - updatedAt
   securitySchemes:
     user:
       type: http

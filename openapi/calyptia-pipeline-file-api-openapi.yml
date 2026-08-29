@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent pipeline_file API
+  title: Calyptia Cloud agent Pipeline File API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -147,53 +147,22 @@ components:
       type: object
       properties:
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           example: newfile
-          nullable: true
           default: null
         contents:
-          type: string
+          type:
+          - string
+          - 'null'
           format: byte
-          nullable: true
           default: null
         encrypted:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
           default: null
-    PipelineFile:
-      type: object
-      description: Pipeline file model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        processingRuleID:
-          type: string
-          format: uuid
-          nullable: true
-          default: null
-        name:
-          type: string
-          example: myfile
-        contents:
-          type: string
-          format: byte
-        encrypted:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - processingRuleID
-      - name
-      - contents
-      - encrypted
-      - createdAt
-      - updatedAt
     CreatePipelineFile:
       description: Create pipeline file request body.
       type: object
@@ -223,6 +192,41 @@ components:
       required:
       - id
       - createdAt
+    PipelineFile:
+      type: object
+      description: Pipeline file model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        processingRuleID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        name:
+          type: string
+          example: myfile
+        contents:
+          type: string
+          format: byte
+        encrypted:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - processingRuleID
+      - name
+      - contents
+      - encrypted
+      - createdAt
+      - updatedAt
   securitySchemes:
     user:
       type: http

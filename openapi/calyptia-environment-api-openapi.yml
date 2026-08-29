@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent environment API
+  title: Calyptia Cloud agent Environment API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -170,8 +170,9 @@ components:
       type: object
       properties:
         name:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
   securitySchemes:
     user:

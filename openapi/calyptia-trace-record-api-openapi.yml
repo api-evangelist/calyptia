@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent trace_record API
+  title: Calyptia Cloud agent Trace Record API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -89,6 +89,74 @@ paths:
                   $ref: '#/components/schemas/TraceRecord'
 components:
   schemas:
+    TraceRecordKind:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      x-enum-varnames:
+      - INPUT
+      - FILTER
+      - PRE_OUTPUT
+      - OUTPUT
+    CreateTraceRecord:
+      type: object
+      description: 'Request body to create a trace record on an active session.
+
+        '
+      properties:
+        type:
+          $ref: '#/components/schemas/TraceRecordKind'
+        trace_id:
+          type: string
+          example: trace.5
+        start_time:
+          description: Unix timestamp with seconds precision.
+          type: integer
+          format: int64
+          example: 1658953439
+        end_time:
+          description: Unix timestamp with seconds precision.
+          type: integer
+          format: int64
+          example: 1658953439
+        plugin_instance:
+          type: string
+          example: nest.2
+        plugin_alias:
+          type: string
+          example: nest_2
+        return_code:
+          type: integer
+        records:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                description: Unix timestamp with seconds precision.
+                type: integer
+                format: int64
+                example: 1658953439
+              record:
+                type: object
+                additionalProperties: true
+                example: "{\n  \"dummy\": \"dummy_0\",\n  \"powered_by\": \"calyptia\",\n  \"data\": {\n    \"key_name\": \"foo\",\n    \"key_cnt\": \"1\"\n  }\n}"
+            additionalProperties: true
+            required:
+            - timestamp
+            - record
+      required:
+      - type
+      - trace_id
+      - start_time
+      - end_time
+      - plugin_instance
+      - plugin_alias
+      - return_code
+      - records
     CreatedTraceRecord:
       type: object
       description: Response body when a trace record is created.
@@ -178,74 +246,6 @@ components:
       - return_code
       - records
       - createdAt
-    CreateTraceRecord:
-      type: object
-      description: 'Request body to create a trace record on an active session.
-
-        '
-      properties:
-        type:
-          $ref: '#/components/schemas/TraceRecordKind'
-        trace_id:
-          type: string
-          example: trace.5
-        start_time:
-          description: Unix timestamp with seconds precision.
-          type: integer
-          format: int64
-          example: 1658953439
-        end_time:
-          description: Unix timestamp with seconds precision.
-          type: integer
-          format: int64
-          example: 1658953439
-        plugin_instance:
-          type: string
-          example: nest.2
-        plugin_alias:
-          type: string
-          example: nest_2
-        return_code:
-          type: integer
-        records:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                description: Unix timestamp with seconds precision.
-                type: integer
-                format: int64
-                example: 1658953439
-              record:
-                type: object
-                additionalProperties: true
-                example: "{\n  \"dummy\": \"dummy_0\",\n  \"powered_by\": \"calyptia\",\n  \"data\": {\n    \"key_name\": \"foo\",\n    \"key_cnt\": \"1\"\n  }\n}"
-            additionalProperties: true
-            required:
-            - timestamp
-            - record
-      required:
-      - type
-      - trace_id
-      - start_time
-      - end_time
-      - plugin_instance
-      - plugin_alias
-      - return_code
-      - records
-    TraceRecordKind:
-      type: integer
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      x-enum-varnames:
-      - INPUT
-      - FILTER
-      - PRE_OUTPUT
-      - OUTPUT
   securitySchemes:
     user:
       type: http

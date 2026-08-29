@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent pipeline_check API
+  title: Calyptia Cloud agent Pipeline Check API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -161,36 +161,6 @@ components:
       required:
       - id
       - createdAt
-    UpdatePipelineCheck:
-      description: Update pipeline check request body.
-      type: object
-      properties:
-        protocol:
-          $ref: '#/components/schemas/PipelinePortProtocol'
-          nullable: true
-          default: null
-        status:
-          $ref: '#/components/schemas/CheckStatus'
-          nullable: true
-          default: null
-        retries:
-          type: number
-          nullable: true
-          default: null
-          description: number of retries for the check before marking it as unreachable.
-        host:
-          type: string
-          nullable: true
-          default: null
-          description: DNS label format as of defined on RFC1123 or an IPv4 address.
-          example: localhost
-        port:
-          type: number
-          minimum: 0
-          maximum: 65535
-          nullable: true
-          default: null
-          description: valid 0-65535 port number
     PipelineCheck:
       type: object
       description: Pipeline check model.
@@ -230,12 +200,37 @@ components:
       - host
       - createdAt
       - updatedAt
-    PipelinePortProtocol:
-      type: string
-      description: Valid protocol types defined for a pipelines.
-      enum:
-      - tcp
-      - udp
+    UpdatePipelineCheck:
+      description: Update pipeline check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+          default: null
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+          default: null
+        retries:
+          type:
+          - number
+          - 'null'
+          default: null
+          description: number of retries for the check before marking it as unreachable.
+        host:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 65535
+          default: null
+          description: valid 0-65535 port number
     CreatePipelineCheck:
       description: Create pipeline check request body.
       type: object
@@ -270,6 +265,12 @@ components:
       - failed
       - running
       - ok
+    PipelinePortProtocol:
+      type: string
+      description: Valid protocol types defined for a pipelines.
+      enum:
+      - tcp
+      - udp
   securitySchemes:
     user:
       type: http

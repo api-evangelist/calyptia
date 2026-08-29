@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent core_instance API
+  title: Calyptia Cloud agent Core Instance API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -83,6 +83,24 @@ paths:
                 $ref: '#/components/schemas/CoreInstances'
 components:
   schemas:
+    MetadataK8S:
+      type: object
+      description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
+
+        See: https://github.com/kubernetes/website/blob/60390ff3c0ef0043a58568ad2e4c2b7634028074/content/en/examples/pods/inject/dapi-volume.yaml#L5
+
+        '
+      properties:
+        k8s.namespace:
+          type: string
+        k8s.cluster_name:
+          type: string
+        k8s.zone:
+          type: string
+        k8s.cluster_version:
+          type: string
+        k8s.cluster_platform:
+          type: string
     Aggregator:
       type: object
       description: Core instance model.
@@ -122,8 +140,9 @@ components:
           type: string
           format: date-time
         tags:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           default: null
           uniqueItems: true
           items:
@@ -143,6 +162,55 @@ components:
       - skipServiceCreation
       - createdAt
       - updatedAt
+    CoreInstances:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoreInstance'
+        endCursor:
+          type:
+          - string
+          - 'null'
+        count:
+          type: number
+          format: int32
+      required:
+      - items
+      - endCursor
+      - count
+    CoreInstanceMetadata:
+      type: object
+      description: Core Instance Metadata model.
+      anyOf:
+      - $ref: '#/components/schemas/MetadataAWS'
+      - $ref: '#/components/schemas/MetadataGCP'
+      - $ref: '#/components/schemas/MetadataK8S'
+    MetadataGCP:
+      type: object
+      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
+
+        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
+
+        '
+      properties:
+        gcp.project_number:
+          type: number
+        gcp.project_id:
+          type: string
+        gcp.instance_id:
+          type: number
+        gcp.instance_image:
+          type: string
+        gcp.machine_type:
+          type: string
+        gcp.instance_name:
+          type: string
+        gcp.zone:
+          type: string
+    CoreInstance:
+      $ref: '#/components/schemas/Aggregator'
     MetadataAWS:
       type: object
       description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
@@ -168,72 +236,6 @@ components:
         aws.ec2_instance_type:
           type: string
         aws.az:
-          type: string
-    CoreInstance:
-      $ref: '#/components/schemas/Aggregator'
-    MetadataGCP:
-      type: object
-      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
-
-        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
-
-        '
-      properties:
-        gcp.project_number:
-          type: number
-        gcp.project_id:
-          type: string
-        gcp.instance_id:
-          type: number
-        gcp.instance_image:
-          type: string
-        gcp.machine_type:
-          type: string
-        gcp.instance_name:
-          type: string
-        gcp.zone:
-          type: string
-    CoreInstances:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoreInstance'
-        endCursor:
-          type: string
-          nullable: true
-        count:
-          type: number
-          format: int32
-      required:
-      - items
-      - endCursor
-      - count
-    CoreInstanceMetadata:
-      type: object
-      description: Core Instance Metadata model.
-      anyOf:
-      - $ref: '#/components/schemas/MetadataAWS'
-      - $ref: '#/components/schemas/MetadataGCP'
-      - $ref: '#/components/schemas/MetadataK8S'
-    MetadataK8S:
-      type: object
-      description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
-
-        See: https://github.com/kubernetes/website/blob/60390ff3c0ef0043a58568ad2e4c2b7634028074/content/en/examples/pods/inject/dapi-volume.yaml#L5
-
-        '
-      properties:
-        k8s.namespace:
-          type: string
-        k8s.cluster_name:
-          type: string
-        k8s.zone:
-          type: string
-        k8s.cluster_version:
-          type: string
-        k8s.cluster_platform:
           type: string
   securitySchemes:
     user:

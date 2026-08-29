@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent pipeline_port API
+  title: Calyptia Cloud agent Pipeline Port API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -134,6 +134,14 @@ paths:
           description: No Content
 components:
   schemas:
+    PipelinePortKind:
+      type: string
+      description: The kind/type of the service associated to this port.
+      default: LoadBalancer
+      enum:
+      - LoadBalancer
+      - ClusterIP
+      - NodePort
     CreatePipelinePort:
       description: Create pipeline port request body.
       type: object
@@ -171,22 +179,26 @@ components:
           type: string
           format: uuid
         kind:
-          type: string
+          type:
+          - string
+          - 'null'
           default: null
-          nullable: true
         pluginID:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           example: forward.0
         pluginName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           example: forward
         pluginAlias:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           example: myforwardinput
         createdAt:
@@ -203,46 +215,43 @@ components:
       type: object
       properties:
         protocol:
-          type: string
+          type:
+          - string
+          - 'null'
           example: tcp
-          nullable: true
           default: null
         frontendPort:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
           default: null
           description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
 
             It should be unique within the pipeline.'
         backendPort:
-          type: integer
+          type:
+          - integer
+          - 'null'
           format: int32
-          nullable: true
           default: null
           description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
         endpoint:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
         kind:
           deprecated: true
-          type: string
+          type:
+          - string
+          - 'null'
           description: The kind/type of the service associated to this port.
           default: null
-          nullable: true
           enum:
           - LoadBalancer
           - ClusterIP
           - NodePort
-    PipelinePortKind:
-      type: string
-      description: The kind/type of the service associated to this port.
-      default: LoadBalancer
-      enum:
-      - LoadBalancer
-      - ClusterIP
-      - NodePort
     PipelinePort:
       type: object
       description: Pipeline port model.
@@ -270,18 +279,21 @@ components:
         endpoint:
           type: string
         pluginID:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           example: forward.0
         pluginName:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           example: forward
         pluginAlias:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           example: myforwardinput
         createdAt:

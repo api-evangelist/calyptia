@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent processing_rule API
+  title: Calyptia Cloud agent Processing Rule API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -194,142 +194,6 @@ paths:
                   $ref: '#/components/schemas/FluentBitLog'
 components:
   schemas:
-    RuleActionV1:
-      deprecated: true
-      type: object
-      properties:
-        kind:
-          $ref: '#/components/schemas/RuleActionKindV1'
-        description:
-          type: string
-          example: Sample action
-        enabled:
-          type: boolean
-          default: false
-          example: true
-        selectors:
-          type: array
-          items:
-            $ref: '#/components/schemas/LogSelectorV1'
-        add:
-          $ref: '#/components/schemas/LogAttr'
-          nullable: true
-          default: null
-          description: Only required when kind is "add".
-        renameTo:
-          type: string
-          nullable: true
-          default: null
-          example: renamed
-          description: Only required when kind is "rename".
-        copyAs:
-          type: string
-          nullable: true
-          default: null
-          example: copied
-          description: Only required when kind is "copy".
-        maskWith:
-          type: string
-          nullable: true
-          default: null
-          example: masked
-          description: Only required when kind is "mask".
-      required:
-      - kind
-      - description
-      - enabled
-      - selectors
-    UpdateProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        match:
-          type: string
-          example: '*'
-          nullable: true
-          default: null
-        isMatchRegexp:
-          type: boolean
-          nullable: true
-          default: null
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-          nullable: true
-          default: null
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleActionV1'
-          nullable: true
-          default: null
-    CreateProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        match:
-          type: string
-          example: '*'
-        isMatchRegexp:
-          type: boolean
-          default: false
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleActionV1'
-      required:
-      - match
-      - isMatchRegexp
-      - language
-      - actions
-    LogAttr:
-      type: object
-      properties:
-        key:
-          type: string
-          example: some_key
-        value:
-          description: Any value.
-          example: some_value
-      required:
-      - key
-      - value
-    ProcessingRuleLanguageV1:
-      deprecated: true
-      type: string
-      enum:
-      - lua
-    LogSelectorV1:
-      deprecated: true
-      type: object
-      properties:
-        kind:
-          $ref: '#/components/schemas/LogSelectorKindV1'
-        op:
-          $ref: '#/components/schemas/LogSelectorOpKindV1'
-        expr:
-          type: string
-          example: some_key
-      required:
-      - kind
-      - op
-      - expr
-    LogSelectorOpKindV1:
-      deprecated: true
-      type: string
-      enum:
-      - equal
-    RuleActionKindV1:
-      deprecated: true
-      type: string
-      enum:
-      - add
-      - rename
-      - copy
-      - mask
-      - remove
-      - skip
     CreatedProcessingRuleV1:
       deprecated: true
       type: object
@@ -361,6 +225,65 @@ components:
           additionalProperties:
             type: string
         example: '[1234.5, {"key": "value"}]'
+    RuleActionKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - add
+      - rename
+      - copy
+      - mask
+      - remove
+      - skip
+    UpdateProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        match:
+          type:
+          - string
+          - 'null'
+          example: '*'
+          default: null
+        isMatchRegexp:
+          type:
+          - boolean
+          - 'null'
+          default: null
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+          default: null
+        actions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+          default: null
+    LogSelectorV1:
+      deprecated: true
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/LogSelectorKindV1'
+        op:
+          $ref: '#/components/schemas/LogSelectorOpKindV1'
+        expr:
+          type: string
+          example: some_key
+      required:
+      - kind
+      - op
+      - expr
+    UpdatedProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     ProcessingRuleV1:
       deprecated: true
       type: object
@@ -406,15 +329,101 @@ components:
       - actions
       - createdAt
       - updatedAt
-    UpdatedProcessingRuleV1:
+    CreateProcessingRuleV1:
       deprecated: true
       type: object
       properties:
-        updatedAt:
+        match:
           type: string
-          format: date-time
+          example: '*'
+        isMatchRegexp:
+          type: boolean
+          default: false
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
       required:
-      - updatedAt
+      - match
+      - isMatchRegexp
+      - language
+      - actions
+    LogAttr:
+      type: object
+      properties:
+        key:
+          type: string
+          example: some_key
+        value:
+          description: Any value.
+          example: some_value
+      required:
+      - key
+      - value
+    RuleActionV1:
+      deprecated: true
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/RuleActionKindV1'
+        description:
+          type: string
+          example: Sample action
+        enabled:
+          type: boolean
+          default: false
+          example: true
+        selectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/LogSelectorV1'
+        add:
+          $ref: '#/components/schemas/LogAttr'
+          default: null
+          description: Only required when kind is "add".
+        renameTo:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: renamed
+          description: Only required when kind is "rename".
+        copyAs:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: copied
+          description: Only required when kind is "copy".
+        maskWith:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: masked
+          description: Only required when kind is "mask".
+      required:
+      - kind
+      - description
+      - enabled
+      - selectors
+    LogSelectorKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - key
+    ProcessingRuleLanguageV1:
+      deprecated: true
+      type: string
+      enum:
+      - lua
+    LogSelectorOpKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - equal
     PreviewProcessingRuleV1:
       deprecated: true
       type: object
@@ -433,11 +442,6 @@ components:
       - language
       - actions
       - logs
-    LogSelectorKindV1:
-      deprecated: true
-      type: string
-      enum:
-      - key
   securitySchemes:
     user:
       type: http

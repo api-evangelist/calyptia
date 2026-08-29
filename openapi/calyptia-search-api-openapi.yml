@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent search API
+  title: Calyptia Cloud agent Search API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:

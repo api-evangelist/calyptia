@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent token API
+  title: Calyptia Cloud agent Token API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -135,22 +135,13 @@ paths:
           description: No Content
 components:
   schemas:
-    UpdateToken:
-      description: Update token request body.
-      type: object
-      properties:
-        name:
-          type: string
-          example: new-token
-          nullable: true
-          default: null
-        permissions:
-          description: An empty list means it has all permissions.
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Permission'
-          nullable: true
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
     CreateToken:
       description: Create token request body.
       type: object
@@ -192,13 +183,24 @@ components:
       - permissions
       - createdAt
       description: Token model.
-    Permission:
-      type: string
-      enum:
-      - create:*
-      - read:*
-      - update:*
-      - delete:*
+    UpdateToken:
+      description: Update token request body.
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          example: new-token
+          default: null
+        permissions:
+          description: An empty list means it has all permissions.
+          type:
+          - array
+          - 'null'
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
   securitySchemes:
     user:
       type: http

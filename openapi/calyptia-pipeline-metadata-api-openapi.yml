@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent pipeline_metadata API
+  title: Calyptia Cloud agent Pipeline Metadata API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -75,15 +75,11 @@ paths:
           description: No Content
 components:
   schemas:
-    PipelineMetadata:
-      type: object
-      additionalProperties: true
     UpdatePipelineMetadata:
       type: object
       properties:
         key:
           type: string
-          nullable: false
           description: metadata key to use
         value:
           type: object
@@ -92,6 +88,9 @@ components:
           example: '{"value": "1"}
 
             '
+    PipelineMetadata:
+      type: object
+      additionalProperties: true
   securitySchemes:
     user:
       type: http

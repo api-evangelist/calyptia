@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent pipeline_config API
+  title: Calyptia Cloud agent Pipeline Config API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:

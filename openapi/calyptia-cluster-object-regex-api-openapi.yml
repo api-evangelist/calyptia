@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent cluster_object_regex API
+  title: Calyptia Cloud agent Cluster Object Regex API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -143,39 +143,39 @@ paths:
           description: No Content
 components:
   schemas:
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
     UpdateClusterObjectRegex:
+      type: object
+      properties:
+        regex:
+          type:
+          - string
+          - 'null'
+          minLength: 0
+          default: null
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          default: null
+    CreateClusterObjectRegex:
       type: object
       properties:
         regex:
           type: string
           minLength: 0
-          nullable: true
-          default: null
         description:
           type: string
           maxLength: 100
-          nullable: true
-          default: null
-    CreatedClusterObjectRegex:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
       required:
-      - id
-      - createdAt
-    UpdatedClusterObjectRegex:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
+      - regex
+      - description
     ClusterObjectRegex:
       type: object
       properties:
@@ -196,10 +196,11 @@ components:
           type: string
           format: date-time
         clusterObjects:
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/ClusterObject'
-          nullable: true
           default: null
           description: Will only be present on the `clusterObjectRegex` operation.
       required:
@@ -233,24 +234,26 @@ components:
       - kind
       - createdAt
       - updatedAt
-    CreateClusterObjectRegex:
+    CreatedClusterObjectRegex:
       type: object
       properties:
-        regex:
+        id:
           type: string
-          minLength: 0
-        description:
+          format: uuid
+        createdAt:
           type: string
-          maxLength: 100
+          format: date-time
       required:
-      - regex
-      - description
-    ClusterObjectKind:
-      type: string
-      description: Kind of the kubernetes object
-      default: namespace
-      enum:
-      - namespace
+      - id
+      - createdAt
+    UpdatedClusterObjectRegex:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     ClusterObjectRegexes:
       type: object
       properties:
@@ -259,8 +262,9 @@ components:
           items:
             $ref: '#/components/schemas/ClusterObjectRegex'
         endCursor:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
       required:
       - items

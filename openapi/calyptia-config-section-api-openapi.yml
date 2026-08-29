@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent config_section API
+  title: Calyptia Cloud agent Config Section API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -189,25 +189,24 @@ paths:
           description: Updated
 components:
   schemas:
-    ConfigSectionKind:
-      type: string
-      enum:
-      - input
-      - filter
-      - output
-      - service
+    CreateConfigSection:
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/ConfigSectionKind'
+        properties:
+          $ref: '#/components/schemas/Pairs'
+        skipConfigValidation:
+          type: boolean
+          default: false
+      required:
+      - kind
+      - properties
+      - skipConfigValidation
     Pairs:
       type: array
       items:
         $ref: '#/components/schemas/Pair'
-    UpdatedConfigSection:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
     ConfigSection:
       type: object
       properties:
@@ -218,9 +217,10 @@ components:
           type: string
           format: uuid
         processingRuleID:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
           default: null
         kind:
           $ref: '#/components/schemas/ConfigSectionKind'
@@ -252,16 +252,13 @@ components:
       required:
       - id
       - createdAt
-    UpdateConfigSection:
-      type: object
-      properties:
-        properties:
-          $ref: '#/components/schemas/Pairs'
-          nullable: true
-          default: null
-        skipConfigValidation:
-          type: boolean
-          default: false
+    ConfigSectionKind:
+      type: string
+      enum:
+      - input
+      - filter
+      - output
+      - service
     Pair:
       type: object
       properties:
@@ -281,20 +278,23 @@ components:
       required:
       - key
       - value
-    CreateConfigSection:
+    UpdateConfigSection:
       type: object
       properties:
-        kind:
-          $ref: '#/components/schemas/ConfigSectionKind'
         properties:
           $ref: '#/components/schemas/Pairs'
+          default: null
         skipConfigValidation:
           type: boolean
           default: false
+    UpdatedConfigSection:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
       required:
-      - kind
-      - properties
-      - skipConfigValidation
+      - updatedAt
   securitySchemes:
     user:
       type: http

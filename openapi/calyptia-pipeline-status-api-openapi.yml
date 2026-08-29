@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent pipeline_status API
+  title: Calyptia Cloud agent Pipeline Status API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -120,8 +120,9 @@ components:
           - CHECKS_OK
           - CHECKS_FAILED
         events:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/PipelineEvent'
         createdAt:

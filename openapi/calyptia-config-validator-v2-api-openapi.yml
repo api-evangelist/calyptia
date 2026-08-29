@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent config_validator_v2 API
+  title: Calyptia Cloud agent Config Validator V2 API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -50,6 +50,31 @@ paths:
                 $ref: '#/components/schemas/ValidatedConfigV2'
 components:
   schemas:
+    ConfigValidityV2Property:
+      type: object
+      description: Property of the validated configuration section
+      properties:
+        id:
+          description: ID of the configuration section
+          type: string
+        property:
+          description: property name
+          type: string
+        text:
+          description: property name, value
+          type:
+          - string
+          - 'null'
+          default: null
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - property
+      - text
+      - errors
     ValidatedConfigV2:
       type: object
       description: Validation V2 config response.
@@ -86,44 +111,6 @@ components:
           - filter
       required:
       - errors
-    ConfigValidityV2Property:
-      type: object
-      description: Property of the validated configuration section
-      properties:
-        id:
-          description: ID of the configuration section
-          type: string
-        property:
-          description: property name
-          type: string
-        text:
-          description: property name, value
-          type: string
-          nullable: true
-          default: null
-        errors:
-          type: array
-          items:
-            type: string
-      required:
-      - id
-      - property
-      - text
-      - errors
-    ConfigValidityV2Runtime:
-      type: object
-      description: Runtime errors for the validated configuration.
-      properties:
-        errors:
-          type: array
-          items:
-            type: string
-        id:
-          description: Id of the configuration section
-          type: string
-      required:
-      - id
-      - errors
     ValidatingConfig:
       description: Validating configuration request body.
       type: object
@@ -138,10 +125,11 @@ components:
               name:
                 type: string
               optional:
-                type: object
+                type:
+                - object
+                - 'null'
                 additionalProperties:
                   type: string
-                nullable: true
                 default: null
               id:
                 type: string
@@ -151,6 +139,20 @@ components:
             - id
       required:
       - config
+    ConfigValidityV2Runtime:
+      type: object
+      description: Runtime errors for the validated configuration.
+      properties:
+        errors:
+          type: array
+          items:
+            type: string
+        id:
+          description: Id of the configuration section
+          type: string
+      required:
+      - id
+      - errors
   securitySchemes:
     user:
       type: http

@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent resource_profile API
+  title: Calyptia Cloud agent Resource Profile API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -132,6 +132,87 @@ paths:
           description: No Content
 components:
   schemas:
+    UpdateResourceProfile:
+      description: Update resource profile request body.
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          example: my-resource-profile
+          default: null
+        storageMaxChunksUp:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          default: null
+        storageSyncFull:
+          type:
+          - boolean
+          - 'null'
+          default: null
+        storageBacklogMemLimit:
+          type:
+          - string
+          - 'null'
+          example: 1Mi
+          default: null
+        storageVolumeSize:
+          type:
+          - string
+          - 'null'
+          example: 2Mi
+          default: null
+        storageMaxChunksPause:
+          type:
+          - boolean
+          - 'null'
+          default: null
+        cpuBufferWorkers:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          default: null
+        cpuLimit:
+          type:
+          - string
+          - 'null'
+          example: 3Mi
+          default: null
+        cpuRequest:
+          type:
+          - string
+          - 'null'
+          example: 4Mi
+          default: null
+        memoryLimit:
+          type:
+          - string
+          - 'null'
+          example: 5Mi
+          default: null
+        memoryRequest:
+          type:
+          - string
+          - 'null'
+          example: 6Mi
+          default: null
+    CreatedResourceProfile:
+      type: object
+      description: Created resource profile response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     CreateResourceProfile:
       description: Create resource profile request body.
       type: object
@@ -179,76 +260,6 @@ components:
       - cpuRequest
       - memoryLimit
       - memoryRequest
-    CreatedResourceProfile:
-      type: object
-      description: Created resource profile response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    UpdateResourceProfile:
-      description: Update resource profile request body.
-      type: object
-      properties:
-        name:
-          type: string
-          example: my-resource-profile
-          nullable: true
-          default: null
-        storageMaxChunksUp:
-          type: integer
-          format: int32
-          nullable: true
-          default: null
-        storageSyncFull:
-          type: boolean
-          nullable: true
-          default: null
-        storageBacklogMemLimit:
-          type: string
-          example: 1Mi
-          nullable: true
-          default: null
-        storageVolumeSize:
-          type: string
-          example: 2Mi
-          nullable: true
-          default: null
-        storageMaxChunksPause:
-          type: boolean
-          nullable: true
-          default: null
-        cpuBufferWorkers:
-          type: integer
-          format: int32
-          nullable: true
-          default: null
-        cpuLimit:
-          type: string
-          example: 3Mi
-          nullable: true
-          default: null
-        cpuRequest:
-          type: string
-          example: 4Mi
-          nullable: true
-          default: null
-        memoryLimit:
-          type: string
-          example: 5Mi
-          nullable: true
-          default: null
-        memoryRequest:
-          type: string
-          example: 6Mi
-          nullable: true
-          default: null
     ResourceProfile:
       type: object
       description: Resource profile model.

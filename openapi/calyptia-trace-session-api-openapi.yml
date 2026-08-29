@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent trace_session API
+  title: Calyptia Cloud agent Trace Session API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -162,66 +162,6 @@ paths:
                 $ref: '#/components/schemas/UpdatedTraceSession'
 components:
   schemas:
-    UpdatedTraceSession:
-      type: object
-      description: Response body for an updated trace session.
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    TerminatedTraceSession:
-      type: object
-      description: Response body when a trace session is terminated.
-      properties:
-        id:
-          type: string
-          format: uuid
-        lifespan:
-          type: string
-          format: duration
-          example: 10m
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - lifespan
-      - updatedAt
-    CreatedTraceSession:
-      type: object
-      description: Response body for a newly created trace session.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    CreateTraceSession:
-      type: object
-      description: 'Request body to create a new trace session on a pipeline.
-
-        '
-      properties:
-        plugins:
-          description: List of Fluent-bit plugin IDs ar aliases to trace.
-          type: array
-          items:
-            type: string
-            example: dummy.0
-        lifespan:
-          description: For how long will this session be active and process records.
-          type: string
-          format: duration
-          example: 10m
-      required:
-      - plugins
-      - lifespan
     UpdateTraceSession:
       type: object
       description: 'Request body to update an active trace session on a pipeline.
@@ -230,18 +170,20 @@ components:
       properties:
         plugins:
           description: List of Fluent-bit plugin IDs ar aliases to trace.
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
             example: dummy.0
-          nullable: true
           default: null
         lifespan:
           description: For how long will this session be active and process records.
-          type: string
+          type:
+          - string
+          - 'null'
           format: duration
           example: 10m
-          nullable: true
           default: null
     TraceSession:
       type: object
@@ -282,6 +224,66 @@ components:
       - plugins
       - lifespan
       - createdAt
+      - updatedAt
+    CreateTraceSession:
+      type: object
+      description: 'Request body to create a new trace session on a pipeline.
+
+        '
+      properties:
+        plugins:
+          description: List of Fluent-bit plugin IDs ar aliases to trace.
+          type: array
+          items:
+            type: string
+            example: dummy.0
+        lifespan:
+          description: For how long will this session be active and process records.
+          type: string
+          format: duration
+          example: 10m
+      required:
+      - plugins
+      - lifespan
+    CreatedTraceSession:
+      type: object
+      description: Response body for a newly created trace session.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    UpdatedTraceSession:
+      type: object
+      description: Response body for an updated trace session.
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    TerminatedTraceSession:
+      type: object
+      description: Response body when a trace session is terminated.
+      properties:
+        id:
+          type: string
+          format: uuid
+        lifespan:
+          type: string
+          format: duration
+          example: 10m
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - lifespan
       - updatedAt
   securitySchemes:
     user:

@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent core_instance_file API
+  title: Calyptia Cloud agent Core Instance File API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -141,6 +141,24 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
+    CoreInstanceFiles:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoreInstanceFile'
+        endCursor:
+          type:
+          - string
+          - 'null'
+        count:
+          type: number
+          format: int32
+      required:
+      - items
+      - endCursor
+      - count
     CreateCoreInstanceFile:
       type: object
       properties:
@@ -158,66 +176,6 @@ components:
       - name
       - contents
       - encrypted
-    CoreInstanceFiles:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoreInstanceFile'
-        endCursor:
-          type: string
-          nullable: true
-        count:
-          type: number
-          format: int32
-      required:
-      - items
-      - endCursor
-      - count
-    UpdateCoreInstanceFile:
-      type: object
-      properties:
-        name:
-          type: string
-          nullable: true
-          default: null
-          example: myfile
-        contents:
-          type: string
-          format: byte
-          nullable: true
-          default: null
-          description: Optional contents of the file to be updated in base 64 format.
-        encrypted:
-          type: boolean
-          nullable: true
-          default: null
-    Created:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type: string
-          format: date-time
-          nullable: true
-          default: null
-      required:
-      - deleted
-      - deletedAt
     Updated:
       type: object
       properties:
@@ -226,6 +184,41 @@ components:
           format: date-time
       required:
       - updatedAt
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    UpdateCoreInstanceFile:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: myfile
+        contents:
+          type:
+          - string
+          - 'null'
+          format: byte
+          default: null
+          description: Optional contents of the file to be updated in base 64 format.
+        encrypted:
+          type:
+          - boolean
+          - 'null'
+          default: null
     CoreInstanceFile:
       type: object
       properties:
@@ -263,6 +256,18 @@ components:
       - encrypted
       - createdAt
       - updatedAt
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
   securitySchemes:
     user:
       type: http

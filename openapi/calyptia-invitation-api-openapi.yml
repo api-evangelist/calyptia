@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent invitation API
+  title: Calyptia Cloud agent Invitation API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -72,6 +72,13 @@ paths:
           description: No Content
 components:
   schemas:
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
     AcceptInvitation:
       description: Accept invitation request body.
       type: object
@@ -81,13 +88,6 @@ components:
           example: redacted
       required:
       - token
-    Permission:
-      type: string
-      enum:
-      - create:*
-      - read:*
-      - update:*
-      - delete:*
     CreateInvitation:
       description: Create invitation request body.
       type: object

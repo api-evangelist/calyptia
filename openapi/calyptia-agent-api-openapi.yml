@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent API
+  title: Calyptia Cloud Agent API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -208,14 +208,16 @@ components:
           type: string
           format: uuid
         fleetID:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
           default: null
         pipelineID:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
           default: null
         token:
           type: string
@@ -263,15 +265,17 @@ components:
           - arm
           - arm64
         flags:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           default: null
           uniqueItems: true
           items:
             type: string
         tags:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           default: null
           uniqueItems: true
           items:
@@ -279,18 +283,21 @@ components:
         rawConfig:
           type: string
         metadata:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           default: null
         firstMetricsAddedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           default: null
         lastMetricsAddedAt:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
           default: null
         createdAt:
           type: string
@@ -328,100 +335,55 @@ components:
       type: object
       properties:
         fleetID:
-          type: string
+          type:
+          - string
+          - 'null'
           format: uuid
-          nullable: true
           default: null
         name:
-          type: string
+          type:
+          - string
+          - 'null'
           example: new-agent
           format: hostname
-          nullable: true
           default: null
         version:
-          type: string
+          type:
+          - string
+          - 'null'
           example: v1.8.6
-          nullable: true
           default: null
         edition:
-          type: string
+          type:
+          - string
+          - 'null'
           enum:
           - community
           - enterprise
-          nullable: true
           default: null
         flags:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           default: null
           items:
             type: string
         rawConfig:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
         metadata:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           default: null
         environmentID:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           default: null
           description: environment ID to associate this agent with.
-    RegisterAgent:
-      description: Register agent request body.
-      type: object
-      properties:
-        fleetID:
-          type: string
-          format: uuid
-          nullable: true
-          default: null
-        name:
-          type: string
-          example: new-agent
-          format: hostname
-        machineID:
-          type: string
-        type:
-          type: string
-          enum:
-          - fluentbit
-          - fluentd
-        version:
-          type: string
-          example: v1.8.6
-        edition:
-          type: string
-          enum:
-          - community
-          - enterprise
-        flags:
-          type: array
-          nullable: true
-          default: null
-          items:
-            type: string
-        rawConfig:
-          type: string
-        metadata:
-          type: object
-          nullable: true
-          default: null
-        environmentID:
-          type: string
-          nullable: true
-          default: null
-          description: environment ID to associate this agent with.
-      required:
-      - name
-      - machineID
-      - type
-      - version
-      - edition
-      - flags
-      - rawConfig
     RegisteredAgent:
       type: object
       description: Registered agent response body.
@@ -447,6 +409,63 @@ components:
       - token
       - name
       - createdAt
+    RegisterAgent:
+      description: Register agent request body.
+      type: object
+      properties:
+        fleetID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        name:
+          type: string
+          example: new-agent
+          format: hostname
+        machineID:
+          type: string
+        type:
+          type: string
+          enum:
+          - fluentbit
+          - fluentd
+        version:
+          type: string
+          example: v1.8.6
+        edition:
+          type: string
+          enum:
+          - community
+          - enterprise
+        flags:
+          type:
+          - array
+          - 'null'
+          default: null
+          items:
+            type: string
+        rawConfig:
+          type: string
+        metadata:
+          type:
+          - object
+          - 'null'
+          default: null
+        environmentID:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: environment ID to associate this agent with.
+      required:
+      - name
+      - machineID
+      - type
+      - version
+      - edition
+      - flags
+      - rawConfig
   securitySchemes:
     user:
       type: http

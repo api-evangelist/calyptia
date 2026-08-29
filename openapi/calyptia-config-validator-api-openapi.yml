@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent config_validator API
+  title: Calyptia Cloud agent Config Validator API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -74,33 +74,16 @@ paths:
           description: No Content
 components:
   schemas:
-    ValidatingConfig:
-      description: Validating configuration request body.
+    ValidateFluentbitConfig:
       type: object
       properties:
-        config:
-          type: array
-          items:
-            type: object
-            properties:
-              command:
-                type: string
-              name:
-                type: string
-              optional:
-                type: object
-                additionalProperties:
-                  type: string
-                nullable: true
-                default: null
-              id:
-                type: string
-            required:
-            - command
-            - name
-            - id
+        rawConfig:
+          type: string
+          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
+        configFormat:
+          $ref: '#/components/schemas/ConfigFormat'
       required:
-      - config
+      - rawConfig
     ValidatedConfig:
       type: object
       description: Validate config response body.
@@ -137,16 +120,34 @@ components:
           - filter
       required:
       - errors
-    ValidateFluentbitConfig:
+    ValidatingConfig:
+      description: Validating configuration request body.
       type: object
       properties:
-        rawConfig:
-          type: string
-          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
-        configFormat:
-          $ref: '#/components/schemas/ConfigFormat'
+        config:
+          type: array
+          items:
+            type: object
+            properties:
+              command:
+                type: string
+              name:
+                type: string
+              optional:
+                type:
+                - object
+                - 'null'
+                additionalProperties:
+                  type: string
+                default: null
+              id:
+                type: string
+            required:
+            - command
+            - name
+            - id
       required:
-      - rawConfig
+      - config
     ConfigFormat:
       type: string
       enum:

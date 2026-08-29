@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent core_instance_check API
+  title: Calyptia Cloud agent Core Instance Check API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -148,6 +148,82 @@ paths:
           description: No Content
 components:
   schemas:
+    CreateCoreInstanceCheck:
+      description: Create core instance check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+        retries:
+          type: number
+          default: 3
+          description: number of retries for the check before marking it as failed
+        host:
+          type: string
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          description: valid 0-65535 port number
+      required:
+      - protocol
+      - host
+      - port
+    CreatedCoreInstanceCheck:
+      type: object
+      description: Created core instance check response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    UpdateCoreInstanceCheck:
+      description: Update a core instance check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+          default: null
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+          default: null
+        host:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 65535
+          default: null
+          description: valid 0-65535 port number
+        retries:
+          type:
+          - number
+          - 'null'
+          default: null
+          description: number of retries for the check before marking it as unreachable.
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
     CoreInstanceCheck:
       type: object
       description: Core instance check model.
@@ -186,87 +262,12 @@ components:
       - port
       - createdAt
       - updatedAt
-    CreatedCoreInstanceCheck:
-      type: object
-      description: Created core instance check response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    CreateCoreInstanceCheck:
-      description: Create core instance check request body.
-      type: object
-      properties:
-        protocol:
-          $ref: '#/components/schemas/PipelinePortProtocol'
-        status:
-          $ref: '#/components/schemas/CheckStatus'
-        retries:
-          type: number
-          default: 3
-          description: number of retries for the check before marking it as failed
-        host:
-          type: string
-          description: DNS label format as of defined on RFC1123 or an IPv4 address.
-          example: localhost
-        port:
-          type: number
-          description: valid 0-65535 port number
-      required:
-      - protocol
-      - host
-      - port
     PipelinePortProtocol:
       type: string
       description: Valid protocol types defined for a pipelines.
       enum:
       - tcp
       - udp
-    CheckStatus:
-      type: string
-      description: The status of a check.
-      default: new
-      enum:
-      - new
-      - failed
-      - running
-      - ok
-    UpdateCoreInstanceCheck:
-      description: Update a core instance check request body.
-      type: object
-      properties:
-        protocol:
-          $ref: '#/components/schemas/PipelinePortProtocol'
-          nullable: true
-          default: null
-        status:
-          $ref: '#/components/schemas/CheckStatus'
-          nullable: true
-          default: null
-        host:
-          type: string
-          nullable: true
-          default: null
-          description: DNS label format as of defined on RFC1123 or an IPv4 address.
-          example: localhost
-        port:
-          type: number
-          minimum: 0
-          maximum: 65535
-          nullable: true
-          default: null
-          description: valid 0-65535 port number
-        retries:
-          type: number
-          nullable: true
-          default: null
-          description: number of retries for the check before marking it as unreachable.
   securitySchemes:
     user:
       type: http

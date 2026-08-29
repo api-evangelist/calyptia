@@ -1,6 +1,6 @@
-openapi: 3.0.4
+openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent pipeline_cluster_objects API
+  title: Calyptia Cloud agent Pipeline Cluster Objects API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -114,14 +114,6 @@ paths:
           description: Deleted
 components:
   schemas:
-    UpdatePipelineClusterObjects:
-      type: object
-      properties:
-        clusterObjectsIDs:
-          type: array
-          format: uuid
-          items:
-            type: string
     ClusterObject:
       type: object
       description: A kubernetes cluster object that belongs to a given core instance.
@@ -146,6 +138,14 @@ components:
       - kind
       - createdAt
       - updatedAt
+    UpdatePipelineClusterObjects:
+      type: object
+      properties:
+        clusterObjectsIDs:
+          type: array
+          format: uuid
+          items:
+            type: string
     ClusterObjectKind:
       type: string
       description: Kind of the kubernetes object
