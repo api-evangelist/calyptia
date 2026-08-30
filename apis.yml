@@ -69,7 +69,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Agents
+  - agent
   tags_raw:
   - agent
   properties:
@@ -84,8 +84,7 @@ apis:
   description: The agent_config API from Calyptia — 1 operation(s) for agent_config.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
-  - Agent Config
+  tags: []
   tags_raw:
   - agent_config
   properties:
@@ -116,7 +115,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Aggregator
+  - aggregator
   tags_raw:
   - aggregator
   properties:
@@ -131,8 +130,7 @@ apis:
   description: The audit_log API from Calyptia — 1 operation(s) for audit_log.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
-  - Audit Log
+  tags: []
   tags_raw:
   - audit_log
   properties:
@@ -147,8 +145,7 @@ apis:
   description: The aws_marketplace API from Calyptia — 2 operation(s) for aws_marketplace.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
-  - AWS Marketplace
+  tags: []
   tags_raw:
   - aws_marketplace
   properties:
@@ -299,7 +296,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Environment
+  - environment
   tags_raw:
   - environment
   properties:
@@ -331,7 +328,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Invitation
+  - invitation
   tags_raw:
   - invitation
   properties:
@@ -347,7 +344,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Membership
+  - membership
   tags_raw:
   - membership
   properties:
@@ -513,8 +510,7 @@ apis:
   description: The pipeline_status API from Calyptia — 1 operation(s) for pipeline_status.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
-  tags:
-  - Pipeline Status
+  tags: []
   tags_raw:
   - pipeline_status
   properties:
@@ -623,7 +619,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Sidecar
+  - sidecar
   tags_raw:
   - sidecar
   properties:
