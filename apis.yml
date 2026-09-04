@@ -41,6 +41,7 @@ accessModel:
   confidence: medium
   source:
   - authentication
+  - {url: 'https://calyptia.com/', status: 302, note: 'declared website redirects to https://chronosphere.io/ — a different registrable domain (calyptia.com -> chronosphere.io), possible rename or acquisition (probed 2026-09-03, roadmap#169)'}
   generated: '2026-07-22'
   method: derived
 specificationVersion: '0.23'
@@ -735,8 +736,9 @@ common:
   url: cli/calyptia-cli.yml
 - type: WellKnown
   url: well-known/calyptia-well-known.yml
-- type: MCPServer
+- type: X-MCPServerCandidate
   url: mcp/calyptia-mcp.yml
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/calyptia-llms.txt
 - type: Conformance
