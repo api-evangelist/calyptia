@@ -133,7 +133,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Audit Log
+  - Audit Logs
   tags_raw:
   - audit_log
   properties:
@@ -378,7 +378,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Pipeline
+  - Pipelines
   tags_raw:
   - pipeline
   properties:
@@ -640,7 +640,7 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
-  - Token
+  - Tokens
   tags_raw:
   - token
   properties:
@@ -697,6 +697,16 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 common:
+
+- type: ParentCompany
+
+  url: https://apis.io/providers/chronosphere/
+
+  name: Chronosphere
+
+  x-relationship: acquired
+
+  x-evidence: description names the acquirer and https://calyptia.com/ now redirects to chronosphere.io (roadmap#390, corroborate-dead.py)
 - type: CapabilityMap
   url: capabilities/calyptia-capability-edges.yml
   name: Calyptia Business Capability Map
