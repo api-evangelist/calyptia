@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Config Validator API
+  title: Calyptia Cloud Config Validator API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -60,7 +60,7 @@ paths:
   /v2/validate_fluentbit_config:
     post:
       operationId: validateFluentBitConfig
-      summary: Validate Fluent-bit configuration.
+      summary: Validate Fluent-bit configuration
       security: []
       tags:
       - config_validator
@@ -74,16 +74,6 @@ paths:
           description: No Content
 components:
   schemas:
-    ValidateFluentbitConfig:
-      type: object
-      properties:
-        rawConfig:
-          type: string
-          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
-        configFormat:
-          $ref: '#/components/schemas/ConfigFormat'
-      required:
-      - rawConfig
     ValidatedConfig:
       type: object
       description: Validate config response body.
@@ -120,6 +110,24 @@ components:
           - filter
       required:
       - errors
+    ValidateFluentbitConfig:
+      type: object
+      properties:
+        rawConfig:
+          type: string
+          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
+        configFormat:
+          $ref: '#/components/schemas/ConfigFormat'
+      required:
+      - rawConfig
+    ConfigFormat:
+      type: string
+      enum:
+      - classic
+      - yaml
+      - json
+      default: classic
+      example: yaml
     ValidatingConfig:
       description: Validating configuration request body.
       type: object
@@ -148,14 +156,6 @@ components:
             - id
       required:
       - config
-    ConfigFormat:
-      type: string
-      enum:
-      - classic
-      - yaml
-      - json
-      default: classic
-      example: yaml
   securitySchemes:
     user:
       type: http

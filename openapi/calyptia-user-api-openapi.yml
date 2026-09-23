@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent User API
+  title: Calyptia Cloud User API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,12 +21,12 @@ servers:
     port:
       default: '5000'
 tags:
-- name: user
+- name: User
 paths:
   /v1/verification_email:
     get:
       tags:
-      - user
+      - User
       summary: Request verification email
       operationId: requestVerificationEmail
       description: 'Request a verification email for the user.

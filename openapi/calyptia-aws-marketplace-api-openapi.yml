@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Aws Marketplace API
+  title: Calyptia Cloud Aws Marketplace API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: aws_marketplace
+- name: AWS Marketplace
 paths:
   /v1/aws-customer-redirect:
     post:
@@ -34,7 +34,7 @@ paths:
         The given AWS token will be decoded and stored for future reference.'
       security: []
       tags:
-      - aws_marketplace
+      - AWS Marketplace
       requestBody:
         content:
           application/x-www-form-urlencoded:
@@ -79,7 +79,7 @@ paths:
       - user: []
       - project: []
       tags:
-      - aws_marketplace
+      - AWS Marketplace
       requestBody:
         content:
           application/json:

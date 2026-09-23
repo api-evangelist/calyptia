@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Aggregator API
+  title: Calyptia Cloud Aggregator API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,12 +21,12 @@ servers:
     port:
       default: '5000'
 tags:
-- name: aggregator
+- name: Aggregator
 paths:
   /v1/aggregators:
     post:
       tags:
-      - aggregator
+      - Aggregator
       summary: Create core instance
       operationId: createAggregator
       description: 'Create core instance within a project.
@@ -59,7 +59,7 @@ paths:
     get:
       deprecated: true
       tags:
-      - aggregator
+      - Aggregator
       summary: Core instances (deprecated)
       operationId: aggregators
       description: Core instances from a project (deprecated).
@@ -121,7 +121,7 @@ paths:
                   $ref: '#/components/schemas/Aggregator'
     delete:
       tags:
-      - aggregator
+      - Aggregator
       summary: Delete Core instances
       operationId: deleteAggregators
       description: Delete core instances from a project.
@@ -150,10 +150,9 @@ paths:
       required: true
     post:
       tags:
-      - aggregator
+      - Aggregator
       summary: Ping Cloud API by core instance ID
       operationId: aggregatorPing
-      description: Ping Cloud API by core instance ID
       security:
       - user: []
       - project: []
@@ -180,7 +179,7 @@ paths:
         in: query
         description: Exclude internal pipelines (health-check) from count.
       tags:
-      - aggregator
+      - Aggregator
       summary: Core instance
       operationId: aggregator
       description: Core instance by ID.
@@ -196,7 +195,7 @@ paths:
                 $ref: '#/components/schemas/Aggregator'
     patch:
       tags:
-      - aggregator
+      - Aggregator
       summary: Update core instance
       operationId: updateAggregator
       description: Update core instance by its ID.
@@ -213,7 +212,7 @@ paths:
           description: No Content
     delete:
       tags:
-      - aggregator
+      - Aggregator
       summary: Delete core instance
       operationId: deleteAggregator
       description: Delete core instance by its ID.
@@ -225,13 +224,35 @@ paths:
           description: No Content
 components:
   schemas:
-    PipelineKind:
-      type: string
-      default: deployment
-      enum:
-      - deployment
-      - daemonSet
-      - statefulSet
+    CoreInstanceMetadata:
+      type: object
+      description: Core Instance Metadata model.
+      anyOf:
+      - $ref: '#/components/schemas/MetadataAWS'
+      - $ref: '#/components/schemas/MetadataGCP'
+      - $ref: '#/components/schemas/MetadataK8S'
+    MetadataGCP:
+      type: object
+      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
+
+        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
+
+        '
+      properties:
+        gcp.project_number:
+          type: number
+        gcp.project_id:
+          type: string
+        gcp.instance_id:
+          type: number
+        gcp.instance_image:
+          type: string
+        gcp.machine_type:
+          type: string
+        gcp.instance_name:
+          type: string
+        gcp.zone:
+          type: string
     Aggregator:
       type: object
       description: Core instance model.
@@ -293,84 +314,31 @@ components:
       - skipServiceCreation
       - createdAt
       - updatedAt
-    CreateAggregator:
-      description: Create core instance request body.
+    PipelineSecret:
       type: object
+      description: Pipeline secret model.
       properties:
-        name:
+        id:
           type: string
-          format: hostname
-          example: new-core-instance
-        image:
-          type:
-          - string
-          - 'null'
-          description: default core-fluent-bit image to use by the pipelines created on this core_instance.
-          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
-          default: null
-        version:
+          format: uuid
+        key:
           type: string
-          example: v0.1.12
-        addHealthCheckPipeline:
-          type: boolean
-        clusterLogging:
-          type: boolean
-          description: Enable cluster-logging functionality on this core instance.
-        healthCheckPipelinePort:
-          type: integer
-          format: int32
-          minimum: 0
-        healthCheckPipelinePortKind:
-          $ref: '#/components/schemas/PipelinePortKind'
-        metadata:
-          type:
-          - object
-          - 'null'
-          default: null
-        environmentID:
-          type:
-          - string
-          - 'null'
-          default: null
-          description: environment ID to associate this core instance with.
-        skipServiceCreation:
-          type:
-          - boolean
-          - 'null'
-          default: null
-          description: 'If true, kubernetes service creation will be skipped for all pipelines
-
-            that exists on this core_instance.
-
-            '
+          example: mysecret
+        value:
+          type: string
+          format: byte
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required:
-      - name
-      - version
-      - addHealthCheckPipeline
-      - healthCheckPipelinePort
-      - healthCheckPipelinePortKind
-    MetadataGCP:
-      type: object
-      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
-
-        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
-
-        '
-      properties:
-        gcp.project_number:
-          type: number
-        gcp.project_id:
-          type: string
-        gcp.instance_id:
-          type: number
-        gcp.instance_image:
-          type: string
-        gcp.machine_type:
-          type: string
-        gcp.instance_name:
-          type: string
-        gcp.zone:
-          type: string
+      - id
+      - key
+      - value
+      - createdAt
+      - updatedAt
     AgentConfig:
       type: object
       description: Agent configuration history entry.
@@ -387,6 +355,32 @@ components:
       - id
       - rawConfig
       - createdAt
+    ConfigSectionKind:
+      type: string
+      enum:
+      - input
+      - filter
+      - output
+      - service
+    Pair:
+      type: object
+      properties:
+        key:
+          type: string
+          example: name
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: boolean
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: dummy
+      required:
+      - key
+      - value
     DeploymentStrategy:
       type: string
       description: 'The deployment strategy to use when creating or updating changes to this pipeline.
@@ -577,6 +571,66 @@ components:
       - scaleDownPeriodSeconds
       - utilizationCPUAverage
       - utilizationMemoryAverage
+    Pairs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pair'
+    CreateAggregator:
+      description: Create core instance request body.
+      type: object
+      properties:
+        name:
+          type: string
+          format: hostname
+          example: new-core-instance
+        image:
+          type:
+          - string
+          - 'null'
+          description: default core-fluent-bit image to use by the pipelines created on this core_instance.
+          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
+          default: null
+        version:
+          type: string
+          example: v0.1.12
+        addHealthCheckPipeline:
+          type: boolean
+        clusterLogging:
+          type: boolean
+          description: Enable cluster-logging functionality on this core instance.
+        healthCheckPipelinePort:
+          type: integer
+          format: int32
+          minimum: 0
+        healthCheckPipelinePortKind:
+          $ref: '#/components/schemas/PipelinePortKind'
+        metadata:
+          type:
+          - object
+          - 'null'
+          default: null
+        environmentID:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: environment ID to associate this core instance with.
+        skipServiceCreation:
+          type:
+          - boolean
+          - 'null'
+          default: null
+          description: 'If true, kubernetes service creation will be skipped for all pipelines
+
+            that exists on this core_instance.
+
+            '
+      required:
+      - name
+      - version
+      - addHealthCheckPipeline
+      - healthCheckPipelinePort
+      - healthCheckPipelinePortKind
     PipelinePortKind:
       type: string
       description: The kind/type of the service associated to this port.
@@ -585,25 +639,323 @@ components:
       - LoadBalancer
       - ClusterIP
       - NodePort
-    Pair:
+    ResourceProfile:
+      type: object
+      description: Resource profile model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: my-resource-profile
+        storageMaxChunksUp:
+          type: integer
+          format: int32
+        storageSyncFull:
+          type: boolean
+        storageBacklogMemLimit:
+          type: string
+          example: 1Mi
+        storageVolumeSize:
+          type: string
+          example: 2Mi
+        storageMaxChunksPause:
+          type: boolean
+        cpuBufferWorkers:
+          type: integer
+          format: int32
+        cpuLimit:
+          type: string
+          example: 3Mi
+        cpuRequest:
+          type: string
+          example: 4Mi
+        memoryLimit:
+          type: string
+          example: 5Mi
+        memoryRequest:
+          type: string
+          example: 6Mi
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - storageMaxChunksUp
+      - storageSyncFull
+      - storageBacklogMemLimit
+      - storageVolumeSize
+      - storageMaxChunksPause
+      - cpuBufferWorkers
+      - cpuLimit
+      - cpuRequest
+      - memoryLimit
+      - memoryRequest
+      - createdAt
+      - updatedAt
+    PipelineStatus:
+      type: object
+      description: Pipeline status history entry.
+      properties:
+        id:
+          type: string
+          format: uuid
+        config:
+          $ref: '#/components/schemas/AgentConfig'
+        status:
+          type: string
+          enum:
+          - NEW
+          - FAILED
+          - STARTING
+          - STARTED
+          - SCALING
+          - CHECKS_OK
+          - CHECKS_FAILED
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PipelineEvent'
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - config
+      - status
+      - createdAt
+    PipelineEvent:
+      type: object
+      description: Pipeline Status event.
+      properties:
+        source:
+          type: string
+          enum:
+          - k8s:deployment
+          - k8s:pod
+        reason:
+          type: string
+        message:
+          type: string
+        loggedAt:
+          type: string
+          format: date-time
+      required:
+      - source
+      - reason
+      - loggedAt
+    PipelineConfig:
+      type: object
+      description: Pipeline configuration history entry.
+      properties:
+        id:
+          type: string
+          format: uuid
+        rawConfig:
+          type: string
+        configFormat:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - rawConfig
+      - configFormat
+      - createdAt
+    UpdateAggregator:
+      description: Update core instance request body.
       type: object
       properties:
-        key:
+        name:
+          type:
+          - string
+          - 'null'
+          format: hostname
+          example: new-core-instance
+          default: null
+        image:
+          type:
+          - string
+          - 'null'
+          description: default core-fluent-bit image to use by the pipelines created on this core_instance.
+          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
+          default: null
+        clusterLogging:
+          type:
+          - boolean
+          - 'null'
+          description: enable or disable cluster-logging functionality.
+          default: null
+        version:
+          type:
+          - string
+          - 'null'
+          example: v0.1.12
+          default: null
+        tags:
+          type:
+          - array
+          - 'null'
+          default: null
+          items:
+            type: string
+        metadata:
+          $ref: '#/components/schemas/CoreInstanceMetadata'
+        environmentID:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: environment ID to associate this core instance with.
+        skipServiceCreation:
+          type:
+          - boolean
+          - 'null'
+          default: null
+          description: 'If true, kubernetes service creation will be skipped for all pipelines
+
+            that exists on this core_instance.
+
+            '
+    PipelinePort:
+      type: object
+      description: Pipeline port model.
+      properties:
+        id:
           type: string
-          example: name
-        value:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: boolean
-          - type: string
-          - type: array
-            items:
-              type: string
-          example: dummy
+          format: uuid
+        protocol:
+          type: string
+          example: tcp
+        kind:
+          $ref: '#/components/schemas/PipelinePortKind'
+        frontendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
+
+            It should be unique within the pipeline.'
+        backendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
+        endpoint:
+          type: string
+        pluginID:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: forward.0
+        pluginName:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: forward
+        pluginAlias:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: myforwardinput
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required:
-      - key
-      - value
+      - id
+      - protocol
+      - kind
+      - frontendPort
+      - backendPort
+      - endpoint
+      - pluginID
+      - pluginName
+      - pluginAlias
+      - createdAt
+      - updatedAt
+    PVCRetentionPolicy:
+      type: object
+      description: Defines what happens to PVCs when StatefulSets are scaled or deleted (K8s 1.23+)
+      properties:
+        whenScaled:
+          type: string
+          description: Determines what happens to PVCs when a StatefulSet is scaled down
+          enum:
+          - Retain
+          - Delete
+          default: Retain
+        whenDeleted:
+          type: string
+          description: Determines what happens to PVCs when a StatefulSet is deleted
+          enum:
+          - Retain
+          - Delete
+          default: Retain
+    ConfigSection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        processingRuleID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        kind:
+          $ref: '#/components/schemas/ConfigSectionKind'
+        properties:
+          $ref: '#/components/schemas/Pairs'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - projectID
+      - processingRuleID
+      - kind
+      - properties
+      - createdAt
+      - updatedAt
+    PipelineKind:
+      type: string
+      default: deployment
+      enum:
+      - deployment
+      - daemonSet
+      - statefulSet
+    ScalePolicy:
+      type: string
+      enum:
+      - Unknown
+      - Pods
+      - Percent
+      default: Unknown
     MetadataAWS:
       type: object
       description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
@@ -630,45 +982,6 @@ components:
           type: string
         aws.az:
           type: string
-    PipelineFile:
-      type: object
-      description: Pipeline file model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        processingRuleID:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          default: null
-        name:
-          type: string
-          example: myfile
-        contents:
-          type: string
-          format: byte
-        encrypted:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - processingRuleID
-      - name
-      - contents
-      - encrypted
-      - createdAt
-      - updatedAt
-    Pairs:
-      type: array
-      items:
-        $ref: '#/components/schemas/Pair'
     CreatedAggregator:
       type: object
       description: Created core instance response body.
@@ -735,78 +1048,27 @@ components:
       - environmentName
       - skipServiceCreation
       - createdAt
-    ResourceProfile:
+    PipelineFile:
       type: object
-      description: Resource profile model.
+      description: Pipeline file model.
       properties:
         id:
           type: string
           format: uuid
+        processingRuleID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
         name:
           type: string
-          example: my-resource-profile
-        storageMaxChunksUp:
-          type: integer
-          format: int32
-        storageSyncFull:
-          type: boolean
-        storageBacklogMemLimit:
-          type: string
-          example: 1Mi
-        storageVolumeSize:
-          type: string
-          example: 2Mi
-        storageMaxChunksPause:
-          type: boolean
-        cpuBufferWorkers:
-          type: integer
-          format: int32
-        cpuLimit:
-          type: string
-          example: 3Mi
-        cpuRequest:
-          type: string
-          example: 4Mi
-        memoryLimit:
-          type: string
-          example: 5Mi
-        memoryRequest:
-          type: string
-          example: 6Mi
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - name
-      - storageMaxChunksUp
-      - storageSyncFull
-      - storageBacklogMemLimit
-      - storageVolumeSize
-      - storageMaxChunksPause
-      - cpuBufferWorkers
-      - cpuLimit
-      - cpuRequest
-      - memoryLimit
-      - memoryRequest
-      - createdAt
-      - updatedAt
-    PipelineSecret:
-      type: object
-      description: Pipeline secret model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        key:
-          type: string
-          example: mysecret
-        value:
+          example: myfile
+        contents:
           type: string
           format: byte
+        encrypted:
+          type: boolean
         createdAt:
           type: string
           format: date-time
@@ -815,173 +1077,12 @@ components:
           format: date-time
       required:
       - id
-      - key
-      - value
+      - processingRuleID
+      - name
+      - contents
+      - encrypted
       - createdAt
       - updatedAt
-    UpdateAggregator:
-      description: Update core instance request body.
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          format: hostname
-          example: new-core-instance
-          default: null
-        image:
-          type:
-          - string
-          - 'null'
-          description: default core-fluent-bit image to use by the pipelines created on this core_instance.
-          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
-          default: null
-        clusterLogging:
-          type:
-          - boolean
-          - 'null'
-          description: enable or disable cluster-logging functionality.
-          default: null
-        version:
-          type:
-          - string
-          - 'null'
-          example: v0.1.12
-          default: null
-        tags:
-          type:
-          - array
-          - 'null'
-          default: null
-          items:
-            type: string
-        metadata:
-          $ref: '#/components/schemas/CoreInstanceMetadata'
-        environmentID:
-          type:
-          - string
-          - 'null'
-          default: null
-          description: environment ID to associate this core instance with.
-        skipServiceCreation:
-          type:
-          - boolean
-          - 'null'
-          default: null
-          description: 'If true, kubernetes service creation will be skipped for all pipelines
-
-            that exists on this core_instance.
-
-            '
-    PVCRetentionPolicy:
-      type: object
-      description: Defines what happens to PVCs when StatefulSets are scaled or deleted (K8s 1.23+)
-      properties:
-        whenScaled:
-          type: string
-          description: Determines what happens to PVCs when a StatefulSet is scaled down
-          enum:
-          - Retain
-          - Delete
-          default: Retain
-        whenDeleted:
-          type: string
-          description: Determines what happens to PVCs when a StatefulSet is deleted
-          enum:
-          - Retain
-          - Delete
-          default: Retain
-    PipelineConfig:
-      type: object
-      description: Pipeline configuration history entry.
-      properties:
-        id:
-          type: string
-          format: uuid
-        rawConfig:
-          type: string
-        configFormat:
-          type: string
-          enum:
-          - classic
-          - json
-          - yaml
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - rawConfig
-      - configFormat
-      - createdAt
-    ScalePolicy:
-      type: string
-      enum:
-      - Unknown
-      - Pods
-      - Percent
-      default: Unknown
-    ConfigSectionKind:
-      type: string
-      enum:
-      - input
-      - filter
-      - output
-      - service
-    PipelineEvent:
-      type: object
-      description: Pipeline Status event.
-      properties:
-        source:
-          type: string
-          enum:
-          - k8s:deployment
-          - k8s:pod
-        reason:
-          type: string
-        message:
-          type: string
-        loggedAt:
-          type: string
-          format: date-time
-      required:
-      - source
-      - reason
-      - loggedAt
-    PipelineStatus:
-      type: object
-      description: Pipeline status history entry.
-      properties:
-        id:
-          type: string
-          format: uuid
-        config:
-          $ref: '#/components/schemas/AgentConfig'
-        status:
-          type: string
-          enum:
-          - NEW
-          - FAILED
-          - STARTING
-          - STARTED
-          - SCALING
-          - CHECKS_OK
-          - CHECKS_FAILED
-        events:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PipelineEvent'
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - config
-      - status
-      - createdAt
     MetadataK8S:
       type: object
       description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
@@ -1000,46 +1101,6 @@ components:
           type: string
         k8s.cluster_platform:
           type: string
-    ConfigSection:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        projectID:
-          type: string
-          format: uuid
-        processingRuleID:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          default: null
-        kind:
-          $ref: '#/components/schemas/ConfigSectionKind'
-        properties:
-          $ref: '#/components/schemas/Pairs'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - projectID
-      - processingRuleID
-      - kind
-      - properties
-      - createdAt
-      - updatedAt
-    CoreInstanceMetadata:
-      type: object
-      description: Core Instance Metadata model.
-      anyOf:
-      - $ref: '#/components/schemas/MetadataAWS'
-      - $ref: '#/components/schemas/MetadataGCP'
-      - $ref: '#/components/schemas/MetadataK8S'
     AggregatorPingResponse:
       type: object
       description: Core instance ping response model.
@@ -1048,68 +1109,6 @@ components:
           type: string
           format: duration
           default: 30s
-    PipelinePort:
-      type: object
-      description: Pipeline port model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        protocol:
-          type: string
-          example: tcp
-        kind:
-          $ref: '#/components/schemas/PipelinePortKind'
-        frontendPort:
-          type: integer
-          format: int32
-          minimum: 0
-          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
-
-            It should be unique within the pipeline.'
-        backendPort:
-          type: integer
-          format: int32
-          minimum: 0
-          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
-        endpoint:
-          type: string
-        pluginID:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: forward.0
-        pluginName:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: forward
-        pluginAlias:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: myforwardinput
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - protocol
-      - kind
-      - frontendPort
-      - backendPort
-      - endpoint
-      - pluginID
-      - pluginName
-      - pluginAlias
-      - createdAt
-      - updatedAt
   securitySchemes:
     user:
       type: http

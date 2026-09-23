@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Pipeline Log API
+  title: Calyptia Cloud Pipeline Log API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -156,6 +156,45 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
+    UpdatePipelineLog:
+      type: object
+      properties:
+        logs:
+          type:
+          - string
+          - 'null'
+          default: null
+        lines:
+          type:
+          - integer
+          - 'null'
+          default: null
+        status:
+          type:
+          - string
+          - 'null'
+          default: null
+          enum:
+          - NEW
+          - DONE
+    CreatePipelineLog:
+      type: object
+      properties:
+        logs:
+          type: string
+        lines:
+          type: integer
+          default: 100
+      required:
+      - logs
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     PipelineLog:
       type: object
       properties:
@@ -186,37 +225,18 @@ components:
       - status
       - createdAt
       - updatedAt
-    CreatePipelineLog:
+    Created:
       type: object
       properties:
-        logs:
+        id:
           type: string
-        lines:
-          type: integer
-          default: 100
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
       required:
-      - logs
-    UpdatePipelineLog:
-      type: object
-      properties:
-        logs:
-          type:
-          - string
-          - 'null'
-          default: null
-        lines:
-          type:
-          - integer
-          - 'null'
-          default: null
-        status:
-          type:
-          - string
-          - 'null'
-          default: null
-          enum:
-          - NEW
-          - DONE
+      - id
+      - createdAt
     PipelineLogStatus:
       type: string
       description: 'The status of a pipeline log, if NEW hasn''t been updated from the cluster.
@@ -228,14 +248,20 @@ components:
       enum:
       - NEW
       - DONE
-    Updated:
+    Deleted:
       type: object
       properties:
-        updatedAt:
-          type: string
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
           format: date-time
+          default: null
       required:
-      - updatedAt
+      - deleted
+      - deletedAt
     PipelineLogs:
       type: object
       properties:
@@ -262,32 +288,6 @@ components:
       - endCursor
       - count
       - pollingIntervalMs
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    Created:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
   securitySchemes:
     user:
       type: http

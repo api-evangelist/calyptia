@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Pipeline Check API
+  title: Calyptia Cloud Pipeline Check API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -148,19 +148,6 @@ paths:
           description: No Content
 components:
   schemas:
-    CreatedPipelineCheck:
-      type: object
-      description: Created pipeline check response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
     PipelineCheck:
       type: object
       description: Pipeline check model.
@@ -200,6 +187,19 @@ components:
       - host
       - createdAt
       - updatedAt
+    CreatedPipelineCheck:
+      type: object
+      description: Created pipeline check response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     UpdatePipelineCheck:
       description: Update pipeline check request body.
       type: object
@@ -231,6 +231,12 @@ components:
           maximum: 65535
           default: null
           description: valid 0-65535 port number
+    PipelinePortProtocol:
+      type: string
+      description: Valid protocol types defined for a pipelines.
+      enum:
+      - tcp
+      - udp
     CreatePipelineCheck:
       description: Create pipeline check request body.
       type: object
@@ -265,12 +271,6 @@ components:
       - failed
       - running
       - ok
-    PipelinePortProtocol:
-      type: string
-      description: Valid protocol types defined for a pipelines.
-      enum:
-      - tcp
-      - udp
   securitySchemes:
     user:
       type: http

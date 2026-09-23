@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Config Section API
+  title: Calyptia Cloud Config Section API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -189,6 +189,21 @@ paths:
           description: Updated
 components:
   schemas:
+    ConfigSectionKind:
+      type: string
+      enum:
+      - input
+      - filter
+      - output
+      - service
+    UpdatedConfigSection:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     CreateConfigSection:
       type: object
       properties:
@@ -203,10 +218,50 @@ components:
       - kind
       - properties
       - skipConfigValidation
+    CreatedConfigSection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    Pair:
+      type: object
+      properties:
+        key:
+          type: string
+          example: name
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: boolean
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: dummy
+      required:
+      - key
+      - value
     Pairs:
       type: array
       items:
         $ref: '#/components/schemas/Pair'
+    UpdateConfigSection:
+      type: object
+      properties:
+        properties:
+          $ref: '#/components/schemas/Pairs'
+          default: null
+        skipConfigValidation:
+          type: boolean
+          default: false
     ConfigSection:
       type: object
       properties:
@@ -239,61 +294,6 @@ components:
       - kind
       - properties
       - createdAt
-      - updatedAt
-    CreatedConfigSection:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    ConfigSectionKind:
-      type: string
-      enum:
-      - input
-      - filter
-      - output
-      - service
-    Pair:
-      type: object
-      properties:
-        key:
-          type: string
-          example: name
-        value:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: boolean
-          - type: string
-          - type: array
-            items:
-              type: string
-          example: dummy
-      required:
-      - key
-      - value
-    UpdateConfigSection:
-      type: object
-      properties:
-        properties:
-          $ref: '#/components/schemas/Pairs'
-          default: null
-        skipConfigValidation:
-          type: boolean
-          default: false
-    UpdatedConfigSection:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
       - updatedAt
   securitySchemes:
     user:

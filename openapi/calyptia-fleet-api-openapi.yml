@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Fleet API
+  title: Calyptia Cloud Fleet API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: fleet
+- name: Fleet
 paths:
   /v1/projects/{projectID}/fleets:
     parameters:
@@ -33,7 +33,7 @@ paths:
         format: uuid
     post:
       operationId: createFleet
-      summary: Create fleet.
+      summary: Create fleet
       description: 'Create a fleet on the given project.
 
         Agents can be added later to this fleet
@@ -43,7 +43,7 @@ paths:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       requestBody:
         content:
           application/json:
@@ -58,13 +58,13 @@ paths:
                 $ref: '#/components/schemas/CreatedFleet'
     get:
       operationId: fleets
-      summary: Fleets.
+      summary: Fleets
       description: List all the fleets within a project.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       parameters:
       - name: name
         in: query
@@ -125,13 +125,13 @@ paths:
         format: uuid
     get:
       operationId: fleetsstatus
-      summary: Fleets Status for a Project.
+      summary: Fleets Status for a Project
       description: Show the status of all fleets within a project.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       responses:
         '200':
           description: OK
@@ -149,13 +149,13 @@ paths:
         format: uuid
     get:
       operationId: fleet
-      summary: Fleet.
+      summary: Fleet
       description: Retrieve a single fleet by ID.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       parameters:
       - schema:
           type: string
@@ -175,13 +175,13 @@ paths:
                 $ref: '#/components/schemas/Fleet'
     patch:
       operationId: updateFleet
-      summary: Update fleet.
+      summary: Update fleet
       description: Update a fleet details.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       requestBody:
         content:
           application/json:
@@ -196,7 +196,7 @@ paths:
                 $ref: '#/components/schemas/UpdatedFleet'
     delete:
       operationId: deleteFleet
-      summary: Delete fleet.
+      summary: Delete fleet
       description: 'Delete a single fleet by its ID.
 
         All associated agents will remain but the shared config wil be detached.'
@@ -204,7 +204,7 @@ paths:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       responses:
         '200':
           description: Deleted.
@@ -222,13 +222,13 @@ paths:
         format: uuid
     get:
       operationId: fleetstatus
-      summary: Fleet Status.
+      summary: Fleet Status
       description: Show the status of all agents within a fleet.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       responses:
         '200':
           description: OK
@@ -246,7 +246,7 @@ paths:
         format: uuid
     get:
       operationId: fleetConfig
-      summary: get the configuration for a fleet ID.
+      summary: get the configuration for a fleet ID
       security:
       - user: []
       - project: []
@@ -271,7 +271,7 @@ paths:
         deprecated: true
         description: Desired output config format (depreacted in favour of config_format).
       tags:
-      - fleet
+      - Fleet
       responses:
         '200':
           description: OK
@@ -296,13 +296,13 @@ paths:
         format: uuid
     get:
       operationId: fleetFiles
-      summary: Fleet.
+      summary: Fleet
       description: Retrieve the list of fleet files.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       parameters:
       - name: before
         description: Fleet files before the given cursor.
@@ -328,13 +328,13 @@ paths:
                   $ref: '#/components/schemas/FleetFile'
     post:
       operationId: createFleetFile
-      summary: Create Fleet File.
+      summary: Create Fleet File
       description: Create a new Fleet File.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       requestBody:
         content:
           application/json:
@@ -358,13 +358,13 @@ paths:
         format: uuid
     get:
       operationId: fleetFile
-      summary: retrieve a fleet file.
+      summary: retrieve a fleet file
       description: Retrieve a single fleet file with its metadata.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       responses:
         '200':
           description: Fleet File.
@@ -374,13 +374,13 @@ paths:
                 $ref: '#/components/schemas/FleetFile'
     patch:
       operationId: updateFleetFile
-      summary: Update fleet file.
+      summary: Update fleet file
       description: Update a fleet file.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       requestBody:
         content:
           application/json:
@@ -391,59 +391,31 @@ paths:
           description: Updated.
     delete:
       operationId: deleteFleetFile
-      summary: Delete fleet file.
+      summary: Delete fleet file
       description: Delete a single fleet file by its ID.
       security:
       - user: []
       - project: []
       tags:
-      - fleet
+      - Fleet
       responses:
         '204':
           description: Deleted.
 components:
   schemas:
-    CreateFleet:
+    CreatedFleetFile:
       type: object
+      description: Created fleet file response body.
       properties:
-        name:
+        id:
           type: string
-          maxLength: 32
-          example: my-fleet
-        minFluentBitVersion:
+          format: uuid
+        createdAt:
           type: string
-          description: semver
-          example: v1.0.0
-        rawConfig:
-          type: string
-          description: 'The fleet fluent-bit configuration in the format defined by
-
-            configFormat.
-
-            '
-        configFormat:
-          type:
-          - string
-          - 'null'
-          enum:
-          - classic
-          - json
-          - yaml
-        tags:
-          type: array
-          items:
-            type: string
-            pattern: ^[a-z]+$
-            example: dev
-        skipConfigValidation:
-          type: boolean
-          default: false
+          format: date-time
       required:
-      - name
-      - minFluentBitVersion
-      - rawConfig
-      - tags
-      - skipConfigValidation
+      - id
+      - createdAt
     CreatedFleet:
       type: object
       properties:
@@ -456,34 +428,6 @@ components:
       required:
       - id
       - createdAt
-    CreateFleetFile:
-      type: object
-      properties:
-        name:
-          type: string
-        contents:
-          type: string
-          format: byte
-      required:
-      - name
-      - contents
-    FleetFile:
-      type: object
-      properties:
-        contents:
-          type: string
-          format: byte
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
     Fleet:
       type: object
       description: Group of agents sharing the same config.
@@ -545,81 +489,6 @@ components:
         contents:
           type: string
           format: byte
-    CreatedFleetFile:
-      type: object
-      description: Created fleet file response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    FleetAgentsCount:
-      type: object
-      description: 'Both active and inactive can sum up to the total count
-
-        of agents that the fleet has.
-
-        `withErrors` is the count of particular agents that have
-
-        some errors that have not been dismissed yet.'
-      properties:
-        active:
-          type: number
-          format: int32
-          minimum: 0
-        inactive:
-          type: number
-          format: int32
-          minimum: 0
-        withErrors:
-          type: number
-          format: int32
-          minimum: 0
-      required:
-      - active
-      - inactive
-      - withErrors
-    DeletedFleet:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    FleetsStatus:
-      type: object
-      description: "Show the numerical count of the status of all Agents\nwithin a Fleet or all Fleets within a Project.\nThe status is one of:\n  * Managed: the full total of agents managed by the fleet\n             or all fleets in a project.\n  * Healthy: total of all fully functioning fleet agents.\n  * In Progress: total of all fleet agents that are pending an\n                 upgrade to their configuration.\n  * Unhleathy: total of all fleet agents that either have a\n               pending error or have not responded in\n               predetermined length of time."
-      properties:
-        managed:
-          type: integer
-          description: total of all fleet agents.
-        healthy:
-          type: integer
-          description: 'total of fleet agents that are deemed alive and fully
-
-            up to date.'
-        inProgress:
-          type: integer
-          description: 'total of fleet agents that are pending a configuration
-
-            update.'
-        unhealthy:
-          type: integer
-          description: 'total of all agents with a pending error or have not
-
-            responded in a predetermined interval of time.'
     UpdateFleet:
       type: object
       properties:
@@ -663,6 +532,115 @@ components:
           default: false
       required:
       - skipConfigValidation
+    FleetAgentsCount:
+      type: object
+      description: 'Both active and inactive can sum up to the total count
+
+        of agents that the fleet has.
+
+        `withErrors` is the count of particular agents that have
+
+        some errors that have not been dismissed yet.'
+      properties:
+        active:
+          type: number
+          format: int32
+          minimum: 0
+        inactive:
+          type: number
+          format: int32
+          minimum: 0
+        withErrors:
+          type: number
+          format: int32
+          minimum: 0
+      required:
+      - active
+      - inactive
+      - withErrors
+    CreateFleetFile:
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+          format: byte
+      required:
+      - name
+      - contents
+    DeletedFleet:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    CreateFleet:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 32
+          example: my-fleet
+        minFluentBitVersion:
+          type: string
+          description: semver
+          example: v1.0.0
+        rawConfig:
+          type: string
+          description: 'The fleet fluent-bit configuration in the format defined by
+
+            configFormat.
+
+            '
+        configFormat:
+          type:
+          - string
+          - 'null'
+          enum:
+          - classic
+          - json
+          - yaml
+        tags:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z]+$
+            example: dev
+        skipConfigValidation:
+          type: boolean
+          default: false
+      required:
+      - name
+      - minFluentBitVersion
+      - rawConfig
+      - tags
+      - skipConfigValidation
+    FleetFile:
+      type: object
+      properties:
+        contents:
+          type: string
+          format: byte
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
     UpdatedFleet:
       type: object
       properties:
@@ -671,6 +649,28 @@ components:
           format: date-time
       required:
       - updatedAt
+    FleetsStatus:
+      type: object
+      description: "Show the numerical count of the status of all Agents\nwithin a Fleet or all Fleets within a Project.\nThe status is one of:\n  * Managed: the full total of agents managed by the fleet\n             or all fleets in a project.\n  * Healthy: total of all fully functioning fleet agents.\n  * In Progress: total of all fleet agents that are pending an\n                 upgrade to their configuration.\n  * Unhleathy: total of all fleet agents that either have a\n               pending error or have not responded in\n               predetermined length of time."
+      properties:
+        managed:
+          type: integer
+          description: total of all fleet agents.
+        healthy:
+          type: integer
+          description: 'total of fleet agents that are deemed alive and fully
+
+            up to date.'
+        inProgress:
+          type: integer
+          description: 'total of fleet agents that are pending a configuration
+
+            update.'
+        unhealthy:
+          type: integer
+          description: 'total of all agents with a pending error or have not
+
+            responded in a predetermined interval of time.'
   securitySchemes:
     user:
       type: http

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Cluster Object API
+  title: Calyptia Cloud Cluster Object API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -158,12 +158,6 @@ components:
       required:
       - id
       - createdAt
-    ClusterObjectKind:
-      type: string
-      description: Kind of the kubernetes object
-      default: namespace
-      enum:
-      - namespace
     CreateClusterObject:
       type: object
       description: 'Request body to create a new cluster object for a core instance.
@@ -182,6 +176,21 @@ components:
       required:
       - name
       - kind
+    UpdateClusterObject:
+      type: object
+      description: 'Request body to update a cluster object.
+
+        '
+      properties:
+        name:
+          type: string
+          format: 'kubernetes valid hostname or namespace name.
+
+            https://kubernetes.io/docs/reference/labels-annotations-taints/
+
+            '
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
     ClusterObject:
       type: object
       description: A kubernetes cluster object that belongs to a given core instance.
@@ -206,21 +215,12 @@ components:
       - kind
       - createdAt
       - updatedAt
-    UpdateClusterObject:
-      type: object
-      description: 'Request body to update a cluster object.
-
-        '
-      properties:
-        name:
-          type: string
-          format: 'kubernetes valid hostname or namespace name.
-
-            https://kubernetes.io/docs/reference/labels-annotations-taints/
-
-            '
-        kind:
-          $ref: '#/components/schemas/ClusterObjectKind'
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
     UpdatedClusterObject:
       type: object
       properties:

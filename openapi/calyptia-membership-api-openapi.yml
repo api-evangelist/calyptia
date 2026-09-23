@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Membership API
+  title: Calyptia Cloud Membership API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: membership
+- name: Membership
 paths:
   /v1/projects/{projectID}/members:
     parameters:
@@ -33,7 +33,7 @@ paths:
       required: true
     get:
       tags:
-      - membership
+      - Membership
       summary: Members
       operationId: members
       description: Members from a project.
@@ -66,7 +66,7 @@ paths:
         format: uuid
     patch:
       tags:
-      - membership
+      - Membership
       operationId: updateMember
       summary: Update member
       description: Update member by its ID.
@@ -82,7 +82,7 @@ paths:
           description: No Content
     delete:
       tags:
-      - membership
+      - Membership
       operationId: deleteMember
       summary: Delete member
       description: Delete member by its ID.
@@ -114,6 +114,54 @@ paths:
                 - error
 components:
   schemas:
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
+    Membership:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userID:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        roles:
+          type:
+          - array
+          - 'null'
+          default: null
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - creator
+            - admin
+        permissions:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
+        createdAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - id
+      - userID
+      - projectID
+      - roles
+      - permissions
+      - createdAt
+      description: Membership of a user in a project.
     User:
       type: object
       description: User model.
@@ -157,13 +205,6 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Permission'
-    Permission:
-      type: string
-      enum:
-      - create:*
-      - read:*
-      - update:*
-      - delete:*
     Deleted:
       type: object
       properties:
@@ -178,47 +219,6 @@ components:
       required:
       - deleted
       - deletedAt
-    Membership:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        userID:
-          type: string
-          format: uuid
-        projectID:
-          type: string
-          format: uuid
-        roles:
-          type:
-          - array
-          - 'null'
-          default: null
-          uniqueItems: true
-          items:
-            type: string
-            enum:
-            - creator
-            - admin
-        permissions:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Permission'
-        createdAt:
-          type: string
-          format: date-time
-        user:
-          $ref: '#/components/schemas/User'
-      required:
-      - id
-      - userID
-      - projectID
-      - roles
-      - permissions
-      - createdAt
-      description: Membership of a user in a project.
   securitySchemes:
     user:
       type: http

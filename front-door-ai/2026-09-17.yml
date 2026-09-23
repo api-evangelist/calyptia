@@ -1,0 +1,29 @@
+# Front Door AI Index — calyptia — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: calyptia
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: calyptia.com
+  final_host: chronosphere.io
+  ownership: inherited
+  owner: calyptia
+  shares_host_with: null
+  inherited_from: chronosphere.io
+  verdict: scored
+  score: null
+  host_score: 18
+  density: null
+  words: 1408
+  tiers:
+    agentic: 8
+    core: 10
+    model: 0
+  ambiguous: 5
+  top_terms:
+    AI: 6
+    agent: 5
+    LLMs: 4
+    agentic: 4
+    autonomous agent: 4

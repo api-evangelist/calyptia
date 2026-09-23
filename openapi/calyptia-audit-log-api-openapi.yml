@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Audit Log API
+  title: Calyptia Cloud Audit Log API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: audit_log
+- name: Audit Log
 paths:
   /v1/projects/{projectID}/audit_logs:
     parameters:
@@ -38,7 +38,7 @@ paths:
       - user: []
       - project: []
       tags:
-      - audit_log
+      - Audit Log
       parameters:
       - in: query
         name: components
@@ -79,6 +79,23 @@ paths:
                 $ref: '#/components/schemas/AuditLogs'
 components:
   schemas:
+    AuditLogs:
+      type: object
+      properties:
+        endCursor:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+    AuditLogComponents:
+      type: object
+      additionalProperties:
+        type: string
+    AuditLogIdentity:
+      type: object
+      additionalProperties:
+        type: object
     AuditLog:
       type: object
       properties:
@@ -99,29 +116,12 @@ components:
           $ref: '#/components/schemas/AuditLogAction'
         responseCode:
           type: integer
-    AuditLogs:
-      type: object
-      properties:
-        endCursor:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditLog'
-    AuditLogIdentity:
-      type: object
-      additionalProperties:
-        type: object
     AuditLogAction:
       type: string
       enum:
       - CREATE
       - UPDATE
       - DELETE
-    AuditLogComponents:
-      type: object
-      additionalProperties:
-        type: string
   securitySchemes:
     user:
       type: http

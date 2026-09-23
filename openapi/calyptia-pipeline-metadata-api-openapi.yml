@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Pipeline Metadata API
+  title: Calyptia Cloud Pipeline Metadata API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -34,7 +34,7 @@ paths:
     get:
       tags:
       - pipeline_metadata
-      summary: Get the metadata associated to a pipeline, keys can be provided or the full metadata will be returned (if none).
+      summary: Get the metadata associated to a pipeline, keys can be provided or the full…
       operationId: pipelineMetadata
       security:
       - user: []

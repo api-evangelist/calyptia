@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Pipeline Status API
+  title: Calyptia Cloud Pipeline Status API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: pipeline_status
+- name: Pipeline Status
 paths:
   /v1/aggregator_pipelines/{pipeline}/status_history:
     parameters:
@@ -33,7 +33,7 @@ paths:
       required: true
     get:
       tags:
-      - pipeline_status
+      - Pipeline Status
       summary: Pipeline status history
       operationId: pipelineStatusHistory
       description: 'Status history from a pipeline.
@@ -80,26 +80,22 @@ paths:
                   $ref: '#/components/schemas/PipelineStatus'
 components:
   schemas:
-    PipelineEvent:
+    AgentConfig:
       type: object
-      description: Pipeline Status event.
+      description: Agent configuration history entry.
       properties:
-        source:
+        id:
           type: string
-          enum:
-          - k8s:deployment
-          - k8s:pod
-        reason:
+          format: uuid
+        rawConfig:
           type: string
-        message:
-          type: string
-        loggedAt:
+        createdAt:
           type: string
           format: date-time
       required:
-      - source
-      - reason
-      - loggedAt
+      - id
+      - rawConfig
+      - createdAt
     PipelineStatus:
       type: object
       description: Pipeline status history entry.
@@ -133,22 +129,26 @@ components:
       - config
       - status
       - createdAt
-    AgentConfig:
+    PipelineEvent:
       type: object
-      description: Agent configuration history entry.
+      description: Pipeline Status event.
       properties:
-        id:
+        source:
           type: string
-          format: uuid
-        rawConfig:
+          enum:
+          - k8s:deployment
+          - k8s:pod
+        reason:
           type: string
-        createdAt:
+        message:
+          type: string
+        loggedAt:
           type: string
           format: date-time
       required:
-      - id
-      - rawConfig
-      - createdAt
+      - source
+      - reason
+      - loggedAt
   securitySchemes:
     user:
       type: http

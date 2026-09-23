@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Search API
+  title: Calyptia Cloud Search API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,13 +21,13 @@ servers:
     port:
       default: '5000'
 tags:
-- name: search
+- name: Search
 paths:
   /v1/search:
     get:
       operationId: searchV1
       deprecated: true
-      summary: Search.
+      summary: Search
       description: 'Search different kinds of resources from the API.
 
         It returns just the ID and name of the matching resource.
@@ -57,7 +57,7 @@ paths:
         schema:
           type: boolean
       tags:
-      - search
+      - Search
       responses:
         '200':
           description: OK
@@ -70,7 +70,7 @@ paths:
   /v2/search:
     get:
       operationId: search
-      summary: Search.
+      summary: Search
       description: 'Search different kinds of resources from the API.
 
         It returns just the ID and name of the matching resource.
@@ -100,7 +100,7 @@ paths:
         schema:
           type: boolean
       tags:
-      - search
+      - Search
       responses:
         '200':
           description: OK
@@ -112,6 +112,24 @@ paths:
                   $ref: '#/components/schemas/SearchResult'
 components:
   schemas:
+    SearchResultV1:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        ID:
+          type: string
+          format: uuid
+        Name:
+          type: string
+      required:
+      - id
+      - name
+      - ID
+      - Name
     SearchResult:
       type: object
       properties:
@@ -137,24 +155,6 @@ components:
       - pipeline_secret
       - resource_profile
       - trace_session
-    SearchResultV1:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        ID:
-          type: string
-          format: uuid
-        Name:
-          type: string
-      required:
-      - id
-      - name
-      - ID
-      - Name
   securitySchemes:
     user:
       type: http

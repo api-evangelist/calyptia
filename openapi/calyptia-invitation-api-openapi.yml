@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Invitation API
+  title: Calyptia Cloud Invitation API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: invitation
+- name: Invitation
 paths:
   /v1/projects/{projectID}/invite:
     parameters:
@@ -33,7 +33,7 @@ paths:
       required: true
     post:
       tags:
-      - invitation
+      - Invitation
       summary: Create invitation
       operationId: createInvitation
       description: 'Create invitation to a project.
@@ -53,7 +53,7 @@ paths:
   /v1/join_project:
     post:
       tags:
-      - invitation
+      - Invitation
       summary: Accept invitation
       operationId: acceptInvitation
       description: 'Accept invitation to a project.
@@ -72,13 +72,6 @@ paths:
           description: No Content
 components:
   schemas:
-    Permission:
-      type: string
-      enum:
-      - create:*
-      - read:*
-      - update:*
-      - delete:*
     AcceptInvitation:
       description: Accept invitation request body.
       type: object
@@ -108,6 +101,13 @@ components:
       - email
       - permissions
       - redirectURI
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
   securitySchemes:
     user:
       type: http

@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Processing Rule API
+  title: Calyptia Cloud Processing Rule API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -41,9 +41,7 @@ paths:
       summary: Create a processing rule
       description: 'Create a processing rule in the given pipeline.
 
-        Only one processing rule is allowed per pipeline.
-
-        '
+        Only one processing rule is allowed per pipeline.'
       operationId: createProcessingRuleV1
       requestBody:
         content:
@@ -215,16 +213,6 @@ components:
       - configSectionID
       - fileID
       - createdAt
-    FluentBitLog:
-      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
-      type: array
-      items:
-        anyOf:
-        - type: number
-        - type: object
-          additionalProperties:
-            type: string
-        example: '[1234.5, {"key": "value"}]'
     RuleActionKindV1:
       deprecated: true
       type: string
@@ -235,133 +223,34 @@ components:
       - mask
       - remove
       - skip
-    UpdateProcessingRuleV1:
+    ProcessingRuleLanguageV1:
+      deprecated: true
+      type: string
+      enum:
+      - lua
+    LogSelectorOpKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - equal
+    PreviewProcessingRuleV1:
       deprecated: true
       type: object
       properties:
-        match:
-          type:
-          - string
-          - 'null'
-          example: '*'
-          default: null
-        isMatchRegexp:
-          type:
-          - boolean
-          - 'null'
-          default: null
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-          default: null
-        actions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RuleActionV1'
-          default: null
-    LogSelectorV1:
-      deprecated: true
-      type: object
-      properties:
-        kind:
-          $ref: '#/components/schemas/LogSelectorKindV1'
-        op:
-          $ref: '#/components/schemas/LogSelectorOpKindV1'
-        expr:
-          type: string
-          example: some_key
-      required:
-      - kind
-      - op
-      - expr
-    UpdatedProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    ProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        pipelineID:
-          type: string
-          format: uuid
-        configSectionID:
-          type: string
-          format: uuid
-        fileID:
-          type: string
-          format: uuid
-        match:
-          type: string
-          example: '*'
-        isMatchRegexp:
-          type: boolean
-          default: false
         language:
           $ref: '#/components/schemas/ProcessingRuleLanguageV1'
         actions:
           type: array
           items:
             $ref: '#/components/schemas/RuleActionV1'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - pipelineID
-      - configSectionID
-      - fileID
-      - match
-      - isMatchRegexp
-      - language
-      - actions
-      - createdAt
-      - updatedAt
-    CreateProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        match:
-          type: string
-          example: '*'
-        isMatchRegexp:
-          type: boolean
-          default: false
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-        actions:
+        logs:
           type: array
           items:
-            $ref: '#/components/schemas/RuleActionV1'
+            $ref: '#/components/schemas/FluentBitLog'
       required:
-      - match
-      - isMatchRegexp
       - language
       - actions
-    LogAttr:
-      type: object
-      properties:
-        key:
-          type: string
-          example: some_key
-        value:
-          description: Any value.
-          example: some_value
-      required:
-      - key
-      - value
+      - logs
     RuleActionV1:
       deprecated: true
       type: object
@@ -409,39 +298,148 @@ components:
       - description
       - enabled
       - selectors
+    LogSelectorV1:
+      deprecated: true
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/LogSelectorKindV1'
+        op:
+          $ref: '#/components/schemas/LogSelectorOpKindV1'
+        expr:
+          type: string
+          example: some_key
+      required:
+      - kind
+      - op
+      - expr
     LogSelectorKindV1:
       deprecated: true
       type: string
       enum:
       - key
-    ProcessingRuleLanguageV1:
-      deprecated: true
-      type: string
-      enum:
-      - lua
-    LogSelectorOpKindV1:
-      deprecated: true
-      type: string
-      enum:
-      - equal
-    PreviewProcessingRuleV1:
+    LogAttr:
+      type: object
+      properties:
+        key:
+          type: string
+          example: some_key
+        value:
+          description: Any value.
+          example: some_value
+      required:
+      - key
+      - value
+    UpdatedProcessingRuleV1:
       deprecated: true
       type: object
       properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    CreateProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        match:
+          type: string
+          example: '*'
+        isMatchRegexp:
+          type: boolean
+          default: false
         language:
           $ref: '#/components/schemas/ProcessingRuleLanguageV1'
         actions:
           type: array
           items:
             $ref: '#/components/schemas/RuleActionV1'
-        logs:
-          type: array
-          items:
-            $ref: '#/components/schemas/FluentBitLog'
       required:
+      - match
+      - isMatchRegexp
       - language
       - actions
-      - logs
+    ProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        pipelineID:
+          type: string
+          format: uuid
+        configSectionID:
+          type: string
+          format: uuid
+        fileID:
+          type: string
+          format: uuid
+        match:
+          type: string
+          example: '*'
+        isMatchRegexp:
+          type: boolean
+          default: false
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - pipelineID
+      - configSectionID
+      - fileID
+      - match
+      - isMatchRegexp
+      - language
+      - actions
+      - createdAt
+      - updatedAt
+    FluentBitLog:
+      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
+      type: array
+      items:
+        anyOf:
+        - type: number
+        - type: object
+          additionalProperties:
+            type: string
+        example: '[1234.5, {"key": "value"}]'
+    UpdateProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        match:
+          type:
+          - string
+          - 'null'
+          example: '*'
+          default: null
+        isMatchRegexp:
+          type:
+          - boolean
+          - 'null'
+          default: null
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+          default: null
+        actions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+          default: null
   securitySchemes:
     user:
       type: http

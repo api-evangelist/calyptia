@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Pipeline File API
+  title: Calyptia Cloud Pipeline File API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -142,27 +142,6 @@ paths:
           description: No Content
 components:
   schemas:
-    UpdatePipelineFile:
-      description: Update pipeline file request body.
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          example: newfile
-          default: null
-        contents:
-          type:
-          - string
-          - 'null'
-          format: byte
-          default: null
-        encrypted:
-          type:
-          - boolean
-          - 'null'
-          default: null
     CreatePipelineFile:
       description: Create pipeline file request body.
       type: object
@@ -179,19 +158,6 @@ components:
       - name
       - contents
       - encrypted
-    CreatedPipelineFile:
-      type: object
-      description: Created pipeline file response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
     PipelineFile:
       type: object
       description: Pipeline file model.
@@ -227,6 +193,40 @@ components:
       - encrypted
       - createdAt
       - updatedAt
+    UpdatePipelineFile:
+      description: Update pipeline file request body.
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          example: newfile
+          default: null
+        contents:
+          type:
+          - string
+          - 'null'
+          format: byte
+          default: null
+        encrypted:
+          type:
+          - boolean
+          - 'null'
+          default: null
+    CreatedPipelineFile:
+      type: object
+      description: Created pipeline file response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
   securitySchemes:
     user:
       type: http

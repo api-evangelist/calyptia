@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Core Instance File API
+  title: Calyptia Cloud Core Instance File API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -159,23 +159,6 @@ components:
       - items
       - endCursor
       - count
-    CreateCoreInstanceFile:
-      type: object
-      properties:
-        name:
-          type: string
-          example: myfile
-        contents:
-          type: string
-          format: byte
-          description: The contents of the file to be created in base 64 format.
-        encrypted:
-          type: boolean
-          default: false
-      required:
-      - name
-      - contents
-      - encrypted
     Updated:
       type: object
       properties:
@@ -184,41 +167,18 @@ components:
           format: date-time
       required:
       - updatedAt
-    Deleted:
+    Created:
       type: object
       properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
           format: date-time
-          default: null
       required:
-      - deleted
-      - deletedAt
-    UpdateCoreInstanceFile:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: myfile
-        contents:
-          type:
-          - string
-          - 'null'
-          format: byte
-          default: null
-          description: Optional contents of the file to be updated in base 64 format.
-        encrypted:
-          type:
-          - boolean
-          - 'null'
-          default: null
+      - id
+      - createdAt
     CoreInstanceFile:
       type: object
       properties:
@@ -256,18 +216,58 @@ components:
       - encrypted
       - createdAt
       - updatedAt
-    Created:
+    CreateCoreInstanceFile:
       type: object
       properties:
-        id:
+        name:
           type: string
-          format: uuid
-        createdAt:
+          example: myfile
+        contents:
           type: string
-          format: date-time
+          format: byte
+          description: The contents of the file to be created in base 64 format.
+        encrypted:
+          type: boolean
+          default: false
       required:
-      - id
-      - createdAt
+      - name
+      - contents
+      - encrypted
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    UpdateCoreInstanceFile:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: myfile
+        contents:
+          type:
+          - string
+          - 'null'
+          format: byte
+          default: null
+          description: Optional contents of the file to be updated in base 64 format.
+        encrypted:
+          type:
+          - boolean
+          - 'null'
+          default: null
   securitySchemes:
     user:
       type: http

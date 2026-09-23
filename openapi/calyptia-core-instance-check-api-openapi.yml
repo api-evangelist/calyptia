@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Core Instance Check API
+  title: Calyptia Cloud Core Instance Check API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -148,42 +148,6 @@ paths:
           description: No Content
 components:
   schemas:
-    CreateCoreInstanceCheck:
-      description: Create core instance check request body.
-      type: object
-      properties:
-        protocol:
-          $ref: '#/components/schemas/PipelinePortProtocol'
-        status:
-          $ref: '#/components/schemas/CheckStatus'
-        retries:
-          type: number
-          default: 3
-          description: number of retries for the check before marking it as failed
-        host:
-          type: string
-          description: DNS label format as of defined on RFC1123 or an IPv4 address.
-          example: localhost
-        port:
-          type: number
-          description: valid 0-65535 port number
-      required:
-      - protocol
-      - host
-      - port
-    CreatedCoreInstanceCheck:
-      type: object
-      description: Created core instance check response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
     UpdateCoreInstanceCheck:
       description: Update a core instance check request body.
       type: object
@@ -215,15 +179,48 @@ components:
           - 'null'
           default: null
           description: number of retries for the check before marking it as unreachable.
-    CheckStatus:
+    CreateCoreInstanceCheck:
+      description: Create core instance check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+        retries:
+          type: number
+          default: 3
+          description: number of retries for the check before marking it as failed
+        host:
+          type: string
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          description: valid 0-65535 port number
+      required:
+      - protocol
+      - host
+      - port
+    PipelinePortProtocol:
       type: string
-      description: The status of a check.
-      default: new
+      description: Valid protocol types defined for a pipelines.
       enum:
-      - new
-      - failed
-      - running
-      - ok
+      - tcp
+      - udp
+    CreatedCoreInstanceCheck:
+      type: object
+      description: Created core instance check response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     CoreInstanceCheck:
       type: object
       description: Core instance check model.
@@ -262,12 +259,15 @@ components:
       - port
       - createdAt
       - updatedAt
-    PipelinePortProtocol:
+    CheckStatus:
       type: string
-      description: Valid protocol types defined for a pipelines.
+      description: The status of a check.
+      default: new
       enum:
-      - tcp
-      - udp
+      - new
+      - failed
+      - running
+      - ok
   securitySchemes:
     user:
       type: http

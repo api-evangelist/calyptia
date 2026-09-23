@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Config Validator V2 API
+  title: Calyptia Cloud Config Validator V2 API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -50,6 +50,34 @@ paths:
                 $ref: '#/components/schemas/ValidatedConfigV2'
 components:
   schemas:
+    ValidatingConfig:
+      description: Validating configuration request body.
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: object
+            properties:
+              command:
+                type: string
+              name:
+                type: string
+              optional:
+                type:
+                - object
+                - 'null'
+                additionalProperties:
+                  type: string
+                default: null
+              id:
+                type: string
+            required:
+            - command
+            - name
+            - id
+      required:
+      - config
     ConfigValidityV2Property:
       type: object
       description: Property of the validated configuration section
@@ -111,34 +139,6 @@ components:
           - filter
       required:
       - errors
-    ValidatingConfig:
-      description: Validating configuration request body.
-      type: object
-      properties:
-        config:
-          type: array
-          items:
-            type: object
-            properties:
-              command:
-                type: string
-              name:
-                type: string
-              optional:
-                type:
-                - object
-                - 'null'
-                additionalProperties:
-                  type: string
-                default: null
-              id:
-                type: string
-            required:
-            - command
-            - name
-            - id
-      required:
-      - config
     ConfigValidityV2Runtime:
       type: object
       description: Runtime errors for the validated configuration.

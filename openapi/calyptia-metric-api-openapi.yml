@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Metric API
+  title: Calyptia Cloud Metric API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: metric
+- name: Metric
 paths:
   /v1/projects/{projectID}/metrics:
     parameters:
@@ -33,7 +33,7 @@ paths:
       required: true
     get:
       tags:
-      - metric
+      - Metric
       summary: Project metrics
       deprecated: true
       operationId: projectMetrics
@@ -79,7 +79,7 @@ paths:
       required: true
     get:
       tags:
-      - metric
+      - Metric
       summary: Agent metrics
       deprecated: true
       operationId: agentMetricsV1
@@ -125,7 +125,7 @@ paths:
       required: true
     get:
       tags:
-      - metric
+      - Metric
       summary: Pipeline metrics
       deprecated: true
       operationId: pipelineMetricsV1
@@ -198,7 +198,7 @@ paths:
       deprecated: true
       operationId: aggregatorMetrics
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -258,7 +258,7 @@ paths:
       deprecated: true
       operationId: aggregatorPipelinesMetrics
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -301,7 +301,7 @@ paths:
       summary: Core instance metrics
       operationId: coreInstanceMetrics
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -335,10 +335,10 @@ paths:
       security:
       - user: []
       - project: []
-      summary: Core instance metrics by plugin.
+      summary: Core instance metrics by plugin
       operationId: coreInstanceMetricsByPlugin
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -385,7 +385,7 @@ paths:
       summary: Core instance metrics over time
       operationId: coreInstanceMetricsOverTime
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -432,7 +432,7 @@ paths:
       summary: Core instance metrics over time organized by plugin
       operationId: coreInstanceMetricsOverTimeByPlugin
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -469,7 +469,7 @@ paths:
       summary: Pipeline metrics
       operationId: pipelineMetrics
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -503,10 +503,10 @@ paths:
       security:
       - user: []
       - project: []
-      summary: Pipeline metrics by plugin.
+      summary: Pipeline metrics by plugin
       operationId: pipelineMetricsByPlugin
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -553,7 +553,7 @@ paths:
       summary: Pipeline metrics over time
       operationId: pipelineMetricsOverTime
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -600,7 +600,7 @@ paths:
       summary: Pipeline metrics over time organized by plugin
       operationId: pipelineMetricsOverTimeByPlugin
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -637,7 +637,7 @@ paths:
       summary: Agent metrics
       operationId: agentMetrics
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -671,10 +671,10 @@ paths:
       security:
       - user: []
       - project: []
-      summary: Agent metrics by plugin.
+      summary: Agent metrics by plugin
       operationId: agentMetricsByPlugin
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -721,7 +721,7 @@ paths:
       summary: Agent metrics over time
       operationId: agentMetricsOverTime
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -768,7 +768,7 @@ paths:
       summary: Agent metrics over time organized by plugin
       operationId: agentMetricsOverTimeByPlugin
       tags:
-      - metric
+      - Metric
       responses:
         '200':
           description: OK
@@ -778,82 +778,20 @@ paths:
                 $ref: '#/components/schemas/MetricsOverTimeByPlugin'
 components:
   schemas:
-    FilterMetrics:
+    MetricsOverTimeInput:
       type: object
       properties:
-        records:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
         bytes:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
-        addRecords:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
-        dropRecords:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
-        emitRecords:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
-    MetricFields:
-      type: object
-      description: Metric fields model.
-      properties:
-        time:
-          type: string
-          format: date-time
-        value:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
       required:
-      - time
-      - value
-    MetricOverTime:
-      type: object
-      properties:
-        time:
-          type: string
-          format: date-time
-        value:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
-      required:
-      - time
-      - value
-    MetricsOverTimeByPluginOutput:
-      type: object
-      properties:
-        instance:
-          type: string
-          example: storage_backlog.3
-          description: plugin alias
-        metrics:
-          $ref: '#/components/schemas/MetricsOverTimeInput'
-      required:
-      - instance
-      - metrics
+      - bytes
+      - records
     MetricsOverTimeByPluginInput:
       type: object
       properties:
@@ -866,58 +804,63 @@ components:
       required:
       - instance
       - metrics
-    InputMetrics:
+    AggregatorPipelinesMetrics:
+      type: object
+      description: Map of metrics/error for each pipeline ID.
+      additionalProperties:
+        type: object
+        properties:
+          data:
+            $ref: '#/components/schemas/AgentMetrics'
+          error:
+            type:
+            - string
+            - 'null'
+            default: null
+        required:
+        - data
+        - error
+    MetricsOverTimeByPluginFilter:
+      type: object
+      properties:
+        instance:
+          type: string
+          example: storage_backlog.3
+          description: plugin alias
+        metrics:
+          $ref: '#/components/schemas/MetricsOverTimeInput'
+      required:
+      - instance
+      - metrics
+    MetricsOverTimeFilter:
       type: object
       properties:
         bytes:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
         records:
-          type:
-          - number
-          - 'null'
-          format: float
-          default: null
-    AgentMetrics:
-      type: object
-      description: Agent metrics model.
-      properties:
-        measurements:
-          type: object
-          additionalProperties:
-            type: object
-            properties:
-              plugins:
-                type: object
-                additionalProperties:
-                  $ref: '#/components/schemas/Metrics'
-              totals:
-                type: object
-                additionalProperties:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/MetricFields'
-            required:
-            - plugins
-            - totals
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        addRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        dropRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        emitRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
       required:
-      - measurements
-    MetricsOvertime:
-      type: object
-      properties:
-        input:
-          $ref: '#/components/schemas/MetricsOverTimeInput'
-        filter:
-          $ref: '#/components/schemas/MetricsOverTimeFilter'
-        output:
-          $ref: '#/components/schemas/MetricsOverTimeOutput'
-      required:
-      - input
-      - filter
-      - output
+      - bytes
+      - records
+      - addRecords
+      - dropRecords
+      - emitRecords
     ProjectMetrics:
       type: object
       description: Project metrics model.
@@ -955,153 +898,6 @@ components:
       required:
       - measurements
       - topPlugins
-    MetricsSummary:
-      type: object
-      properties:
-        input:
-          $ref: '#/components/schemas/InputMetrics'
-        output:
-          $ref: '#/components/schemas/OutputMetrics'
-        filter:
-          $ref: '#/components/schemas/FilterMetrics'
-      example: "{\n  \"input\": {\n      \"bytes\": 0,\n      \"records\": 0\n    }\n  },\n  \"outputs\": {\n      \"bytes\": 0,\n      \"records\": 0,\n      \"errors\": 0,\n      \"retries\": 0,\n      \"retriedRecords\": 0,\n      \"retriesFailed\": 0,\n      \"droppedRecords\": 0,\n      \"loads\": 0\n    }\n  },\n  \"filters\": {\n      \"dropRecords\": 0,\n      \"emitRecords\": 0\n    }\n  }\n}\n"
-    MetricsByPlugin:
-      type: object
-      properties:
-        inputs:
-          type: array
-          items:
-            type: object
-            properties:
-              instance:
-                type: string
-                example: storage_backlog.3
-                description: plugin alias
-              metrics:
-                $ref: '#/components/schemas/InputMetrics'
-        outputs:
-          type: array
-          items:
-            type: object
-            properties:
-              instance:
-                type: string
-                example: storage_backlog.3
-                description: plugin alias
-              metrics:
-                $ref: '#/components/schemas/OutputMetrics'
-        filters:
-          type: array
-          items:
-            type: object
-            properties:
-              instance:
-                type: string
-                example: filter.3
-                description: plugin alias
-              metrics:
-                $ref: '#/components/schemas/FilterMetrics'
-      example: "{\n    \"inputs\": [\n        {\n            \"instance\": \"storage_backlog.3\",\n            \"metrics\": {\n                \"bytes\": 0,\n                \"records\": 0\n            }\n        }\n    ],\n    \"outputs\": [\n        {\n            \"instance\": \"stdout.0\",\n            \"metrics\": {\n                \"bytes\": 5811996,\n                \"records\": 25697,\n                \"errors\": 0,\n                \"retries\": 0,\n                \"retriedRecords\": 0,\n                \"retriesFailed\": 0,\n                \"droppedRecords\": 0,\n                \"loads\": 0\n            }\n        }\n    ],\n    \"filters\": [\n        {\n            \"instance\": \"filter.3\",\n            \"metrics\": {\n                \"dropRecords\": 0,\n                \"emitRecords\": 0\n            }\n        }\n    ]\n}\n"
-    MetricsOverTimeInput:
-      type: object
-      properties:
-        bytes:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-      required:
-      - bytes
-      - records
-    MetricsOverTimeOutput:
-      type: object
-      properties:
-        bytes:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        retries:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        retriedRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        retriesFailed:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        droppedRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        loads:
-          deprecated: true
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-      required:
-      - bytes
-      - records
-      - errors
-      - retries
-      - retriedRecords
-      - retriesFailed
-      - droppedRecords
-      - loads
-    MetricsOverTimeFilter:
-      type: object
-      properties:
-        bytes:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        records:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        addRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        dropRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-        emitRecords:
-          type: array
-          items:
-            $ref: '#/components/schemas/MetricOverTime'
-      required:
-      - bytes
-      - records
-      - addRecords
-      - dropRecords
-      - emitRecords
-    Metrics:
-      type: object
-      description: Metrics model.
-      properties:
-        metrics:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              $ref: '#/components/schemas/MetricFields'
-      required:
-      - metrics
     OutputMetrics:
       type: object
       properties:
@@ -1154,6 +950,183 @@ components:
           format: float
           default: null
           deprecated: true
+    MetricsOverTimeByPluginOutput:
+      type: object
+      properties:
+        instance:
+          type: string
+          example: storage_backlog.3
+          description: plugin alias
+        metrics:
+          $ref: '#/components/schemas/MetricsOverTimeInput'
+      required:
+      - instance
+      - metrics
+    AgentMetrics:
+      type: object
+      description: Agent metrics model.
+      properties:
+        measurements:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              plugins:
+                type: object
+                additionalProperties:
+                  $ref: '#/components/schemas/Metrics'
+              totals:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/MetricFields'
+            required:
+            - plugins
+            - totals
+      required:
+      - measurements
+    MetricsSummary:
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/InputMetrics'
+        output:
+          $ref: '#/components/schemas/OutputMetrics'
+        filter:
+          $ref: '#/components/schemas/FilterMetrics'
+      example: "{\n  \"input\": {\n      \"bytes\": 0,\n      \"records\": 0\n    }\n  },\n  \"outputs\": {\n      \"bytes\": 0,\n      \"records\": 0,\n      \"errors\": 0,\n      \"retries\": 0,\n      \"retriedRecords\": 0,\n      \"retriesFailed\": 0,\n      \"droppedRecords\": 0,\n      \"loads\": 0\n    }\n  },\n  \"filters\": {\n      \"dropRecords\": 0,\n      \"emitRecords\": 0\n    }\n  }\n}\n"
+    MetricsByPlugin:
+      type: object
+      properties:
+        inputs:
+          type: array
+          items:
+            type: object
+            properties:
+              instance:
+                type: string
+                example: storage_backlog.3
+                description: plugin alias
+              metrics:
+                $ref: '#/components/schemas/InputMetrics'
+        outputs:
+          type: array
+          items:
+            type: object
+            properties:
+              instance:
+                type: string
+                example: storage_backlog.3
+                description: plugin alias
+              metrics:
+                $ref: '#/components/schemas/OutputMetrics'
+        filters:
+          type: array
+          items:
+            type: object
+            properties:
+              instance:
+                type: string
+                example: filter.3
+                description: plugin alias
+              metrics:
+                $ref: '#/components/schemas/FilterMetrics'
+      example: "{\n    \"inputs\": [\n        {\n            \"instance\": \"storage_backlog.3\",\n            \"metrics\": {\n                \"bytes\": 0,\n                \"records\": 0\n            }\n        }\n    ],\n    \"outputs\": [\n        {\n            \"instance\": \"stdout.0\",\n            \"metrics\": {\n                \"bytes\": 5811996,\n                \"records\": 25697,\n                \"errors\": 0,\n                \"retries\": 0,\n                \"retriedRecords\": 0,\n                \"retriesFailed\": 0,\n                \"droppedRecords\": 0,\n                \"loads\": 0\n            }\n        }\n    ],\n    \"filters\": [\n        {\n            \"instance\": \"filter.3\",\n            \"metrics\": {\n                \"dropRecords\": 0,\n                \"emitRecords\": 0\n            }\n        }\n    ]\n}\n"
+    FilterMetrics:
+      type: object
+      properties:
+        records:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
+        bytes:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
+        addRecords:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
+        dropRecords:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
+        emitRecords:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
+    MetricFields:
+      type: object
+      description: Metric fields model.
+      properties:
+        time:
+          type: string
+          format: date-time
+        value:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
+      required:
+      - time
+      - value
+    MetricsOverTimeOutput:
+      type: object
+      properties:
+        bytes:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        retries:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        retriedRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        retriesFailed:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        droppedRecords:
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+        loads:
+          deprecated: true
+          type: array
+          items:
+            $ref: '#/components/schemas/MetricOverTime'
+      required:
+      - bytes
+      - records
+      - errors
+      - retries
+      - retriedRecords
+      - retriesFailed
+      - droppedRecords
+      - loads
     MetricsOverTimeByPlugin:
       type: object
       properties:
@@ -1173,6 +1146,18 @@ components:
       - inputs
       - filters
       - outputs
+    Metrics:
+      type: object
+      description: Metrics model.
+      properties:
+        metrics:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/MetricFields'
+      required:
+      - metrics
     AggregatorMetrics:
       type: object
       description: Agent metrics model.
@@ -1200,34 +1185,49 @@ components:
       required:
       - measurements
       example: "{\n  \"measurements\": {\n    \"fluentbit_filter\": {\n      \"metrics\": {\n        \"drop_records\": [\n          {\n            \"time\": \"2022-02-07T11:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:55:20.003028413Z\",\n            \"value\": 119\n          }\n        ],\n        \"emit_records\": [\n          {\n            \"time\": \"2022-02-07T11:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:55:20.003028413Z\",\n            \"value\": 119\n          }\n        ]\n      },\n      \"totals\": {\n        \"drop_records\": [\n          {\n            \"time\": \"2022-02-07T12:55:04.78743322Z\",\n            \"value\": 119\n          }\n        ],\n        \"emit_records\": [\n          {\n            \"time\": \"2022-02-07T12:55:04.787434277Z\",\n            \"value\": 119\n          }\n        ]\n      }\n    },\n    \"fluentbit_input\": {\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2022-02-07T11:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:55:20.029124832Z\",\n            \"value\": 4760\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"2022-02-07T11:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:55:20.029124832Z\",\n            \"value\": 119\n          }\n        ]\n      },\n      \"totals\": {\n        \"bytes\": [\n          {\n            \"time\": \"2022-02-07T12:55:04.787450155Z\",\n            \"value\": 4760\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"2022-02-07T12:55:04.787450155Z\",\n            \"value\": 119\n          }\n        ]\n      }\n    },\n    \"fluentbit_output\": {\n      \"metrics\": {\n        \"bytes\": [\n          {\n            \"time\": \"2022-02-07T11:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:55:20.059227599Z\",\n            \"value\": 4560\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"2022-02-07T11:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:00:00Z\",\n            \"value\": 0\n          },\n          {\n            \"time\": \"2022-02-07T12:55:20.059227599Z\",\n            \"value\": 114\n          }\n        ]\n      },\n      \"totals\": {\n        \"bytes\": [\n          {\n            \"time\": \"2022-02-07T12:55:00.785234434Z\",\n            \"value\": 4560\n          }\n        ],\n        \"records\": [\n          {\n            \"time\": \"2022-02-07T12:55:00.785234434Z\",\n            \"value\": 114\n          }\n        ]\n      }\n    }\n  }\n}\n"
-    AggregatorPipelinesMetrics:
-      type: object
-      description: Map of metrics/error for each pipeline ID.
-      additionalProperties:
-        type: object
-        properties:
-          data:
-            $ref: '#/components/schemas/AgentMetrics'
-          error:
-            type:
-            - string
-            - 'null'
-            default: null
-        required:
-        - data
-        - error
-    MetricsOverTimeByPluginFilter:
+    MetricOverTime:
       type: object
       properties:
-        instance:
+        time:
           type: string
-          example: storage_backlog.3
-          description: plugin alias
-        metrics:
-          $ref: '#/components/schemas/MetricsOverTimeInput'
+          format: date-time
+        value:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
       required:
-      - instance
-      - metrics
+      - time
+      - value
+    MetricsOvertime:
+      type: object
+      properties:
+        input:
+          $ref: '#/components/schemas/MetricsOverTimeInput'
+        filter:
+          $ref: '#/components/schemas/MetricsOverTimeFilter'
+        output:
+          $ref: '#/components/schemas/MetricsOverTimeOutput'
+      required:
+      - input
+      - filter
+      - output
+    InputMetrics:
+      type: object
+      properties:
+        bytes:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
+        records:
+          type:
+          - number
+          - 'null'
+          format: float
+          default: null
   securitySchemes:
     user:
       type: http

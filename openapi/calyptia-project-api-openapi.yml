@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Project API
+  title: Calyptia Cloud Project API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,12 +21,12 @@ servers:
     port:
       default: '5000'
 tags:
-- name: project
+- name: Project
 paths:
   /v1/projects:
     post:
       tags:
-      - project
+      - Project
       summary: Create project
       operationId: createProject
       description: 'Creates a new project.
@@ -52,7 +52,7 @@ paths:
                 $ref: '#/components/schemas/CreatedProject'
     get:
       tags:
-      - project
+      - Project
       summary: Projects
       operationId: projects
       description: Projects you are a member of.
@@ -89,7 +89,7 @@ paths:
       required: true
     get:
       tags:
-      - project
+      - Project
       summary: Project
       operationId: project
       description: Project by ID.
@@ -105,7 +105,7 @@ paths:
                 $ref: '#/components/schemas/Project'
     patch:
       tags:
-      - project
+      - Project
       summary: Update project
       operationId: updateProject
       description: Update project by its ID.
@@ -122,7 +122,7 @@ paths:
           description: No Content
     delete:
       tags:
-      - project
+      - Project
       summary: Delete project
       operationId: deleteProject
       description: 'Delete project by its ID.
@@ -139,6 +139,13 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
     CreatedProject:
       type: object
       description: Created project response body.
@@ -158,6 +165,47 @@ components:
       - token
       - createdAt
       - membership
+    Membership:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userID:
+          type: string
+          format: uuid
+        projectID:
+          type: string
+          format: uuid
+        roles:
+          type:
+          - array
+          - 'null'
+          default: null
+          uniqueItems: true
+          items:
+            type: string
+            enum:
+            - creator
+            - admin
+        permissions:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
+        createdAt:
+          type: string
+          format: date-time
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - id
+      - userID
+      - projectID
+      - roles
+      - permissions
+      - createdAt
+      description: Membership of a user in a project.
     UpdateProject:
       description: Update project request body.
       type: object
@@ -223,80 +271,6 @@ components:
       - avatarURL
       - createdAt
       - updatedAt
-    Permission:
-      type: string
-      enum:
-      - create:*
-      - read:*
-      - update:*
-      - delete:*
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    Membership:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        userID:
-          type: string
-          format: uuid
-        projectID:
-          type: string
-          format: uuid
-        roles:
-          type:
-          - array
-          - 'null'
-          default: null
-          uniqueItems: true
-          items:
-            type: string
-            enum:
-            - creator
-            - admin
-        permissions:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Permission'
-        createdAt:
-          type: string
-          format: date-time
-        user:
-          $ref: '#/components/schemas/User'
-      required:
-      - id
-      - userID
-      - projectID
-      - roles
-      - permissions
-      - createdAt
-      description: Membership of a user in a project.
-    CreateProject:
-      description: Create project request body.
-      type: object
-      properties:
-        name:
-          type: string
-          example: new-project
-        v3Enabled:
-          type: boolean
-          description: The project is enabled to use V3 APIs.
-      required:
-      - name
     Project:
       type: object
       description: Project model.
@@ -337,6 +311,32 @@ components:
       - agentsCount
       - aggregatorsCount
       - createdAt
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    CreateProject:
+      description: Create project request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: new-project
+        v3Enabled:
+          type: boolean
+          description: The project is enabled to use V3 APIs.
+      required:
+      - name
   securitySchemes:
     user:
       type: http

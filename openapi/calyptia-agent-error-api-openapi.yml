@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Agent Error API
+  title: Calyptia Cloud Agent Error API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -204,26 +204,17 @@ paths:
                 $ref: '#/components/schemas/DismissedAgentError'
 components:
   schemas:
-    DismissedAgentError:
+    DismissAgentError:
       type: object
-      description: Response body after dismissing an Agent Error.
+      description: Request body required to dismiss an existing agent error.
       properties:
-        dismissedAt:
-          type: string
-          format: date-time
-      required:
-      - dismissedAt
-    CreateAgentError:
-      type: object
-      description: Request body required to create a new Agent Error.
-      properties:
-        error:
+        reason:
           type: string
           minLength: 1
-          maxLength: 1024
-          example: '[config] section ''foo'' tried to instance a plugin name that don''t exists'
+          maxLength: 100
+          example: It was just a test, this config is not used in production.
       required:
-      - error
+      - reason
     AgentError:
       type: object
       description: 'An Agent Error represent an error that occurred on an agent.
@@ -268,17 +259,26 @@ components:
       - dismissedAt
       - dismissReason
       - createdAt
-    DismissAgentError:
+    DismissedAgentError:
       type: object
-      description: Request body required to dismiss an existing agent error.
+      description: Response body after dismissing an Agent Error.
       properties:
-        reason:
+        dismissedAt:
+          type: string
+          format: date-time
+      required:
+      - dismissedAt
+    CreateAgentError:
+      type: object
+      description: Request body required to create a new Agent Error.
+      properties:
+        error:
           type: string
           minLength: 1
-          maxLength: 100
-          example: It was just a test, this config is not used in production.
+          maxLength: 1024
+          example: '[config] section ''foo'' tried to instance a plugin name that don''t exists'
       required:
-      - reason
+      - error
     CreatedAgentError:
       type: object
       description: Response body after creating a new Agent Error.

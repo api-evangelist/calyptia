@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Saml Mapping API
+  title: Calyptia Cloud Saml Mapping API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -113,32 +113,6 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
-    SAMLMappings:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/SAMLMapping'
-        endCursor:
-          type:
-          - string
-          - 'null'
-        count:
-          type: number
-          format: int32
-      required:
-      - items
-      - endCursor
-      - count
-    Updated:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
     Deleted:
       type: object
       properties:
@@ -153,19 +127,21 @@ components:
       required:
       - deleted
       - deletedAt
-    CreateSAMLMapping:
+    Role:
+      type: string
+      enum:
+      - admin
+      - manager
+      - team
+      - viewer
+    Updated:
       type: object
       properties:
-        claimKey:
+        updatedAt:
           type: string
-        claimValue:
-          type: string
-        role:
-          $ref: '#/components/schemas/Role'
+          format: date-time
       required:
-      - claimKey
-      - claimValue
-      - role
+      - updatedAt
     SAMLMapping:
       type: object
       description: SAML Mapping required for IDP
@@ -222,13 +198,37 @@ components:
       required:
       - id
       - createdAt
-    Role:
-      type: string
-      enum:
-      - admin
-      - manager
-      - team
-      - viewer
+    CreateSAMLMapping:
+      type: object
+      properties:
+        claimKey:
+          type: string
+        claimValue:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+      required:
+      - claimKey
+      - claimValue
+      - role
+    SAMLMappings:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SAMLMapping'
+        endCursor:
+          type:
+          - string
+          - 'null'
+        count:
+          type: number
+          format: int32
+      required:
+      - items
+      - endCursor
+      - count
   securitySchemes:
     user:
       type: http

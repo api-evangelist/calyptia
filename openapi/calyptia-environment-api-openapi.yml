@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Environment API
+  title: Calyptia Cloud Environment API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: environment
+- name: Environment
 paths:
   /v1/projects/{projectID}/environments:
     parameters:
@@ -33,7 +33,7 @@ paths:
       required: true
     get:
       tags:
-      - environment
+      - Environment
       summary: Project environments
       operationId: projectEnvironments
       description: Environments from a project.
@@ -79,7 +79,7 @@ paths:
                   $ref: '#/components/schemas/Environment'
     post:
       tags:
-      - environment
+      - Environment
       summary: Create environment
       operationId: createEnvironment
       description: Create a environment to a given project.
@@ -115,7 +115,7 @@ paths:
       required: true
     patch:
       tags:
-      - environment
+      - Environment
       summary: Update environment
       operationId: updateEnvironments
       description: Updates a given environment
@@ -132,7 +132,7 @@ paths:
           description: No Content
     delete:
       tags:
-      - environment
+      - Environment
       summary: Delete environment
       operationId: deleteEnvironment
       description: Delete a given environment
@@ -161,11 +161,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    CreateEnvironment:
-      type: object
-      properties:
-        name:
-          type: string
     UpdateEnvironment:
       type: object
       properties:
@@ -174,6 +169,11 @@ components:
           - string
           - 'null'
           default: null
+    CreateEnvironment:
+      type: object
+      properties:
+        name:
+          type: string
   securitySchemes:
     user:
       type: http

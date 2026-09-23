@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Calyptia Cloud agent Agent Config API
+  title: Calyptia Cloud Agent Config API
   version: '1.0'
   description: HTTP API service of Calyptia Cloud
   contact:
@@ -21,7 +21,7 @@ servers:
     port:
       default: '5000'
 tags:
-- name: agent_config
+- name: Agent Config
 paths:
   /v1/agents/{agentID}/config_history:
     parameters:
@@ -33,7 +33,7 @@ paths:
       required: true
     get:
       tags:
-      - agent_config
+      - Agent Config
       summary: Agent configuration history
       operationId: agentConfigHistory
       description: 'Configuration history from an agent.

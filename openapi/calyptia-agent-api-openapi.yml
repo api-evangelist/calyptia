@@ -21,12 +21,12 @@ servers:
     port:
       default: '5000'
 tags:
-- name: agent
+- name: Agent
 paths:
   /v1/agents:
     post:
       tags:
-      - agent
+      - Agent
       summary: Register agent
       operationId: registerAgent
       description: 'Register agent within a project.
@@ -58,7 +58,7 @@ paths:
       required: true
     get:
       tags:
-      - agent
+      - Agent
       summary: Agents
       operationId: agents
       description: Agents from a project.
@@ -127,7 +127,7 @@ paths:
                   $ref: '#/components/schemas/Agent'
     delete:
       tags:
-      - agent
+      - Agent
       summary: Delete Agents
       operationId: deleteAgents
       description: Delete agents from a project.
@@ -156,7 +156,7 @@ paths:
       required: true
     get:
       tags:
-      - agent
+      - Agent
       summary: Agent
       operationId: agent
       description: Agents by ID.
@@ -172,7 +172,7 @@ paths:
                 $ref: '#/components/schemas/Agent'
     patch:
       tags:
-      - agent
+      - Agent
       summary: Update agent
       operationId: updateAgent
       description: Update agent by its ID.
@@ -189,7 +189,7 @@ paths:
           description: No Content
     delete:
       tags:
-      - agent
+      - Agent
       summary: Delete agent
       operationId: deleteAgent
       description: Delete agent by its ID.
@@ -384,31 +384,6 @@ components:
           - 'null'
           default: null
           description: environment ID to associate this agent with.
-    RegisteredAgent:
-      type: object
-      description: Registered agent response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        token:
-          type: string
-          example: redacted
-        name:
-          type: string
-          example: my-agent
-        createdAt:
-          type: string
-          format: date-time
-        environmentName:
-          type: string
-          description: environment name on which the agent belongs to.
-          default: default
-      required:
-      - id
-      - token
-      - name
-      - createdAt
     RegisterAgent:
       description: Register agent request body.
       type: object
@@ -466,6 +441,31 @@ components:
       - edition
       - flags
       - rawConfig
+    RegisteredAgent:
+      type: object
+      description: Registered agent response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        token:
+          type: string
+          example: redacted
+        name:
+          type: string
+          example: my-agent
+        createdAt:
+          type: string
+          format: date-time
+        environmentName:
+          type: string
+          description: environment name on which the agent belongs to.
+          default: default
+      required:
+      - id
+      - token
+      - name
+      - createdAt
   securitySchemes:
     user:
       type: http
