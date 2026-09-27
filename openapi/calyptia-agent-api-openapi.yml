@@ -201,6 +201,63 @@ paths:
           description: No Content
 components:
   schemas:
+    RegisterAgent:
+      description: Register agent request body.
+      type: object
+      properties:
+        fleetID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        name:
+          type: string
+          example: new-agent
+          format: hostname
+        machineID:
+          type: string
+        type:
+          type: string
+          enum:
+          - fluentbit
+          - fluentd
+        version:
+          type: string
+          example: v1.8.6
+        edition:
+          type: string
+          enum:
+          - community
+          - enterprise
+        flags:
+          type:
+          - array
+          - 'null'
+          default: null
+          items:
+            type: string
+        rawConfig:
+          type: string
+        metadata:
+          type:
+          - object
+          - 'null'
+          default: null
+        environmentID:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: environment ID to associate this agent with.
+      required:
+      - name
+      - machineID
+      - type
+      - version
+      - edition
+      - flags
+      - rawConfig
     Agent:
       type: object
       properties:
@@ -384,63 +441,6 @@ components:
           - 'null'
           default: null
           description: environment ID to associate this agent with.
-    RegisterAgent:
-      description: Register agent request body.
-      type: object
-      properties:
-        fleetID:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          default: null
-        name:
-          type: string
-          example: new-agent
-          format: hostname
-        machineID:
-          type: string
-        type:
-          type: string
-          enum:
-          - fluentbit
-          - fluentd
-        version:
-          type: string
-          example: v1.8.6
-        edition:
-          type: string
-          enum:
-          - community
-          - enterprise
-        flags:
-          type:
-          - array
-          - 'null'
-          default: null
-          items:
-            type: string
-        rawConfig:
-          type: string
-        metadata:
-          type:
-          - object
-          - 'null'
-          default: null
-        environmentID:
-          type:
-          - string
-          - 'null'
-          default: null
-          description: environment ID to associate this agent with.
-      required:
-      - name
-      - machineID
-      - type
-      - version
-      - edition
-      - flags
-      - rawConfig
     RegisteredAgent:
       type: object
       description: Registered agent response body.

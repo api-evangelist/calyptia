@@ -192,47 +192,37 @@ paths:
                   $ref: '#/components/schemas/FluentBitLog'
 components:
   schemas:
-    CreatedProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        configSectionID:
-          type: string
-          format: uuid
-        fileID:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: uuid
-      required:
-      - id
-      - configSectionID
-      - fileID
-      - createdAt
-    RuleActionKindV1:
-      deprecated: true
-      type: string
-      enum:
-      - add
-      - rename
-      - copy
-      - mask
-      - remove
-      - skip
-    ProcessingRuleLanguageV1:
-      deprecated: true
-      type: string
-      enum:
-      - lua
     LogSelectorOpKindV1:
       deprecated: true
       type: string
       enum:
       - equal
+    LogSelectorKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - key
+    CreateProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        match:
+          type: string
+          example: '*'
+        isMatchRegexp:
+          type: boolean
+          default: false
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+      required:
+      - match
+      - isMatchRegexp
+      - language
+      - actions
     PreviewProcessingRuleV1:
       deprecated: true
       type: object
@@ -313,11 +303,56 @@ components:
       - kind
       - op
       - expr
-    LogSelectorKindV1:
+    UpdatedProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    FluentBitLog:
+      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
+      type: array
+      items:
+        anyOf:
+        - type: number
+        - type: object
+          additionalProperties:
+            type: string
+        example: '[1234.5, {"key": "value"}]'
+    RuleActionKindV1:
       deprecated: true
       type: string
       enum:
-      - key
+      - add
+      - rename
+      - copy
+      - mask
+      - remove
+      - skip
+    CreatedProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        configSectionID:
+          type: string
+          format: uuid
+        fileID:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: uuid
+      required:
+      - id
+      - configSectionID
+      - fileID
+      - createdAt
     LogAttr:
       type: object
       properties:
@@ -330,36 +365,6 @@ components:
       required:
       - key
       - value
-    UpdatedProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    CreateProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        match:
-          type: string
-          example: '*'
-        isMatchRegexp:
-          type: boolean
-          default: false
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleActionV1'
-      required:
-      - match
-      - isMatchRegexp
-      - language
-      - actions
     ProcessingRuleV1:
       deprecated: true
       type: object
@@ -405,16 +410,6 @@ components:
       - actions
       - createdAt
       - updatedAt
-    FluentBitLog:
-      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
-      type: array
-      items:
-        anyOf:
-        - type: number
-        - type: object
-          additionalProperties:
-            type: string
-        example: '[1234.5, {"key": "value"}]'
     UpdateProcessingRuleV1:
       deprecated: true
       type: object
@@ -440,6 +435,11 @@ components:
           items:
             $ref: '#/components/schemas/RuleActionV1'
           default: null
+    ProcessingRuleLanguageV1:
+      deprecated: true
+      type: string
+      enum:
+      - lua
   securitySchemes:
     user:
       type: http

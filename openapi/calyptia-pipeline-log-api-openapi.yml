@@ -156,6 +156,50 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    PipelineLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        pipelineID:
+          type: string
+          format: uuid
+        logs:
+          type: string
+        lines:
+          type: integer
+          default: 100
+        status:
+          $ref: '#/components/schemas/PipelineLogStatus'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - pipelineID
+      - logs
+      - lines
+      - status
+      - createdAt
+      - updatedAt
     UpdatePipelineLog:
       type: object
       properties:
@@ -187,44 +231,6 @@ components:
           default: 100
       required:
       - logs
-    Updated:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    PipelineLog:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        pipelineID:
-          type: string
-          format: uuid
-        logs:
-          type: string
-        lines:
-          type: integer
-          default: 100
-        status:
-          $ref: '#/components/schemas/PipelineLogStatus'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - pipelineID
-      - logs
-      - lines
-      - status
-      - createdAt
-      - updatedAt
     Created:
       type: object
       properties:
@@ -237,31 +243,6 @@ components:
       required:
       - id
       - createdAt
-    PipelineLogStatus:
-      type: string
-      description: 'The status of a pipeline log, if NEW hasn''t been updated from the cluster.
-
-        If DONE, logs have been retrieved from the cluster.
-
-        '
-      default: NEW
-      enum:
-      - NEW
-      - DONE
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
     PipelineLogs:
       type: object
       properties:
@@ -288,6 +269,25 @@ components:
       - endCursor
       - count
       - pollingIntervalMs
+    PipelineLogStatus:
+      type: string
+      description: 'The status of a pipeline log, if NEW hasn''t been updated from the cluster.
+
+        If DONE, logs have been retrieved from the cluster.
+
+        '
+      default: NEW
+      enum:
+      - NEW
+      - DONE
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
   securitySchemes:
     user:
       type: http

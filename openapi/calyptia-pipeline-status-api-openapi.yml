@@ -80,22 +80,6 @@ paths:
                   $ref: '#/components/schemas/PipelineStatus'
 components:
   schemas:
-    AgentConfig:
-      type: object
-      description: Agent configuration history entry.
-      properties:
-        id:
-          type: string
-          format: uuid
-        rawConfig:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - rawConfig
-      - createdAt
     PipelineStatus:
       type: object
       description: Pipeline status history entry.
@@ -149,6 +133,22 @@ components:
       - source
       - reason
       - loggedAt
+    AgentConfig:
+      type: object
+      description: Agent configuration history entry.
+      properties:
+        id:
+          type: string
+          format: uuid
+        rawConfig:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - rawConfig
+      - createdAt
   securitySchemes:
     user:
       type: http

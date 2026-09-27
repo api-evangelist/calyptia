@@ -69,7 +69,7 @@ maintainers:
   email: info@apis.io
 apis:
 - aid: calyptia:calyptia-agent-api
-  name: Calyptia agent API
+  name: Calyptia Agent API
   description: The agent API from Calyptia — 3 operation(s) for agent.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -85,7 +85,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-agent-config-api
-  name: Calyptia agent_config API
+  name: Calyptia Agent Config API
   description: The agent_config API from Calyptia — 1 operation(s) for agent_config.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -101,7 +101,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-agent-error-api
-  name: Calyptia agent_error API
+  name: Calyptia Agent Error API
   description: The agent_error API from Calyptia — 3 operation(s) for agent_error.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -116,7 +116,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-aggregator-api
-  name: Calyptia aggregator API
+  name: Calyptia Aggregator API
   description: The aggregator API from Calyptia — 4 operation(s) for aggregator.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -132,7 +132,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-audit-log-api
-  name: Calyptia audit_log API
+  name: Calyptia Audit Log API
   description: The audit_log API from Calyptia — 1 operation(s) for audit_log.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -148,7 +148,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-aws-marketplace-api
-  name: Calyptia aws_marketplace API
+  name: Calyptia Aws Marketplace API
   description: The aws_marketplace API from Calyptia — 2 operation(s) for aws_marketplace.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -164,7 +164,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-cluster-object-api
-  name: Calyptia cluster_object API
+  name: Calyptia Cluster Object API
   description: The cluster_object API from Calyptia — 2 operation(s) for cluster_object.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -179,7 +179,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-cluster-object-regex-api
-  name: Calyptia cluster_object_regex API
+  name: Calyptia Cluster Object Regex API
   description: The cluster_object_regex API from Calyptia — 2 operation(s) for cluster_object_regex.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -194,7 +194,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-config-section-api
-  name: Calyptia config_section API
+  name: Calyptia Config Section API
   description: The config_section API from Calyptia — 3 operation(s) for config_section.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -209,7 +209,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-config-validator-api
-  name: Calyptia config_validator API
+  name: Calyptia Config Validator API
   description: The config_validator API from Calyptia — 2 operation(s) for config_validator.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -224,7 +224,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-config-validator-v2-api
-  name: Calyptia config_validator_v2 API
+  name: Calyptia Config Validator V2 API
   description: The config_validator_v2 API from Calyptia — 1 operation(s) for config_validator_v2.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -239,7 +239,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-core-instance-api
-  name: Calyptia core_instance API
+  name: Calyptia Core Instance API
   description: The core_instance API from Calyptia — 1 operation(s) for core_instance.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -254,7 +254,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-core-instance-check-api
-  name: Calyptia core_instance_check API
+  name: Calyptia Core Instance Check API
   description: The core_instance_check API from Calyptia — 2 operation(s) for core_instance_check.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -269,7 +269,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-core-instance-file-api
-  name: Calyptia core_instance_file API
+  name: Calyptia Core Instance File API
   description: The core_instance_file API from Calyptia — 2 operation(s) for core_instance_file.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -284,7 +284,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-core-instance-secret-api
-  name: Calyptia core_instance_secret API
+  name: Calyptia Core Instance Secret API
   description: The core_instance_secret API from Calyptia — 2 operation(s) for core_instance_secret.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -299,7 +299,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-environment-api
-  name: Calyptia environment API
+  name: Calyptia Environment API
   description: The environment API from Calyptia — 2 operation(s) for environment.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -315,7 +315,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-fleet-api
-  name: Calyptia fleet API
+  name: Calyptia Fleet API
   description: The fleet API from Calyptia — 7 operation(s) for fleet.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -331,7 +331,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-invitation-api
-  name: Calyptia invitation API
+  name: Calyptia Invitation API
   description: The invitation API from Calyptia — 2 operation(s) for invitation.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -347,7 +347,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-membership-api
-  name: Calyptia membership API
+  name: Calyptia Membership API
   description: The membership API from Calyptia — 2 operation(s) for membership.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -363,7 +363,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-metric-api
-  name: Calyptia metric API
+  name: Calyptia Metric API
   description: The metric API from Calyptia — 17 operation(s) for metric.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -377,7 +377,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-api
-  name: Calyptia pipeline API
+  name: Calyptia Pipeline API
   description: The pipeline API from Calyptia — 5 operation(s) for pipeline.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -393,7 +393,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-check-api
-  name: Calyptia pipeline_check API
+  name: Calyptia Pipeline Check API
   description: The pipeline_check API from Calyptia — 2 operation(s) for pipeline_check.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -408,7 +408,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-cluster-objects-api
-  name: Calyptia pipeline_cluster_objects API
+  name: Calyptia Pipeline Cluster Objects API
   description: >-
     The pipeline_cluster_objects API from Calyptia — 1 operation(s) for pipeline_cluster_objects.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
@@ -424,7 +424,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-config-api
-  name: Calyptia pipeline_config API
+  name: Calyptia Pipeline Config API
   description: The pipeline_config API from Calyptia — 1 operation(s) for pipeline_config.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -439,7 +439,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-file-api
-  name: Calyptia pipeline_file API
+  name: Calyptia Pipeline File API
   description: The pipeline_file API from Calyptia — 2 operation(s) for pipeline_file.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -454,7 +454,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-log-api
-  name: Calyptia pipeline_log API
+  name: Calyptia Pipeline Log API
   description: The pipeline_log API from Calyptia — 2 operation(s) for pipeline_log.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -469,7 +469,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-metadata-api
-  name: Calyptia pipeline_metadata API
+  name: Calyptia Pipeline Metadata API
   description: The pipeline_metadata API from Calyptia — 1 operation(s) for pipeline_metadata.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -484,7 +484,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-port-api
-  name: Calyptia pipeline_port API
+  name: Calyptia Pipeline Port API
   description: The pipeline_port API from Calyptia — 2 operation(s) for pipeline_port.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -499,7 +499,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-secret-api
-  name: Calyptia pipeline_secret API
+  name: Calyptia Pipeline Secret API
   description: The pipeline_secret API from Calyptia — 2 operation(s) for pipeline_secret.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -514,7 +514,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-pipeline-status-api
-  name: Calyptia pipeline_status API
+  name: Calyptia Pipeline Status API
   description: The pipeline_status API from Calyptia — 1 operation(s) for pipeline_status.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -530,7 +530,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-processing-rule-api
-  name: Calyptia processing_rule API
+  name: Calyptia Processing Rule API
   description: The processing_rule API from Calyptia — 3 operation(s) for processing_rule.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -545,7 +545,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-processing-rule-template-api
-  name: Calyptia processing_rule_template API
+  name: Calyptia Processing Rule Template API
   description: >-
     The processing_rule_template API from Calyptia — 4 operation(s) for processing_rule_template.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
@@ -561,7 +561,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-project-api
-  name: Calyptia project API
+  name: Calyptia Project API
   description: The project API from Calyptia — 2 operation(s) for project.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -577,7 +577,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-resource-profile-api
-  name: Calyptia resource_profile API
+  name: Calyptia Resource Profile API
   description: The resource_profile API from Calyptia — 2 operation(s) for resource_profile.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -592,7 +592,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-saml-mapping-api
-  name: Calyptia saml_mapping API
+  name: Calyptia Saml Mapping API
   description: The saml_mapping API from Calyptia — 2 operation(s) for saml_mapping.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -607,7 +607,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-search-api
-  name: Calyptia search API
+  name: Calyptia Search API
   description: The search API from Calyptia — 2 operation(s) for search.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -623,7 +623,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-sidecar-api
-  name: Calyptia sidecar API
+  name: Calyptia Sidecar API
   description: The sidecar API from Calyptia — 2 operation(s) for sidecar.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -639,7 +639,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-token-api
-  name: Calyptia token API
+  name: Calyptia Token API
   description: The token API from Calyptia — 2 operation(s) for token.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -655,7 +655,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-trace-record-api
-  name: Calyptia trace_record API
+  name: Calyptia Trace Record API
   description: The trace_record API from Calyptia — 2 operation(s) for trace_record.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -670,7 +670,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-trace-session-api
-  name: Calyptia trace_session API
+  name: Calyptia Trace Session API
   description: The trace_session API from Calyptia — 3 operation(s) for trace_session.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
@@ -685,7 +685,7 @@ apis:
   - type: APIReference
     url: https://docs.calyptia.com/docs/calyptia-cloud-api/api-reference
 - aid: calyptia:calyptia-user-api
-  name: Calyptia user API
+  name: Calyptia User API
   description: The user API from Calyptia — 1 operation(s) for user.
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com

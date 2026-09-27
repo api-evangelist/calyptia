@@ -196,28 +196,6 @@ components:
       - filter
       - output
       - service
-    UpdatedConfigSection:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    CreateConfigSection:
-      type: object
-      properties:
-        kind:
-          $ref: '#/components/schemas/ConfigSectionKind'
-        properties:
-          $ref: '#/components/schemas/Pairs'
-        skipConfigValidation:
-          type: boolean
-          default: false
-      required:
-      - kind
-      - properties
-      - skipConfigValidation
     CreatedConfigSection:
       type: object
       properties:
@@ -230,6 +208,23 @@ components:
       required:
       - id
       - createdAt
+    UpdateConfigSection:
+      type: object
+      properties:
+        properties:
+          $ref: '#/components/schemas/Pairs'
+          default: null
+        skipConfigValidation:
+          type: boolean
+          default: false
+    UpdatedConfigSection:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     Pair:
       type: object
       properties:
@@ -249,19 +244,20 @@ components:
       required:
       - key
       - value
-    Pairs:
-      type: array
-      items:
-        $ref: '#/components/schemas/Pair'
-    UpdateConfigSection:
+    CreateConfigSection:
       type: object
       properties:
+        kind:
+          $ref: '#/components/schemas/ConfigSectionKind'
         properties:
           $ref: '#/components/schemas/Pairs'
-          default: null
         skipConfigValidation:
           type: boolean
           default: false
+      required:
+      - kind
+      - properties
+      - skipConfigValidation
     ConfigSection:
       type: object
       properties:
@@ -295,6 +291,10 @@ components:
       - properties
       - createdAt
       - updatedAt
+    Pairs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pair'
   securitySchemes:
     user:
       type: http

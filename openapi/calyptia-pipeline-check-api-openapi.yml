@@ -148,6 +148,37 @@ paths:
           description: No Content
 components:
   schemas:
+    UpdatePipelineCheck:
+      description: Update pipeline check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+          default: null
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+          default: null
+        retries:
+          type:
+          - number
+          - 'null'
+          default: null
+          description: number of retries for the check before marking it as unreachable.
+        host:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+          maximum: 65535
+          default: null
+          description: valid 0-65535 port number
     PipelineCheck:
       type: object
       description: Pipeline check model.
@@ -200,37 +231,15 @@ components:
       required:
       - id
       - createdAt
-    UpdatePipelineCheck:
-      description: Update pipeline check request body.
-      type: object
-      properties:
-        protocol:
-          $ref: '#/components/schemas/PipelinePortProtocol'
-          default: null
-        status:
-          $ref: '#/components/schemas/CheckStatus'
-          default: null
-        retries:
-          type:
-          - number
-          - 'null'
-          default: null
-          description: number of retries for the check before marking it as unreachable.
-        host:
-          type:
-          - string
-          - 'null'
-          default: null
-          description: DNS label format as of defined on RFC1123 or an IPv4 address.
-          example: localhost
-        port:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-          maximum: 65535
-          default: null
-          description: valid 0-65535 port number
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
     PipelinePortProtocol:
       type: string
       description: Valid protocol types defined for a pipelines.
@@ -262,15 +271,6 @@ components:
       - protocol
       - host
       - port
-    CheckStatus:
-      type: string
-      description: The status of a check.
-      default: new
-      enum:
-      - new
-      - failed
-      - running
-      - ok
   securitySchemes:
     user:
       type: http

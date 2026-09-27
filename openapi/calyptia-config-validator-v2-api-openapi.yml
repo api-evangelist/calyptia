@@ -50,59 +50,6 @@ paths:
                 $ref: '#/components/schemas/ValidatedConfigV2'
 components:
   schemas:
-    ValidatingConfig:
-      description: Validating configuration request body.
-      type: object
-      properties:
-        config:
-          type: array
-          items:
-            type: object
-            properties:
-              command:
-                type: string
-              name:
-                type: string
-              optional:
-                type:
-                - object
-                - 'null'
-                additionalProperties:
-                  type: string
-                default: null
-              id:
-                type: string
-            required:
-            - command
-            - name
-            - id
-      required:
-      - config
-    ConfigValidityV2Property:
-      type: object
-      description: Property of the validated configuration section
-      properties:
-        id:
-          description: ID of the configuration section
-          type: string
-        property:
-          description: property name
-          type: string
-        text:
-          description: property name, value
-          type:
-          - string
-          - 'null'
-          default: null
-        errors:
-          type: array
-          items:
-            type: string
-      required:
-      - id
-      - property
-      - text
-      - errors
     ValidatedConfigV2:
       type: object
       description: Validation V2 config response.
@@ -139,6 +86,59 @@ components:
           - filter
       required:
       - errors
+    ConfigValidityV2Property:
+      type: object
+      description: Property of the validated configuration section
+      properties:
+        id:
+          description: ID of the configuration section
+          type: string
+        property:
+          description: property name
+          type: string
+        text:
+          description: property name, value
+          type:
+          - string
+          - 'null'
+          default: null
+        errors:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - property
+      - text
+      - errors
+    ValidatingConfig:
+      description: Validating configuration request body.
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: object
+            properties:
+              command:
+                type: string
+              name:
+                type: string
+              optional:
+                type:
+                - object
+                - 'null'
+                additionalProperties:
+                  type: string
+                default: null
+              id:
+                type: string
+            required:
+            - command
+            - name
+            - id
+      required:
+      - config
     ConfigValidityV2Runtime:
       type: object
       description: Runtime errors for the validated configuration.

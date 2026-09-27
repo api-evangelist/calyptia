@@ -113,35 +113,6 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    Role:
-      type: string
-      enum:
-      - admin
-      - manager
-      - team
-      - viewer
-    Updated:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
     SAMLMapping:
       type: object
       description: SAML Mapping required for IDP
@@ -172,45 +143,27 @@ components:
         updatedAt:
           type: string
           format: date-time
-    UpdateSAMLMapping:
+    Deleted:
       type: object
-      description: SAML Mapping to update.
       properties:
-        claimKey:
+        deleted:
+          type: boolean
+        deletedAt:
           type:
           - string
           - 'null'
-        claimValue:
-          type:
-          - string
-          - 'null'
-        role:
-          $ref: '#/components/schemas/Role'
-    Created:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
           format: date-time
+          default: null
       required:
-      - id
-      - createdAt
-    CreateSAMLMapping:
-      type: object
-      properties:
-        claimKey:
-          type: string
-        claimValue:
-          type: string
-        role:
-          $ref: '#/components/schemas/Role'
-      required:
-      - claimKey
-      - claimValue
-      - role
+      - deleted
+      - deletedAt
+    Role:
+      type: string
+      enum:
+      - admin
+      - manager
+      - team
+      - viewer
     SAMLMappings:
       type: object
       properties:
@@ -229,6 +182,53 @@ components:
       - items
       - endCursor
       - count
+    CreateSAMLMapping:
+      type: object
+      properties:
+        claimKey:
+          type: string
+        claimValue:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+      required:
+      - claimKey
+      - claimValue
+      - role
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    UpdateSAMLMapping:
+      type: object
+      description: SAML Mapping to update.
+      properties:
+        claimKey:
+          type:
+          - string
+          - 'null'
+        claimValue:
+          type:
+          - string
+          - 'null'
+        role:
+          $ref: '#/components/schemas/Role'
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
   securitySchemes:
     user:
       type: http

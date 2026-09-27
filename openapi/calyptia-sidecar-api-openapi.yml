@@ -133,15 +133,99 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
-    ExecAction:
+    VolumeMount:
       type: object
       properties:
-        command:
-          type: array
-          items:
-            type: string
+        name:
+          type: string
+        mountPath:
+          type: string
+        readOnly:
+          type: boolean
+        subPath:
+          type: string
+        subPathExpr:
+          type: string
+        mountPropagation:
+          $ref: '#/components/schemas/MountPropagationMode'
       required:
-      - command
+      - name
+      - mountPath
+    MountPropagationMode:
+      type: string
+      enum:
+      - None
+      - HostToContainer
+      - Bidirectional
+    SecretVolumeSource:
+      type: object
+      properties:
+        secretName:
+          type: string
+        defaultMode:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        optional:
+          type:
+          - boolean
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/KeyToPath'
+      required:
+      - secretName
+    Probe:
+      type: object
+      properties:
+        exec:
+          $ref: '#/components/schemas/ExecAction'
+        httpGet:
+          $ref: '#/components/schemas/HTTPGetAction'
+        tcpSocket:
+          $ref: '#/components/schemas/TCPSocketAction'
+        grpc:
+          $ref: '#/components/schemas/GRPCAction'
+        initialDelaySeconds:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 0
+        timeoutSeconds:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 0
+        periodSeconds:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 0
+        successThreshold:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 0
+        failureThreshold:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          minimum: 0
+        terminationGracePeriodSeconds:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          minimum: 0
     SecretKeySelector:
       type: object
       properties:
@@ -152,6 +236,38 @@ components:
       required:
       - name
       - key
+    Sidecars:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sidecar'
+        endCursor:
+          type:
+          - string
+          - 'null'
+      required:
+      - items
+      - endCursor
+    ConfigMapKeySelector:
+      type: object
+      properties:
+        name:
+          type: string
+        key:
+          type: string
+      required:
+      - name
+      - key
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     UpdateSidecar:
       type: object
       properties:
@@ -218,18 +334,22 @@ components:
           $ref: '#/components/schemas/Probe'
         lifecycle:
           $ref: '#/components/schemas/Lifecycle'
-    Created:
+    ExecAction:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
+        command:
+          type: array
+          items:
+            type: string
       required:
-      - id
-      - createdAt
+      - command
+    Lifecycle:
+      type: object
+      properties:
+        preStop:
+          $ref: '#/components/schemas/LifecycleHandler'
+        postStart:
+          $ref: '#/components/schemas/LifecycleHandler'
     HTTPHeader:
       type: object
       properties:
@@ -240,136 +360,6 @@ components:
       required:
       - name
       - value
-    ResourceList:
-      type: object
-      properties:
-        cpu:
-          type: string
-        memory:
-          type: string
-      additionalProperties:
-        type: string
-    Probe:
-      type: object
-      properties:
-        exec:
-          $ref: '#/components/schemas/ExecAction'
-        httpGet:
-          $ref: '#/components/schemas/HTTPGetAction'
-        tcpSocket:
-          $ref: '#/components/schemas/TCPSocketAction'
-        grpc:
-          $ref: '#/components/schemas/GRPCAction'
-        initialDelaySeconds:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          minimum: 0
-        timeoutSeconds:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          minimum: 0
-        periodSeconds:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          minimum: 0
-        successThreshold:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          minimum: 0
-        failureThreshold:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          minimum: 0
-        terminationGracePeriodSeconds:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          minimum: 0
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    EnvVar:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-        valueFrom:
-          $ref: '#/components/schemas/EnvVarSource'
-      required:
-      - name
-    ConfigMapVolumeSource:
-      type: object
-      properties:
-        name:
-          type: string
-        defaultMode:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        optional:
-          type:
-          - boolean
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/KeyToPath'
-      required:
-      - name
-    Volume:
-      type: object
-      properties:
-        name:
-          type: string
-        configMap:
-          $ref: '#/components/schemas/ConfigMapVolumeSource'
-        secret:
-          $ref: '#/components/schemas/SecretVolumeSource'
-        emptyDir:
-          $ref: '#/components/schemas/EmptyDirVolumeSource'
-      required:
-      - name
-    EnvVarSource:
-      type: object
-      properties:
-        secretKeyRef:
-          $ref: '#/components/schemas/SecretKeySelector'
-        configMapKeyRef:
-          $ref: '#/components/schemas/ConfigMapKeySelector'
-    Lifecycle:
-      type: object
-      properties:
-        preStop:
-          $ref: '#/components/schemas/LifecycleHandler'
-        postStart:
-          $ref: '#/components/schemas/LifecycleHandler'
     EmptyDirVolumeSource:
       type: object
       properties:
@@ -379,248 +369,6 @@ components:
           type:
           - string
           - 'null'
-    ResourceRequirements:
-      type: object
-      properties:
-        limits:
-          $ref: '#/components/schemas/ResourceList'
-        requests:
-          $ref: '#/components/schemas/ResourceList'
-    SecretVolumeSource:
-      type: object
-      properties:
-        secretName:
-          type: string
-        defaultMode:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        optional:
-          type:
-          - boolean
-          - 'null'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/KeyToPath'
-      required:
-      - secretName
-    GRPCAction:
-      type: object
-      properties:
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-        service:
-          type:
-          - string
-          - 'null'
-      required:
-      - port
-    KeyToPath:
-      type: object
-      properties:
-        key:
-          type: string
-        path:
-          type: string
-        mode:
-          type:
-          - integer
-          - 'null'
-          format: int32
-      required:
-      - key
-      - path
-    Sidecars:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sidecar'
-        endCursor:
-          type:
-          - string
-          - 'null'
-      required:
-      - items
-      - endCursor
-    TCPSocketAction:
-      type: object
-      properties:
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-        host:
-          type:
-          - string
-          - 'null'
-      required:
-      - port
-    CreateSidecar:
-      type: object
-      properties:
-        name:
-          type: string
-          example: my-sidecar
-        image:
-          type: string
-          example: nginx:latest
-        imagePullPolicy:
-          $ref: '#/components/schemas/PullPolicy'
-        command:
-          type: array
-          items:
-            type: string
-          example:
-          - /bin/sh
-          - -c
-          - nginx
-        args:
-          type: array
-          items:
-            type: string
-          example:
-          - -c
-          - nginx
-        env:
-          type: array
-          items:
-            $ref: '#/components/schemas/EnvVar'
-        resources:
-          $ref: '#/components/schemas/ResourceRequirements'
-        ports:
-          type: array
-          items:
-            $ref: '#/components/schemas/ContainerPort'
-        volumeMounts:
-          type: array
-          items:
-            $ref: '#/components/schemas/VolumeMount'
-        volumes:
-          type: array
-          items:
-            $ref: '#/components/schemas/Volume'
-        livenessProbe:
-          $ref: '#/components/schemas/Probe'
-        readinessProbe:
-          $ref: '#/components/schemas/Probe'
-        startupProbe:
-          $ref: '#/components/schemas/Probe'
-        lifecycle:
-          $ref: '#/components/schemas/Lifecycle'
-      required:
-      - name
-      - image
-    URIScheme:
-      type: string
-      enum:
-      - HTTP
-      - HTTPS
-    StorageMedium:
-      type: string
-    VolumeMount:
-      type: object
-      properties:
-        name:
-          type: string
-        mountPath:
-          type: string
-        readOnly:
-          type: boolean
-        subPath:
-          type: string
-        subPathExpr:
-          type: string
-        mountPropagation:
-          $ref: '#/components/schemas/MountPropagationMode'
-      required:
-      - name
-      - mountPath
-    Updated:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    LifecycleHandler:
-      type: object
-      properties:
-        exec:
-          $ref: '#/components/schemas/ExecAction'
-        httpGet:
-          $ref: '#/components/schemas/HTTPGetAction'
-        tcpSocket:
-          $ref: '#/components/schemas/TCPSocketAction'
-        sleep:
-          $ref: '#/components/schemas/SleepAction'
-    ConfigMapKeySelector:
-      type: object
-      properties:
-        name:
-          type: string
-        key:
-          type: string
-      required:
-      - name
-      - key
-    PullPolicy:
-      type: string
-      enum:
-      - Always
-      - IfNotPresent
-      - Never
-    ContainerPort:
-      type: object
-      properties:
-        name:
-          type: string
-        containerPort:
-          type: integer
-        protocol:
-          $ref: '#/components/schemas/Protocol'
-      required:
-      - containerPort
-    MountPropagationMode:
-      type: string
-      enum:
-      - None
-      - HostToContainer
-      - Bidirectional
-    HTTPGetAction:
-      type: object
-      properties:
-        path:
-          type: string
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-        host:
-          type:
-          - string
-          - 'null'
-        scheme:
-          $ref: '#/components/schemas/URIScheme'
-        httpHeaders:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/HTTPHeader'
-      required:
-      - port
     Sidecar:
       type: object
       properties:
@@ -700,6 +448,233 @@ components:
       - name
       - createdAt
       - updatedAt
+    CreateSidecar:
+      type: object
+      properties:
+        name:
+          type: string
+          example: my-sidecar
+        image:
+          type: string
+          example: nginx:latest
+        imagePullPolicy:
+          $ref: '#/components/schemas/PullPolicy'
+        command:
+          type: array
+          items:
+            type: string
+          example:
+          - /bin/sh
+          - -c
+          - nginx
+        args:
+          type: array
+          items:
+            type: string
+          example:
+          - -c
+          - nginx
+        env:
+          type: array
+          items:
+            $ref: '#/components/schemas/EnvVar'
+        resources:
+          $ref: '#/components/schemas/ResourceRequirements'
+        ports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContainerPort'
+        volumeMounts:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeMount'
+        volumes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Volume'
+        livenessProbe:
+          $ref: '#/components/schemas/Probe'
+        readinessProbe:
+          $ref: '#/components/schemas/Probe'
+        startupProbe:
+          $ref: '#/components/schemas/Probe'
+        lifecycle:
+          $ref: '#/components/schemas/Lifecycle'
+      required:
+      - name
+      - image
+    ResourceRequirements:
+      type: object
+      properties:
+        limits:
+          $ref: '#/components/schemas/ResourceList'
+        requests:
+          $ref: '#/components/schemas/ResourceList'
+    HTTPGetAction:
+      type: object
+      properties:
+        path:
+          type: string
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+        host:
+          type:
+          - string
+          - 'null'
+        scheme:
+          $ref: '#/components/schemas/URIScheme'
+        httpHeaders:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/HTTPHeader'
+      required:
+      - port
+    EnvVar:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        valueFrom:
+          $ref: '#/components/schemas/EnvVarSource'
+      required:
+      - name
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    Volume:
+      type: object
+      properties:
+        name:
+          type: string
+        configMap:
+          $ref: '#/components/schemas/ConfigMapVolumeSource'
+        secret:
+          $ref: '#/components/schemas/SecretVolumeSource'
+        emptyDir:
+          $ref: '#/components/schemas/EmptyDirVolumeSource'
+      required:
+      - name
+    StorageMedium:
+      type: string
+    KeyToPath:
+      type: object
+      properties:
+        key:
+          type: string
+        path:
+          type: string
+        mode:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      required:
+      - key
+      - path
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    EnvVarSource:
+      type: object
+      properties:
+        secretKeyRef:
+          $ref: '#/components/schemas/SecretKeySelector'
+        configMapKeyRef:
+          $ref: '#/components/schemas/ConfigMapKeySelector'
+    ResourceList:
+      type: object
+      properties:
+        cpu:
+          type: string
+        memory:
+          type: string
+      additionalProperties:
+        type: string
+    ConfigMapVolumeSource:
+      type: object
+      properties:
+        name:
+          type: string
+        defaultMode:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        optional:
+          type:
+          - boolean
+          - 'null'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/KeyToPath'
+      required:
+      - name
+    PullPolicy:
+      type: string
+      enum:
+      - Always
+      - IfNotPresent
+      - Never
+    ContainerPort:
+      type: object
+      properties:
+        name:
+          type: string
+        containerPort:
+          type: integer
+        protocol:
+          $ref: '#/components/schemas/Protocol'
+      required:
+      - containerPort
+    TCPSocketAction:
+      type: object
+      properties:
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+        host:
+          type:
+          - string
+          - 'null'
+      required:
+      - port
+    URIScheme:
+      type: string
+      enum:
+      - HTTP
+      - HTTPS
     SleepAction:
       type: object
       properties:
@@ -709,12 +684,37 @@ components:
           minimum: 0
       required:
       - seconds
+    LifecycleHandler:
+      type: object
+      properties:
+        exec:
+          $ref: '#/components/schemas/ExecAction'
+        httpGet:
+          $ref: '#/components/schemas/HTTPGetAction'
+        tcpSocket:
+          $ref: '#/components/schemas/TCPSocketAction'
+        sleep:
+          $ref: '#/components/schemas/SleepAction'
     Protocol:
       type: string
       enum:
       - TCP
       - UDP
       - SCTP
+    GRPCAction:
+      type: object
+      properties:
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+        service:
+          type:
+          - string
+          - 'null'
+      required:
+      - port
   securitySchemes:
     user:
       type: http

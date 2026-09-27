@@ -403,31 +403,47 @@ paths:
           description: Deleted.
 components:
   schemas:
-    CreatedFleetFile:
+    CreateFleetFile:
       type: object
-      description: Created fleet file response body.
       properties:
-        id:
+        name:
           type: string
-          format: uuid
-        createdAt:
+        contents:
+          type: string
+          format: byte
+      required:
+      - name
+      - contents
+    DeletedFleet:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    UpdateFleetFile:
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+          format: byte
+    UpdatedFleet:
+      type: object
+      properties:
+        updatedAt:
           type: string
           format: date-time
       required:
-      - id
-      - createdAt
-    CreatedFleet:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
+      - updatedAt
     Fleet:
       type: object
       description: Group of agents sharing the same config.
@@ -481,14 +497,115 @@ components:
       - agentsCount
       - createdAt
       - updatedAt
-    UpdateFleetFile:
+    CreateFleet:
       type: object
       properties:
         name:
           type: string
+          maxLength: 32
+          example: my-fleet
+        minFluentBitVersion:
+          type: string
+          description: semver
+          example: v1.0.0
+        rawConfig:
+          type: string
+          description: 'The fleet fluent-bit configuration in the format defined by
+
+            configFormat.
+
+            '
+        configFormat:
+          type:
+          - string
+          - 'null'
+          enum:
+          - classic
+          - json
+          - yaml
+        tags:
+          type: array
+          items:
+            type: string
+            pattern: ^[a-z]+$
+            example: dev
+        skipConfigValidation:
+          type: boolean
+          default: false
+      required:
+      - name
+      - minFluentBitVersion
+      - rawConfig
+      - tags
+      - skipConfigValidation
+    FleetAgentsCount:
+      type: object
+      description: 'Both active and inactive can sum up to the total count
+
+        of agents that the fleet has.
+
+        `withErrors` is the count of particular agents that have
+
+        some errors that have not been dismissed yet.'
+      properties:
+        active:
+          type: number
+          format: int32
+          minimum: 0
+        inactive:
+          type: number
+          format: int32
+          minimum: 0
+        withErrors:
+          type: number
+          format: int32
+          minimum: 0
+      required:
+      - active
+      - inactive
+      - withErrors
+    FleetFile:
+      type: object
+      properties:
         contents:
           type: string
           format: byte
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    CreatedFleet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    CreatedFleetFile:
+      type: object
+      description: Created fleet file response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     UpdateFleet:
       type: object
       properties:
@@ -532,123 +649,6 @@ components:
           default: false
       required:
       - skipConfigValidation
-    FleetAgentsCount:
-      type: object
-      description: 'Both active and inactive can sum up to the total count
-
-        of agents that the fleet has.
-
-        `withErrors` is the count of particular agents that have
-
-        some errors that have not been dismissed yet.'
-      properties:
-        active:
-          type: number
-          format: int32
-          minimum: 0
-        inactive:
-          type: number
-          format: int32
-          minimum: 0
-        withErrors:
-          type: number
-          format: int32
-          minimum: 0
-      required:
-      - active
-      - inactive
-      - withErrors
-    CreateFleetFile:
-      type: object
-      properties:
-        name:
-          type: string
-        contents:
-          type: string
-          format: byte
-      required:
-      - name
-      - contents
-    DeletedFleet:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    CreateFleet:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 32
-          example: my-fleet
-        minFluentBitVersion:
-          type: string
-          description: semver
-          example: v1.0.0
-        rawConfig:
-          type: string
-          description: 'The fleet fluent-bit configuration in the format defined by
-
-            configFormat.
-
-            '
-        configFormat:
-          type:
-          - string
-          - 'null'
-          enum:
-          - classic
-          - json
-          - yaml
-        tags:
-          type: array
-          items:
-            type: string
-            pattern: ^[a-z]+$
-            example: dev
-        skipConfigValidation:
-          type: boolean
-          default: false
-      required:
-      - name
-      - minFluentBitVersion
-      - rawConfig
-      - tags
-      - skipConfigValidation
-    FleetFile:
-      type: object
-      properties:
-        contents:
-          type: string
-          format: byte
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    UpdatedFleet:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
     FleetsStatus:
       type: object
       description: "Show the numerical count of the status of all Agents\nwithin a Fleet or all Fleets within a Project.\nThe status is one of:\n  * Managed: the full total of agents managed by the fleet\n             or all fleets in a project.\n  * Healthy: total of all fully functioning fleet agents.\n  * In Progress: total of all fleet agents that are pending an\n                 upgrade to their configuration.\n  * Unhleathy: total of all fleet agents that either have a\n               pending error or have not responded in\n               predetermined length of time."

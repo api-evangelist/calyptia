@@ -204,17 +204,17 @@ paths:
                 $ref: '#/components/schemas/DismissedAgentError'
 components:
   schemas:
-    DismissAgentError:
+    CreateAgentError:
       type: object
-      description: Request body required to dismiss an existing agent error.
+      description: Request body required to create a new Agent Error.
       properties:
-        reason:
+        error:
           type: string
           minLength: 1
-          maxLength: 100
-          example: It was just a test, this config is not used in production.
+          maxLength: 1024
+          example: '[config] section ''foo'' tried to instance a plugin name that don''t exists'
       required:
-      - reason
+      - error
     AgentError:
       type: object
       description: 'An Agent Error represent an error that occurred on an agent.
@@ -268,17 +268,6 @@ components:
           format: date-time
       required:
       - dismissedAt
-    CreateAgentError:
-      type: object
-      description: Request body required to create a new Agent Error.
-      properties:
-        error:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          example: '[config] section ''foo'' tried to instance a plugin name that don''t exists'
-      required:
-      - error
     CreatedAgentError:
       type: object
       description: Response body after creating a new Agent Error.
@@ -292,6 +281,17 @@ components:
       required:
       - id
       - createdAt
+    DismissAgentError:
+      type: object
+      description: Request body required to dismiss an existing agent error.
+      properties:
+        reason:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: It was just a test, this config is not used in production.
+      required:
+      - reason
   securitySchemes:
     user:
       type: http

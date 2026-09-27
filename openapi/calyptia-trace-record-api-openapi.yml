@@ -173,6 +173,23 @@ components:
       - FILTER
       - PRE_OUTPUT
       - OUTPUT
+    CreatedTraceRecord:
+      type: object
+      description: Response body when a trace record is created.
+      properties:
+        id:
+          type: string
+          format: uuid
+        sessionID:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - sessionID
+      - createdAt
     CreateTraceRecord:
       type: object
       description: 'Request body to create a trace record on an active session.
@@ -229,23 +246,6 @@ components:
       - plugin_alias
       - return_code
       - records
-    CreatedTraceRecord:
-      type: object
-      description: Response body when a trace record is created.
-      properties:
-        id:
-          type: string
-          format: uuid
-        sessionID:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - sessionID
-      - createdAt
   securitySchemes:
     user:
       type: http

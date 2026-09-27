@@ -134,6 +134,43 @@ paths:
           description: No Content
 components:
   schemas:
+    CreatePipelinePort:
+      description: Create pipeline port request body.
+      type: object
+      properties:
+        protocol:
+          type: string
+          example: tcp
+        frontendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
+
+            It should be unique within the pipeline.'
+        backendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
+        endpoint:
+          type: string
+        kind:
+          deprecated: true
+          $ref: '#/components/schemas/PipelinePortKind'
+      required:
+      - protocol
+      - frontendPort
+      - backendPort
+      - endpoint
+    PipelinePortKind:
+      type: string
+      description: The kind/type of the service associated to this port.
+      default: LoadBalancer
+      enum:
+      - LoadBalancer
+      - ClusterIP
+      - NodePort
     CreatedPipelinePort:
       type: object
       description: Created pipeline port response body.
@@ -215,35 +252,6 @@ components:
           - LoadBalancer
           - ClusterIP
           - NodePort
-    CreatePipelinePort:
-      description: Create pipeline port request body.
-      type: object
-      properties:
-        protocol:
-          type: string
-          example: tcp
-        frontendPort:
-          type: integer
-          format: int32
-          minimum: 0
-          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
-
-            It should be unique within the pipeline.'
-        backendPort:
-          type: integer
-          format: int32
-          minimum: 0
-          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
-        endpoint:
-          type: string
-        kind:
-          deprecated: true
-          $ref: '#/components/schemas/PipelinePortKind'
-      required:
-      - protocol
-      - frontendPort
-      - backendPort
-      - endpoint
     PipelinePort:
       type: object
       description: Pipeline port model.
@@ -306,14 +314,6 @@ components:
       - pluginAlias
       - createdAt
       - updatedAt
-    PipelinePortKind:
-      type: string
-      description: The kind/type of the service associated to this port.
-      default: LoadBalancer
-      enum:
-      - LoadBalancer
-      - ClusterIP
-      - NodePort
   securitySchemes:
     user:
       type: http

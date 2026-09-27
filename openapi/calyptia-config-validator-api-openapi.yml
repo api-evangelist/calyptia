@@ -110,16 +110,6 @@ components:
           - filter
       required:
       - errors
-    ValidateFluentbitConfig:
-      type: object
-      properties:
-        rawConfig:
-          type: string
-          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
-        configFormat:
-          $ref: '#/components/schemas/ConfigFormat'
-      required:
-      - rawConfig
     ConfigFormat:
       type: string
       enum:
@@ -156,6 +146,16 @@ components:
             - id
       required:
       - config
+    ValidateFluentbitConfig:
+      type: object
+      properties:
+        rawConfig:
+          type: string
+          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
+        configFormat:
+          $ref: '#/components/schemas/ConfigFormat'
+      required:
+      - rawConfig
   securitySchemes:
     user:
       type: http

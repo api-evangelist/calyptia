@@ -143,29 +143,39 @@ paths:
           description: No Content
 components:
   schemas:
-    UpdatedClusterObjectRegex:
+    CreatedClusterObjectRegex:
       type: object
       properties:
-        updatedAt:
+        id:
+          type: string
+          format: uuid
+        createdAt:
           type: string
           format: date-time
       required:
-      - updatedAt
-    ClusterObjectRegexes:
+      - id
+      - createdAt
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
+    UpdateClusterObjectRegex:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClusterObjectRegex'
-        endCursor:
+        regex:
           type:
           - string
           - 'null'
+          minLength: 0
           default: null
-      required:
-      - items
-      - endCursor
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          default: null
     ClusterObject:
       type: object
       description: A kubernetes cluster object that belongs to a given core instance.
@@ -224,12 +234,6 @@ components:
       - description
       - createdAt
       - updatedAt
-    ClusterObjectKind:
-      type: string
-      description: Kind of the kubernetes object
-      default: namespace
-      enum:
-      - namespace
     CreateClusterObjectRegex:
       type: object
       properties:
@@ -242,33 +246,29 @@ components:
       required:
       - regex
       - description
-    CreatedClusterObjectRegex:
+    UpdatedClusterObjectRegex:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
+        updatedAt:
           type: string
           format: date-time
       required:
-      - id
-      - createdAt
-    UpdateClusterObjectRegex:
+      - updatedAt
+    ClusterObjectRegexes:
       type: object
       properties:
-        regex:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClusterObjectRegex'
+        endCursor:
           type:
           - string
           - 'null'
-          minLength: 0
           default: null
-        description:
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          default: null
+      required:
+      - items
+      - endCursor
   securitySchemes:
     user:
       type: http

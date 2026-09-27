@@ -141,6 +141,37 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    CreateCoreInstanceFile:
+      type: object
+      properties:
+        name:
+          type: string
+          example: myfile
+        contents:
+          type: string
+          format: byte
+          description: The contents of the file to be created in base 64 format.
+        encrypted:
+          type: boolean
+          default: false
+      required:
+      - name
+      - contents
+      - encrypted
     CoreInstanceFiles:
       type: object
       properties:
@@ -159,14 +190,27 @@ components:
       - items
       - endCursor
       - count
-    Updated:
+    UpdateCoreInstanceFile:
       type: object
       properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
+        name:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: myfile
+        contents:
+          type:
+          - string
+          - 'null'
+          format: byte
+          default: null
+          description: Optional contents of the file to be updated in base 64 format.
+        encrypted:
+          type:
+          - boolean
+          - 'null'
+          default: null
     Created:
       type: object
       properties:
@@ -216,58 +260,14 @@ components:
       - encrypted
       - createdAt
       - updatedAt
-    CreateCoreInstanceFile:
+    Updated:
       type: object
       properties:
-        name:
+        updatedAt:
           type: string
-          example: myfile
-        contents:
-          type: string
-          format: byte
-          description: The contents of the file to be created in base 64 format.
-        encrypted:
-          type: boolean
-          default: false
-      required:
-      - name
-      - contents
-      - encrypted
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
           format: date-time
-          default: null
       required:
-      - deleted
-      - deletedAt
-    UpdateCoreInstanceFile:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: myfile
-        contents:
-          type:
-          - string
-          - 'null'
-          format: byte
-          default: null
-          description: Optional contents of the file to be updated in base 64 format.
-        encrypted:
-          type:
-          - boolean
-          - 'null'
-          default: null
+      - updatedAt
   securitySchemes:
     user:
       type: http

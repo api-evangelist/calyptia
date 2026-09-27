@@ -79,19 +79,12 @@ paths:
                 $ref: '#/components/schemas/AuditLogs'
 components:
   schemas:
-    AuditLogs:
-      type: object
-      properties:
-        endCursor:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditLog'
-    AuditLogComponents:
-      type: object
-      additionalProperties:
-        type: string
+    AuditLogAction:
+      type: string
+      enum:
+      - CREATE
+      - UPDATE
+      - DELETE
     AuditLogIdentity:
       type: object
       additionalProperties:
@@ -116,12 +109,19 @@ components:
           $ref: '#/components/schemas/AuditLogAction'
         responseCode:
           type: integer
-    AuditLogAction:
-      type: string
-      enum:
-      - CREATE
-      - UPDATE
-      - DELETE
+    AuditLogs:
+      type: object
+      properties:
+        endCursor:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
+    AuditLogComponents:
+      type: object
+      additionalProperties:
+        type: string
   securitySchemes:
     user:
       type: http
