@@ -144,14 +144,6 @@ paths:
           description: OK
 components:
   schemas:
-    UpdateEnvironment:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          default: null
     CreateEnvironment:
       type: object
       properties:
@@ -174,6 +166,14 @@ components:
         updatedAt:
           type: string
           format: date-time
+    UpdateEnvironment:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          default: null
   securitySchemes:
     user:
       type: http

@@ -142,125 +142,6 @@ paths:
           description: No Content
 components:
   schemas:
-    ResourceProfile:
-      type: object
-      description: Resource profile model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          example: my-resource-profile
-        storageMaxChunksUp:
-          type: integer
-          format: int32
-        storageSyncFull:
-          type: boolean
-        storageBacklogMemLimit:
-          type: string
-          example: 1Mi
-        storageVolumeSize:
-          type: string
-          example: 2Mi
-        storageMaxChunksPause:
-          type: boolean
-        cpuBufferWorkers:
-          type: integer
-          format: int32
-        cpuLimit:
-          type: string
-          example: 3Mi
-        cpuRequest:
-          type: string
-          example: 4Mi
-        memoryLimit:
-          type: string
-          example: 5Mi
-        memoryRequest:
-          type: string
-          example: 6Mi
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - name
-      - storageMaxChunksUp
-      - storageSyncFull
-      - storageBacklogMemLimit
-      - storageVolumeSize
-      - storageMaxChunksPause
-      - cpuBufferWorkers
-      - cpuLimit
-      - cpuRequest
-      - memoryLimit
-      - memoryRequest
-      - createdAt
-      - updatedAt
-    CreatedResourceProfile:
-      type: object
-      description: Created resource profile response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    CreateResourceProfile:
-      description: Create resource profile request body.
-      type: object
-      properties:
-        name:
-          type: string
-          example: my-resource-profile
-        storageMaxChunksUp:
-          type: integer
-          format: int32
-        storageSyncFull:
-          type: boolean
-        storageBacklogMemLimit:
-          type: string
-          example: 1Mi
-        storageVolumeSize:
-          type: string
-          example: 2Mi
-        storageMaxChunksPause:
-          type: boolean
-        cpuBufferWorkers:
-          type: integer
-          format: int32
-        cpuLimit:
-          type: string
-          example: 3Mi
-        cpuRequest:
-          type: string
-          example: 4Mi
-        memoryLimit:
-          type: string
-          example: 5Mi
-        memoryRequest:
-          type: string
-          example: 6Mi
-      required:
-      - name
-      - storageMaxChunksUp
-      - storageSyncFull
-      - storageBacklogMemLimit
-      - storageVolumeSize
-      - storageMaxChunksPause
-      - cpuBufferWorkers
-      - cpuLimit
-      - cpuRequest
-      - memoryLimit
-      - memoryRequest
     UpdateResourceProfile:
       description: Update resource profile request body.
       type: object
@@ -329,6 +210,125 @@ components:
           - 'null'
           example: 6Mi
           default: null
+    ResourceProfile:
+      type: object
+      description: Resource profile model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: my-resource-profile
+        storageMaxChunksUp:
+          type: integer
+          format: int32
+        storageSyncFull:
+          type: boolean
+        storageBacklogMemLimit:
+          type: string
+          example: 1Mi
+        storageVolumeSize:
+          type: string
+          example: 2Mi
+        storageMaxChunksPause:
+          type: boolean
+        cpuBufferWorkers:
+          type: integer
+          format: int32
+        cpuLimit:
+          type: string
+          example: 3Mi
+        cpuRequest:
+          type: string
+          example: 4Mi
+        memoryLimit:
+          type: string
+          example: 5Mi
+        memoryRequest:
+          type: string
+          example: 6Mi
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - storageMaxChunksUp
+      - storageSyncFull
+      - storageBacklogMemLimit
+      - storageVolumeSize
+      - storageMaxChunksPause
+      - cpuBufferWorkers
+      - cpuLimit
+      - cpuRequest
+      - memoryLimit
+      - memoryRequest
+      - createdAt
+      - updatedAt
+    CreateResourceProfile:
+      description: Create resource profile request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: my-resource-profile
+        storageMaxChunksUp:
+          type: integer
+          format: int32
+        storageSyncFull:
+          type: boolean
+        storageBacklogMemLimit:
+          type: string
+          example: 1Mi
+        storageVolumeSize:
+          type: string
+          example: 2Mi
+        storageMaxChunksPause:
+          type: boolean
+        cpuBufferWorkers:
+          type: integer
+          format: int32
+        cpuLimit:
+          type: string
+          example: 3Mi
+        cpuRequest:
+          type: string
+          example: 4Mi
+        memoryLimit:
+          type: string
+          example: 5Mi
+        memoryRequest:
+          type: string
+          example: 6Mi
+      required:
+      - name
+      - storageMaxChunksUp
+      - storageSyncFull
+      - storageBacklogMemLimit
+      - storageVolumeSize
+      - storageMaxChunksPause
+      - cpuBufferWorkers
+      - cpuLimit
+      - cpuRequest
+      - memoryLimit
+      - memoryRequest
+    CreatedResourceProfile:
+      type: object
+      description: Created resource profile response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
   securitySchemes:
     user:
       type: http

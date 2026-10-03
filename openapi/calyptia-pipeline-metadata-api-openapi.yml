@@ -75,9 +75,6 @@ paths:
           description: No Content
 components:
   schemas:
-    PipelineMetadata:
-      type: object
-      additionalProperties: true
     UpdatePipelineMetadata:
       type: object
       properties:
@@ -91,6 +88,9 @@ components:
           example: '{"value": "1"}
 
             '
+    PipelineMetadata:
+      type: object
+      additionalProperties: true
   securitySchemes:
     user:
       type: http

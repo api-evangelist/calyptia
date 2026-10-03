@@ -80,39 +80,6 @@ paths:
                   $ref: '#/components/schemas/PipelineStatus'
 components:
   schemas:
-    PipelineStatus:
-      type: object
-      description: Pipeline status history entry.
-      properties:
-        id:
-          type: string
-          format: uuid
-        config:
-          $ref: '#/components/schemas/AgentConfig'
-        status:
-          type: string
-          enum:
-          - NEW
-          - FAILED
-          - STARTING
-          - STARTED
-          - SCALING
-          - CHECKS_OK
-          - CHECKS_FAILED
-        events:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PipelineEvent'
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - config
-      - status
-      - createdAt
     PipelineEvent:
       type: object
       description: Pipeline Status event.
@@ -148,6 +115,39 @@ components:
       required:
       - id
       - rawConfig
+      - createdAt
+    PipelineStatus:
+      type: object
+      description: Pipeline status history entry.
+      properties:
+        id:
+          type: string
+          format: uuid
+        config:
+          $ref: '#/components/schemas/AgentConfig'
+        status:
+          type: string
+          enum:
+          - NEW
+          - FAILED
+          - STARTING
+          - STARTED
+          - SCALING
+          - CHECKS_OK
+          - CHECKS_FAILED
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PipelineEvent'
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - config
+      - status
       - createdAt
   securitySchemes:
     user:

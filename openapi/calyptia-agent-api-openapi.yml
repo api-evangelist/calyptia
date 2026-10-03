@@ -258,6 +258,31 @@ components:
       - edition
       - flags
       - rawConfig
+    RegisteredAgent:
+      type: object
+      description: Registered agent response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        token:
+          type: string
+          example: redacted
+        name:
+          type: string
+          example: my-agent
+        createdAt:
+          type: string
+          format: date-time
+        environmentName:
+          type: string
+          description: environment name on which the agent belongs to.
+          default: default
+      required:
+      - id
+      - token
+      - name
+      - createdAt
     Agent:
       type: object
       properties:
@@ -441,31 +466,6 @@ components:
           - 'null'
           default: null
           description: environment ID to associate this agent with.
-    RegisteredAgent:
-      type: object
-      description: Registered agent response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        token:
-          type: string
-          example: redacted
-        name:
-          type: string
-          example: my-agent
-        createdAt:
-          type: string
-          format: date-time
-        environmentName:
-          type: string
-          description: environment name on which the agent belongs to.
-          default: default
-      required:
-      - id
-      - token
-      - name
-      - createdAt
   securitySchemes:
     user:
       type: http

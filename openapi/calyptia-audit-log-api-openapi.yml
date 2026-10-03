@@ -89,6 +89,15 @@ components:
       type: object
       additionalProperties:
         type: object
+    AuditLogs:
+      type: object
+      properties:
+        endCursor:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
     AuditLog:
       type: object
       properties:
@@ -109,15 +118,6 @@ components:
           $ref: '#/components/schemas/AuditLogAction'
         responseCode:
           type: integer
-    AuditLogs:
-      type: object
-      properties:
-        endCursor:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditLog'
     AuditLogComponents:
       type: object
       additionalProperties:

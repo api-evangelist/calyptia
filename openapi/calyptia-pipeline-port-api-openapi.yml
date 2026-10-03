@@ -163,53 +163,6 @@ components:
       - frontendPort
       - backendPort
       - endpoint
-    PipelinePortKind:
-      type: string
-      description: The kind/type of the service associated to this port.
-      default: LoadBalancer
-      enum:
-      - LoadBalancer
-      - ClusterIP
-      - NodePort
-    CreatedPipelinePort:
-      type: object
-      description: Created pipeline port response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        kind:
-          type:
-          - string
-          - 'null'
-          default: null
-        pluginID:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: forward.0
-        pluginName:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: forward
-        pluginAlias:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: myforwardinput
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - pluginID
-      - pluginName
-      - pluginAlias
-      - createdAt
     UpdatePipelinePort:
       description: Update pipeline port request body.
       type: object
@@ -314,6 +267,53 @@ components:
       - pluginAlias
       - createdAt
       - updatedAt
+    CreatedPipelinePort:
+      type: object
+      description: Created pipeline port response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        kind:
+          type:
+          - string
+          - 'null'
+          default: null
+        pluginID:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: forward.0
+        pluginName:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: forward
+        pluginAlias:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: myforwardinput
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - pluginID
+      - pluginName
+      - pluginAlias
+      - createdAt
+    PipelinePortKind:
+      type: string
+      description: The kind/type of the service associated to this port.
+      default: LoadBalancer
+      enum:
+      - LoadBalancer
+      - ClusterIP
+      - NodePort
   securitySchemes:
     user:
       type: http

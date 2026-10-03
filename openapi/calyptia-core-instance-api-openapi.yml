@@ -83,26 +83,61 @@ paths:
                 $ref: '#/components/schemas/CoreInstances'
 components:
   schemas:
-    CoreInstance:
-      $ref: '#/components/schemas/Aggregator'
-    CoreInstances:
+    MetadataGCP:
       type: object
+      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
+
+        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
+
+        '
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoreInstance'
-        endCursor:
-          type:
-          - string
-          - 'null'
-        count:
+        gcp.project_number:
           type: number
-          format: int32
-      required:
-      - items
-      - endCursor
-      - count
+        gcp.project_id:
+          type: string
+        gcp.instance_id:
+          type: number
+        gcp.instance_image:
+          type: string
+        gcp.machine_type:
+          type: string
+        gcp.instance_name:
+          type: string
+        gcp.zone:
+          type: string
+    MetadataAWS:
+      type: object
+      description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
+
+        See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
+
+        '
+      properties:
+        aws.ami_id:
+          type: string
+        aws.account_id:
+          type: string
+        aws.hostname:
+          type: string
+        aws.vpc_id:
+          type: string
+        aws.private_ipv4:
+          type: string
+        aws.public_ipv4:
+          type: string
+        aws.ec2_instance_id:
+          type: string
+        aws.ec2_instance_type:
+          type: string
+        aws.az:
+          type: string
+    CoreInstanceMetadata:
+      type: object
+      description: Core Instance Metadata model.
+      anyOf:
+      - $ref: '#/components/schemas/MetadataAWS'
+      - $ref: '#/components/schemas/MetadataGCP'
+      - $ref: '#/components/schemas/MetadataK8S'
     MetadataK8S:
       type: object
       description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
@@ -121,13 +156,24 @@ components:
           type: string
         k8s.cluster_platform:
           type: string
-    CoreInstanceMetadata:
+    CoreInstances:
       type: object
-      description: Core Instance Metadata model.
-      anyOf:
-      - $ref: '#/components/schemas/MetadataAWS'
-      - $ref: '#/components/schemas/MetadataGCP'
-      - $ref: '#/components/schemas/MetadataK8S'
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoreInstance'
+        endCursor:
+          type:
+          - string
+          - 'null'
+        count:
+          type: number
+          format: int32
+      required:
+      - items
+      - endCursor
+      - count
     Aggregator:
       type: object
       description: Core instance model.
@@ -189,54 +235,8 @@ components:
       - skipServiceCreation
       - createdAt
       - updatedAt
-    MetadataGCP:
-      type: object
-      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
-
-        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
-
-        '
-      properties:
-        gcp.project_number:
-          type: number
-        gcp.project_id:
-          type: string
-        gcp.instance_id:
-          type: number
-        gcp.instance_image:
-          type: string
-        gcp.machine_type:
-          type: string
-        gcp.instance_name:
-          type: string
-        gcp.zone:
-          type: string
-    MetadataAWS:
-      type: object
-      description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
-
-        See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
-
-        '
-      properties:
-        aws.ami_id:
-          type: string
-        aws.account_id:
-          type: string
-        aws.hostname:
-          type: string
-        aws.vpc_id:
-          type: string
-        aws.private_ipv4:
-          type: string
-        aws.public_ipv4:
-          type: string
-        aws.ec2_instance_id:
-          type: string
-        aws.ec2_instance_type:
-          type: string
-        aws.az:
-          type: string
+    CoreInstance:
+      $ref: '#/components/schemas/Aggregator'
   securitySchemes:
     user:
       type: http

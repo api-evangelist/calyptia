@@ -156,93 +156,6 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    PipelineLog:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        pipelineID:
-          type: string
-          format: uuid
-        logs:
-          type: string
-        lines:
-          type: integer
-          default: 100
-        status:
-          $ref: '#/components/schemas/PipelineLogStatus'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - pipelineID
-      - logs
-      - lines
-      - status
-      - createdAt
-      - updatedAt
-    UpdatePipelineLog:
-      type: object
-      properties:
-        logs:
-          type:
-          - string
-          - 'null'
-          default: null
-        lines:
-          type:
-          - integer
-          - 'null'
-          default: null
-        status:
-          type:
-          - string
-          - 'null'
-          default: null
-          enum:
-          - NEW
-          - DONE
-    CreatePipelineLog:
-      type: object
-      properties:
-        logs:
-          type: string
-        lines:
-          type: integer
-          default: 100
-      required:
-      - logs
-    Created:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
     PipelineLogs:
       type: object
       properties:
@@ -280,6 +193,32 @@ components:
       enum:
       - NEW
       - DONE
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
     Updated:
       type: object
       properties:
@@ -288,6 +227,67 @@ components:
           format: date-time
       required:
       - updatedAt
+    PipelineLog:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        pipelineID:
+          type: string
+          format: uuid
+        logs:
+          type: string
+        lines:
+          type: integer
+          default: 100
+        status:
+          $ref: '#/components/schemas/PipelineLogStatus'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - pipelineID
+      - logs
+      - lines
+      - status
+      - createdAt
+      - updatedAt
+    CreatePipelineLog:
+      type: object
+      properties:
+        logs:
+          type: string
+        lines:
+          type: integer
+          default: 100
+      required:
+      - logs
+    UpdatePipelineLog:
+      type: object
+      properties:
+        logs:
+          type:
+          - string
+          - 'null'
+          default: null
+        lines:
+          type:
+          - integer
+          - 'null'
+          default: null
+        status:
+          type:
+          - string
+          - 'null'
+          default: null
+          enum:
+          - NEW
+          - DONE
   securitySchemes:
     user:
       type: http

@@ -189,25 +189,10 @@ paths:
           description: Updated
 components:
   schemas:
-    ConfigSectionKind:
-      type: string
-      enum:
-      - input
-      - filter
-      - output
-      - service
-    CreatedConfigSection:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
+    Pairs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pair'
     UpdateConfigSection:
       type: object
       properties:
@@ -225,6 +210,18 @@ components:
           format: date-time
       required:
       - updatedAt
+    CreatedConfigSection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     Pair:
       type: object
       properties:
@@ -244,6 +241,13 @@ components:
       required:
       - key
       - value
+    ConfigSectionKind:
+      type: string
+      enum:
+      - input
+      - filter
+      - output
+      - service
     CreateConfigSection:
       type: object
       properties:
@@ -291,10 +295,6 @@ components:
       - properties
       - createdAt
       - updatedAt
-    Pairs:
-      type: array
-      items:
-        $ref: '#/components/schemas/Pair'
   securitySchemes:
     user:
       type: http

@@ -74,6 +74,24 @@ paths:
           description: No Content
 components:
   schemas:
+    ConfigFormat:
+      type: string
+      enum:
+      - classic
+      - yaml
+      - json
+      default: classic
+      example: yaml
+    ValidateFluentbitConfig:
+      type: object
+      properties:
+        rawConfig:
+          type: string
+          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
+        configFormat:
+          $ref: '#/components/schemas/ConfigFormat'
+      required:
+      - rawConfig
     ValidatedConfig:
       type: object
       description: Validate config response body.
@@ -110,14 +128,6 @@ components:
           - filter
       required:
       - errors
-    ConfigFormat:
-      type: string
-      enum:
-      - classic
-      - yaml
-      - json
-      default: classic
-      example: yaml
     ValidatingConfig:
       description: Validating configuration request body.
       type: object
@@ -146,16 +156,6 @@ components:
             - id
       required:
       - config
-    ValidateFluentbitConfig:
-      type: object
-      properties:
-        rawConfig:
-          type: string
-          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
-        configFormat:
-          $ref: '#/components/schemas/ConfigFormat'
-      required:
-      - rawConfig
   securitySchemes:
     user:
       type: http

@@ -89,6 +89,35 @@ paths:
                   $ref: '#/components/schemas/TraceRecord'
 components:
   schemas:
+    CreatedTraceRecord:
+      type: object
+      description: Response body when a trace record is created.
+      properties:
+        id:
+          type: string
+          format: uuid
+        sessionID:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - sessionID
+      - createdAt
+    TraceRecordKind:
+      type: integer
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      x-enum-varnames:
+      - INPUT
+      - FILTER
+      - PRE_OUTPUT
+      - OUTPUT
     TraceRecord:
       type: object
       description: 'Trace record model.
@@ -160,35 +189,6 @@ components:
       - plugin_alias
       - return_code
       - records
-      - createdAt
-    TraceRecordKind:
-      type: integer
-      enum:
-      - 1
-      - 2
-      - 3
-      - 4
-      x-enum-varnames:
-      - INPUT
-      - FILTER
-      - PRE_OUTPUT
-      - OUTPUT
-    CreatedTraceRecord:
-      type: object
-      description: Response body when a trace record is created.
-      properties:
-        id:
-          type: string
-          format: uuid
-        sessionID:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - sessionID
       - createdAt
     CreateTraceRecord:
       type: object

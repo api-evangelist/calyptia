@@ -204,17 +204,28 @@ paths:
                 $ref: '#/components/schemas/DismissedAgentError'
 components:
   schemas:
-    CreateAgentError:
+    DismissedAgentError:
       type: object
-      description: Request body required to create a new Agent Error.
+      description: Response body after dismissing an Agent Error.
       properties:
-        error:
+        dismissedAt:
           type: string
-          minLength: 1
-          maxLength: 1024
-          example: '[config] section ''foo'' tried to instance a plugin name that don''t exists'
+          format: date-time
       required:
-      - error
+      - dismissedAt
+    CreatedAgentError:
+      type: object
+      description: Response body after creating a new Agent Error.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     AgentError:
       type: object
       description: 'An Agent Error represent an error that occurred on an agent.
@@ -259,28 +270,6 @@ components:
       - dismissedAt
       - dismissReason
       - createdAt
-    DismissedAgentError:
-      type: object
-      description: Response body after dismissing an Agent Error.
-      properties:
-        dismissedAt:
-          type: string
-          format: date-time
-      required:
-      - dismissedAt
-    CreatedAgentError:
-      type: object
-      description: Response body after creating a new Agent Error.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
     DismissAgentError:
       type: object
       description: Request body required to dismiss an existing agent error.
@@ -292,6 +281,17 @@ components:
           example: It was just a test, this config is not used in production.
       required:
       - reason
+    CreateAgentError:
+      type: object
+      description: Request body required to create a new Agent Error.
+      properties:
+        error:
+          type: string
+          minLength: 1
+          maxLength: 1024
+          example: '[config] section ''foo'' tried to instance a plugin name that don''t exists'
+      required:
+      - error
   securitySchemes:
     user:
       type: http

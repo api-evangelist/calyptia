@@ -148,6 +148,19 @@ paths:
           description: No Content
 components:
   schemas:
+    CreatedPipelineCheck:
+      type: object
+      description: Created pipeline check response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     UpdatePipelineCheck:
       description: Update pipeline check request body.
       type: object
@@ -218,28 +231,6 @@ components:
       - host
       - createdAt
       - updatedAt
-    CreatedPipelineCheck:
-      type: object
-      description: Created pipeline check response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    CheckStatus:
-      type: string
-      description: The status of a check.
-      default: new
-      enum:
-      - new
-      - failed
-      - running
-      - ok
     PipelinePortProtocol:
       type: string
       description: Valid protocol types defined for a pipelines.
@@ -271,6 +262,15 @@ components:
       - protocol
       - host
       - port
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
   securitySchemes:
     user:
       type: http

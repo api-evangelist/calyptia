@@ -148,44 +148,6 @@ paths:
           description: No Content
 components:
   schemas:
-    CoreInstanceCheck:
-      type: object
-      description: Core instance check model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        protocol:
-          $ref: '#/components/schemas/PipelinePortProtocol'
-        status:
-          $ref: '#/components/schemas/CheckStatus'
-        retries:
-          type: number
-          default: 0
-          description: number of retries for the check before marking it as failed
-        host:
-          type: string
-          description: DNS label format as of defined on RFC1123 or an IPv4 address.
-          example: localhost
-        port:
-          type: number
-          minimum: 0
-          maximum: 65535
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - protocol
-      - status
-      - retries
-      - host
-      - port
-      - createdAt
-      - updatedAt
     UpdateCoreInstanceCheck:
       description: Update a core instance check request body.
       type: object
@@ -230,21 +192,6 @@ components:
       required:
       - id
       - createdAt
-    CheckStatus:
-      type: string
-      description: The status of a check.
-      default: new
-      enum:
-      - new
-      - failed
-      - running
-      - ok
-    PipelinePortProtocol:
-      type: string
-      description: Valid protocol types defined for a pipelines.
-      enum:
-      - tcp
-      - udp
     CreateCoreInstanceCheck:
       description: Create core instance check request body.
       type: object
@@ -268,6 +215,59 @@ components:
       - protocol
       - host
       - port
+    CoreInstanceCheck:
+      type: object
+      description: Core instance check model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+        retries:
+          type: number
+          default: 0
+          description: number of retries for the check before marking it as failed
+        host:
+          type: string
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          minimum: 0
+          maximum: 65535
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - protocol
+      - status
+      - retries
+      - host
+      - port
+      - createdAt
+      - updatedAt
+    PipelinePortProtocol:
+      type: string
+      description: Valid protocol types defined for a pipelines.
+      enum:
+      - tcp
+      - udp
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
   securitySchemes:
     user:
       type: http

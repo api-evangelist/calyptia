@@ -163,6 +163,20 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Permission'
+    CreateToken:
+      description: Create token request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: new-token
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      - permissions
     Token:
       type: object
       properties:
@@ -197,20 +211,6 @@ components:
       - read:*
       - update:*
       - delete:*
-    CreateToken:
-      description: Create token request body.
-      type: object
-      properties:
-        name:
-          type: string
-          example: new-token
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-      required:
-      - name
-      - permissions
   securitySchemes:
     user:
       type: http

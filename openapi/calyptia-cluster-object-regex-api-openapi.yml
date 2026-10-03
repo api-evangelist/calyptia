@@ -143,39 +143,27 @@ paths:
           description: No Content
 components:
   schemas:
-    CreatedClusterObjectRegex:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
     ClusterObjectKind:
       type: string
       description: Kind of the kubernetes object
       default: namespace
       enum:
       - namespace
-    UpdateClusterObjectRegex:
+    ClusterObjectRegexes:
       type: object
       properties:
-        regex:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClusterObjectRegex'
+        endCursor:
           type:
           - string
           - 'null'
-          minLength: 0
           default: null
-        description:
-          type:
-          - string
-          - 'null'
-          maxLength: 100
-          default: null
+      required:
+      - items
+      - endCursor
     ClusterObject:
       type: object
       description: A kubernetes cluster object that belongs to a given core instance.
@@ -200,6 +188,33 @@ components:
       - kind
       - createdAt
       - updatedAt
+    UpdateClusterObjectRegex:
+      type: object
+      properties:
+        regex:
+          type:
+          - string
+          - 'null'
+          minLength: 0
+          default: null
+        description:
+          type:
+          - string
+          - 'null'
+          maxLength: 100
+          default: null
+    CreatedClusterObjectRegex:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     ClusterObjectRegex:
       type: object
       properties:
@@ -234,6 +249,14 @@ components:
       - description
       - createdAt
       - updatedAt
+    UpdatedClusterObjectRegex:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     CreateClusterObjectRegex:
       type: object
       properties:
@@ -246,29 +269,6 @@ components:
       required:
       - regex
       - description
-    UpdatedClusterObjectRegex:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    ClusterObjectRegexes:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClusterObjectRegex'
-        endCursor:
-          type:
-          - string
-          - 'null'
-          default: null
-      required:
-      - items
-      - endCursor
   securitySchemes:
     user:
       type: http

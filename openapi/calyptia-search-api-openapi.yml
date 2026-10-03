@@ -112,20 +112,17 @@ paths:
                   $ref: '#/components/schemas/SearchResult'
 components:
   schemas:
-    SearchResource:
-      type: string
-      enum:
-      - agent
-      - cluster_object
-      - config_section
-      - core_instance
-      - environment
-      - fleet
-      - member
-      - pipeline
-      - pipeline_secret
-      - resource_profile
-      - trace_session
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
     SearchResultV1:
       type: object
       properties:
@@ -144,17 +141,20 @@ components:
       - name
       - ID
       - Name
-    SearchResult:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-      required:
-      - id
-      - name
+    SearchResource:
+      type: string
+      enum:
+      - agent
+      - cluster_object
+      - config_section
+      - core_instance
+      - environment
+      - fleet
+      - member
+      - pipeline
+      - pipeline_secret
+      - resource_profile
+      - trace_session
   securitySchemes:
     user:
       type: http

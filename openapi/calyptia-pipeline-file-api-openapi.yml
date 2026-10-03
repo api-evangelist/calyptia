@@ -163,6 +163,19 @@ components:
           - boolean
           - 'null'
           default: null
+    CreatedPipelineFile:
+      type: object
+      description: Created pipeline file response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     CreatePipelineFile:
       description: Create pipeline file request body.
       type: object
@@ -214,19 +227,6 @@ components:
       - encrypted
       - createdAt
       - updatedAt
-    CreatedPipelineFile:
-      type: object
-      description: Created pipeline file response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
   securitySchemes:
     user:
       type: http

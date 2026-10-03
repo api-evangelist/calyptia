@@ -151,14 +151,6 @@ components:
       default: namespace
       enum:
       - namespace
-    UpdatedClusterObject:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
     UpdateClusterObject:
       type: object
       description: 'Request body to update a cluster object.
@@ -174,6 +166,19 @@ components:
             '
         kind:
           $ref: '#/components/schemas/ClusterObjectKind'
+    CreatedClusterObject:
+      type: object
+      description: Response body for for a newly created cluster object.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     ClusterObject:
       type: object
       description: A kubernetes cluster object that belongs to a given core instance.
@@ -198,19 +203,14 @@ components:
       - kind
       - createdAt
       - updatedAt
-    CreatedClusterObject:
+    UpdatedClusterObject:
       type: object
-      description: Response body for for a newly created cluster object.
       properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
+        updatedAt:
           type: string
           format: date-time
       required:
-      - id
-      - createdAt
+      - updatedAt
     CreateClusterObject:
       type: object
       description: 'Request body to create a new cluster object for a core instance.

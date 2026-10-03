@@ -114,6 +114,17 @@ paths:
                 - error
 components:
   schemas:
+    UpdateMember:
+      type: object
+      properties:
+        permissions:
+          description: An empty list means it has all permissions.
+          type:
+          - array
+          - 'null'
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
     Deleted:
       type: object
       properties:
@@ -128,6 +139,45 @@ components:
       required:
       - deleted
       - deletedAt
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
+    User:
+      type: object
+      description: User model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          example: user
+        avatarURL:
+          type:
+          - string
+          - 'null'
+          default: null
+          format: uri
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - email
+      - name
+      - avatarURL
+      - createdAt
+      - updatedAt
     Membership:
       type: object
       properties:
@@ -169,56 +219,6 @@ components:
       - permissions
       - createdAt
       description: Membership of a user in a project.
-    UpdateMember:
-      type: object
-      properties:
-        permissions:
-          description: An empty list means it has all permissions.
-          type:
-          - array
-          - 'null'
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Permission'
-    User:
-      type: object
-      description: User model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-          example: user
-        avatarURL:
-          type:
-          - string
-          - 'null'
-          default: null
-          format: uri
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - email
-      - name
-      - avatarURL
-      - createdAt
-      - updatedAt
-    Permission:
-      type: string
-      enum:
-      - create:*
-      - read:*
-      - update:*
-      - delete:*
   securitySchemes:
     user:
       type: http

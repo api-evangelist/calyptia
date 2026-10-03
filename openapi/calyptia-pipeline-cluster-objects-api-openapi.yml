@@ -114,6 +114,12 @@ paths:
           description: Deleted
 components:
   schemas:
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
     ClusterObject:
       type: object
       description: A kubernetes cluster object that belongs to a given core instance.
@@ -138,12 +144,6 @@ components:
       - kind
       - createdAt
       - updatedAt
-    ClusterObjectKind:
-      type: string
-      description: Kind of the kubernetes object
-      default: namespace
-      enum:
-      - namespace
     UpdatePipelineClusterObjects:
       type: object
       properties:
