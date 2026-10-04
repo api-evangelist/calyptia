@@ -139,6 +139,64 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
+    User:
+      type: object
+      description: User model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          example: user
+        avatarURL:
+          type:
+          - string
+          - 'null'
+          default: null
+          format: uri
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - email
+      - name
+      - avatarURL
+      - createdAt
+      - updatedAt
+    CreateProject:
+      description: Create project request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: new-project
+        v3Enabled:
+          type: boolean
+          description: The project is enabled to use V3 APIs.
+      required:
+      - name
     Project:
       type: object
       description: Project model.
@@ -198,65 +256,6 @@ components:
       - token
       - createdAt
       - membership
-    CreateProject:
-      description: Create project request body.
-      type: object
-      properties:
-        name:
-          type: string
-          example: new-project
-        v3Enabled:
-          type: boolean
-          description: The project is enabled to use V3 APIs.
-      required:
-      - name
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    UpdateProject:
-      description: Update project request body.
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          example: new-project
-          default: null
-        v3Enabled:
-          type:
-          - boolean
-          - 'null'
-          default: null
-          description: The project is enabled to use V3 APIs.
-        setSettings:
-          type: object
-          additionalProperties: true
-          description: Settings to set or update (merged with existing settings)
-          example:
-            gpt: true
-        unsetSettings:
-          type: array
-          items:
-            type: string
-          description: Setting keys to remove
-          example:
-          - oldSetting
-        clearAllSettings:
-          type: boolean
-          description: Clear all settings before applying setSettings/unsetSettings
-          default: false
     Permission:
       type: string
       enum:
@@ -264,38 +263,6 @@ components:
       - read:*
       - update:*
       - delete:*
-    User:
-      type: object
-      description: User model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-          example: user
-        avatarURL:
-          type:
-          - string
-          - 'null'
-          default: null
-          format: uri
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - email
-      - name
-      - avatarURL
-      - createdAt
-      - updatedAt
     Membership:
       type: object
       properties:
@@ -337,6 +304,39 @@ components:
       - permissions
       - createdAt
       description: Membership of a user in a project.
+    UpdateProject:
+      description: Update project request body.
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          example: new-project
+          default: null
+        v3Enabled:
+          type:
+          - boolean
+          - 'null'
+          default: null
+          description: The project is enabled to use V3 APIs.
+        setSettings:
+          type: object
+          additionalProperties: true
+          description: Settings to set or update (merged with existing settings)
+          example:
+            gpt: true
+        unsetSettings:
+          type: array
+          items:
+            type: string
+          description: Setting keys to remove
+          example:
+          - oldSetting
+        clearAllSettings:
+          type: boolean
+          description: Clear all settings before applying setSettings/unsetSettings
+          default: false
   securitySchemes:
     user:
       type: http

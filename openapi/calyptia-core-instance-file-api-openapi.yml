@@ -141,6 +141,20 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
+    Deleted:
+      type: object
+      properties:
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
+      required:
+      - deleted
+      - deletedAt
     UpdateCoreInstanceFile:
       type: object
       properties:
@@ -162,35 +176,14 @@ components:
           - boolean
           - 'null'
           default: null
-    Created:
+    Updated:
       type: object
       properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
+        updatedAt:
           type: string
           format: date-time
       required:
-      - id
-      - createdAt
-    CreateCoreInstanceFile:
-      type: object
-      properties:
-        name:
-          type: string
-          example: myfile
-        contents:
-          type: string
-          format: byte
-          description: The contents of the file to be created in base 64 format.
-        encrypted:
-          type: boolean
-          default: false
-      required:
-      - name
-      - contents
-      - encrypted
+      - updatedAt
     CoreInstanceFile:
       type: object
       properties:
@@ -228,28 +221,18 @@ components:
       - encrypted
       - createdAt
       - updatedAt
-    Deleted:
+    Created:
       type: object
       properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    Updated:
-      type: object
-      properties:
-        updatedAt:
+        id:
+          type: string
+          format: uuid
+        createdAt:
           type: string
           format: date-time
       required:
-      - updatedAt
+      - id
+      - createdAt
     CoreInstanceFiles:
       type: object
       properties:
@@ -268,6 +251,23 @@ components:
       - items
       - endCursor
       - count
+    CreateCoreInstanceFile:
+      type: object
+      properties:
+        name:
+          type: string
+          example: myfile
+        contents:
+          type: string
+          format: byte
+          description: The contents of the file to be created in base 64 format.
+        encrypted:
+          type: boolean
+          default: false
+      required:
+      - name
+      - contents
+      - encrypted
   securitySchemes:
     user:
       type: http

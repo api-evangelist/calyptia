@@ -112,17 +112,6 @@ paths:
                   $ref: '#/components/schemas/SearchResult'
 components:
   schemas:
-    SearchResult:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-      required:
-      - id
-      - name
     SearchResultV1:
       type: object
       properties:
@@ -155,6 +144,17 @@ components:
       - pipeline_secret
       - resource_profile
       - trace_session
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
   securitySchemes:
     user:
       type: http

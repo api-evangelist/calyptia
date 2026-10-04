@@ -114,17 +114,6 @@ paths:
                 - error
 components:
   schemas:
-    UpdateMember:
-      type: object
-      properties:
-        permissions:
-          description: An empty list means it has all permissions.
-          type:
-          - array
-          - 'null'
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/Permission'
     Deleted:
       type: object
       properties:
@@ -139,13 +128,6 @@ components:
       required:
       - deleted
       - deletedAt
-    Permission:
-      type: string
-      enum:
-      - create:*
-      - read:*
-      - update:*
-      - delete:*
     User:
       type: object
       description: User model.
@@ -178,6 +160,13 @@ components:
       - avatarURL
       - createdAt
       - updatedAt
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
     Membership:
       type: object
       properties:
@@ -219,6 +208,17 @@ components:
       - permissions
       - createdAt
       description: Membership of a user in a project.
+    UpdateMember:
+      type: object
+      properties:
+        permissions:
+          description: An empty list means it has all permissions.
+          type:
+          - array
+          - 'null'
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Permission'
   securitySchemes:
     user:
       type: http

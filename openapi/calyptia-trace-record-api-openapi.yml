@@ -118,6 +118,62 @@ components:
       - FILTER
       - PRE_OUTPUT
       - OUTPUT
+    CreateTraceRecord:
+      type: object
+      description: 'Request body to create a trace record on an active session.
+
+        '
+      properties:
+        type:
+          $ref: '#/components/schemas/TraceRecordKind'
+        trace_id:
+          type: string
+          example: trace.5
+        start_time:
+          description: Unix timestamp with seconds precision.
+          type: integer
+          format: int64
+          example: 1658953439
+        end_time:
+          description: Unix timestamp with seconds precision.
+          type: integer
+          format: int64
+          example: 1658953439
+        plugin_instance:
+          type: string
+          example: nest.2
+        plugin_alias:
+          type: string
+          example: nest_2
+        return_code:
+          type: integer
+        records:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                description: Unix timestamp with seconds precision.
+                type: integer
+                format: int64
+                example: 1658953439
+              record:
+                type: object
+                additionalProperties: true
+                example: "{\n  \"dummy\": \"dummy_0\",\n  \"powered_by\": \"calyptia\",\n  \"data\": {\n    \"key_name\": \"foo\",\n    \"key_cnt\": \"1\"\n  }\n}"
+            additionalProperties: true
+            required:
+            - timestamp
+            - record
+      required:
+      - type
+      - trace_id
+      - start_time
+      - end_time
+      - plugin_instance
+      - plugin_alias
+      - return_code
+      - records
     TraceRecord:
       type: object
       description: 'Trace record model.
@@ -190,62 +246,6 @@ components:
       - return_code
       - records
       - createdAt
-    CreateTraceRecord:
-      type: object
-      description: 'Request body to create a trace record on an active session.
-
-        '
-      properties:
-        type:
-          $ref: '#/components/schemas/TraceRecordKind'
-        trace_id:
-          type: string
-          example: trace.5
-        start_time:
-          description: Unix timestamp with seconds precision.
-          type: integer
-          format: int64
-          example: 1658953439
-        end_time:
-          description: Unix timestamp with seconds precision.
-          type: integer
-          format: int64
-          example: 1658953439
-        plugin_instance:
-          type: string
-          example: nest.2
-        plugin_alias:
-          type: string
-          example: nest_2
-        return_code:
-          type: integer
-        records:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                description: Unix timestamp with seconds precision.
-                type: integer
-                format: int64
-                example: 1658953439
-              record:
-                type: object
-                additionalProperties: true
-                example: "{\n  \"dummy\": \"dummy_0\",\n  \"powered_by\": \"calyptia\",\n  \"data\": {\n    \"key_name\": \"foo\",\n    \"key_cnt\": \"1\"\n  }\n}"
-            additionalProperties: true
-            required:
-            - timestamp
-            - record
-      required:
-      - type
-      - trace_id
-      - start_time
-      - end_time
-      - plugin_instance
-      - plugin_alias
-      - return_code
-      - records
   securitySchemes:
     user:
       type: http

@@ -74,14 +74,34 @@ paths:
           description: No Content
 components:
   schemas:
-    ConfigFormat:
-      type: string
-      enum:
-      - classic
-      - yaml
-      - json
-      default: classic
-      example: yaml
+    ValidatingConfig:
+      description: Validating configuration request body.
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: object
+            properties:
+              command:
+                type: string
+              name:
+                type: string
+              optional:
+                type:
+                - object
+                - 'null'
+                additionalProperties:
+                  type: string
+                default: null
+              id:
+                type: string
+            required:
+            - command
+            - name
+            - id
+      required:
+      - config
     ValidateFluentbitConfig:
       type: object
       properties:
@@ -92,6 +112,14 @@ components:
           $ref: '#/components/schemas/ConfigFormat'
       required:
       - rawConfig
+    ConfigFormat:
+      type: string
+      enum:
+      - classic
+      - yaml
+      - json
+      default: classic
+      example: yaml
     ValidatedConfig:
       type: object
       description: Validate config response body.
@@ -128,34 +156,6 @@ components:
           - filter
       required:
       - errors
-    ValidatingConfig:
-      description: Validating configuration request body.
-      type: object
-      properties:
-        config:
-          type: array
-          items:
-            type: object
-            properties:
-              command:
-                type: string
-              name:
-                type: string
-              optional:
-                type:
-                - object
-                - 'null'
-                additionalProperties:
-                  type: string
-                default: null
-              id:
-                type: string
-            required:
-            - command
-            - name
-            - id
-      required:
-      - config
   securitySchemes:
     user:
       type: http

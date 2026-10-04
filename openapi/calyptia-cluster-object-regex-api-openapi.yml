@@ -143,51 +143,6 @@ paths:
           description: No Content
 components:
   schemas:
-    ClusterObjectKind:
-      type: string
-      description: Kind of the kubernetes object
-      default: namespace
-      enum:
-      - namespace
-    ClusterObjectRegexes:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClusterObjectRegex'
-        endCursor:
-          type:
-          - string
-          - 'null'
-          default: null
-      required:
-      - items
-      - endCursor
-    ClusterObject:
-      type: object
-      description: A kubernetes cluster object that belongs to a given core instance.
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          format: kubernetes label
-        kind:
-          $ref: '#/components/schemas/ClusterObjectKind'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - name
-      - kind
-      - createdAt
-      - updatedAt
     UpdateClusterObjectRegex:
       type: object
       properties:
@@ -215,6 +170,38 @@ components:
       required:
       - id
       - createdAt
+    UpdatedClusterObjectRegex:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    ClusterObject:
+      type: object
+      description: A kubernetes cluster object that belongs to a given core instance.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          format: kubernetes label
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - kind
+      - createdAt
+      - updatedAt
     ClusterObjectRegex:
       type: object
       properties:
@@ -249,14 +236,27 @@ components:
       - description
       - createdAt
       - updatedAt
-    UpdatedClusterObjectRegex:
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
+    ClusterObjectRegexes:
       type: object
       properties:
-        updatedAt:
-          type: string
-          format: date-time
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClusterObjectRegex'
+        endCursor:
+          type:
+          - string
+          - 'null'
+          default: null
       required:
-      - updatedAt
+      - items
+      - endCursor
     CreateClusterObjectRegex:
       type: object
       properties:

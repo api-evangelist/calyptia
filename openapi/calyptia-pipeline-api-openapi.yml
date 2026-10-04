@@ -434,116 +434,65 @@ paths:
           description: No Content
 components:
   schemas:
-    Pairs:
-      type: array
-      items:
-        $ref: '#/components/schemas/Pair'
-    PipelineConfig:
+    ConfigFormat:
+      type: string
+      enum:
+      - classic
+      - yaml
+      - json
+      default: classic
+      example: yaml
+    PVCRetentionPolicy:
       type: object
-      description: Pipeline configuration history entry.
+      description: Defines what happens to PVCs when StatefulSets are scaled or deleted (K8s 1.23+)
+      properties:
+        whenScaled:
+          type: string
+          description: Determines what happens to PVCs when a StatefulSet is scaled down
+          enum:
+          - Retain
+          - Delete
+          default: Retain
+        whenDeleted:
+          type: string
+          description: Determines what happens to PVCs when a StatefulSet is deleted
+          enum:
+          - Retain
+          - Delete
+          default: Retain
+    PipelineStatus:
+      type: object
+      description: Pipeline status history entry.
       properties:
         id:
           type: string
           format: uuid
-        rawConfig:
-          type: string
-        configFormat:
+        config:
+          $ref: '#/components/schemas/AgentConfig'
+        status:
           type: string
           enum:
-          - classic
-          - json
-          - yaml
+          - NEW
+          - FAILED
+          - STARTING
+          - STARTED
+          - SCALING
+          - CHECKS_OK
+          - CHECKS_FAILED
+        events:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PipelineEvent'
         createdAt:
           type: string
           format: date-time
       required:
       - id
-      - rawConfig
-      - configFormat
+      - config
+      - status
       - createdAt
-    URIScheme:
-      type: string
-      enum:
-      - HTTP
-      - HTTPS
-    TolerationEffect:
-      type: string
-      enum:
-      - NoSchedule
-      - PreferNoSchedule
-      - NoExecute
-    PipelinePort:
-      type: object
-      description: Pipeline port model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        protocol:
-          type: string
-          example: tcp
-        kind:
-          $ref: '#/components/schemas/PipelinePortKind'
-        frontendPort:
-          type: integer
-          format: int32
-          minimum: 0
-          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
-
-            It should be unique within the pipeline.'
-        backendPort:
-          type: integer
-          format: int32
-          minimum: 0
-          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
-        endpoint:
-          type: string
-        pluginID:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: forward.0
-        pluginName:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: forward
-        pluginAlias:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: myforwardinput
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - protocol
-      - kind
-      - frontendPort
-      - backendPort
-      - endpoint
-      - pluginID
-      - pluginName
-      - pluginAlias
-      - createdAt
-      - updatedAt
-    HTTPHeader:
-      type: object
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-      required:
-      - name
-      - value
     UpdatePipelineFile:
       description: Update pipeline file request body.
       type: object
@@ -565,51 +514,213 @@ components:
           - boolean
           - 'null'
           default: null
-    PipelineKind:
-      type: string
-      default: deployment
-      enum:
-      - deployment
-      - daemonSet
-      - statefulSet
-    CreatedPipeline:
+    ConfigSection:
       type: object
-      description: Created pipeline response body.
       properties:
         id:
           type: string
           format: uuid
-        name:
+        projectID:
           type: string
-          example: my-pipeline
+          format: uuid
+        processingRuleID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
         kind:
-          $ref: '#/components/schemas/PipelineKind'
-        config:
-          $ref: '#/components/schemas/PipelineConfig'
-        status:
-          $ref: '#/components/schemas/PipelineStatus'
-        secrets:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelineSecret'
-        files:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelineFile'
-        resourceProfile:
-          $ref: '#/components/schemas/ResourceProfile'
-        checks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelineCheck'
+          $ref: '#/components/schemas/ConfigSectionKind'
+        properties:
+          $ref: '#/components/schemas/Pairs'
         createdAt:
           type: string
           format: date-time
-    UnsatisfiableConstraintAction:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - projectID
+      - processingRuleID
+      - kind
+      - properties
+      - createdAt
+      - updatedAt
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
+    TCPSocketAction:
+      type: object
+      properties:
+        port:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 65535
+        host:
+          type:
+          - string
+          - 'null'
+      required:
+      - port
+    DeploymentStrategy:
+      type: string
+      description: 'The deployment strategy to use when creating or updating changes to this pipeline.
+
+        '
+      default: rollingupdate
+      enum:
+      - recreate
+      - rollingupdate
+      - hotReload
+    UpdatedPipeline:
+      type: object
+      description: Updated pipeline response body.
+      properties:
+        addedPorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelinePort'
+        removedPorts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelinePort'
+        addedChecks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineCheck'
+        removedChecks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineCheck'
+    TopologySpreadConstraint:
+      type: object
+      properties:
+        maxSkew:
+          type: integer
+          format: int32
+        topologyKey:
+          type: string
+        whenUnsatisfiable:
+          $ref: '#/components/schemas/UnsatisfiableConstraintAction'
+        labelSelector:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: string
+        minDomains:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      required:
+      - maxSkew
+      - topologyKey
+      - whenUnsatisfiable
+      - labelSelector
+      - minDomains
+    Pipelines:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pipeline'
+        endCursor:
+          type:
+          - string
+          - 'null'
+        count:
+          type: number
+          format: int32
+      required:
+      - items
+      - endCursor
+      - count
+    CreatePipelineSecret:
+      description: Create pipeline secret request body.
+      type: object
+      properties:
+        key:
+          type: string
+          example: newsecret
+        value:
+          type: string
+          format: byte
+      required:
+      - key
+      - value
+    PipelineSecret:
+      type: object
+      description: Pipeline secret model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        key:
+          type: string
+          example: mysecret
+        value:
+          type: string
+          format: byte
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - key
+      - value
+      - createdAt
+      - updatedAt
+    Affinity:
+      type: object
+      properties:
+        key:
+          type: string
+        operator:
+          $ref: '#/components/schemas/NodeSelectorOperator'
+        values:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+      required:
+      - key
+      - operator
+      - values
+    TolerationOperator:
       type: string
       enum:
-      - DoNotSchedule
-      - ScheduleAnyway
+      - Equal
+      - Exists
+    AgentConfig:
+      type: object
+      description: Agent configuration history entry.
+      properties:
+        id:
+          type: string
+          format: uuid
+        rawConfig:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - rawConfig
+      - createdAt
     PipelineCheck:
       type: object
       description: Pipeline check model.
@@ -649,358 +760,40 @@ components:
       - host
       - createdAt
       - updatedAt
-    Lifecycle:
-      type: object
-      properties:
-        preStop:
-          $ref: '#/components/schemas/LifecycleHandler'
-        postStart:
-          $ref: '#/components/schemas/LifecycleHandler'
-    ScalePolicy:
+    URIScheme:
       type: string
       enum:
-      - Unknown
-      - Pods
-      - Percent
-      default: Unknown
-    NodeSelectorOperator:
-      type: string
-      enum:
-      - In
-      - NotIn
-      - Exists
-      - DoesNotExist
-      - Gt
-      - Lt
-    LifecycleHandler:
+      - HTTP
+      - HTTPS
+    PipelineEvent:
       type: object
+      description: Pipeline Status event.
       properties:
-        exec:
-          $ref: '#/components/schemas/ExecAction'
-        httpGet:
-          $ref: '#/components/schemas/HTTPGetAction'
-        tcpSocket:
-          $ref: '#/components/schemas/TCPSocketAction'
-        sleep:
-          $ref: '#/components/schemas/SleepAction'
-    DeploymentStrategy:
-      type: string
-      description: 'The deployment strategy to use when creating or updating changes to this pipeline.
-
-        '
-      default: rollingupdate
-      enum:
-      - recreate
-      - rollingupdate
-      - hotReload
-    Pipelines:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Pipeline'
-        endCursor:
-          type:
-          - string
-          - 'null'
-        count:
-          type: number
-          format: int32
-      required:
-      - items
-      - endCursor
-      - count
-    TopologySpreadConstraint:
-      type: object
-      properties:
-        maxSkew:
-          type: integer
-          format: int32
-        topologyKey:
-          type: string
-        whenUnsatisfiable:
-          $ref: '#/components/schemas/UnsatisfiableConstraintAction'
-        labelSelector:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: string
-        minDomains:
-          type:
-          - integer
-          - 'null'
-          format: int32
-      required:
-      - maxSkew
-      - topologyKey
-      - whenUnsatisfiable
-      - labelSelector
-      - minDomains
-    CheckStatus:
-      type: string
-      description: The status of a check.
-      default: new
-      enum:
-      - new
-      - failed
-      - running
-      - ok
-    CreatePipeline:
-      description: Create pipeline request body.
-      type: object
-      properties:
-        name:
-          type: string
-          description: DNS label format as of defined on RFC1123
-          example: new-pipeline
-        kind:
-          $ref: '#/components/schemas/PipelineKind'
-        replicasCount:
-          type: integer
-          minimum: 0
-        rawConfig:
-          type: string
-        configFormat:
-          $ref: '#/components/schemas/ConfigFormat'
-        image:
-          type:
-          - string
-          - 'null'
-          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
-          default: null
-        secrets:
-          type:
-          - array
-          - 'null'
-          default: null
-          items:
-            $ref: '#/components/schemas/CreatePipelineSecret'
-        files:
-          type:
-          - array
-          - 'null'
-          default: null
-          items:
-            $ref: '#/components/schemas/CreatePipelineFile'
-        resourceProfile:
-          type: string
-          example: my-resource-profile
-        noAutoCreateChecksFromConfig:
-          type: boolean
-          default: false
-          description: 'If true, no Pipeline checks will be auto-generated from
-
-            the configuration.
-
-            '
-        autoCreateChecksFromConfig:
-          type: boolean
-          deprecated: true
-          default: false
-          description: 'If true, this will automatically create a set of Pipeline checks
-
-            to validate that the configured output services are reachable.
-
-            '
-        waitForChecksBeforeDeploying:
-          type: boolean
-          default: false
-          description: 'If set to true:
-
-
-            If all checks associated with the pipeline run successfully, the status of
-
-            the pipeline will be switched to CHECKS_OK and the deployment will be executed.
-
-
-            If any of the checks associated with the pipeline fails, the status of
-
-            the pipeline will be switched to CHECKS_FAILED and the deployment of the pipeline
-
-            will be blocked.
-
-
-            If set to false (default):
-
-
-            If all checks associated with the pipeline run successfully, the status of
-
-            the pipeline will be switched to CHECKS_OK and the deployment will be executed.
-
-
-            If any of the checks associated with the pipeline fails, the status of
-
-            the pipeline will be switched to CHECKS_FAILED and the deployment of the pipeline
-
-            will be executed.
-
-            '
-        noAutoCreateEndpointsFromConfig:
-          type: boolean
-          default: false
-          description: if true, no ports will be automatically generated from the configuration.
-        autoCreatePortsFromConfig:
-          type: boolean
-          default: false
-          deprecated: true
-        skipConfigValidation:
-          type: boolean
-        metadata:
-          type:
-          - object
-          - 'null'
-          default: null
-          additionalProperties: true
-        portKind:
-          $ref: '#/components/schemas/PipelinePortKind'
-        minReplicas:
-          type: integer
-          default: 0
-        maxReplicas:
-          type: integer
-          default: 0
-        scaleUpType:
-          $ref: '#/components/schemas/ScalePolicy'
-        scaleUpValue:
-          type: integer
-          default: 0
-        scaleUpPeriodSeconds:
-          type: integer
-          default: 0
-        scaleDownType:
-          $ref: '#/components/schemas/ScalePolicy'
-        scaleDownValue:
-          type: integer
-          default: 0
-        scaleDownPeriodSeconds:
-          type: integer
-          default: 0
-        utilizationCPUAverage:
-          type: integer
-          default: 0
-        utilizationMemoryAverage:
-          type: integer
-          default: 0
-        labels:
-          type:
-          - object
-          - 'null'
-          default: null
-          additionalProperties:
-            type: string
-        affinity:
-          $ref: '#/components/schemas/Affinity'
-        topologySpreadConstraints:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/TopologySpreadConstraint'
-        tolerations:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Toleration'
-        terminationGracePeriodSeconds:
-          type:
-          - integer
-          - 'null'
-          format: int64
-          minimum: 0
-        lifecycle:
-          $ref: '#/components/schemas/Lifecycle'
-        storageClass:
-          type:
-          - string
-          - 'null'
-          description: Represents the storageClass for PVC templates
-        pvcRetentionPolicy:
-          $ref: '#/components/schemas/PVCRetentionPolicy'
-      required:
-      - name
-      - replicasCount
-      - rawConfig
-      - image
-      - secrets
-      - files
-      - resourceProfile
-      - skipConfigValidation
-      - portKind
-      - minReplicas
-      - maxReplicas
-      - scaleUpType
-      - scaleUpValue
-      - scaleUpPeriodSeconds
-      - scaleDownType
-      - scaleDownValue
-      - scaleDownPeriodSeconds
-      - utilizationCPUAverage
-      - utilizationMemoryAverage
-    PipelineStatus:
-      type: object
-      description: Pipeline status history entry.
-      properties:
-        id:
-          type: string
-          format: uuid
-        config:
-          $ref: '#/components/schemas/AgentConfig'
-        status:
+        source:
           type: string
           enum:
-          - NEW
-          - FAILED
-          - STARTING
-          - STARTED
-          - SCALING
-          - CHECKS_OK
-          - CHECKS_FAILED
-        events:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PipelineEvent'
-        createdAt:
+          - k8s:deployment
+          - k8s:pod
+        reason:
+          type: string
+        message:
+          type: string
+        loggedAt:
           type: string
           format: date-time
       required:
-      - id
-      - config
-      - status
-      - createdAt
-    Toleration:
+      - source
+      - reason
+      - loggedAt
+    SleepAction:
       type: object
       properties:
-        key:
-          type: string
-        operator:
-          $ref: '#/components/schemas/TolerationOperator'
-        value:
-          type: string
-        effect:
-          $ref: '#/components/schemas/TolerationEffect'
-        tolerationSeconds:
-          type:
-          - integer
-          - 'null'
+        seconds:
+          type: integer
           format: int64
+          minimum: 0
       required:
-      - key
-      - operator
-      - effect
-    ExecAction:
-      type: object
-      properties:
-        command:
-          type: array
-          items:
-            type: string
-      required:
-      - command
+      - seconds
     UpdatePipeline:
       description: Update pipeline request body.
       type: object
@@ -1240,242 +1033,24 @@ components:
         pvcRetentionPolicy:
           $ref: '#/components/schemas/PVCRetentionPolicy'
           description: Defines what happens to PVCs when StatefulSets are scaled or deleted (K8s 1.23+)
-    PipelinePortKind:
-      type: string
-      description: The kind/type of the service associated to this port.
-      default: LoadBalancer
-      enum:
-      - LoadBalancer
-      - ClusterIP
-      - NodePort
-    PipelineFile:
-      type: object
-      description: Pipeline file model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        processingRuleID:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          default: null
-        name:
-          type: string
-          example: myfile
-        contents:
-          type: string
-          format: byte
-        encrypted:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - processingRuleID
-      - name
-      - contents
-      - encrypted
-      - createdAt
-      - updatedAt
-    Affinity:
-      type: object
-      properties:
-        key:
-          type: string
-        operator:
-          $ref: '#/components/schemas/NodeSelectorOperator'
-        values:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-      required:
-      - key
-      - operator
-      - values
-    PVCRetentionPolicy:
-      type: object
-      description: Defines what happens to PVCs when StatefulSets are scaled or deleted (K8s 1.23+)
-      properties:
-        whenScaled:
-          type: string
-          description: Determines what happens to PVCs when a StatefulSet is scaled down
-          enum:
-          - Retain
-          - Delete
-          default: Retain
-        whenDeleted:
-          type: string
-          description: Determines what happens to PVCs when a StatefulSet is deleted
-          enum:
-          - Retain
-          - Delete
-          default: Retain
-    SleepAction:
-      type: object
-      properties:
-        seconds:
-          type: integer
-          format: int64
-          minimum: 0
-      required:
-      - seconds
-    ConfigFormat:
+    TolerationEffect:
       type: string
       enum:
-      - classic
-      - yaml
-      - json
-      default: classic
-      example: yaml
-    CreatePipelineSecret:
-      description: Create pipeline secret request body.
+      - NoSchedule
+      - PreferNoSchedule
+      - NoExecute
+    Lifecycle:
       type: object
       properties:
-        key:
-          type: string
-          example: newsecret
-        value:
-          type: string
-          format: byte
-      required:
-      - key
-      - value
-    UpdatedPipeline:
-      type: object
-      description: Updated pipeline response body.
-      properties:
-        addedPorts:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelinePort'
-        removedPorts:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelinePort'
-        addedChecks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelineCheck'
-        removedChecks:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelineCheck'
-    TolerationOperator:
+        preStop:
+          $ref: '#/components/schemas/LifecycleHandler'
+        postStart:
+          $ref: '#/components/schemas/LifecycleHandler'
+    UnsatisfiableConstraintAction:
       type: string
       enum:
-      - Equal
-      - Exists
-    PipelineSecret:
-      type: object
-      description: Pipeline secret model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        key:
-          type: string
-          example: mysecret
-        value:
-          type: string
-          format: byte
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - key
-      - value
-      - createdAt
-      - updatedAt
-    Pair:
-      type: object
-      properties:
-        key:
-          type: string
-          example: name
-        value:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: boolean
-          - type: string
-          - type: array
-            items:
-              type: string
-          example: dummy
-      required:
-      - key
-      - value
-    ResourceProfile:
-      type: object
-      description: Resource profile model.
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          example: my-resource-profile
-        storageMaxChunksUp:
-          type: integer
-          format: int32
-        storageSyncFull:
-          type: boolean
-        storageBacklogMemLimit:
-          type: string
-          example: 1Mi
-        storageVolumeSize:
-          type: string
-          example: 2Mi
-        storageMaxChunksPause:
-          type: boolean
-        cpuBufferWorkers:
-          type: integer
-          format: int32
-        cpuLimit:
-          type: string
-          example: 3Mi
-        cpuRequest:
-          type: string
-          example: 4Mi
-        memoryLimit:
-          type: string
-          example: 5Mi
-        memoryRequest:
-          type: string
-          example: 6Mi
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - name
-      - storageMaxChunksUp
-      - storageSyncFull
-      - storageBacklogMemLimit
-      - storageVolumeSize
-      - storageMaxChunksPause
-      - cpuBufferWorkers
-      - cpuLimit
-      - cpuRequest
-      - memoryLimit
-      - memoryRequest
-      - createdAt
-      - updatedAt
+      - DoNotSchedule
+      - ScheduleAnyway
     ConfigSectionKind:
       type: string
       enum:
@@ -1507,38 +1082,6 @@ components:
             $ref: '#/components/schemas/HTTPHeader'
       required:
       - port
-    AgentConfig:
-      type: object
-      description: Agent configuration history entry.
-      properties:
-        id:
-          type: string
-          format: uuid
-        rawConfig:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - rawConfig
-      - createdAt
-    CreatePipelineFile:
-      description: Create pipeline file request body.
-      type: object
-      properties:
-        name:
-          type: string
-          example: newfile
-        contents:
-          type: string
-          format: byte
-        encrypted:
-          type: boolean
-      required:
-      - name
-      - contents
-      - encrypted
     Pipeline:
       type: object
       description: Pipeline model.
@@ -1719,32 +1262,461 @@ components:
       - scaleDownPeriodSeconds
       - utilizationCPUAverage
       - utilizationMemoryAverage
-    PipelineEvent:
+    PipelinePort:
       type: object
-      description: Pipeline Status event.
+      description: Pipeline port model.
       properties:
-        source:
+        id:
           type: string
-          enum:
-          - k8s:deployment
-          - k8s:pod
-        reason:
+          format: uuid
+        protocol:
           type: string
-        message:
+          example: tcp
+        kind:
+          $ref: '#/components/schemas/PipelinePortKind'
+        frontendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: 'FrontendPort is equivalent to Docker''s host port and Kubernetes'' service port.
+
+            It should be unique within the pipeline.'
+        backendPort:
+          type: integer
+          format: int32
+          minimum: 0
+          description: BackendPort is equivalent to Docker's container port and Kubernetes' target port (pod).
+        endpoint:
           type: string
-        loggedAt:
+        pluginID:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: forward.0
+        pluginName:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: forward
+        pluginAlias:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: myforwardinput
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
           type: string
           format: date-time
       required:
-      - source
-      - reason
-      - loggedAt
-    PipelinePortProtocol:
+      - id
+      - protocol
+      - kind
+      - frontendPort
+      - backendPort
+      - endpoint
+      - pluginID
+      - pluginName
+      - pluginAlias
+      - createdAt
+      - updatedAt
+    CreatedPipeline:
+      type: object
+      description: Created pipeline response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: my-pipeline
+        kind:
+          $ref: '#/components/schemas/PipelineKind'
+        config:
+          $ref: '#/components/schemas/PipelineConfig'
+        status:
+          $ref: '#/components/schemas/PipelineStatus'
+        secrets:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineSecret'
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineFile'
+        resourceProfile:
+          $ref: '#/components/schemas/ResourceProfile'
+        checks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineCheck'
+        createdAt:
+          type: string
+          format: date-time
+    HTTPHeader:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
+    ExecAction:
+      type: object
+      properties:
+        command:
+          type: array
+          items:
+            type: string
+      required:
+      - command
+    Pairs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pair'
+    CreatePipelineFile:
+      description: Create pipeline file request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: newfile
+        contents:
+          type: string
+          format: byte
+        encrypted:
+          type: boolean
+      required:
+      - name
+      - contents
+      - encrypted
+    PipelinePortKind:
       type: string
-      description: Valid protocol types defined for a pipelines.
+      description: The kind/type of the service associated to this port.
+      default: LoadBalancer
       enum:
-      - tcp
-      - udp
+      - LoadBalancer
+      - ClusterIP
+      - NodePort
+    ResourceProfile:
+      type: object
+      description: Resource profile model.
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          example: my-resource-profile
+        storageMaxChunksUp:
+          type: integer
+          format: int32
+        storageSyncFull:
+          type: boolean
+        storageBacklogMemLimit:
+          type: string
+          example: 1Mi
+        storageVolumeSize:
+          type: string
+          example: 2Mi
+        storageMaxChunksPause:
+          type: boolean
+        cpuBufferWorkers:
+          type: integer
+          format: int32
+        cpuLimit:
+          type: string
+          example: 3Mi
+        cpuRequest:
+          type: string
+          example: 4Mi
+        memoryLimit:
+          type: string
+          example: 5Mi
+        memoryRequest:
+          type: string
+          example: 6Mi
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - storageMaxChunksUp
+      - storageSyncFull
+      - storageBacklogMemLimit
+      - storageVolumeSize
+      - storageMaxChunksPause
+      - cpuBufferWorkers
+      - cpuLimit
+      - cpuRequest
+      - memoryLimit
+      - memoryRequest
+      - createdAt
+      - updatedAt
+    CreatePipeline:
+      description: Create pipeline request body.
+      type: object
+      properties:
+        name:
+          type: string
+          description: DNS label format as of defined on RFC1123
+          example: new-pipeline
+        kind:
+          $ref: '#/components/schemas/PipelineKind'
+        replicasCount:
+          type: integer
+          minimum: 0
+        rawConfig:
+          type: string
+        configFormat:
+          $ref: '#/components/schemas/ConfigFormat'
+        image:
+          type:
+          - string
+          - 'null'
+          example: ghcr.io/calyptia/core/calyptia-fluent-bit:23.1.2
+          default: null
+        secrets:
+          type:
+          - array
+          - 'null'
+          default: null
+          items:
+            $ref: '#/components/schemas/CreatePipelineSecret'
+        files:
+          type:
+          - array
+          - 'null'
+          default: null
+          items:
+            $ref: '#/components/schemas/CreatePipelineFile'
+        resourceProfile:
+          type: string
+          example: my-resource-profile
+        noAutoCreateChecksFromConfig:
+          type: boolean
+          default: false
+          description: 'If true, no Pipeline checks will be auto-generated from
+
+            the configuration.
+
+            '
+        autoCreateChecksFromConfig:
+          type: boolean
+          deprecated: true
+          default: false
+          description: 'If true, this will automatically create a set of Pipeline checks
+
+            to validate that the configured output services are reachable.
+
+            '
+        waitForChecksBeforeDeploying:
+          type: boolean
+          default: false
+          description: 'If set to true:
+
+
+            If all checks associated with the pipeline run successfully, the status of
+
+            the pipeline will be switched to CHECKS_OK and the deployment will be executed.
+
+
+            If any of the checks associated with the pipeline fails, the status of
+
+            the pipeline will be switched to CHECKS_FAILED and the deployment of the pipeline
+
+            will be blocked.
+
+
+            If set to false (default):
+
+
+            If all checks associated with the pipeline run successfully, the status of
+
+            the pipeline will be switched to CHECKS_OK and the deployment will be executed.
+
+
+            If any of the checks associated with the pipeline fails, the status of
+
+            the pipeline will be switched to CHECKS_FAILED and the deployment of the pipeline
+
+            will be executed.
+
+            '
+        noAutoCreateEndpointsFromConfig:
+          type: boolean
+          default: false
+          description: if true, no ports will be automatically generated from the configuration.
+        autoCreatePortsFromConfig:
+          type: boolean
+          default: false
+          deprecated: true
+        skipConfigValidation:
+          type: boolean
+        metadata:
+          type:
+          - object
+          - 'null'
+          default: null
+          additionalProperties: true
+        portKind:
+          $ref: '#/components/schemas/PipelinePortKind'
+        minReplicas:
+          type: integer
+          default: 0
+        maxReplicas:
+          type: integer
+          default: 0
+        scaleUpType:
+          $ref: '#/components/schemas/ScalePolicy'
+        scaleUpValue:
+          type: integer
+          default: 0
+        scaleUpPeriodSeconds:
+          type: integer
+          default: 0
+        scaleDownType:
+          $ref: '#/components/schemas/ScalePolicy'
+        scaleDownValue:
+          type: integer
+          default: 0
+        scaleDownPeriodSeconds:
+          type: integer
+          default: 0
+        utilizationCPUAverage:
+          type: integer
+          default: 0
+        utilizationMemoryAverage:
+          type: integer
+          default: 0
+        labels:
+          type:
+          - object
+          - 'null'
+          default: null
+          additionalProperties:
+            type: string
+        affinity:
+          $ref: '#/components/schemas/Affinity'
+        topologySpreadConstraints:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/TopologySpreadConstraint'
+        tolerations:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Toleration'
+        terminationGracePeriodSeconds:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          minimum: 0
+        lifecycle:
+          $ref: '#/components/schemas/Lifecycle'
+        storageClass:
+          type:
+          - string
+          - 'null'
+          description: Represents the storageClass for PVC templates
+        pvcRetentionPolicy:
+          $ref: '#/components/schemas/PVCRetentionPolicy'
+      required:
+      - name
+      - replicasCount
+      - rawConfig
+      - image
+      - secrets
+      - files
+      - resourceProfile
+      - skipConfigValidation
+      - portKind
+      - minReplicas
+      - maxReplicas
+      - scaleUpType
+      - scaleUpValue
+      - scaleUpPeriodSeconds
+      - scaleDownType
+      - scaleDownValue
+      - scaleDownPeriodSeconds
+      - utilizationCPUAverage
+      - utilizationMemoryAverage
+    PipelineConfig:
+      type: object
+      description: Pipeline configuration history entry.
+      properties:
+        id:
+          type: string
+          format: uuid
+        rawConfig:
+          type: string
+        configFormat:
+          type: string
+          enum:
+          - classic
+          - json
+          - yaml
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - rawConfig
+      - configFormat
+      - createdAt
+    Pair:
+      type: object
+      properties:
+        key:
+          type: string
+          example: name
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: boolean
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: dummy
+      required:
+      - key
+      - value
+    Toleration:
+      type: object
+      properties:
+        key:
+          type: string
+        operator:
+          $ref: '#/components/schemas/TolerationOperator'
+        value:
+          type: string
+        effect:
+          $ref: '#/components/schemas/TolerationEffect'
+        tolerationSeconds:
+          type:
+          - integer
+          - 'null'
+          format: int64
+      required:
+      - key
+      - operator
+      - effect
     UpdatePipelineSecret:
       description: Update pipeline secret request body.
       type: object
@@ -1761,13 +1733,45 @@ components:
           - 'null'
           format: byte
           default: null
-    ConfigSection:
+    NodeSelectorOperator:
+      type: string
+      enum:
+      - In
+      - NotIn
+      - Exists
+      - DoesNotExist
+      - Gt
+      - Lt
+    PipelineKind:
+      type: string
+      default: deployment
+      enum:
+      - deployment
+      - daemonSet
+      - statefulSet
+    ScalePolicy:
+      type: string
+      enum:
+      - Unknown
+      - Pods
+      - Percent
+      default: Unknown
+    LifecycleHandler:
       type: object
       properties:
+        exec:
+          $ref: '#/components/schemas/ExecAction'
+        httpGet:
+          $ref: '#/components/schemas/HTTPGetAction'
+        tcpSocket:
+          $ref: '#/components/schemas/TCPSocketAction'
+        sleep:
+          $ref: '#/components/schemas/SleepAction'
+    PipelineFile:
+      type: object
+      description: Pipeline file model.
+      properties:
         id:
-          type: string
-          format: uuid
-        projectID:
           type: string
           format: uuid
         processingRuleID:
@@ -1776,10 +1780,14 @@ components:
           - 'null'
           format: uuid
           default: null
-        kind:
-          $ref: '#/components/schemas/ConfigSectionKind'
-        properties:
-          $ref: '#/components/schemas/Pairs'
+        name:
+          type: string
+          example: myfile
+        contents:
+          type: string
+          format: byte
+        encrypted:
+          type: boolean
         createdAt:
           type: string
           format: date-time
@@ -1788,26 +1796,18 @@ components:
           format: date-time
       required:
       - id
-      - projectID
       - processingRuleID
-      - kind
-      - properties
+      - name
+      - contents
+      - encrypted
       - createdAt
       - updatedAt
-    TCPSocketAction:
-      type: object
-      properties:
-        port:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 65535
-        host:
-          type:
-          - string
-          - 'null'
-      required:
-      - port
+    PipelinePortProtocol:
+      type: string
+      description: Valid protocol types defined for a pipelines.
+      enum:
+      - tcp
+      - udp
   securitySchemes:
     user:
       type: http

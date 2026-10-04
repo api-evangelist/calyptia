@@ -145,12 +145,6 @@ paths:
           description: OK
 components:
   schemas:
-    ClusterObjectKind:
-      type: string
-      description: Kind of the kubernetes object
-      default: namespace
-      enum:
-      - namespace
     UpdateClusterObject:
       type: object
       description: 'Request body to update a cluster object.
@@ -166,6 +160,14 @@ components:
             '
         kind:
           $ref: '#/components/schemas/ClusterObjectKind'
+    UpdatedClusterObject:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     CreatedClusterObject:
       type: object
       description: Response body for for a newly created cluster object.
@@ -203,14 +205,12 @@ components:
       - kind
       - createdAt
       - updatedAt
-    UpdatedClusterObject:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
     CreateClusterObject:
       type: object
       description: 'Request body to create a new cluster object for a core instance.

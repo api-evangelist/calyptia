@@ -148,6 +148,29 @@ paths:
           description: No Content
 components:
   schemas:
+    CreateCoreInstanceCheck:
+      description: Create core instance check request body.
+      type: object
+      properties:
+        protocol:
+          $ref: '#/components/schemas/PipelinePortProtocol'
+        status:
+          $ref: '#/components/schemas/CheckStatus'
+        retries:
+          type: number
+          default: 3
+          description: number of retries for the check before marking it as failed
+        host:
+          type: string
+          description: DNS label format as of defined on RFC1123 or an IPv4 address.
+          example: localhost
+        port:
+          type: number
+          description: valid 0-65535 port number
+      required:
+      - protocol
+      - host
+      - port
     UpdateCoreInstanceCheck:
       description: Update a core instance check request body.
       type: object
@@ -179,6 +202,15 @@ components:
           - 'null'
           default: null
           description: number of retries for the check before marking it as unreachable.
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
     CreatedCoreInstanceCheck:
       type: object
       description: Created core instance check response body.
@@ -192,29 +224,6 @@ components:
       required:
       - id
       - createdAt
-    CreateCoreInstanceCheck:
-      description: Create core instance check request body.
-      type: object
-      properties:
-        protocol:
-          $ref: '#/components/schemas/PipelinePortProtocol'
-        status:
-          $ref: '#/components/schemas/CheckStatus'
-        retries:
-          type: number
-          default: 3
-          description: number of retries for the check before marking it as failed
-        host:
-          type: string
-          description: DNS label format as of defined on RFC1123 or an IPv4 address.
-          example: localhost
-        port:
-          type: number
-          description: valid 0-65535 port number
-      required:
-      - protocol
-      - host
-      - port
     CoreInstanceCheck:
       type: object
       description: Core instance check model.
@@ -259,15 +268,6 @@ components:
       enum:
       - tcp
       - udp
-    CheckStatus:
-      type: string
-      description: The status of a check.
-      default: new
-      enum:
-      - new
-      - failed
-      - running
-      - ok
   securitySchemes:
     user:
       type: http

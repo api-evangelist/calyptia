@@ -156,55 +156,6 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
-    PipelineLogs:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/PipelineLog'
-        endCursor:
-          type:
-          - string
-          - 'null'
-          default: null
-        count:
-          type: number
-          format: int32
-          minimum: 0
-        pollingIntervalMs:
-          type: integer
-          format: int32
-          minimum: 0
-          description: Recommended polling interval in milliseconds for agents to poll for new log requests. Calculated server-side based on active agent count. (v3 pipelines only, 0 for legacy pipelines)
-      required:
-      - items
-      - endCursor
-      - count
-      - pollingIntervalMs
-    PipelineLogStatus:
-      type: string
-      description: 'The status of a pipeline log, if NEW hasn''t been updated from the cluster.
-
-        If DONE, logs have been retrieved from the cluster.
-
-        '
-      default: NEW
-      enum:
-      - NEW
-      - DONE
-    Created:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
     Deleted:
       type: object
       properties:
@@ -257,16 +208,18 @@ components:
       - status
       - createdAt
       - updatedAt
-    CreatePipelineLog:
+    Created:
       type: object
       properties:
-        logs:
+        id:
           type: string
-        lines:
-          type: integer
-          default: 100
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
       required:
-      - logs
+      - id
+      - createdAt
     UpdatePipelineLog:
       type: object
       properties:
@@ -288,6 +241,53 @@ components:
           enum:
           - NEW
           - DONE
+    PipelineLogStatus:
+      type: string
+      description: 'The status of a pipeline log, if NEW hasn''t been updated from the cluster.
+
+        If DONE, logs have been retrieved from the cluster.
+
+        '
+      default: NEW
+      enum:
+      - NEW
+      - DONE
+    PipelineLogs:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PipelineLog'
+        endCursor:
+          type:
+          - string
+          - 'null'
+          default: null
+        count:
+          type: number
+          format: int32
+          minimum: 0
+        pollingIntervalMs:
+          type: integer
+          format: int32
+          minimum: 0
+          description: Recommended polling interval in milliseconds for agents to poll for new log requests. Calculated server-side based on active agent count. (v3 pipelines only, 0 for legacy pipelines)
+      required:
+      - items
+      - endCursor
+      - count
+      - pollingIntervalMs
+    CreatePipelineLog:
+      type: object
+      properties:
+        logs:
+          type: string
+        lines:
+          type: integer
+          default: 100
+      required:
+      - logs
   securitySchemes:
     user:
       type: http

@@ -145,6 +145,27 @@ paths:
           description: No Content
 components:
   schemas:
+    CreateToken:
+      description: Create token request body.
+      type: object
+      properties:
+        name:
+          type: string
+          example: new-token
+        permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Permission'
+      required:
+      - name
+      - permissions
+    Permission:
+      type: string
+      enum:
+      - create:*
+      - read:*
+      - update:*
+      - delete:*
     UpdateToken:
       description: Update token request body.
       type: object
@@ -163,20 +184,6 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/Permission'
-    CreateToken:
-      description: Create token request body.
-      type: object
-      properties:
-        name:
-          type: string
-          example: new-token
-        permissions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Permission'
-      required:
-      - name
-      - permissions
     Token:
       type: object
       properties:
@@ -204,13 +211,6 @@ components:
       - permissions
       - createdAt
       description: Token model.
-    Permission:
-      type: string
-      enum:
-      - create:*
-      - read:*
-      - update:*
-      - delete:*
   securitySchemes:
     user:
       type: http

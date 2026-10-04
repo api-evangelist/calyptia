@@ -79,6 +79,15 @@ paths:
                 $ref: '#/components/schemas/AuditLogs'
 components:
   schemas:
+    AuditLogs:
+      type: object
+      properties:
+        endCursor:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuditLog'
     AuditLogAction:
       type: string
       enum:
@@ -89,15 +98,10 @@ components:
       type: object
       additionalProperties:
         type: object
-    AuditLogs:
+    AuditLogComponents:
       type: object
-      properties:
-        endCursor:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/AuditLog'
+      additionalProperties:
+        type: string
     AuditLog:
       type: object
       properties:
@@ -118,10 +122,6 @@ components:
           $ref: '#/components/schemas/AuditLogAction'
         responseCode:
           type: integer
-    AuditLogComponents:
-      type: object
-      additionalProperties:
-        type: string
   securitySchemes:
     user:
       type: http

@@ -192,41 +192,28 @@ paths:
                   $ref: '#/components/schemas/FluentBitLog'
 components:
   schemas:
-    RuleActionKindV1:
-      deprecated: true
-      type: string
-      enum:
-      - add
-      - rename
-      - copy
-      - mask
-      - remove
-      - skip
-    LogSelectorV1:
-      deprecated: true
-      type: object
-      properties:
-        kind:
-          $ref: '#/components/schemas/LogSelectorKindV1'
-        op:
-          $ref: '#/components/schemas/LogSelectorOpKindV1'
-        expr:
-          type: string
-          example: some_key
-      required:
-      - kind
-      - op
-      - expr
-    LogSelectorOpKindV1:
-      deprecated: true
-      type: string
-      enum:
-      - equal
     LogSelectorKindV1:
       deprecated: true
       type: string
       enum:
       - key
+    LogAttr:
+      type: object
+      properties:
+        key:
+          type: string
+          example: some_key
+        value:
+          description: Any value.
+          example: some_value
+      required:
+      - key
+      - value
+    LogSelectorOpKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - equal
     UpdatedProcessingRuleV1:
       deprecated: true
       type: object
@@ -236,21 +223,6 @@ components:
           format: date-time
       required:
       - updatedAt
-    ProcessingRuleLanguageV1:
-      deprecated: true
-      type: string
-      enum:
-      - lua
-    FluentBitLog:
-      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
-      type: array
-      items:
-        anyOf:
-        - type: number
-        - type: object
-          additionalProperties:
-            type: string
-        example: '[1234.5, {"key": "value"}]'
     PreviewProcessingRuleV1:
       deprecated: true
       type: object
@@ -269,6 +241,27 @@ components:
       - language
       - actions
       - logs
+    CreateProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        match:
+          type: string
+          example: '*'
+        isMatchRegexp:
+          type: boolean
+          default: false
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+      required:
+      - match
+      - isMatchRegexp
+      - language
+      - actions
     UpdateProcessingRuleV1:
       deprecated: true
       type: object
@@ -339,39 +332,36 @@ components:
       - actions
       - createdAt
       - updatedAt
-    LogAttr:
-      type: object
-      properties:
-        key:
-          type: string
-          example: some_key
-        value:
-          description: Any value.
-          example: some_value
-      required:
-      - key
-      - value
-    CreateProcessingRuleV1:
+    ProcessingRuleLanguageV1:
+      deprecated: true
+      type: string
+      enum:
+      - lua
+    LogSelectorV1:
       deprecated: true
       type: object
       properties:
-        match:
+        kind:
+          $ref: '#/components/schemas/LogSelectorKindV1'
+        op:
+          $ref: '#/components/schemas/LogSelectorOpKindV1'
+        expr:
           type: string
-          example: '*'
-        isMatchRegexp:
-          type: boolean
-          default: false
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleActionV1'
+          example: some_key
       required:
-      - match
-      - isMatchRegexp
-      - language
-      - actions
+      - kind
+      - op
+      - expr
+    RuleActionKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - add
+      - rename
+      - copy
+      - mask
+      - remove
+      - skip
     RuleActionV1:
       deprecated: true
       type: object
@@ -440,6 +430,16 @@ components:
       - configSectionID
       - fileID
       - createdAt
+    FluentBitLog:
+      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
+      type: array
+      items:
+        anyOf:
+        - type: number
+        - type: object
+          additionalProperties:
+            type: string
+        example: '[1234.5, {"key": "value"}]'
   securitySchemes:
     user:
       type: http

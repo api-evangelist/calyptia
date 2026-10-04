@@ -149,6 +149,14 @@ components:
       properties:
         name:
           type: string
+    UpdateEnvironment:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          default: null
     Environment:
       type: object
       description: Environment model.
@@ -166,14 +174,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    UpdateEnvironment:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          default: null
   securitySchemes:
     user:
       type: http

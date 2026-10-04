@@ -403,14 +403,23 @@ paths:
           description: Deleted.
 components:
   schemas:
-    UpdateFleetFile:
+    FleetFile:
       type: object
       properties:
-        name:
-          type: string
         contents:
           type: string
           format: byte
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
     CreateFleet:
       type: object
       properties:
@@ -452,6 +461,67 @@ components:
       - rawConfig
       - tags
       - skipConfigValidation
+    CreatedFleet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    UpdatedFleet:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    CreateFleetFile:
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+          format: byte
+      required:
+      - name
+      - contents
+    UpdateFleetFile:
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+          format: byte
+    FleetsStatus:
+      type: object
+      description: "Show the numerical count of the status of all Agents\nwithin a Fleet or all Fleets within a Project.\nThe status is one of:\n  * Managed: the full total of agents managed by the fleet\n             or all fleets in a project.\n  * Healthy: total of all fully functioning fleet agents.\n  * In Progress: total of all fleet agents that are pending an\n                 upgrade to their configuration.\n  * Unhleathy: total of all fleet agents that either have a\n               pending error or have not responded in\n               predetermined length of time."
+      properties:
+        managed:
+          type: integer
+          description: total of all fleet agents.
+        healthy:
+          type: integer
+          description: 'total of fleet agents that are deemed alive and fully
+
+            up to date.'
+        inProgress:
+          type: integer
+          description: 'total of fleet agents that are pending a configuration
+
+            update.'
+        unhealthy:
+          type: integer
+          description: 'total of all agents with a pending error or have not
+
+            responded in a predetermined interval of time.'
     DeletedFleet:
       type: object
       properties:
@@ -466,102 +536,9 @@ components:
       required:
       - deleted
       - deletedAt
-    FleetFile:
+    CreatedFleetFile:
       type: object
-      properties:
-        contents:
-          type: string
-          format: byte
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-    UpdateFleet:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          maxLength: 32
-          default: null
-          example: updated-fleet
-        rawConfig:
-          type:
-          - string
-          - 'null'
-          description: 'The fleet fluent-bit configuration in the format defined by
-
-            configFormat.
-
-            '
-          default: null
-        configFormat:
-          type:
-          - string
-          - 'null'
-          enum:
-          - classic
-          - json
-          - yaml
-          default: null
-        tags:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-            pattern: ^[a-z]+$
-            example: updated
-          default: null
-        skipConfigValidation:
-          type: boolean
-          default: false
-      required:
-      - skipConfigValidation
-    FleetAgentsCount:
-      type: object
-      description: 'Both active and inactive can sum up to the total count
-
-        of agents that the fleet has.
-
-        `withErrors` is the count of particular agents that have
-
-        some errors that have not been dismissed yet.'
-      properties:
-        active:
-          type: number
-          format: int32
-          minimum: 0
-        inactive:
-          type: number
-          format: int32
-          minimum: 0
-        withErrors:
-          type: number
-          format: int32
-          minimum: 0
-      required:
-      - active
-      - inactive
-      - withErrors
-    UpdatedFleet:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    CreatedFleet:
-      type: object
+      description: Created fleet file response body.
       properties:
         id:
           type: string
@@ -625,52 +602,75 @@ components:
       - agentsCount
       - createdAt
       - updatedAt
-    CreatedFleetFile:
+    FleetAgentsCount:
       type: object
-      description: Created fleet file response body.
+      description: 'Both active and inactive can sum up to the total count
+
+        of agents that the fleet has.
+
+        `withErrors` is the count of particular agents that have
+
+        some errors that have not been dismissed yet.'
       properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
+        active:
+          type: number
+          format: int32
+          minimum: 0
+        inactive:
+          type: number
+          format: int32
+          minimum: 0
+        withErrors:
+          type: number
+          format: int32
+          minimum: 0
       required:
-      - id
-      - createdAt
-    CreateFleetFile:
+      - active
+      - inactive
+      - withErrors
+    UpdateFleet:
       type: object
       properties:
         name:
-          type: string
-        contents:
-          type: string
-          format: byte
+          type:
+          - string
+          - 'null'
+          maxLength: 32
+          default: null
+          example: updated-fleet
+        rawConfig:
+          type:
+          - string
+          - 'null'
+          description: 'The fleet fluent-bit configuration in the format defined by
+
+            configFormat.
+
+            '
+          default: null
+        configFormat:
+          type:
+          - string
+          - 'null'
+          enum:
+          - classic
+          - json
+          - yaml
+          default: null
+        tags:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+            pattern: ^[a-z]+$
+            example: updated
+          default: null
+        skipConfigValidation:
+          type: boolean
+          default: false
       required:
-      - name
-      - contents
-    FleetsStatus:
-      type: object
-      description: "Show the numerical count of the status of all Agents\nwithin a Fleet or all Fleets within a Project.\nThe status is one of:\n  * Managed: the full total of agents managed by the fleet\n             or all fleets in a project.\n  * Healthy: total of all fully functioning fleet agents.\n  * In Progress: total of all fleet agents that are pending an\n                 upgrade to their configuration.\n  * Unhleathy: total of all fleet agents that either have a\n               pending error or have not responded in\n               predetermined length of time."
-      properties:
-        managed:
-          type: integer
-          description: total of all fleet agents.
-        healthy:
-          type: integer
-          description: 'total of fleet agents that are deemed alive and fully
-
-            up to date.'
-        inProgress:
-          type: integer
-          description: 'total of fleet agents that are pending a configuration
-
-            update.'
-        unhealthy:
-          type: integer
-          description: 'total of all agents with a pending error or have not
-
-            responded in a predetermined interval of time.'
+      - skipConfigValidation
   securitySchemes:
     user:
       type: http

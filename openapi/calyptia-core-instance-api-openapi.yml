@@ -83,54 +83,6 @@ paths:
                 $ref: '#/components/schemas/CoreInstances'
 components:
   schemas:
-    MetadataGCP:
-      type: object
-      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
-
-        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
-
-        '
-      properties:
-        gcp.project_number:
-          type: number
-        gcp.project_id:
-          type: string
-        gcp.instance_id:
-          type: number
-        gcp.instance_image:
-          type: string
-        gcp.machine_type:
-          type: string
-        gcp.instance_name:
-          type: string
-        gcp.zone:
-          type: string
-    MetadataAWS:
-      type: object
-      description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
-
-        See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
-
-        '
-      properties:
-        aws.ami_id:
-          type: string
-        aws.account_id:
-          type: string
-        aws.hostname:
-          type: string
-        aws.vpc_id:
-          type: string
-        aws.private_ipv4:
-          type: string
-        aws.public_ipv4:
-          type: string
-        aws.ec2_instance_id:
-          type: string
-        aws.ec2_instance_type:
-          type: string
-        aws.az:
-          type: string
     CoreInstanceMetadata:
       type: object
       description: Core Instance Metadata model.
@@ -138,24 +90,6 @@ components:
       - $ref: '#/components/schemas/MetadataAWS'
       - $ref: '#/components/schemas/MetadataGCP'
       - $ref: '#/components/schemas/MetadataK8S'
-    MetadataK8S:
-      type: object
-      description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
-
-        See: https://github.com/kubernetes/website/blob/60390ff3c0ef0043a58568ad2e4c2b7634028074/content/en/examples/pods/inject/dapi-volume.yaml#L5
-
-        '
-      properties:
-        k8s.namespace:
-          type: string
-        k8s.cluster_name:
-          type: string
-        k8s.zone:
-          type: string
-        k8s.cluster_version:
-          type: string
-        k8s.cluster_platform:
-          type: string
     CoreInstances:
       type: object
       properties:
@@ -174,6 +108,26 @@ components:
       - items
       - endCursor
       - count
+    CoreInstance:
+      $ref: '#/components/schemas/Aggregator'
+    MetadataK8S:
+      type: object
+      description: 'Metadata model for kubernetes metadata fields accepted by a Core Instance.
+
+        See: https://github.com/kubernetes/website/blob/60390ff3c0ef0043a58568ad2e4c2b7634028074/content/en/examples/pods/inject/dapi-volume.yaml#L5
+
+        '
+      properties:
+        k8s.namespace:
+          type: string
+        k8s.cluster_name:
+          type: string
+        k8s.zone:
+          type: string
+        k8s.cluster_version:
+          type: string
+        k8s.cluster_platform:
+          type: string
     Aggregator:
       type: object
       description: Core instance model.
@@ -235,8 +189,54 @@ components:
       - skipServiceCreation
       - createdAt
       - updatedAt
-    CoreInstance:
-      $ref: '#/components/schemas/Aggregator'
+    MetadataAWS:
+      type: object
+      description: 'Metadata model for AWS metadata fields accepted by a Core Instance.
+
+        See: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
+
+        '
+      properties:
+        aws.ami_id:
+          type: string
+        aws.account_id:
+          type: string
+        aws.hostname:
+          type: string
+        aws.vpc_id:
+          type: string
+        aws.private_ipv4:
+          type: string
+        aws.public_ipv4:
+          type: string
+        aws.ec2_instance_id:
+          type: string
+        aws.ec2_instance_type:
+          type: string
+        aws.az:
+          type: string
+    MetadataGCP:
+      type: object
+      description: 'Metadata model for GCP metadata fields accepted by a Core Instance.
+
+        See: https://cloud.google.com/compute/docs/metadata/default-metadata-values.
+
+        '
+      properties:
+        gcp.project_number:
+          type: number
+        gcp.project_id:
+          type: string
+        gcp.instance_id:
+          type: number
+        gcp.instance_image:
+          type: string
+        gcp.machine_type:
+          type: string
+        gcp.instance_name:
+          type: string
+        gcp.zone:
+          type: string
   securitySchemes:
     user:
       type: http

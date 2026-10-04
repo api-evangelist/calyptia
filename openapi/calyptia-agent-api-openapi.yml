@@ -201,6 +201,85 @@ paths:
           description: No Content
 components:
   schemas:
+    RegisteredAgent:
+      type: object
+      description: Registered agent response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        token:
+          type: string
+          example: redacted
+        name:
+          type: string
+          example: my-agent
+        createdAt:
+          type: string
+          format: date-time
+        environmentName:
+          type: string
+          description: environment name on which the agent belongs to.
+          default: default
+      required:
+      - id
+      - token
+      - name
+      - createdAt
+    UpdateAgent:
+      description: Update agent request body.
+      type: object
+      properties:
+        fleetID:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        name:
+          type:
+          - string
+          - 'null'
+          example: new-agent
+          format: hostname
+          default: null
+        version:
+          type:
+          - string
+          - 'null'
+          example: v1.8.6
+          default: null
+        edition:
+          type:
+          - string
+          - 'null'
+          enum:
+          - community
+          - enterprise
+          default: null
+        flags:
+          type:
+          - array
+          - 'null'
+          default: null
+          items:
+            type: string
+        rawConfig:
+          type:
+          - string
+          - 'null'
+          default: null
+        metadata:
+          type:
+          - object
+          - 'null'
+          default: null
+        environmentID:
+          type:
+          - string
+          - 'null'
+          default: null
+          description: environment ID to associate this agent with.
     RegisterAgent:
       description: Register agent request body.
       type: object
@@ -258,31 +337,6 @@ components:
       - edition
       - flags
       - rawConfig
-    RegisteredAgent:
-      type: object
-      description: Registered agent response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        token:
-          type: string
-          example: redacted
-        name:
-          type: string
-          example: my-agent
-        createdAt:
-          type: string
-          format: date-time
-        environmentName:
-          type: string
-          description: environment name on which the agent belongs to.
-          default: default
-      required:
-      - id
-      - token
-      - name
-      - createdAt
     Agent:
       type: object
       properties:
@@ -412,60 +466,6 @@ components:
       - createdAt
       - updatedAt
       description: Agent model.
-    UpdateAgent:
-      description: Update agent request body.
-      type: object
-      properties:
-        fleetID:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          default: null
-        name:
-          type:
-          - string
-          - 'null'
-          example: new-agent
-          format: hostname
-          default: null
-        version:
-          type:
-          - string
-          - 'null'
-          example: v1.8.6
-          default: null
-        edition:
-          type:
-          - string
-          - 'null'
-          enum:
-          - community
-          - enterprise
-          default: null
-        flags:
-          type:
-          - array
-          - 'null'
-          default: null
-          items:
-            type: string
-        rawConfig:
-          type:
-          - string
-          - 'null'
-          default: null
-        metadata:
-          type:
-          - object
-          - 'null'
-          default: null
-        environmentID:
-          type:
-          - string
-          - 'null'
-          default: null
-          description: environment ID to associate this agent with.
   securitySchemes:
     user:
       type: http

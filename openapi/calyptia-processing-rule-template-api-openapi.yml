@@ -265,20 +265,6 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
-    StaticProcessingRuleTemplateV1:
-      deprecated: true
-      description: 'A static processing rule template is a template that is not editable.
-
-        It''s a template that is provided by Calyptia.
-
-        '
-      type: object
-      properties:
-        name:
-          type: string
-          example: By Calyptia
-        definition:
-          $ref: '#/components/schemas/ProcessingRuleDefV1'
     ProcessingRuleTemplate:
       type: object
       properties:
@@ -315,130 +301,20 @@ components:
       - definition
       - createdAt
       - updatedAt
-    CreateProcessingRuleTemplate:
+    Deleted:
       type: object
       properties:
-        name:
-          type: string
-          example: My Processing Rule Template
-        pipelineVersion:
+        deleted:
+          type: boolean
+        deletedAt:
           type:
           - string
           - 'null'
-          default: null
-          example: v24.5.0
-        definition:
-          type: object
-          additionalProperties: true
-          example: {}
-      required:
-      - name
-      - pipelineVersion
-      - definition
-    ProcessingRuleDefV1:
-      deprecated: true
-      type: object
-      properties:
-        name:
-          type: string
-          example: lua
-          minLength: 1
-          pattern: ^lua$
-        match:
-          type: string
-          example: '*'
-          minLength: 1
-        code:
-          type: string
-          example: "function filter(tag, timestamp, record)\n  return 1, timestamp, record\nend"
-          minLength: 1
-        call:
-          type: string
-          example: filter
-          minLength: 1
-    Created:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
           format: date-time
+          default: null
       required:
-      - id
-      - createdAt
-    ProcessingRuleTemplatesV1:
-      deprecated: true
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProcessingRuleTemplateV1'
-        endCursor:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          default: null
-        count:
-          type: number
-          format: int32
-          minimum: 0
-        static:
-          type: array
-          items:
-            $ref: '#/components/schemas/StaticProcessingRuleTemplateV1'
-      required:
-      - items
-      - endCursor
-      - count
-      - static
-    UpdateProcessingRuleTemplate:
-      type: object
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          example: My Processing Rule Template
-          default: null
-        pipelineVersion:
-          type:
-          - string
-          - 'null'
-          default: null
-          example: v24.5.0
-        definition:
-          type:
-          - object
-          - 'null'
-          default: null
-          additionalProperties: true
-          example: {}
-    ProcessingRuleTemplates:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ProcessingRuleTemplate'
-        endCursor:
-          type:
-          - string
-          - 'null'
-          format: uuid
-          default: null
-        count:
-          type: number
-          format: int32
-          minimum: 0
-          example: 1
-      required:
-      - items
-      - endCursor
-      - count
+      - deleted
+      - deletedAt
     UpdateProcessingRuleTemplateV1:
       deprecated: true
       type: object
@@ -475,28 +351,6 @@ components:
           type: boolean
           description: define if the input parameter is in raw or json format (false)
           default: false
-    Deleted:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    Updated:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
     ProcessingRuleTemplateV1:
       type: object
       properties:
@@ -531,6 +385,68 @@ components:
         updatedAt:
           type: string
           format: date-time
+    UpdateProcessingRuleTemplate:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          example: My Processing Rule Template
+          default: null
+        pipelineVersion:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: v24.5.0
+        definition:
+          type:
+          - object
+          - 'null'
+          default: null
+          additionalProperties: true
+          example: {}
+    CreateProcessingRuleTemplate:
+      type: object
+      properties:
+        name:
+          type: string
+          example: My Processing Rule Template
+        pipelineVersion:
+          type:
+          - string
+          - 'null'
+          default: null
+          example: v24.5.0
+        definition:
+          type: object
+          additionalProperties: true
+          example: {}
+      required:
+      - name
+      - pipelineVersion
+      - definition
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     CreateProcessingRuleTemplateV1:
       deprecated: true
       type: object
@@ -560,6 +476,90 @@ components:
       required:
       - name
       - definition
+    ProcessingRuleTemplates:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessingRuleTemplate'
+        endCursor:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        count:
+          type: number
+          format: int32
+          minimum: 0
+          example: 1
+      required:
+      - items
+      - endCursor
+      - count
+    StaticProcessingRuleTemplateV1:
+      deprecated: true
+      description: 'A static processing rule template is a template that is not editable.
+
+        It''s a template that is provided by Calyptia.
+
+        '
+      type: object
+      properties:
+        name:
+          type: string
+          example: By Calyptia
+        definition:
+          $ref: '#/components/schemas/ProcessingRuleDefV1'
+    ProcessingRuleDefV1:
+      deprecated: true
+      type: object
+      properties:
+        name:
+          type: string
+          example: lua
+          minLength: 1
+          pattern: ^lua$
+        match:
+          type: string
+          example: '*'
+          minLength: 1
+        code:
+          type: string
+          example: "function filter(tag, timestamp, record)\n  return 1, timestamp, record\nend"
+          minLength: 1
+        call:
+          type: string
+          example: filter
+          minLength: 1
+    ProcessingRuleTemplatesV1:
+      deprecated: true
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProcessingRuleTemplateV1'
+        endCursor:
+          type:
+          - string
+          - 'null'
+          format: uuid
+          default: null
+        count:
+          type: number
+          format: int32
+          minimum: 0
+        static:
+          type: array
+          items:
+            $ref: '#/components/schemas/StaticProcessingRuleTemplateV1'
+      required:
+      - items
+      - endCursor
+      - count
+      - static
   securitySchemes:
     user:
       type: http
