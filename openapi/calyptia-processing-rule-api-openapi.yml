@@ -192,101 +192,16 @@ paths:
                   $ref: '#/components/schemas/FluentBitLog'
 components:
   schemas:
-    LogSelectorKindV1:
+    RuleActionKindV1:
       deprecated: true
       type: string
       enum:
-      - key
-    LogAttr:
-      type: object
-      properties:
-        key:
-          type: string
-          example: some_key
-        value:
-          description: Any value.
-          example: some_value
-      required:
-      - key
-      - value
-    LogSelectorOpKindV1:
-      deprecated: true
-      type: string
-      enum:
-      - equal
-    UpdatedProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    PreviewProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleActionV1'
-        logs:
-          type: array
-          items:
-            $ref: '#/components/schemas/FluentBitLog'
-      required:
-      - language
-      - actions
-      - logs
-    CreateProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        match:
-          type: string
-          example: '*'
-        isMatchRegexp:
-          type: boolean
-          default: false
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/RuleActionV1'
-      required:
-      - match
-      - isMatchRegexp
-      - language
-      - actions
-    UpdateProcessingRuleV1:
-      deprecated: true
-      type: object
-      properties:
-        match:
-          type:
-          - string
-          - 'null'
-          example: '*'
-          default: null
-        isMatchRegexp:
-          type:
-          - boolean
-          - 'null'
-          default: null
-        language:
-          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
-          default: null
-        actions:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/RuleActionV1'
-          default: null
+      - add
+      - rename
+      - copy
+      - mask
+      - remove
+      - skip
     ProcessingRuleV1:
       deprecated: true
       type: object
@@ -332,11 +247,31 @@ components:
       - actions
       - createdAt
       - updatedAt
-    ProcessingRuleLanguageV1:
+    UpdateProcessingRuleV1:
       deprecated: true
-      type: string
-      enum:
-      - lua
+      type: object
+      properties:
+        match:
+          type:
+          - string
+          - 'null'
+          example: '*'
+          default: null
+        isMatchRegexp:
+          type:
+          - boolean
+          - 'null'
+          default: null
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+          default: null
+        actions:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+          default: null
     LogSelectorV1:
       deprecated: true
       type: object
@@ -352,16 +287,11 @@ components:
       - kind
       - op
       - expr
-    RuleActionKindV1:
+    ProcessingRuleLanguageV1:
       deprecated: true
       type: string
       enum:
-      - add
-      - rename
-      - copy
-      - mask
-      - remove
-      - skip
+      - lua
     RuleActionV1:
       deprecated: true
       type: object
@@ -409,6 +339,64 @@ components:
       - description
       - enabled
       - selectors
+    PreviewProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+        logs:
+          type: array
+          items:
+            $ref: '#/components/schemas/FluentBitLog'
+      required:
+      - language
+      - actions
+      - logs
+    UpdatedProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    CreateProcessingRuleV1:
+      deprecated: true
+      type: object
+      properties:
+        match:
+          type: string
+          example: '*'
+        isMatchRegexp:
+          type: boolean
+          default: false
+        language:
+          $ref: '#/components/schemas/ProcessingRuleLanguageV1'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleActionV1'
+      required:
+      - match
+      - isMatchRegexp
+      - language
+      - actions
+    FluentBitLog:
+      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
+      type: array
+      items:
+        anyOf:
+        - type: number
+        - type: object
+          additionalProperties:
+            type: string
+        example: '[1234.5, {"key": "value"}]'
     CreatedProcessingRuleV1:
       deprecated: true
       type: object
@@ -430,16 +418,28 @@ components:
       - configSectionID
       - fileID
       - createdAt
-    FluentBitLog:
-      description: "Represents a fluent-bit log.\nIt's an array with 2 items:\n  - 0 being a unix timestamp with nanoseconds fraction.\n  - 1 being an object of string key-values.\n"
-      type: array
-      items:
-        anyOf:
-        - type: number
-        - type: object
-          additionalProperties:
-            type: string
-        example: '[1234.5, {"key": "value"}]'
+    LogSelectorOpKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - equal
+    LogSelectorKindV1:
+      deprecated: true
+      type: string
+      enum:
+      - key
+    LogAttr:
+      type: object
+      properties:
+        key:
+          type: string
+          example: some_key
+        value:
+          description: Any value.
+          example: some_value
+      required:
+      - key
+      - value
   securitySchemes:
     user:
       type: http

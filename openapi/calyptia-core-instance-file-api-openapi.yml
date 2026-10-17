@@ -141,6 +141,26 @@ paths:
                 $ref: '#/components/schemas/Deleted'
 components:
   schemas:
+    Updated:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    Created:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
     Deleted:
       type: object
       properties:
@@ -155,35 +175,41 @@ components:
       required:
       - deleted
       - deletedAt
-    UpdateCoreInstanceFile:
+    CreateCoreInstanceFile:
       type: object
       properties:
         name:
-          type:
-          - string
-          - 'null'
-          default: null
+          type: string
           example: myfile
         contents:
+          type: string
+          format: byte
+          description: The contents of the file to be created in base 64 format.
+        encrypted:
+          type: boolean
+          default: false
+      required:
+      - name
+      - contents
+      - encrypted
+    CoreInstanceFiles:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoreInstanceFile'
+        endCursor:
           type:
           - string
           - 'null'
-          format: byte
-          default: null
-          description: Optional contents of the file to be updated in base 64 format.
-        encrypted:
-          type:
-          - boolean
-          - 'null'
-          default: null
-    Updated:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
+        count:
+          type: number
+          format: int32
       required:
-      - updatedAt
+      - items
+      - endCursor
+      - count
     CoreInstanceFile:
       type: object
       properties:
@@ -221,53 +247,27 @@ components:
       - encrypted
       - createdAt
       - updatedAt
-    Created:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    CoreInstanceFiles:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoreInstanceFile'
-        endCursor:
-          type:
-          - string
-          - 'null'
-        count:
-          type: number
-          format: int32
-      required:
-      - items
-      - endCursor
-      - count
-    CreateCoreInstanceFile:
+    UpdateCoreInstanceFile:
       type: object
       properties:
         name:
-          type: string
+          type:
+          - string
+          - 'null'
+          default: null
           example: myfile
         contents:
-          type: string
+          type:
+          - string
+          - 'null'
           format: byte
-          description: The contents of the file to be created in base 64 format.
+          default: null
+          description: Optional contents of the file to be updated in base 64 format.
         encrypted:
-          type: boolean
-          default: false
-      required:
-      - name
-      - contents
-      - encrypted
+          type:
+          - boolean
+          - 'null'
+          default: null
   securitySchemes:
     user:
       type: http

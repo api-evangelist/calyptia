@@ -162,6 +162,15 @@ paths:
                 $ref: '#/components/schemas/UpdatedTraceSession'
 components:
   schemas:
+    UpdatedTraceSession:
+      type: object
+      description: Response body for an updated trace session.
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
     UpdateTraceSession:
       type: object
       description: 'Request body to update an active trace session on a pipeline.
@@ -185,6 +194,39 @@ components:
           format: duration
           example: 10m
           default: null
+    CreatedTraceSession:
+      type: object
+      description: Response body for a newly created trace session.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    CreateTraceSession:
+      type: object
+      description: 'Request body to create a new trace session on a pipeline.
+
+        '
+      properties:
+        plugins:
+          description: List of Fluent-bit plugin IDs ar aliases to trace.
+          type: array
+          items:
+            type: string
+            example: dummy.0
+        lifespan:
+          description: For how long will this session be active and process records.
+          type: string
+          format: duration
+          example: 10m
+      required:
+      - plugins
+      - lifespan
     TraceSession:
       type: object
       description: 'Trace session model.
@@ -243,48 +285,6 @@ components:
       - id
       - lifespan
       - updatedAt
-    UpdatedTraceSession:
-      type: object
-      description: Response body for an updated trace session.
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    CreateTraceSession:
-      type: object
-      description: 'Request body to create a new trace session on a pipeline.
-
-        '
-      properties:
-        plugins:
-          description: List of Fluent-bit plugin IDs ar aliases to trace.
-          type: array
-          items:
-            type: string
-            example: dummy.0
-        lifespan:
-          description: For how long will this session be active and process records.
-          type: string
-          format: duration
-          example: 10m
-      required:
-      - plugins
-      - lifespan
-    CreatedTraceSession:
-      type: object
-      description: Response body for a newly created trace session.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
   securitySchemes:
     user:
       type: http

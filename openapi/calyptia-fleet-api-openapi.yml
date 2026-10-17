@@ -403,23 +403,28 @@ paths:
           description: Deleted.
 components:
   schemas:
-    FleetFile:
+    FleetsStatus:
       type: object
+      description: "Show the numerical count of the status of all Agents\nwithin a Fleet or all Fleets within a Project.\nThe status is one of:\n  * Managed: the full total of agents managed by the fleet\n             or all fleets in a project.\n  * Healthy: total of all fully functioning fleet agents.\n  * In Progress: total of all fleet agents that are pending an\n                 upgrade to their configuration.\n  * Unhleathy: total of all fleet agents that either have a\n               pending error or have not responded in\n               predetermined length of time."
       properties:
-        contents:
-          type: string
-          format: byte
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
+        managed:
+          type: integer
+          description: total of all fleet agents.
+        healthy:
+          type: integer
+          description: 'total of fleet agents that are deemed alive and fully
+
+            up to date.'
+        inProgress:
+          type: integer
+          description: 'total of fleet agents that are pending a configuration
+
+            update.'
+        unhealthy:
+          type: integer
+          description: 'total of all agents with a pending error or have not
+
+            responded in a predetermined interval of time.'
     CreateFleet:
       type: object
       properties:
@@ -461,37 +466,6 @@ components:
       - rawConfig
       - tags
       - skipConfigValidation
-    CreatedFleet:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    UpdatedFleet:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - updatedAt
-    CreateFleetFile:
-      type: object
-      properties:
-        name:
-          type: string
-        contents:
-          type: string
-          format: byte
-      required:
-      - name
-      - contents
     UpdateFleetFile:
       type: object
       properties:
@@ -500,55 +474,6 @@ components:
         contents:
           type: string
           format: byte
-    FleetsStatus:
-      type: object
-      description: "Show the numerical count of the status of all Agents\nwithin a Fleet or all Fleets within a Project.\nThe status is one of:\n  * Managed: the full total of agents managed by the fleet\n             or all fleets in a project.\n  * Healthy: total of all fully functioning fleet agents.\n  * In Progress: total of all fleet agents that are pending an\n                 upgrade to their configuration.\n  * Unhleathy: total of all fleet agents that either have a\n               pending error or have not responded in\n               predetermined length of time."
-      properties:
-        managed:
-          type: integer
-          description: total of all fleet agents.
-        healthy:
-          type: integer
-          description: 'total of fleet agents that are deemed alive and fully
-
-            up to date.'
-        inProgress:
-          type: integer
-          description: 'total of fleet agents that are pending a configuration
-
-            update.'
-        unhealthy:
-          type: integer
-          description: 'total of all agents with a pending error or have not
-
-            responded in a predetermined interval of time.'
-    DeletedFleet:
-      type: object
-      properties:
-        deleted:
-          type: boolean
-        deletedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          default: null
-      required:
-      - deleted
-      - deletedAt
-    CreatedFleetFile:
-      type: object
-      description: Created fleet file response body.
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
     Fleet:
       type: object
       description: Group of agents sharing the same config.
@@ -602,32 +527,39 @@ components:
       - agentsCount
       - createdAt
       - updatedAt
-    FleetAgentsCount:
+    DeletedFleet:
       type: object
-      description: 'Both active and inactive can sum up to the total count
-
-        of agents that the fleet has.
-
-        `withErrors` is the count of particular agents that have
-
-        some errors that have not been dismissed yet.'
       properties:
-        active:
-          type: number
-          format: int32
-          minimum: 0
-        inactive:
-          type: number
-          format: int32
-          minimum: 0
-        withErrors:
-          type: number
-          format: int32
-          minimum: 0
+        deleted:
+          type: boolean
+        deletedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          default: null
       required:
-      - active
-      - inactive
-      - withErrors
+      - deleted
+      - deletedAt
+    UpdatedFleet:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    CreateFleetFile:
+      type: object
+      properties:
+        name:
+          type: string
+        contents:
+          type: string
+          format: byte
+      required:
+      - name
+      - contents
     UpdateFleet:
       type: object
       properties:
@@ -671,6 +603,74 @@ components:
           default: false
       required:
       - skipConfigValidation
+    FleetFile:
+      type: object
+      properties:
+        contents:
+          type: string
+          format: byte
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+    FleetAgentsCount:
+      type: object
+      description: 'Both active and inactive can sum up to the total count
+
+        of agents that the fleet has.
+
+        `withErrors` is the count of particular agents that have
+
+        some errors that have not been dismissed yet.'
+      properties:
+        active:
+          type: number
+          format: int32
+          minimum: 0
+        inactive:
+          type: number
+          format: int32
+          minimum: 0
+        withErrors:
+          type: number
+          format: int32
+          minimum: 0
+      required:
+      - active
+      - inactive
+      - withErrors
+    CreatedFleetFile:
+      type: object
+      description: Created fleet file response body.
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    CreatedFleet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
   securitySchemes:
     user:
       type: http

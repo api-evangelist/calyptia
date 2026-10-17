@@ -122,6 +122,12 @@ components:
           format: uuid
           items:
             type: string
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
     ClusterObject:
       type: object
       description: A kubernetes cluster object that belongs to a given core instance.
@@ -146,12 +152,6 @@ components:
       - kind
       - createdAt
       - updatedAt
-    ClusterObjectKind:
-      type: string
-      description: Kind of the kubernetes object
-      default: namespace
-      enum:
-      - namespace
   securitySchemes:
     user:
       type: http

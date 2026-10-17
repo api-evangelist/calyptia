@@ -79,6 +79,12 @@ paths:
                 $ref: '#/components/schemas/AuditLogs'
 components:
   schemas:
+    AuditLogAction:
+      type: string
+      enum:
+      - CREATE
+      - UPDATE
+      - DELETE
     AuditLogs:
       type: object
       properties:
@@ -88,12 +94,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AuditLog'
-    AuditLogAction:
-      type: string
-      enum:
-      - CREATE
-      - UPDATE
-      - DELETE
     AuditLogIdentity:
       type: object
       additionalProperties:

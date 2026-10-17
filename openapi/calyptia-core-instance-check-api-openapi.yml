@@ -202,15 +202,6 @@ components:
           - 'null'
           default: null
           description: number of retries for the check before marking it as unreachable.
-    CheckStatus:
-      type: string
-      description: The status of a check.
-      default: new
-      enum:
-      - new
-      - failed
-      - running
-      - ok
     CreatedCoreInstanceCheck:
       type: object
       description: Created core instance check response body.
@@ -224,6 +215,21 @@ components:
       required:
       - id
       - createdAt
+    PipelinePortProtocol:
+      type: string
+      description: Valid protocol types defined for a pipelines.
+      enum:
+      - tcp
+      - udp
+    CheckStatus:
+      type: string
+      description: The status of a check.
+      default: new
+      enum:
+      - new
+      - failed
+      - running
+      - ok
     CoreInstanceCheck:
       type: object
       description: Core instance check model.
@@ -262,12 +268,6 @@ components:
       - port
       - createdAt
       - updatedAt
-    PipelinePortProtocol:
-      type: string
-      description: Valid protocol types defined for a pipelines.
-      enum:
-      - tcp
-      - udp
   securitySchemes:
     user:
       type: http

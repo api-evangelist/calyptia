@@ -143,6 +143,33 @@ paths:
           description: No Content
 components:
   schemas:
+    CreateClusterObjectRegex:
+      type: object
+      properties:
+        regex:
+          type: string
+          minLength: 0
+        description:
+          type: string
+          maxLength: 100
+      required:
+      - regex
+      - description
+    ClusterObjectRegexes:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClusterObjectRegex'
+        endCursor:
+          type:
+          - string
+          - 'null'
+          default: null
+      required:
+      - items
+      - endCursor
     UpdateClusterObjectRegex:
       type: object
       properties:
@@ -177,30 +204,6 @@ components:
           type: string
           format: date-time
       required:
-      - updatedAt
-    ClusterObject:
-      type: object
-      description: A kubernetes cluster object that belongs to a given core instance.
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          format: kubernetes label
-        kind:
-          $ref: '#/components/schemas/ClusterObjectKind'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - name
-      - kind
-      - createdAt
       - updatedAt
     ClusterObjectRegex:
       type: object
@@ -242,33 +245,30 @@ components:
       default: namespace
       enum:
       - namespace
-    ClusterObjectRegexes:
+    ClusterObject:
       type: object
+      description: A kubernetes cluster object that belongs to a given core instance.
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClusterObjectRegex'
-        endCursor:
-          type:
-          - string
-          - 'null'
-          default: null
-      required:
-      - items
-      - endCursor
-    CreateClusterObjectRegex:
-      type: object
-      properties:
-        regex:
+        id:
           type: string
-          minLength: 0
-        description:
+          format: uuid
+        name:
           type: string
-          maxLength: 100
+          format: kubernetes label
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required:
-      - regex
-      - description
+      - id
+      - name
+      - kind
+      - createdAt
+      - updatedAt
   securitySchemes:
     user:
       type: http

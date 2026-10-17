@@ -145,21 +145,6 @@ paths:
           description: OK
 components:
   schemas:
-    UpdateClusterObject:
-      type: object
-      description: 'Request body to update a cluster object.
-
-        '
-      properties:
-        name:
-          type: string
-          format: 'kubernetes valid hostname or namespace name.
-
-            https://kubernetes.io/docs/reference/labels-annotations-taints/
-
-            '
-        kind:
-          $ref: '#/components/schemas/ClusterObjectKind'
     UpdatedClusterObject:
       type: object
       properties:
@@ -181,6 +166,45 @@ components:
       required:
       - id
       - createdAt
+    CreateClusterObject:
+      type: object
+      description: 'Request body to create a new cluster object for a core instance.
+
+        '
+      properties:
+        name:
+          type: string
+          format: 'kubernetes valid hostname or namespace name.
+
+            https://kubernetes.io/docs/reference/labels-annotations-taints/
+
+            '
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
+      required:
+      - name
+      - kind
+    ClusterObjectKind:
+      type: string
+      description: Kind of the kubernetes object
+      default: namespace
+      enum:
+      - namespace
+    UpdateClusterObject:
+      type: object
+      description: 'Request body to update a cluster object.
+
+        '
+      properties:
+        name:
+          type: string
+          format: 'kubernetes valid hostname or namespace name.
+
+            https://kubernetes.io/docs/reference/labels-annotations-taints/
+
+            '
+        kind:
+          $ref: '#/components/schemas/ClusterObjectKind'
     ClusterObject:
       type: object
       description: A kubernetes cluster object that belongs to a given core instance.
@@ -205,30 +229,6 @@ components:
       - kind
       - createdAt
       - updatedAt
-    ClusterObjectKind:
-      type: string
-      description: Kind of the kubernetes object
-      default: namespace
-      enum:
-      - namespace
-    CreateClusterObject:
-      type: object
-      description: 'Request body to create a new cluster object for a core instance.
-
-        '
-      properties:
-        name:
-          type: string
-          format: 'kubernetes valid hostname or namespace name.
-
-            https://kubernetes.io/docs/reference/labels-annotations-taints/
-
-            '
-        kind:
-          $ref: '#/components/schemas/ClusterObjectKind'
-      required:
-      - name
-      - kind
   securitySchemes:
     user:
       type: http

@@ -74,52 +74,6 @@ paths:
           description: No Content
 components:
   schemas:
-    ValidatingConfig:
-      description: Validating configuration request body.
-      type: object
-      properties:
-        config:
-          type: array
-          items:
-            type: object
-            properties:
-              command:
-                type: string
-              name:
-                type: string
-              optional:
-                type:
-                - object
-                - 'null'
-                additionalProperties:
-                  type: string
-                default: null
-              id:
-                type: string
-            required:
-            - command
-            - name
-            - id
-      required:
-      - config
-    ValidateFluentbitConfig:
-      type: object
-      properties:
-        rawConfig:
-          type: string
-          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
-        configFormat:
-          $ref: '#/components/schemas/ConfigFormat'
-      required:
-      - rawConfig
-    ConfigFormat:
-      type: string
-      enum:
-      - classic
-      - yaml
-      - json
-      default: classic
-      example: yaml
     ValidatedConfig:
       type: object
       description: Validate config response body.
@@ -156,6 +110,52 @@ components:
           - filter
       required:
       - errors
+    ValidateFluentbitConfig:
+      type: object
+      properties:
+        rawConfig:
+          type: string
+          example: "pipeline:\n  inputs:\n    - name: dummy\n  outputs:\n    - name: stdout\n      match: \"*\""
+        configFormat:
+          $ref: '#/components/schemas/ConfigFormat'
+      required:
+      - rawConfig
+    ValidatingConfig:
+      description: Validating configuration request body.
+      type: object
+      properties:
+        config:
+          type: array
+          items:
+            type: object
+            properties:
+              command:
+                type: string
+              name:
+                type: string
+              optional:
+                type:
+                - object
+                - 'null'
+                additionalProperties:
+                  type: string
+                default: null
+              id:
+                type: string
+            required:
+            - command
+            - name
+            - id
+      required:
+      - config
+    ConfigFormat:
+      type: string
+      enum:
+      - classic
+      - yaml
+      - json
+      default: classic
+      example: yaml
   securitySchemes:
     user:
       type: http

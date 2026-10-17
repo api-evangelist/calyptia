@@ -189,6 +189,65 @@ paths:
           description: Updated
 components:
   schemas:
+    CreatedConfigSection:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - createdAt
+    ConfigSectionKind:
+      type: string
+      enum:
+      - input
+      - filter
+      - output
+      - service
+    UpdateConfigSection:
+      type: object
+      properties:
+        properties:
+          $ref: '#/components/schemas/Pairs'
+          default: null
+        skipConfigValidation:
+          type: boolean
+          default: false
+    UpdatedConfigSection:
+      type: object
+      properties:
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+      - updatedAt
+    Pairs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Pair'
+    Pair:
+      type: object
+      properties:
+        key:
+          type: string
+          example: name
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: boolean
+          - type: string
+          - type: array
+            items:
+              type: string
+          example: dummy
+      required:
+      - key
+      - value
     CreateConfigSection:
       type: object
       properties:
@@ -203,15 +262,6 @@ components:
       - kind
       - properties
       - skipConfigValidation
-    UpdateConfigSection:
-      type: object
-      properties:
-        properties:
-          $ref: '#/components/schemas/Pairs'
-          default: null
-        skipConfigValidation:
-          type: boolean
-          default: false
     ConfigSection:
       type: object
       properties:
@@ -244,56 +294,6 @@ components:
       - kind
       - properties
       - createdAt
-      - updatedAt
-    ConfigSectionKind:
-      type: string
-      enum:
-      - input
-      - filter
-      - output
-      - service
-    Pair:
-      type: object
-      properties:
-        key:
-          type: string
-          example: name
-        value:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: boolean
-          - type: string
-          - type: array
-            items:
-              type: string
-          example: dummy
-      required:
-      - key
-      - value
-    CreatedConfigSection:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        createdAt:
-          type: string
-          format: date-time
-      required:
-      - id
-      - createdAt
-    Pairs:
-      type: array
-      items:
-        $ref: '#/components/schemas/Pair'
-    UpdatedConfigSection:
-      type: object
-      properties:
-        updatedAt:
-          type: string
-          format: date-time
-      required:
       - updatedAt
   securitySchemes:
     user:
