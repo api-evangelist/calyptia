@@ -400,3 +400,9 @@ components:
 
             At least one of bucket_slug and execution_group must be set. If both are set, then they are expected to match.'
 x-original-swagger-version: '2.0'
+x-provenance:
+  method: harvested
+  publisher: Calyptia
+  source: https://docs-xcor.paloaltonetworks.com/openapi.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

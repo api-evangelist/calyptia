@@ -342,3 +342,9 @@ components:
     configv1DeleteTraceBehaviorConfigResponse:
       type: object
 x-original-swagger-version: '2.0'
+x-provenance:
+  method: harvested
+  publisher: Calyptia
+  source: https://docs-xcor.paloaltonetworks.com/openapi.yaml
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
