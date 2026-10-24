@@ -116,6 +116,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Dashboards
+  tags_raw:
   - Dashboard
   properties:
   - type: OpenAPI
@@ -130,6 +132,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Datasets
+  tags_raw:
   - Dataset
   properties:
   - type: OpenAPI
@@ -270,6 +274,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Monitors
+  tags_raw:
   - Monitor
   properties:
   - type: OpenAPI
@@ -354,6 +360,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - Services
+  tags_raw:
   - Service
   properties:
   - type: OpenAPI
@@ -496,6 +504,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - ResourcePools
+  tags_raw:
   - Resource Pools
   properties:
   - type: OpenAPI
@@ -510,6 +520,8 @@ apis:
   humanURL: https://docs.calyptia.com/docs/calyptia-cloud-api
   baseURL: https://cloud-api.calyptia.com
   tags:
+  - ServiceAccount
+  tags_raw:
   - Service Account
   properties:
   - type: OpenAPI
